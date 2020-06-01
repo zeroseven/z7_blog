@@ -4,6 +4,7 @@ namespace Zeroseven\Z7Blog\Domain\Model;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
@@ -24,6 +25,12 @@ class Post extends AbstractPageModel
     /** @var bool */
     protected $archived;
 
+    /** @var \Blog\Blogpages\Domain\Model\Category */
+    protected $category;
+
+    /** @var \Blog\Blogpages\Domain\Model\Author */
+    protected $author;
+
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Blogpages\Domain\Model\Tag>
      * @Extbase\ORM\Cascade("remove")
@@ -31,26 +38,16 @@ class Post extends AbstractPageModel
     protected $tags;
 
     /**
-     * @var \Blog\Blogpages\Domain\Model\Author
-     */
-    protected $author;
-
-    /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Blogpages\Domain\Model\Post>
      * @Extbase\ORM\Cascade("remove")
      */
     protected $related;
 
-    /**
-     * @var \Blog\Blogpages\Domain\Model\Category
-     */
-    protected $category;
-
     protected function initStorageObjects(): void
     {
         parent::initStorageObjects();
-        $this->tags = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->related = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->tags = new ObjectStorage();
+        $this->related = new ObjectStorage();
     }
 
     public function getDoktype(): int
@@ -97,62 +94,6 @@ class Post extends AbstractPageModel
         return $this->archived;
     }
 
-    public function setArchived(bool $archiveDate): void
-    {
-        $this->archiveDate = $archiveDate;
-    }
-
-
-    public function addTag(Tag $tag): void
-    {
-        $this->tags->attach($tag);
-    }
-
-    public function removeTag(Tag $tagToRemove): void
-    {
-        $this->tags->detach($tagToRemove);
-    }
-
-    public function getTags(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-    {
-        return $this->tags;
-    }
-
-    public function setTags(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags): void
-    {
-        $this->tags = $tags;
-    }
-
-    public function getAuthor(): ?Author
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(Author $author): void
-    {
-        $this->author = $author;
-    }
-
-    public function addRelated(Post $related): void
-    {
-        $this->related->attach($related);
-    }
-
-    public function removeRelated(Post $relatedToRemove): void
-    {
-        $this->related->detach($relatedToRemove);
-    }
-
-    public function getRelated(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
-    {
-        return $this->related;
-    }
-
-    public function setRelated(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $related): void
-    {
-        $this->related = $related;
-    }
-
     public function getCategory(): ?Category
     {
         if($this->category === null) {
@@ -171,5 +112,55 @@ class Post extends AbstractPageModel
     public function setCategory(Category $category): void
     {
         $this->category = $category;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(Author $author): void
+    {
+        $this->author = $author;
+    }
+
+    public function addTag(Tag $tag): void
+    {
+        $this->tags->attach($tag);
+    }
+
+    public function removeTag(Tag $tagToRemove): void
+    {
+        $this->tags->detach($tagToRemove);
+    }
+
+    public function getTags(): ObjectStorage
+    {
+        return $this->tags;
+    }
+
+    public function setTags(ObjectStorage $tags): void
+    {
+        $this->tags = $tags;
+    }
+
+    public function addRelated(Post $related): void
+    {
+        $this->related->attach($related);
+    }
+
+    public function removeRelated(Post $relatedToRemove): void
+    {
+        $this->related->detach($relatedToRemove);
+    }
+
+    public function getRelated(): ObjectStorage
+    {
+        return $this->related;
+    }
+
+    public function setRelated(ObjectStorage $related): void
+    {
+        $this->related = $related;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
+use TYPO3\CMS\Core\Resource\AbstractFile;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -41,6 +42,9 @@ abstract class AbstractPageModel extends AbstractEntity
 
     /** @var \TYPO3\CMS\Core\Resource\File */
     protected $firstMedia;
+
+    /** @var \TYPO3\CMS\Core\Resource\File */
+    protected $firstImage;
 
     public function __construct()
     {
@@ -144,16 +148,24 @@ abstract class AbstractPageModel extends AbstractEntity
 
     public function getFirstMedia(): ?File
     {
-        if($this->firstMedia === null && $fileReferences = $this->getFileReferences()) {
-            $fileReference = $fileReferences->offsetGet(0);
-            return $this->firstMedia = $fileReference instanceof FileReference ? $fileReference->getOriginalResource()->getOriginalFile() : null;
+        if($this->firstMedia === null && $media = $this->getMedia()) {
+            return $this->firstMedia = $media->offsetGet(0);
         }
 
-        return $this->firstMedia;
+        return null;
     }
 
-    public function setFirstMedia(File $firstMedia): void
+    public function getFirstImage(): ?File
     {
-        $this->firstMedia = $firstMedia;
+        if($this->firstMedia === null && $media = $this->getMedia()) {
+            foreach ($media->toArray() ?? [] as $asset) {
+                if($asset->getType() === AbstractFile::FILETYPE_IMAGE) {
+                    return $this->firstImage = $asset;
+                }
+            }
+        }
+
+        return null;
     }
+
 }
