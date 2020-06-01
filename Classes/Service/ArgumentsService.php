@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Zeroseven\Z7Events\Service;
+namespace Zeroseven\Z7Blog\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
