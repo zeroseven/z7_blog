@@ -57,7 +57,7 @@ class Pagination
     {
         $limit = $this->stages['limit'];
         $stageLengths = GeneralUtility::intExplode(',', $itemsPerStage, true);
-        $stages = array_splice($stageLengths,0, $limit);
+        $stages = array_splice($stageLengths, 0, $limit);
 
         return array_replace(array_fill(0, $limit, end($stages)), array_values($stages));
     }
@@ -68,7 +68,7 @@ class Pagination
         $count = 0;
 
         foreach ($stages as $key => $value) {
-            if(($count += $value) > $this->total) {
+            if (($count += $value) > $this->total) {
                 return $items;
             }
 

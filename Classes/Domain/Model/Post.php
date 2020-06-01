@@ -87,7 +87,7 @@ class Post extends AbstractPageModel
 
     public function isArchived(): bool
     {
-        if($this->archived === null && ($archiveDate = $this->getArchiveDate())) {
+        if ($this->archived === null && ($archiveDate = $this->getArchiveDate())) {
             return $this->archived = $archiveDate->format('U') > time();
         }
 
@@ -96,7 +96,7 @@ class Post extends AbstractPageModel
 
     public function getCategory(): ?Category
     {
-        if($this->category === null) {
+        if ($this->category === null) {
             $rootLine = $GLOBALS['TSFE']->rootLine ?: GeneralUtility::makeInstance(RootlineUtility::class, $this->getUid())->get();
 
             foreach ($rootLine as $key => $row) {

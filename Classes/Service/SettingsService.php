@@ -36,7 +36,7 @@ class SettingsService
     {
 
         // Return cached settings
-        if($cache = $GLOBALS['USER'][self::EXTENSION_KEY]['settings'] ?? null) {
+        if ($cache = $GLOBALS['USER'][self::EXTENSION_KEY]['settings'] ?? null) {
             return $cache;
         }
 

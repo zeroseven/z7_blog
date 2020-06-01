@@ -67,7 +67,7 @@ class PostRepository extends AbstractRepository
     {
 
         // Todo: fix for translations on ignored restrictions
-        if($ignoreRestrictions) {
+        if ($ignoreRestrictions) {
 
             // Create query
             $query = $this->createQuery();
@@ -94,7 +94,7 @@ class PostRepository extends AbstractRepository
         $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
 
         foreach ($uids ?? [] as $uid) {
-            if($post = $this->findByUid($uid)) {
+            if ($post = $this->findByUid($uid)) {
                 $objectStorage->attach($post);
             }
         }

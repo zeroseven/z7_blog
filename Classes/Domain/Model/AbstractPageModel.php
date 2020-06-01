@@ -128,11 +128,11 @@ abstract class AbstractPageModel extends AbstractEntity
 
     public function getMedia(): ?ObjectStorage
     {
-        if($this->media === null && $fileReferences = $this->getFileReferences()) {
+        if ($this->media === null && $fileReferences = $this->getFileReferences()) {
             $this->media = GeneralUtility::makeInstance(ObjectStorage::class);
 
             foreach ($fileReferences->toArray() as $fileReference) {
-                if($file = $fileReference instanceof FileReference ? $fileReference->getOriginalResource()->getOriginalFile() : null) {
+                if ($file = $fileReference instanceof FileReference ? $fileReference->getOriginalResource()->getOriginalFile() : null) {
                     $this->media->attach($file);
                 }
             }
@@ -148,7 +148,7 @@ abstract class AbstractPageModel extends AbstractEntity
 
     public function getFirstMedia(): ?File
     {
-        if($this->firstMedia === null && $media = $this->getMedia()) {
+        if ($this->firstMedia === null && $media = $this->getMedia()) {
             return $this->firstMedia = $media->offsetGet(0);
         }
 
@@ -157,9 +157,9 @@ abstract class AbstractPageModel extends AbstractEntity
 
     public function getFirstImage(): ?File
     {
-        if($this->firstMedia === null && $media = $this->getMedia()) {
+        if ($this->firstMedia === null && $media = $this->getMedia()) {
             foreach ($media->toArray() ?? [] as $asset) {
-                if($asset->getType() === AbstractFile::FILETYPE_IMAGE) {
+                if ($asset->getType() === AbstractFile::FILETYPE_IMAGE) {
                     return $this->firstImage = $asset;
                 }
             }
