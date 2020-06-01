@@ -1,0 +1,27 @@
+{
+  "name": "zeroseven/z7-blog",
+  "license": "GPL-2.0-only",
+  "type": "typo3-cms-extension",
+  "description": "Another blog-system for TYPO3",
+  "authors": [
+    {
+      "name": "Raphael Thanner",
+      "role": "Developer"
+    },
+    {
+      "name": "Sebastian Rosskopf",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "typo3/cms-core": "^10.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Zeroseven\\Z7Blog\\": "Classes"
+    }
+  },
+  "replace": {
+    "z7_blog": "self.version"
+  }
+}
