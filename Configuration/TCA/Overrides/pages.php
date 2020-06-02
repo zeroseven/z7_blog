@@ -99,6 +99,14 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'type' => 'group',
                 'internal_type' => 'db',
                 'foreign_table' => $table,
+                'filter' => [
+                    [
+                        'userFunc' => \Zeroseven\Z7Blog\TCA\GroupFilter::class . '->filterDoktypes',
+                        'parameters' => [
+                            'allowed' => $postDoktype
+                        ],
+                    ],
+                ],
                 'suggestOptions' => [
                     'default' => [
                         'searchWholePhrase' => 1
