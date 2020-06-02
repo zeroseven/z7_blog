@@ -18,9 +18,6 @@ return [
         'searchFields' => 'firstname,lastname,email,image,description',
         'iconfile' => 'EXT:z7_blog/Resources/Public/Icons/tx_blogpages_domain_model_author.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, firstname, lastname, expertise, email, image, description'
-    ],
     'palettes' => [
         'name' => [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.palette.name',
