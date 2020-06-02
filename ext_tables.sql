@@ -2,20 +2,9 @@ CREATE TABLE pages (
 	post_top tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	post_archive int(11) DEFAULT '0' NOT NULL,
 	post_date int(11) DEFAULT '0' NOT NULL,
-	post_tags int(11) unsigned DEFAULT '0' NOT NULL,
 	post_author int(11) unsigned DEFAULT '0',
 	post_related int(11) unsigned DEFAULT '0' NOT NULL,
 	post_redirect_category tinyint(1) unsigned DEFAULT '0' NOT NULL
-);
-
-CREATE TABLE tx_blogpages_domain_model_tag (
-
-	uid int(11) NOT NULL auto_increment,
-	title varchar(255) DEFAULT '' NOT NULL,
-
-	PRIMARY KEY (uid),
-	KEY parent (pid),
-	KEY language (l10n_parent,sys_language_uid)
 );
 
 CREATE TABLE tx_z7blog_domain_model_author (
@@ -32,17 +21,6 @@ CREATE TABLE tx_z7blog_domain_model_author (
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 	KEY language (l10n_parent,sys_language_uid)
-);
-
-CREATE TABLE tx_blogpages_post_tag_mm (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid_local,uid_foreign),
-	KEY uid_local (uid_local),
-	KEY uid_foreign (uid_foreign)
 );
 
 CREATE TABLE tx_blogpages_post__mm (

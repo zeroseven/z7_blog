@@ -95,14 +95,6 @@
             ],
         ],
     ],
-    'post_tags' => [
-        'exclude' => false,
-        'l10n_mode' => 'exclude',
-        'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags',
-        'config' => [
-            'type' => 'input'
-        ],
-    ],
     'post_related' => [
         'exclude' => false,
         'l10n_mode' => 'exclude',
@@ -111,14 +103,6 @@
             'type' => 'group',
             'internal_type' => 'db',
             'foreign_table' => 'pages',
-            'filter' => [
-                [
-                    'userFunc' => \Zeroseven\Z7Blog\TCA\GroupFilter::class . '->onlyDefaultLanguage',
-                    'parameters' => [
-                        'andWhere' => ' AND doktype=' . \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE
-                    ],
-                ],
-            ],
             'suggestOptions' => [
                 'default' => [
                     'searchWholePhrase' => 1
