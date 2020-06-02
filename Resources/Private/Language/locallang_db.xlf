@@ -5,20 +5,20 @@
 		<body>
 
 			<!-- Pages -->
-			<trans-unit id="pages.post">
-				<source>Post</source>
-			</trans-unit>
-			<trans-unit id="pages.postcategory">
-				<source>Post Category</source>
-			</trans-unit>
 			<trans-unit id="pages.tab.blog">
 				<source>Blog</source>
 			</trans-unit>
-			<trans-unit id="pages.palette.post_settings">
-				<source>Post Settings</source>
+			<trans-unit id="pages.palette.blogpost_date_settings">
+				<source>Date</source>
 			</trans-unit>
-			<trans-unit id="pages.pid">
-				<source>PID</source>
+			<trans-unit id="pages.palette.blogpost_relations">
+				<source>Relations</source>
+			</trans-unit>
+			<trans-unit id="pages.doktype.post">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="pages.doktype.category">
+				<source>Post Category</source>
 			</trans-unit>
 			<trans-unit id="pages.post_top">
 				<source>Top Post</source>
