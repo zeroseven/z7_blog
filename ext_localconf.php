@@ -6,14 +6,14 @@ call_user_func(static function () {
     // Register icons
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
     $iconRegistry->registerIcon(
-        'content-blogpages-list',
+        'content-blog-list',
         \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-blogpages-list.svg']
+        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-blog-list.svg']
     );
     $iconRegistry->registerIcon(
-        'content-blogpages-filter',
+        'content-blog-filter',
         \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-blogpages-filter.svg']
+        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-blog-filter.svg']
     );
     $iconRegistry->registerIcon(
         'apps-pagetree-blogpost',
