@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-07-29T13:42:52Z" product-name="z7_events">
+		<header/>
+		<body>
+			<!-- Pages -->
+			<trans-unit id="pages.post">
+				<source>Post</source>
+			</trans-unit>
+			<trans-unit id="pages.postcategory">
+				<source>Post Category</source>
+			</trans-unit>
+			<trans-unit id="pages.tab.blog">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="pages.palette.post_settings">
+				<source>Post Settings</source>
+			</trans-unit>
+			<trans-unit id="pages.pid">
+				<source>PID</source>
+			</trans-unit>
+			<trans-unit id="pages.post_top">
+				<source>Top Post</source>
+			</trans-unit>
+			<trans-unit id="pages.post_archive">
+				<source>Archive date</source>
+			</trans-unit>
+			<trans-unit id="pages.post_date">
+				<source>Article date</source>
+			</trans-unit>
+			<trans-unit id="pages.post_author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="pages.post_tags">
+				<source>Tags</source>
+			</trans-unit>
+			<trans-unit id="pages.post_related">
+				<source>Related Posts</source>
+			</trans-unit>
+			<trans-unit id="pages.post_redirect_category">
+				<source>Redirect to the overview page</source>
+			</trans-unit>
+
+			<!-- Maintaing Blog Authors -->
+			<trans-unit id="tx_blogpages_domain_model_author">
+				<source>Blog author</source>
+			</trans-unit>
+			<trans-unit id="tx_blogpages_domain_model_author.palette.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_blogpages_domain_model_author.firstname">
+				<source>First name</source>
+			</trans-unit>
+			<trans-unit id="tx_blogpages_domain_model_author.lastname">
+				<source>Last name</source>
+			</trans-unit>
+			<trans-unit id="tx_blogpages_domain_model_author.expertise">
+				<source>Expertise</source>
+			</trans-unit>
+			<trans-unit id="tx_blogpages_domain_model_author.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_blogpages_domain_model_author.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_blogpages_domain_model_author.description">
+				<source>Description</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
