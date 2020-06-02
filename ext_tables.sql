@@ -23,7 +23,7 @@ CREATE TABLE tx_z7blog_domain_model_author (
 	KEY language (l10n_parent,sys_language_uid)
 );
 
-CREATE TABLE tx_blogpages_post__mm (
+CREATE TABLE tx_z7blog_post_mm (
 	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
 	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,
