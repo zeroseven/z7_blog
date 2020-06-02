@@ -49,9 +49,18 @@ class SettingsService
 
     public static function getKey(string $key)
     {
-        $setup = self::get();
+        $settings = self::get();
+        $parts = GeneralUtility::trimExplode('.', $key, true);
 
-        return $setup[$key] ?? null;
+        foreach ($parts as $part) {
+            if ($value = $settings[$part] ?? null) {
+                $settings = $value;
+            } else {
+                return null;
+            }
+        }
+
+        return $settings ?? null;
     }
 
 }
