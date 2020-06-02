@@ -39,6 +39,21 @@
 				<source>Redirect to the overview page</source>
 			</trans-unit>
 
+
+			<!-- Content -->
+			<trans-unit id="tt_content.cType.z7blog_filter">
+				<source>Filterd post list</source>
+			</trans-unit>
+			<trans-unit id="tt_content.cType.z7blog_dynamic">
+				<source>Dynamic post list</source>
+			</trans-unit>
+			<trans-unit id="tt_content.cType.z7blog_static">
+				<source>Static post list</source>
+			</trans-unit>
+			<trans-unit id="tt_content.cType.z7blog_authors">
+				<source>Blog-Authors</source>
+			</trans-unit>
+
 			<!-- Blog Authors -->
 			<trans-unit id="tx_z7blog_domain_model_author">
 				<source>Blog author</source>

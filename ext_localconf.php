@@ -1,39 +1,60 @@
 <?php
 defined('TYPO3_MODE') || die('Access denied.');
 
-call_user_func(static function () {
+call_user_func(static function (int $postDoktype, int $categoryDoktype) {
 
-    // Register icons
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-    $iconRegistry->registerIcon(
-        'content-blog-list',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-blog-list.svg']
-    );
-    $iconRegistry->registerIcon(
-        'content-blog-filter',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-blog-filter.svg']
-    );
-    $iconRegistry->registerIcon(
-        'apps-pagetree-blogpost',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/apps-pagetree-blogpost.svg']
-    );
-    $iconRegistry->registerIcon(
-        'apps-pagetree-blogcategory',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/apps-pagetree-blogcategory.svg']
-    );
-    $iconRegistry->registerIcon(
-        'apps-pagetree-blogpost-hideinmenu',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/apps-pagetree-blogpost-hideinmenu.svg']
-    );
-    $iconRegistry->registerIcon(
-        'apps-pagetree-blogcategory-hideinmenu',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/apps-pagetree-blogcategory-hideinmenu.svg']
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Zeroseven.Z7Blog',
+        'Filter',
+        ['Post' => 'filter, filterUncached'],
+        ['Post' => 'filterUncached'],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
-});
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Zeroseven.Z7Blog',
+        'Dynamic',
+        ['Post' => 'dynamic'],
+        [],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Zeroseven.Z7Blog',
+        'Static',
+        ['Post' => 'static'],
+        [],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Zeroseven.Z7Blog',
+        'Detail',
+        ['Post' => 'detail'],
+        [],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Zeroseven.Z7Blog',
+        'Authors',
+        ['Author' => 'list'],
+        [],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    // Add the wizards
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig("@import 'EXT:z7_events/Configuration/PageTS/Mod.tsconfig'");
+
+    // Allow custom doktypes in page tree
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig("options.pageTree.doktypesToShowInNewPageDragArea := addToList($postDoktype,$categoryDoktype)");
+
+    // Add module configuration
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants(trim("
+        plugin.tx_z7blog.doktype {
+            category = $categoryDoktype
+            post = $postDoktype
+        }
+    "));
+
+},\Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);

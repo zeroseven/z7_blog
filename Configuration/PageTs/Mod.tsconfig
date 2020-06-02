@@ -1,0 +1,37 @@
+mod.wizards.newContentElement.wizardItems.plugins.elements {
+  postFilter {
+    iconIdentifier = content-z7blog-filter
+    title = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postFilter.title
+    description = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postFilter.description
+    tt_content_defValues {
+      CType = z7blog_filter
+    }
+  }
+
+  postListDynamic {
+    iconIdentifier = content-z7blog-dynamic
+    title = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postListDynamic.title
+    description = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postListDynamic.description
+    tt_content_defValues {
+      CType = z7blog_dynamic
+    }
+  }
+
+  postListStatic {
+    iconIdentifier = content-z7blog-static
+    title = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postListStatic.title
+    description = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postListStatic.description
+    tt_content_defValues {
+      CType = z7blog_static
+    }
+  }
+
+  authorList {
+    iconIdentifier = content-z7blog-authors
+    title = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.authorList.title
+    description = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.authorList.description
+    tt_content_defValues {
+      CType = z7blog_authors
+    }
+  }
+}
