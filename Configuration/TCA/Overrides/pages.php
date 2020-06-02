@@ -85,8 +85,8 @@
         'config' => [
             'type' => 'select',
             'renderType' => 'selectSingle',
-            'foreign_table' => 'tx_blogpages_domain_model_author',
-            'foreign_table_where' => ' AND tx_blogpages_domain_model_author.sys_language_uid <= 0 ORDER BY tx_blogpages_domain_model_author.firstname ASC',
+            'foreign_table' => 'tx_z7blog_domain_model_author',
+            'foreign_table_where' => ' AND tx_z7blog_domain_model_author.sys_language_uid <= 0 ORDER BY tx_z7blog_domain_model_author.firstname ASC',
             'minitems' => 0,
             'maxitems' => 1,
             'default' => 0,

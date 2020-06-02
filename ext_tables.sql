@@ -18,7 +18,7 @@ CREATE TABLE tx_blogpages_domain_model_tag (
 	KEY language (l10n_parent,sys_language_uid)
 );
 
-CREATE TABLE tx_blogpages_domain_model_author (
+CREATE TABLE tx_z7blog_domain_model_author (
 
 	uid int(11) NOT NULL auto_increment,
 

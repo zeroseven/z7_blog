@@ -1,7 +1,7 @@
 <?php
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author',
+        'title' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author',
         'label' => 'firstname',
         'label_alt' => 'lastname',
         'label_alt_force' => true,
@@ -16,11 +16,11 @@ return [
             'disabled' => 'hidden'
         ],
         'searchFields' => 'firstname,lastname,email,image,description',
-        'iconfile' => 'EXT:z7_blog/Resources/Public/Icons/tx_blogpages_domain_model_author.svg'
+        'iconfile' => 'EXT:z7_blog/Resources/Public/Icons/tx_z7blog_domain_model_author.svg'
     ],
     'palettes' => [
         'name' => [
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.palette.name',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.palette.name',
             'showitem' => 'firstname, lastname'
         ]
     ],
@@ -31,7 +31,7 @@ return [
         'firstname' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.firstname',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.firstname',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -41,7 +41,7 @@ return [
         'lastname' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.lastname',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.lastname',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -50,7 +50,7 @@ return [
         ],
         'expertise' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.expertise',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.expertise',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -60,7 +60,7 @@ return [
         'email' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.email',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.email',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -70,7 +70,7 @@ return [
         'image' => [
             'exclude' => true,
             'l10n_mode' => 'exclude',
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.image',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.image',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'image',
                 [
@@ -91,7 +91,7 @@ return [
         'description' => [
             'exclude' => true,
             'l10n_mode' => 'prefixLangTitle',
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_blogpages_domain_model_author.description',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.description',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,

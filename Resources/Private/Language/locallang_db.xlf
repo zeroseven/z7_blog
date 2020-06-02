@@ -3,6 +3,7 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-07-29T13:42:52Z" product-name="z7_events">
 		<header/>
 		<body>
+
 			<!-- Pages -->
 			<trans-unit id="pages.post">
 				<source>Post</source>
@@ -41,29 +42,29 @@
 				<source>Redirect to the overview page</source>
 			</trans-unit>
 
-			<!-- Maintaing Blog Authors -->
-			<trans-unit id="tx_blogpages_domain_model_author">
+			<!-- Blog Authors -->
+			<trans-unit id="tx_z7blog_domain_model_author">
 				<source>Blog author</source>
 			</trans-unit>
-			<trans-unit id="tx_blogpages_domain_model_author.palette.name">
+			<trans-unit id="tx_z7blog_domain_model_author.palette.name">
 				<source>Name</source>
 			</trans-unit>
-			<trans-unit id="tx_blogpages_domain_model_author.firstname">
+			<trans-unit id="tx_z7blog_domain_model_author.firstname">
 				<source>First name</source>
 			</trans-unit>
-			<trans-unit id="tx_blogpages_domain_model_author.lastname">
+			<trans-unit id="tx_z7blog_domain_model_author.lastname">
 				<source>Last name</source>
 			</trans-unit>
-			<trans-unit id="tx_blogpages_domain_model_author.expertise">
+			<trans-unit id="tx_z7blog_domain_model_author.expertise">
 				<source>Expertise</source>
 			</trans-unit>
-			<trans-unit id="tx_blogpages_domain_model_author.email">
+			<trans-unit id="tx_z7blog_domain_model_author.email">
 				<source>Email</source>
 			</trans-unit>
-			<trans-unit id="tx_blogpages_domain_model_author.image">
+			<trans-unit id="tx_z7blog_domain_model_author.image">
 				<source>Image</source>
 			</trans-unit>
-			<trans-unit id="tx_blogpages_domain_model_author.description">
+			<trans-unit id="tx_z7blog_domain_model_author.description">
 				<source>Description</source>
 			</trans-unit>
 		</body>
