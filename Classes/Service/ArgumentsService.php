@@ -34,9 +34,7 @@ class ArgumentsService
     {
         $filters = self::getDefaults();
 
-        $overrides = array_merge(($getRequestData ? [self::getRequestData()] : []), $arguments);
-
-        if ($overrides) {
+        if ($overrides = array_merge(($getRequestData ? [self::getRequestData()] : []), $arguments);) {
             foreach ($overrides as $override) {
                 if (is_array($override)) {
                     foreach ($override as $key => $value) {
@@ -48,8 +46,8 @@ class ArgumentsService
             }
         }
 
-        return $ignoreEmptyKeys ? array_filter($filters, static function ($v) {
+        return !$ignoreEmptyKeys ? $filters : array_filter($filters, static function ($v) {
             return !empty($v);
-        }) : $filters;
+        });
     }
 }
