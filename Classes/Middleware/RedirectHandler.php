@@ -24,12 +24,9 @@ class RedirectHandler implements MiddlewareInterface
 
         if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && ($row = $GLOBALS['TSFE']->page) && $row['post_redirect_category'] && (int)$row['doktype'] === Category::DOKTYPE) {
 
-            // Get Plugin settings
-            $settings = SettingsService::get();
-
             // Return redirect response
             return $this->buildRedirectResponse([
-                'parameter' => (int)$settings['list']['defaultPid'],
+                'parameter' => (int)SettingsService::getKey('list.defaultPid'),
                 'useCacheHash' => true,
                 'additionalParams' => '&' . ArgumentsService::REQUEST_KEY . '[category]=' . $row['uid'] . (($type = (int)GeneralUtility::_GET('type')) ? '&type=' . $type : '')
             ]);
