@@ -60,9 +60,10 @@ class Post extends AbstractPageModel
         return $this->date;
     }
 
-    public function setDate(\DateTime $date): void
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
+        return $this;
     }
 
     public function isTop(): bool
@@ -70,9 +71,10 @@ class Post extends AbstractPageModel
         return (bool)$this->top;
     }
 
-    public function setTop($top): void
+    public function setTop($top): self
     {
         $this->top = $top;
+        return $this;
     }
 
     public function getArchiveDate(): ?\DateTime
@@ -80,9 +82,10 @@ class Post extends AbstractPageModel
         return $this->archiveDate;
     }
 
-    public function setArchiveDate(\DateTime $archiveDate): void
+    public function setArchiveDate(\DateTime $archiveDate): self
     {
         $this->archiveDate = $archiveDate;
+        return $this;
     }
 
     public function isArchived(): bool
@@ -109,9 +112,10 @@ class Post extends AbstractPageModel
         return $this->category;
     }
 
-    public function setCategory(Category $category): void
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
+        return $this;
     }
 
     public function getAuthor(): ?Author
@@ -119,9 +123,10 @@ class Post extends AbstractPageModel
         return $this->author;
     }
 
-    public function setAuthor(Author $author): void
+    public function setAuthor(Author $author): self
     {
         $this->author = $author;
+        return $this;
     }
 
     public function addTag(Tag $tag): void
@@ -139,9 +144,10 @@ class Post extends AbstractPageModel
         return $this->tags;
     }
 
-    public function setTags(ObjectStorage $tags): void
+    public function setTags(ObjectStorage $tags): self
     {
         $this->tags = $tags;
+        return $this;
     }
 
     public function addRelated(Post $related): void
@@ -159,8 +165,9 @@ class Post extends AbstractPageModel
         return $this->related;
     }
 
-    public function setRelated(ObjectStorage $related): void
+    public function setRelated(ObjectStorage $related): self
     {
         $this->related = $related;
+        return $this;
     }
 }

@@ -21,8 +21,9 @@ class Category extends AbstractPageModel
         return (bool)$this->redirectCategory;
     }
 
-    public function setRedirectCategory($redirectCategory): void
+    public function setRedirectCategory($redirectCategory): self
     {
         $this->redirectCategory = $redirectCategory;
+        return $this;
     }
 }

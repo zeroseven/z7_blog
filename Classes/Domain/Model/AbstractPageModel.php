@@ -61,9 +61,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return (int)$this->doktype;
     }
 
-    public function setDoktype(int $doktype): void
+    public function setDoktype(int $doktype): self
     {
         $this->doktype = $doktype;
+        return $this;
     }
 
     public function getTitle(): string
@@ -71,9 +72,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return (string)$this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+        return $this;
     }
 
     public function getSubtitle(): string
@@ -81,9 +83,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return (string)$this->subtitle;
     }
 
-    public function setSubtitle(string $subtitle): void
+    public function setSubtitle(string $subtitle): self
     {
         $this->subtitle = $subtitle;
+        return $this;
     }
 
     public function getNavTitle(): string
@@ -91,9 +94,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return (string)$this->navTitle;
     }
 
-    public function setNavTitle(string $navTitle): void
+    public function setNavTitle(string $navTitle): self
     {
         $this->navTitle = $navTitle;
+        return $this;
     }
 
     public function getDescription(): string
@@ -101,9 +105,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return (string)$this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+        return $this;
     }
 
     public function getAbstract(): string
@@ -111,9 +116,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return (string)$this->abstract;
     }
 
-    public function setAbstract(string $abstract): void
+    public function setAbstract(string $abstract): self
     {
         $this->abstract = $abstract;
+        return $this;
     }
 
     public function getFileReferences(): ?ObjectStorage
@@ -121,9 +127,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return $this->fileReferences;
     }
 
-    public function setFileReferences(ObjectStorage $fileReferences): void
+    public function setFileReferences(ObjectStorage $fileReferences): self
     {
         $this->fileReferences = $fileReferences;
+        return $this;
     }
 
     public function getMedia(): ?ObjectStorage
@@ -141,9 +148,10 @@ abstract class AbstractPageModel extends AbstractEntity
         return $this->media;
     }
 
-    public function setMedia(ObjectStorage $media): void
+    public function setMedia(ObjectStorage $media): self
     {
         $this->media = $media;
+        return $this;
     }
 
     public function getFirstMedia(): ?File
