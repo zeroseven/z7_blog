@@ -17,6 +17,10 @@ CREATE TABLE tx_z7blog_domain_model_author (
 	email varchar(255) DEFAULT '' NOT NULL,
 	image int(11) unsigned NOT NULL default '0',
 	description text NOT NULL,
+	page varchar(255) DEFAULT '' NOT NULL,
+    twitter varchar(255) DEFAULT '' NOT NULL,
+    linkedin varchar(255) DEFAULT '' NOT NULL,
+    xing varchar(255) DEFAULT '' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),

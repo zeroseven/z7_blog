@@ -58,6 +58,12 @@
 			<trans-unit id="tx_z7blog_domain_model_author">
 				<source>Blog author</source>
 			</trans-unit>
+			<trans-unit id="tx_z7blog_domain_model_author.tab.info">
+				<source>Info</source>
+			</trans-unit>
+			<trans-unit id="tx_z7blog_domain_model_author.tab.social">
+				<source>Social media</source>
+			</trans-unit>
 			<trans-unit id="tx_z7blog_domain_model_author.palette.name">
 				<source>Name</source>
 			</trans-unit>
@@ -78,6 +84,18 @@
 			</trans-unit>
 			<trans-unit id="tx_z7blog_domain_model_author.description">
 				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_z7blog_domain_model_author.page">
+				<source>Detail Page</source>
+			</trans-unit>
+			<trans-unit id="tx_z7blog_domain_model_author.twitter">
+				<source>Twitter</source>
+			</trans-unit>
+			<trans-unit id="tx_z7blog_domain_model_author.linkedin">
+				<source>LinkedIn</source>
+			</trans-unit>
+			<trans-unit id="tx_z7blog_domain_model_author.xing">
+				<source>Xing</source>
 			</trans-unit>
 		</body>
 	</file>
