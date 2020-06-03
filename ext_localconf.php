@@ -6,16 +6,16 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Zeroseven.Z7Blog',
         'Filter',
-        ['Post' => 'filter, filterUncached'],
-        ['Post' => 'filterUncached'],
+        ['Post' => 'filter'],
+        ['Post' => 'filter'],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Zeroseven.Z7Blog',
         'List',
-        ['Post' => 'list'],
-        [],
+        ['Post' => 'list', 'listUncached'],
+        ['Post' => 'listUncached'],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
@@ -31,8 +31,7 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
         'Zeroseven.Z7Blog',
         'Detail',
         ['Post' => 'detail'],
-        [],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        []
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(

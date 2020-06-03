@@ -11,9 +11,9 @@ call_user_func(static function () {
         ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-z7blog-filter.svg']
     );
     $iconRegistry->registerIcon(
-        'content-z7blog',
+        'content-z7blog-list ',
         \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-z7blog.svg']
+        ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-z7blog-list.svg']
     );
     $iconRegistry->registerIcon(
         'content-z7blog-static',

@@ -8,7 +8,7 @@ call_user_func(static function () {
         'Zeroseven.Z7Blog',
         'List',
         'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.z7blog',
-        'content-z7blog'
+        'content-z7blog-list'
     );
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'Zeroseven.Z7Blog',
