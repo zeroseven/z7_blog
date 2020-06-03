@@ -5,33 +5,27 @@ namespace Zeroseven\Z7Blog\Domain\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use Zeroseven\Z7Blog\Domain\Model\Demand;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 
 class PostRepository extends AbstractPageRepository
 {
 
-    public function initializeObject(): void
+    protected function setOrdering(Demand $demand = null): void
     {
-        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
-        $querySettings->setRespectStoragePage(false);
-        $this->setDefaultQuerySettings($querySettings);
-    }
 
-    protected function setOrdering(string $sorting = null, bool $topPostsFirst = null): void
-    {
         // If top posts first
-        if ($topPostsFirst !== false) {
+        if ($demand && $demand->topPostsFirst()) {
             $ordering['post_top'] = QueryInterface::ORDER_DESCENDING;
         }
 
         // Override default ordering by propertyName with optional direction
-        if($sorting) {
+        if($demand && $demand->getSorting()) {
 
-            // Examples: "postDate_desc", "title_asc", "title",
-            if (preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $sorting, $matches) && $property = $matches[1] ?? null) {
+            // Examples: "date_desc", "title_asc", "title",
+            if (preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getSorting(), $matches) && $property = $matches[1] ?? null) {
                 $columnName = GeneralUtility::makeInstance(DataMapper::class)->convertPropertyNameToColumnName($property, Post::class);
                 $ordering[$columnName] = ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING;
             }
@@ -66,33 +60,80 @@ class PostRepository extends AbstractPageRepository
         return parent::findByUid($uid);
     }
 
-    public function findAll(int $belowPage = null, int $author = null, array $tags = null, bool $topPostsFirst = null, bool $topOnly = null, bool $archiveMode = null, string $sorting = null): QueryResultInterface
+    public function findAll(Demand $demand = null): ?QueryResultInterface
     {
 
         // Override sorting of the posts
-        $this->setOrdering($sorting, $topPostsFirst);
+        $this->setOrdering($demand);
 
         // Create query
         $query = $this->createQuery();
 
-        // ...
+        // Array to collect constraints
+        $constraints = [];
 
-        return $this->findBelowPage($belowPage, $query);
+        // Filter post by author
+        if ($author = $demand->getAuthor()) {
+            $constraints[] = $query->equals('author', $author);
+        }
+
+        // Add topic constraint
+        if ($topic = $demand->getTopic()) {
+            $constraints[] = $query->contains('topic', $topic);
+        }
+
+        // Filter post by tags
+        if ($tags = $demand->getTags()) {
+            foreach ($tags as $tag) {
+                $constraints[] = $query->like('tags', '%' . $tag . '%');
+            }
+        }
+
+        // Set archive mode
+        if($demand->archivedPostsHidden()) {
+            $constraints[] = $query->logicalOr([
+                $query->equals('archive', 0),
+                $query->greaterThan('archive', time())
+            ]);
+        } elseif ($demand->archivedPostsOnly()) {
+            $constraints[] = $query->logicalAnd([
+                $query->greaterThan('archive', 1),
+                $query->lessThan('archive', time())
+            ]);
+        }
+
+        // Display only top posts
+        if ($demand->topPostsOnly()) {
+            $and[] = $query->equals('top', 1);
+        }
+
+        // Apply constraints
+        $query->matching(
+            $query->logicalAnd($constraints)
+        );
+
+        return $this->findBelowPage($demand->getBelowPage(), $query);
     }
 
-    public function findByAuthor(int $author, bool $topPostsFirst = null, bool $topOnly = null, bool $archiveMode = null, string $sorting = null) {
-        return $this->findAll(null, $author, null, $topPostsFirst, $topOnly, $archiveMode, $sorting);
+    public function findByAuthor(int $author, Demand $demand = null): ?QueryResultInterface
+    {
+        return $this->findAll(($demand ?: Demand::makeInstance())->setAuthor($author));
     }
 
-    public function findByTags(array $tags, bool $topPostsFirst = null, bool $topOnly = null, bool $archiveMode = null, string $sorting = null) {
-        return $this->findAll(null, null, $tags, $topPostsFirst, $topOnly, $archiveMode, $sorting);
+    public function findByTags(array $tags, Demand $demand = null): ?QueryResultInterface
+    {
+        return $this->findAll(($demand ?: Demand::makeInstance())->setTags($tags));
     }
 
+    public function findByTopic(int $topic, Demand $demand = null): ?QueryResultInterface
+    {
+        return $this->findAll(($demand ?: Demand::makeInstance())->setTopic($topic));
+    }
 
-    public function findByUids(array $uids, bool $topPostsFirst = null, string $sorting = null): ObjectStorage
+    public function findByUids(array $uids, Demand $demand = null): ?QueryResultInterface
     {
         // Override sorting of the posts
-        $this->setOrdering($sorting, $topPostsFirst);
+        $this->setOrdering($demand);
 
         // Create query
         $query = $this->createQuery();

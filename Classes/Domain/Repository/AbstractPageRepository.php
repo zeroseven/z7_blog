@@ -30,7 +30,7 @@ abstract class AbstractPageRepository extends Repository
      */
     public function findBelowPage(int $start = null, QueryInterface $query = null)
     {
-        // Set the rootpage as fallback for "Automatic [0]"
+        // Set the root page as fallback for "Automatic [0]"
         if ((int)$start === 0) {
             $start = (int)$GLOBALS['TSFE']->domainStartPage;
         }
@@ -41,7 +41,9 @@ abstract class AbstractPageRepository extends Repository
         // Set constraint
         if ($query === null) {
             $query = $this->createQuery();
-            $query->matching($query->in('pid', $pids));
+            $query->matching(
+                $query->in('pid', $pids)
+            );
         } else if ($query->getConstraint()) {
             $previousConstraint = $query->getConstraint();
             $query->matching(
@@ -52,13 +54,12 @@ abstract class AbstractPageRepository extends Repository
             );
         } else {
             $query->matching(
-                $query->logicalAnd([
-                    $query->in('pid', $pids)
-                ])
+                $query->in('pid', $pids)
             );
         }
 
         // Execute the query
         return $query->execute();
     }
+
 }
