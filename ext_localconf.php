@@ -13,8 +13,8 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Zeroseven.Z7Blog',
-        'Dynamic',
-        ['Post' => 'dynamic'],
+        'List',
+        ['Post' => 'list'],
         [],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
@@ -44,7 +44,7 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
     );
 
     // Add the wizards
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig("@import 'EXT:z7_events/Configuration/PageTS/Mod.tsconfig'");
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig("@import 'EXT:z7_blog/Configuration/PageTs/Mod.tsconfig'");
 
     // Allow custom doktypes in page tree
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig("options.pageTree.doktypesToShowInNewPageDragArea := addToList($postDoktype,$categoryDoktype)");

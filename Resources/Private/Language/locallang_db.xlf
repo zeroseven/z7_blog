@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-07-29T13:42:52Z" product-name="z7_events">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-07-29T13:42:52Z" product-name="z7_blog">
 		<header/>
 		<body>
 
@@ -41,14 +41,14 @@
 
 
 			<!-- Content -->
-			<trans-unit id="tt_content.cType.z7blog_filter">
-				<source>Filterd post list</source>
-			</trans-unit>
-			<trans-unit id="tt_content.cType.z7blog_dynamic">
-				<source>Dynamic post list</source>
+			<trans-unit id="tt_content.cType.z7blog">
+				<source>Post list</source>
 			</trans-unit>
 			<trans-unit id="tt_content.cType.z7blog_static">
 				<source>Static post list</source>
+			</trans-unit>
+			<trans-unit id="tt_content.cType.z7blog_filter">
+				<source>Filter for post list</source>
 			</trans-unit>
 			<trans-unit id="tt_content.cType.z7blog_authors">
 				<source>Blog-Authors</source>
