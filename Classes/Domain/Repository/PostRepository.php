@@ -4,7 +4,6 @@ namespace Zeroseven\Z7Blog\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use Zeroseven\Z7Blog\Domain\Model\Demand;
@@ -22,7 +21,7 @@ class PostRepository extends AbstractPageRepository
         }
 
         // Override default ordering by propertyName with optional direction
-        if($demand && $demand->getSorting()) {
+        if ($demand && $demand->getSorting()) {
 
             // Examples: "date_desc", "title_asc", "title",
             if (preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getSorting(), $matches) && $property = $matches[1] ?? null) {
@@ -90,7 +89,7 @@ class PostRepository extends AbstractPageRepository
         }
 
         // Set archive mode
-        if($demand->archivedPostsHidden()) {
+        if ($demand->archivedPostsHidden()) {
             $constraints[] = $query->logicalOr([
                 $query->equals('archive', 0),
                 $query->greaterThan('archive', time())
@@ -104,15 +103,11 @@ class PostRepository extends AbstractPageRepository
 
         // Display only top posts
         if ($demand->topPostsOnly()) {
-            $and[] = $query->equals('top', 1);
+            $constraints[] = $query->equals('top', 1);
         }
 
-        // Apply constraints
-        $query->matching(
-            $query->logicalAnd($constraints)
-        );
-
-        return $this->findBelowPage($demand->getBelowPage(), $query);
+        // Ciao!
+        $this->execute($demand->getBelowPage(), $constraints);
     }
 
     public function findByAuthor(int $author, Demand $demand = null): ?QueryResultInterface
@@ -135,14 +130,12 @@ class PostRepository extends AbstractPageRepository
         // Override sorting of the posts
         $this->setOrdering($demand);
 
-        // Create query
+        // Create query constraints
         $query = $this->createQuery();
-        $query->matching(
-            $query->in('uid', $uids)
-        );
+        $constraints = $query->in('uid', $uids);
 
         // Execute the query
-        return $this->findBelowPage(null, $query);
+        return $this->execute(null, $constraints);
     }
 
 

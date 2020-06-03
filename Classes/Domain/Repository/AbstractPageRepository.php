@@ -5,7 +5,6 @@ namespace Zeroseven\Z7Blog\Domain\Repository;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
@@ -19,47 +18,46 @@ abstract class AbstractPageRepository extends Repository
         $this->setDefaultQuerySettings($querySettings);
     }
 
-    /**
-     * @param int|null $start
-     * @param QueryInterface|null $query
-     * @return array|QueryResultInterface
-     *
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\InvalidNumberOfConstraintsException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\UnexpectedTypeException
-     */
-    public function findBelowPage(int $start = null, QueryInterface $query = null)
+    public function getRootlineAndLanguageConstraints(int $startPageId = null): array
     {
+
         // Set the root page as fallback for "Automatic [0]"
-        if ((int)$start === 0) {
-            $start = (int)$GLOBALS['TSFE']->domainStartPage;
+        if (empty($startPageId)) {
+            $startPageId = (int)$GLOBALS['TSFE']->domainStartPage;
         }
 
         // Get pages beyond the given page in the tree
-        $pids = GeneralUtility::intExplode(',', GeneralUtility::makeInstance(QueryGenerator::class)->getTreeList($start, 99));
+        $pids = GeneralUtility::intExplode(',', GeneralUtility::makeInstance(QueryGenerator::class)->getTreeList($startPageId, 99));
 
-        // Set constraint
-        if ($query === null) {
-            $query = $this->createQuery();
-            $query->matching(
-                $query->in('pid', $pids)
-            );
-        } else if ($query->getConstraint()) {
-            $previousConstraint = $query->getConstraint();
-            $query->matching(
+        // Create query
+        $query = $this->createQuery();
+
+        // Return constraints
+        return [
+            $query->in('pid', $pids),
+            $query->logicalOr([
+                $query->equals('l18n_cfg', 0),
                 $query->logicalAnd([
-                    $previousConstraint,
-                    $query->in('pid', $pids)
-                ])
-            );
-        } else {
-            $query->matching(
-                $query->in('pid', $pids)
-            );
-        }
-
-        // Execute the query
-        return $query->execute();
+                    $query->greaterThanOrEqual('l18n_cfg', 1),
+                    $query->greaterThanOrEqual('sys_language_uid', 1),
+                ]),
+            ])
+        ];
     }
 
+    public function execute(int $startPageId = null, array $constraints = null): ?QueryResultInterface
+    {
+
+        // Create query
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(array_merge(
+                $this->getRootlineAndLanguageConstraints($startPageId),
+                $constraints ?? []
+            ))
+        );
+
+        // Execute the query
+        return $this->execute();
+    }
 }
