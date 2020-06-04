@@ -1,0 +1,46 @@
+#####################################################
+# Default views and plugin settings
+#####################################################
+plugin.tx_z7blog {
+  view {
+    templateRootPaths {
+      0 = EXT:z7_blog/Resources/Private/Templates/
+      10 = {$plugin.tx_z7blog.view.templateRootPath}
+    }
+
+    partialRootPaths {
+      0 = EXT:z7_blog/Resources/Private/Partials/
+      10 = {$plugin.tx_z7blog.view.partialRootPath}
+    }
+
+    layoutRootPaths {
+      0 = EXT:z7_blog/Resources/Private/Layouts/
+      10 = {$plugin.tx_z7blog.view.layoutRootPath}
+    }
+  }
+
+  persistence {
+    storagePid = {$plugin.tx_z7blog.persistence.storagePid}
+  }
+
+  features {
+    skipDefaultArguments = 1
+  }
+
+  mvc {
+    callDefaultActionIfActionCantBeResolved = 1
+  }
+
+  settings {
+    post {
+      list.ajaxTypeNum = {$plugin.tx_z7blog.settings.post.list.ajaxTypeNum}
+      list.defaultListPage = {$plugin.tx_z7blog.settings.post.list.defaultListPage}
+      list.defaultItemsPerStage = {$plugin.tx_z7blog.settings.post.list.defaultItemsPerStage}
+    }
+  }
+}
+
+#####################################################
+# Make settings accessible in the backend
+#####################################################
+module.tx_z7blog.settings < plugin.tx_z7blog.settings
