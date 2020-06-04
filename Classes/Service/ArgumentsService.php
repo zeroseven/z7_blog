@@ -34,7 +34,7 @@ class ArgumentsService
     {
         $filters = self::getDefaults();
 
-        if ($overrides = array_merge(($getRequestData ? [self::getRequestData()] : []), $arguments);) {
+        if ($overrides = array_merge(($getRequestData ? [self::getRequestData()] : []), $arguments)) {
             foreach ($overrides as $override) {
                 if (is_array($override)) {
                     foreach ($override as $key => $value) {

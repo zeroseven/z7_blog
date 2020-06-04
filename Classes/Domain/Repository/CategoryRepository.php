@@ -8,6 +8,6 @@ class CategoryRepository extends AbstractPageRepository
 {
     public function findAll(int $belowPage = null): ?QueryResultInterface
     {
-        return $this->executeWithDefaults($belowPage);
+        return $this->execute($belowPage);
     }
 }

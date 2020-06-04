@@ -58,6 +58,6 @@ abstract class AbstractPageRepository extends Repository
         );
 
         // Execute the query
-        return $this->execute();
+        return $query->execute();
     }
 }

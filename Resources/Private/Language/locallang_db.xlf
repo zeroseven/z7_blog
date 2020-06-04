@@ -54,6 +54,62 @@
 				<source>Blog-Authors</source>
 			</trans-unit>
 
+			<!-- Flexform of plugin z7blog_list -->
+			<trans-unit id="tt_content.flexForms.z7blog_list.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.category.auto">
+				<source>Auto</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.category.available">
+				<source>Available categories:</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.0">
+				<source>Show all</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.1">
+				<source>Show top posts first</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.2">
+				<source>Only top posts</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.ordering">
+				<source>Ordering</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.date_desc">
+				<source>Latest first</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.date_asc">
+				<source>Oldest first</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.title_asc">
+				<source>By title, ascending</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.title_desc">
+				<source>By title, descending</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.itemsPerStages">
+				<source>Items per stage</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.itemsPerStages.placeholder">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.itemsPerStages.description">
+				<source>Example: Add "4, 8" to display 4 elements for the first stage and 8 for the second and all subsequent ones.</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.maxStages">
+				<source>Maximum number of stages</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.maxStages.0">
+				<source>Unlimited</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.layout">
+				<source>Layout options</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.layout.0">
+				<source>Default</source>
+			</trans-unit>
+
 			<!-- Blog Authors -->
 			<trans-unit id="tx_z7blog_domain_model_author">
 				<source>Blog author</source>
