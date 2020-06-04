@@ -28,9 +28,6 @@ class Author extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $page;
 
     /** @var string */
-    protected $pageLink;
-
-    /** @var string */
     protected $twitter;
 
     /** @var string */
@@ -38,6 +35,13 @@ class Author extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /** @var string */
     protected $xing;
+
+    /** @var string */
+    protected $pageLink;
+
+    /** @var string */
+    protected $fullName;
+
 
     /**
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
@@ -122,17 +126,6 @@ class Author extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this;
     }
 
-    public function getPageLink(): ?string
-    {
-        if($this->pageLink === null) {
-            return $this->pageLink = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
-                'parameter' => $this->getPage()
-            ]);
-        }
-
-        return null;
-    }
-
     public function getTwitter(): ?string
     {
         return $this->twitter;
@@ -164,6 +157,26 @@ class Author extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->xing = $xing;
         return $this;
+    }
+
+    public function getPageLink(): ?string
+    {
+        if($this->pageLink === null) {
+            return $this->pageLink = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
+                'parameter' => $this->getPage()
+            ]);
+        }
+
+        return null;
+    }
+
+    public function getFullName(): ?string
+    {
+        if($this->fullName === null) {
+            return $this->fullName = trim((string)$this->getFirstname() . ' ' . (string)$this->getLastname());
+        }
+
+        return null;
     }
 
 }

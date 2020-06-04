@@ -26,6 +26,11 @@ call_user_func(static function () {
         ['source' => 'EXT:z7_blog/Resources/Public/Icons/content-z7blog-authors.svg']
     );
     $iconRegistry->registerIcon(
+        'plugin-z7blog-author',
+        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        ['source' => 'EXT:z7_blog/Resources/Public/Icons/tx_z7blog_domain_model_author.svg']
+    );
+    $iconRegistry->registerIcon(
         'apps-pagetree-blogpost',
         \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
         ['source' => 'EXT:z7_blog/Resources/Public/Icons/apps-pagetree-blogpost.svg']

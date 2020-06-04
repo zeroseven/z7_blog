@@ -64,6 +64,9 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.category.available">
 				<source>Available categories:</source>
 			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.author">
+				<source>Author</source>
+			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.0">
 				<source>Show all</source>
 			</trans-unit>
