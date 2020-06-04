@@ -26,7 +26,7 @@ class RedirectHandler implements MiddlewareInterface
 
             // Return redirect response
             return $this->buildRedirectResponse([
-                'parameter' => (int)SettingsService::getKey('list.defaultPid'),
+                'parameter' => (int)SettingsService::getSettings('post.list.defaultListPage'),
                 'useCacheHash' => true,
                 'additionalParams' => '&' . ArgumentsService::REQUEST_KEY . '[category]=' . $row['uid'] . (($type = (int)GeneralUtility::_GET('type')) ? '&type=' . $type : '')
             ]);

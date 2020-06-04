@@ -15,33 +15,14 @@ class SettingsService
 
     public const EXTENSION_KEY = 'z7_blog';
 
-    protected static function pluginConfiguration(): array
+    protected static function getKey(array $array, string $key = null)
     {
-        $typoScriptSetup = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationManager::class)->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $pluginConfiguration = [];
 
-        if ($settings = ($typoScriptSetup['plugin.']['tx_z7blog.']['settings.'] ?? null)) {
-            $pluginConfiguration = GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($settings);
+        if($key === null) {
+            return $array;
         }
 
-        return $pluginConfiguration;
-    }
-
-    public static function get(): array
-    {
-
-        // Return cached settings
-        if ($cache = $GLOBALS['USER'][self::EXTENSION_KEY]['settings'] ?? null) {
-            return $cache;
-        }
-
-        // Cache settings and return merged array
-        return $GLOBALS['USER'][self::EXTENSION_KEY]['settings'] = self::pluginConfiguration();
-    }
-
-    public static function getKey(string $key)
-    {
-        $settings = self::get();
+        $settings = $array;
         $parts = GeneralUtility::trimExplode('.', $key, true);
 
         foreach ($parts as $part) {
@@ -53,6 +34,27 @@ class SettingsService
         }
 
         return $settings ?? null;
+    }
+
+    public static function getPluginConfiguration(string $key = null)
+    {
+        // Try to get settings from cache
+        if (!is_array($pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['plugin_configuration'] ?? null)) {
+
+            $typoScriptSetup = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationManager::class)->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+            if ($settings = ($typoScriptSetup['plugin.']['tx_z7blog.'] ?? null)) {
+                $pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['plugin_configuration'] = (array)GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($settings);
+            }
+        }
+
+        return self::getKey($pluginConfiguration, $key);
+    }
+
+    public static function getSettings(string $key = null)
+    {
+        $settings = self::getPluginConfiguration('settings') ?? [];
+
+        return self::getKey($settings, $key);
     }
 
 }
