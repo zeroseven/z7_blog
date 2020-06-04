@@ -1,18 +1,18 @@
 mod.wizards.newContentElement.wizardItems.blog {
   elements {
     postList {
-      iconIdentifier = content-z7blog
+      iconIdentifier = content-z7blog-list
       title = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postList.title
       description = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postList.description
       tt_content_defValues {
-        CType = z7blog
+        CType = z7blog_list
       }
     }
 
-    postListStatic {
+    postStatic {
       iconIdentifier = content-z7blog-static
-      title = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postListStatic.title
-      description = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postListStatic.description
+      title = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postStatic.title
+      description = LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:wizard.postStatic.description
       tt_content_defValues {
         CType = z7blog_static
       }

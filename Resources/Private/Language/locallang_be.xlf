@@ -10,10 +10,10 @@
 			<trans-unit id="wizard.postList.description">
 				<source>Standard list of post that can be limited by various constraints.</source>
 			</trans-unit>
-			<trans-unit id="wizard.postListStatic.title">
+			<trans-unit id="wizard.postStatic.title">
 				<source>Static Postlist</source>
 			</trans-unit>
-			<trans-unit id="wizard.postListStatic.description">
+			<trans-unit id="wizard.postStatic.description">
 				<source>List of posts with the posts manually selected.</source>
 			</trans-unit>
 			<trans-unit id="wizard.postFilter.title">

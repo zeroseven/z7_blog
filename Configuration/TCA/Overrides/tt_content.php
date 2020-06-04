@@ -1,32 +1,32 @@
 <?php
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 defined('TYPO3_MODE') || die('Access denied.');
 
-call_user_func(static function () {
+call_user_func(static function (array $cTypes) {
 
-    // Register plugins
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'Zeroseven.Z7Blog',
-        'List',
-        'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.z7blog',
-        'content-z7blog-list'
-    );
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'Zeroseven.Z7Blog',
-        'Static',
-        'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.z7blog_static',
-        'content-z7blog-static'
-    );
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'Zeroseven.Z7Blog',
-        'Filter',
-        'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.z7blog_filter',
-        'content-z7blog-filter'
-    );
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'Zeroseven.Z7Blog',
-        'Authors',
-        'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.z7blog_authors',
-        'content-z7blog-authors'
-    );
+    foreach ($cTypes as $cType) {
 
-});
+        // Create resource identifier
+        $resourceIdentifier = 'content-' . str_replace('_', '-', $cType);
+
+        // Add some default fields to the content elements by copy configuration of "header"
+        $GLOBALS['TCA']['tt_content']['types'][$cType]['showitem'] = $GLOBALS['TCA']['tt_content']['types']['header']['showitem'];
+
+        // Register Flexform
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue('*', 'FILE:EXT:z7_blog/Configuration/FlexForms/' . $resourceIdentifier . '.xml', $cType);
+
+        // Add the flexform to the content element
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'pi_flexform', $cType, 'after:header');
+
+        // Register plugins
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            'Zeroseven.Z7Blog',
+            'List',
+            'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType' . $cType,
+            $resourceIdentifier
+        );
+    }
+
+}, ['z7blog_list', 'z7blog_static', 'z7blog_filter', 'z7blog_authors']);
