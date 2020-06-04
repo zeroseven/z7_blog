@@ -7,8 +7,8 @@ return [
         'properties' => [
             'fileReferences' => [
                 'fieldName' => 'media'
-            ],
-        ],
+            ]
+        ]
     ],
     \Zeroseven\Z7Blog\Domain\Model\Category::class => [
         'tableName' => 'pages',
@@ -16,8 +16,8 @@ return [
         'properties' => [
             'redirectCategory' => [
                 'fieldName' => 'post_redirect_category'
-            ],
-        ],
+            ]
+        ]
     ],
     \Zeroseven\Z7Blog\Domain\Model\Post::class => [
         'tableName' => 'pages',
@@ -40,7 +40,7 @@ return [
             ],
             'related' => [
                 'fieldName' => 'post_related'
-            ],
-        ],
+            ]
+        ]
     ],
 ];
