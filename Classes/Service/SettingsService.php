@@ -27,11 +27,6 @@ class SettingsService
         return $pluginConfiguration;
     }
 
-    protected static function extensionConfiguration(): array
-    {
-        return GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::EXTENSION_KEY) ?: [];
-    }
-
     public static function get(): array
     {
 
@@ -41,10 +36,7 @@ class SettingsService
         }
 
         // Cache settings and return merged array
-        return $GLOBALS['USER'][self::EXTENSION_KEY]['settings'] = array_merge(
-            self::pluginConfiguration(),
-            self::extensionConfiguration()
-        );
+        return $GLOBALS['USER'][self::EXTENSION_KEY]['settings'] = self::pluginConfiguration();
     }
 
     public static function getKey(string $key)
