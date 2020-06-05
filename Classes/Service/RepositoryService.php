@@ -15,7 +15,13 @@ class RepositoryService
 
     protected static function initializeClass(string $class): RepositoryInterface
     {
-        return GeneralUtility::makeInstance(ObjectManager::class)->get($class);
+        // Get from cache
+        if ($repository = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['repository'][$class] ?? null) {
+            return $repository;
+        }
+
+        // Get repository an store in cache
+        return $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['repository'][$class] = GeneralUtility::makeInstance(ObjectManager::class)->get($class);
     }
 
     public static function getPostRepository(): PostRepository

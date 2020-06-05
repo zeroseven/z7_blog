@@ -1,7 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(static function (array $cTypes) {
