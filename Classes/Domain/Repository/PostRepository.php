@@ -112,7 +112,7 @@ class PostRepository extends AbstractPageRepository
         }
 
         // Ciao!
-        $this->execute($demand->getBelowPage(), $constraints);
+        $this->execute($demand->getCategory(), $constraints);
     }
 
     public function findByAuthor(int $author, Demand $demand = null): ?QueryResultInterface
@@ -137,10 +137,10 @@ class PostRepository extends AbstractPageRepository
 
         // Create query constraints
         $query = $this->createQuery();
-        $constraints = $query->in('uid', $uids);
+        $constraint = $query->in('uid', $uids);
 
         // Execute the query
-        return $this->execute(null, $constraints);
+        return $this->execute(null, [$constraint]);
     }
 
 
