@@ -23,14 +23,20 @@ class PostController extends ActionController
     public function listAction(): void
     {
 
+        // Get data of content element
+        $data = $this->getContentData();
+
         // Get request data
-        $requestArguments = $this->request->getArguments();
+        $requestArguments = [];
+        if (!$this->request->hasArgument('list_id') || $this->request->hasArgument('list_id') && (int)$this->request->getArgument('list_id') === (int)$data['uid']) {
+            $requestArguments = $this->request->getArguments();
+        }
 
         // Determine relevant arguments for filtering
         $demand = Demand::makeInstance()->setParameterArray(false, $this->settings, $requestArguments);
 
         // Try to find the category if empty
-        if(empty($demand->getCategory() === 0) && $category = RootlineService::findCategory()) {
+        if (empty($demand->getCategory() === 0) && $category = RootlineService::findCategory()) {
             $demand->setCategory($category);
         }
 
@@ -47,7 +53,7 @@ class PostController extends ActionController
             'demand' => $demand,
             'settings' => $this->settings,
             'requestArguments' => $requestArguments,
-            'data' => $this->getContentData()
+            'data' => $data;
         ]);
     }
 
