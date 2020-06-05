@@ -24,20 +24,20 @@ class Post extends AbstractPageModel
     /** @var bool */
     protected $archived;
 
-    /** @var \Blog\Blogpages\Domain\Model\Category */
+    /** @var \Zeroseven\Z7Blog\Domain\Model\Category */
     protected $category;
 
-    /** @var \Blog\Blogpages\Domain\Model\Author */
+    /** @var \Zeroseven\Z7Blog\Domain\Model\Author */
     protected $author;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Blogpages\Domain\Model\Tag>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Topic>
      * @Extbase\ORM\Cascade("remove")
      */
-    protected $tags;
+    protected $topics;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Blogpages\Domain\Model\Post>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
      * @Extbase\ORM\Cascade("remove")
      */
     protected $related;
@@ -45,7 +45,7 @@ class Post extends AbstractPageModel
     protected function initStorageObjects(): void
     {
         parent::initStorageObjects();
-        $this->tags = new ObjectStorage();
+        $this->topics = new ObjectStorage();
         $this->related = new ObjectStorage();
     }
 
@@ -122,24 +122,24 @@ class Post extends AbstractPageModel
         return $this;
     }
 
-    public function addTag(Tag $tag): void
+    public function addTopic(Topic $topic): void
     {
-        $this->tags->attach($tag);
+        $this->topics->attach($topic);
     }
 
-    public function removeTag(Tag $tagToRemove): void
+    public function removeTopic(Topic $topicToRemove): void
     {
-        $this->tags->detach($tagToRemove);
+        $this->topics->detach($topicToRemove);
     }
 
-    public function getTags(): ObjectStorage
+    public function getTopics(): ObjectStorage
     {
-        return $this->tags;
+        return $this->topics;
     }
 
-    public function setTags(ObjectStorage $tags): self
+    public function setTopics(ObjectStorage $topics): self
     {
-        $this->tags = $tags;
+        $this->topics = $topics;
         return $this;
     }
 
