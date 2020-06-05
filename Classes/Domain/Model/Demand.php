@@ -20,6 +20,9 @@ class Demand
     public const ARCHIVED_POSTS_ONLY = 2;
 
     /** @var int */
+    protected $stage;
+
+    /** @var int */
     protected $belowPage;
 
     /** @var int */
@@ -54,6 +57,17 @@ class Demand
     static public function makeInstance(...$args): self
     {
         return GeneralUtility::makeInstance(self::class, ...$args);
+    }
+
+    public function getStage(): int
+    {
+        return (int)$this->stage;
+    }
+
+    public function setStage(int $stage): self
+    {
+        $this->stage = $stage;
+        return $this;
     }
 
     public function getBelowPage(): int
