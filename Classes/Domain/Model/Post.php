@@ -2,11 +2,10 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use Zeroseven\Z7Blog\Service\RootlineService;
 
 class Post extends AbstractPageModel
 {
@@ -99,14 +98,8 @@ class Post extends AbstractPageModel
 
     public function getCategory(): ?Category
     {
-        if ($this->category === null) {
-            $rootLine = $GLOBALS['TSFE']->rootLine ?: GeneralUtility::makeInstance(RootlineUtility::class, $this->getUid())->get();
-
-            foreach ($rootLine as $key => $row) {
-                if ((int)$row['doktype'] === Category::DOKTYPE) {
-                    return $this->category = RepositoryService::getCategoryRepository()->findByUid((int)$row['uid']);
-                }
-            }
+        if ($this->category === null && $uid = RootlineService::findCategory($this->getUid())) {
+            return $this->category = RepositoryService::getCategoryRepository()->findByUid($uid);
         }
 
         return $this->category;

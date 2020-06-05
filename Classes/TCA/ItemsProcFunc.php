@@ -7,8 +7,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
-use Zeroseven\HfhProducts\Domain\Model\Category;
 use Zeroseven\Z7Blog\Service\RepositoryService;
+use Zeroseven\Z7Blog\Service\RootlineService;
 use Zeroseven\Z7Blog\Service\SettingsService;
 
 class ItemsProcFunc
@@ -17,19 +17,6 @@ class ItemsProcFunc
     protected function getPageUid(array $config): int
     {
         return GeneralUtility::_GP('id') ?: $config['flexParentDatabaseRow']['pid'];
-    }
-
-    protected function getRootPageUid(int $currentPage): int
-    {
-        $rootLine = GeneralUtility::makeInstance(BackendUtility::class)->BEgetRootLine($currentPage) ?: [];
-
-        foreach ($rootLine as $page) {
-            if($page['is_siteroot'] || (int)$page['pid'] === 0) {
-                return (int)$page['uid'];
-            }
-        }
-
-        return 0;
     }
 
     protected function initializeRepository(RepositoryInterface $repository, bool $setStoragePid): RepositoryInterface
@@ -66,7 +53,7 @@ class ItemsProcFunc
         // Get the current pid
         $rootPageUid = 0;
         if ($currentUid = $this->getPageUid($PA)) {
-            $rootPageUid = $this->getRootPageUid($currentUid);
+            $rootPageUid = RootlineService::getRootPage($currentUid);
         }
 
         // Add categories to the items

@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use Zeroseven\Z7Blog\Service\RootlineService;
 
 abstract class AbstractPageRepository extends Repository
 {
@@ -23,7 +24,7 @@ abstract class AbstractPageRepository extends Repository
 
         // Set the root page as fallback for "Automatic [0]"
         if (empty($startPageId)) {
-            $startPageId = (int)$GLOBALS['TSFE']->domainStartPage;
+            $startPageId = RootlineService::getRootPage();
         }
 
         // Get pages beyond the given page in the tree
