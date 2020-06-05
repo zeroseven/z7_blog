@@ -21,8 +21,8 @@ call_user_func(static function (array $cTypes) {
         // Register plugins
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'Zeroseven.Z7Blog',
-            'List',
-            'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType' . $cType,
+            ucfirst(str_replace('z7blog_', '', $cType)),
+            'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.' . $cType,
             $resourceIdentifier
         );
     }

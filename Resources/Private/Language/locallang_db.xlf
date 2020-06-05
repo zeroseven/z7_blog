@@ -41,7 +41,7 @@
 
 
 			<!-- Content -->
-			<trans-unit id="tt_content.cType.z7blog">
+			<trans-unit id="tt_content.cType.z7blog_list">
 				<source>Post list</source>
 			</trans-unit>
 			<trans-unit id="tt_content.cType.z7blog_static">
