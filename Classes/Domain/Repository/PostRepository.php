@@ -65,6 +65,11 @@ class PostRepository extends AbstractPageRepository
         // Override sorting of the posts
         $this->setOrdering($demand);
 
+        // Abort here, if no demand object is given
+        if ($demand === null) {
+            return $this->execute();
+        }
+
         // Create query
         $query = $this->createQuery();
 
