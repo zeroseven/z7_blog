@@ -82,12 +82,13 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_z7blog_domain_model_author',
-                'foreign_table_where' => ' AND tx_z7blog_domain_model_author.sys_language_uid <= 0 ORDER BY tx_z7blog_domain_model_author.firstname ASC',
+                'foreign_table_where' => 'AND \'all other authors\' = \'gone, LOL\'',
+                'itemsProcFunc' => 'Zeroseven\\Z7Blog\\TCA\\ItemsProcFunc->getAuthors',
                 'minitems' => 0,
                 'maxitems' => 1,
                 'default' => 0,
                 'items' => [
-                    ['-', 0]
+                    ['-', 0, 'plugin-z7blog-author']
                 ],
             ],
         ],

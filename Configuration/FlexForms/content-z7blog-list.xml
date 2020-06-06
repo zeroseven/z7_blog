@@ -21,6 +21,7 @@
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.category.auto</numIndex>
 										<numIndex index="1">0</numIndex>
+										<numIndex index="2">apps-pagetree-blogcategory</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.category.available</numIndex>
@@ -44,6 +45,7 @@
 									<numIndex index="0" type="array">
 										<numIndex index="0">-</numIndex>
 										<numIndex index="1">0</numIndex>
+										<numIndex index="2">plugin-z7blog-author</numIndex>
 									</numIndex>
 								</items>
 							</config>
