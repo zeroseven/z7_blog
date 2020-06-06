@@ -9,6 +9,7 @@ use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
 use Zeroseven\Z7Blog\Domain\Repository\PostRepository;
 use Zeroseven\Z7Blog\Domain\Repository\CategoryRepository;
 use Zeroseven\Z7Blog\Domain\Repository\AuthorRepository;
+use Zeroseven\Z7Blog\Domain\Repository\TopicRepository;
 
 class RepositoryService
 {
@@ -37,6 +38,11 @@ class RepositoryService
     public static function getAuthorRepository(): AuthorRepository
     {
         return self::initializeClass(AuthorRepository::class);
+    }
+
+    public static function getTopicRepository(): TopicRepository
+    {
+        return self::initializeClass(TopicRepository::class);
     }
 
 }

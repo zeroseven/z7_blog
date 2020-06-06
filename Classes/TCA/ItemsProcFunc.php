@@ -72,4 +72,14 @@ class ItemsProcFunc
         }
     }
 
+    public function getTopics(array &$PA)
+    {
+        $topicRepository = $this->initializeRepository(RepositoryService::getTopicRepository(), true);
+
+        // Add topics to the items
+        foreach ($topicRepository->findAll() ?: [] as $topic) {
+            $PA['items'][] = [$topic->getTitle(), $topic->getUid(), 'plugin-z7blog-topic'];
+        }
+    }
+
 }

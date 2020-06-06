@@ -91,6 +91,20 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 ],
             ],
         ],
+        'post_topics' => [
+            'exclude' => true,
+            'l10n_mode' => 'exclude',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_topics',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectCheckBox',
+                'foreign_table' => 'tx_z7blog_domain_model_topic',
+                'foreign_table_where' => 'AND \'all other topics\' = \'gone, LOL\'',
+                'MM' => 'tx_z7blog_post_topic_mm',
+                'itemsProcFunc' => 'Zeroseven\\Z7Blog\\TCA\\ItemsProcFunc->getTopics',
+                'default' => 0,
+            ],
+        ],
         'post_related' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
@@ -145,19 +159,12 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         'post_date, post_archive'
     );
 
-    // Register post palette
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
-        $table,
-        'blogpost_relations',
-        'post_author, --linebreak--, post_related'
-    );
-
     // Add fields to post pages
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table,'
         --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog, 
             post_top, 
             --palette--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.palette.blogpost_date_settings;blogpost_date_settings, 
-            --palette--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.palette.blogpost_relations;blogpost_relations, 
+            post_author, post_topics, post_related, 
     ', (string)$postDoktype);
 
     // Add fields to category pages

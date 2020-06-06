@@ -3,7 +3,7 @@
 		<general>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Settings</sheetTitle>
+					<sheetTitle>Filter</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
@@ -49,6 +49,26 @@
 							</config>
 						</TCEforms>
 					</settings.author>
+
+					<settings.topic>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.topic</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<minitems>0</minitems>
+								<maxitems>1</maxitems>
+								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getTopics</itemsProcFunc>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">-</numIndex>
+										<numIndex index="1">0</numIndex>
+										<numIndex index="2">plugin-z7blog-topic</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.topic>
 
 				</el>
 			</ROOT>

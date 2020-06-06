@@ -11,9 +11,6 @@
 			<trans-unit id="pages.palette.blogpost_date_settings">
 				<source>Date</source>
 			</trans-unit>
-			<trans-unit id="pages.palette.blogpost_relations">
-				<source>Relations</source>
-			</trans-unit>
 			<trans-unit id="pages.doktype.post">
 				<source>Post</source>
 			</trans-unit>
@@ -32,13 +29,15 @@
 			<trans-unit id="pages.post_author">
 				<source>Author</source>
 			</trans-unit>
+			<trans-unit id="pages.post_topics">
+				<source>Topics</source>
+			</trans-unit>
 			<trans-unit id="pages.post_related">
 				<source>Related Posts</source>
 			</trans-unit>
 			<trans-unit id="pages.post_redirect_category">
 				<source>Redirect to the overview page</source>
 			</trans-unit>
-
 
 			<!-- Content -->
 			<trans-unit id="tt_content.cType.z7blog_list">
@@ -66,6 +65,9 @@
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.author">
 				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.topic">
+				<source>Topic</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.0">
 				<source>Show all</source>
@@ -155,6 +157,14 @@
 			</trans-unit>
 			<trans-unit id="tx_z7blog_domain_model_author.xing">
 				<source>Xing</source>
+			</trans-unit>
+
+			<!-- Blog Topic -->
+			<trans-unit id="tx_z7blog_domain_model_topic">
+				<source>Blog topic</source>
+			</trans-unit>
+			<trans-unit id="tx_z7blog_domain_model_topic.title">
+				<source>Title</source>
 			</trans-unit>
 		</body>
 	</file>

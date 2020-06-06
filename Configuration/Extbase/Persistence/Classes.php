@@ -38,6 +38,9 @@ return [
             'author' => [
                 'fieldName' => 'post_author'
             ],
+            'topics' => [
+                'fieldName' => 'post_topics'
+            ],
             'related' => [
                 'fieldName' => 'post_related'
             ]
