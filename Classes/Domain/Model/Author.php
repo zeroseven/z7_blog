@@ -5,9 +5,10 @@ namespace Zeroseven\Z7Blog\Domain\Model;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
-class Author extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Author extends AbstractEntity
 {
     /** @var string */
     protected $firstname;

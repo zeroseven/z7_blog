@@ -53,7 +53,7 @@ class PostController extends ActionController
             'demand' => $demand,
             'settings' => $this->settings,
             'requestArguments' => $requestArguments,
-            'data' => $data;
+            'data' => $data
         ]);
     }
 

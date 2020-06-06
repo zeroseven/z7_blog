@@ -21,7 +21,7 @@ class PostRepository extends AbstractPageRepository
         }
 
         // Override default ordering by propertyName with optional direction
-        if ($demand && $demand->getSorting()) {
+        if ($demand && $demand->getOrdering()) {
 
             // Examples: "date_desc", "title_asc", "title",
             if (preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getSorting(), $matches) && $property = $matches[1] ?? null) {
@@ -83,7 +83,7 @@ class PostRepository extends AbstractPageRepository
 
         // Add topic constraint
         if ($topic = $demand->getTopic()) {
-            $constraints[] = $query->contains('topic', $topic);
+            $constraints[] = $query->contains('topics', $topic);
         }
 
         // Filter post by tags
@@ -96,13 +96,13 @@ class PostRepository extends AbstractPageRepository
         // Set archive mode
         if ($demand->archivedPostsHidden()) {
             $constraints[] = $query->logicalOr([
-                $query->equals('archive', 0),
-                $query->greaterThan('archive', time())
+                $query->equals('archiveDate', 0),
+                $query->greaterThan('archiveDate', time())
             ]);
         } elseif ($demand->archivedPostsOnly()) {
             $constraints[] = $query->logicalAnd([
-                $query->greaterThan('archive', 1),
-                $query->lessThan('archive', time())
+                $query->greaterThan('archiveDate', 1),
+                $query->lessThan('archiveDate', time())
             ]);
         }
 
@@ -112,7 +112,7 @@ class PostRepository extends AbstractPageRepository
         }
 
         // Ciao!
-        $this->execute($demand->getCategory(), $constraints);
+        return $this->execute($demand->getCategory(), $constraints);
     }
 
     public function findByAuthor(int $author, Demand $demand = null): ?QueryResultInterface

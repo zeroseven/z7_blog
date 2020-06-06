@@ -29,7 +29,7 @@ class Pagination
         'list' => [0]
     ];
 
-    public function __construct(QueryResult $items, int $stage, string $itemsPerStage, int $maxStages = null)
+    public function __construct(QueryResult $items, int $stage, $itemsPerStage, int $maxStages = null)
     {
 
         // Set limit of stages
@@ -53,12 +53,13 @@ class Pagination
         $this->items = array_slice($items->toArray(), $this->offset, $this->limit);
     }
 
-    protected function determineStages(string $itemsPerStage): array
+    protected function determineStages($itemsPerStage): array
     {
         $limit = $this->stages['limit'];
-        $stageLengths = GeneralUtility::intExplode(',', $itemsPerStage, true);
+        $stageLengths = GeneralUtility::intExplode(',', (string)$itemsPerStage, true);
         $stages = array_splice($stageLengths, 0, $limit);
 
+        // TODO: Check length of stages to prevent "0" or negative values …
         return array_replace(array_fill(0, $limit, end($stages)), array_values($stages));
     }
 
