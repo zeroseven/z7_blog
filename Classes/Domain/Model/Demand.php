@@ -72,11 +72,6 @@ class Demand
         return GeneralUtility::makeInstance(self::class);
     }
 
-    public static function getProperties(): array
-    {
-
-    }
-
     protected function setTypeInt(&$property, $value): self
     {
         if ($value === null || is_int($value) || MathUtility::canBeInterpretedAsInteger($value)) {
