@@ -46,21 +46,35 @@ class Demand
     /** @var string */
     protected $ordering;
 
-    public $propertyNames = [
-        'stage',
-        'category',
-        'author',
-        'topic',
-        'tags',
-        'top_posts_mode',
-        'archive_mode',
-        'ordering',
-        'list_id'
-    ];
+    /** @var int */
+    protected $listId;
+
+    /** @var array */
+    public $allowedParameters;
+
+    public function __construct()
+    {
+
+        // Create array of allowed parameters by property names of reflection class
+        $properties = GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties();
+        $this->allowedParameters = array_map(static function($reflection) {
+            return GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name);
+        }, $properties);
+
+        // Remove the parameter "allowed_parameters" from array of allowed parameters ;-)
+        $this->allowedParameters = array_filter($this->allowedParameters, static function($parameter) {
+            return $parameter !== 'allowed_parameters';
+        });
+    }
 
     public static function makeInstance(): self
     {
         return GeneralUtility::makeInstance(self::class);
+    }
+
+    public static function getProperties(): array
+    {
+
     }
 
     protected function setTypeInt(&$property, $value): self
@@ -220,11 +234,11 @@ class Demand
             }
 
             // Set properties
-            foreach ($argument as $property => $value) {
-                if ((!empty($value) || !$ignoreEmptyValues) && in_array($property, $this->propertyNames, true)) {
+            foreach ($argument as $parameter => $value) {
+                if ((!empty($value) || !$ignoreEmptyValues) && in_array($parameter, $this->allowedParameters, true)) {
 
                     // Call function "set[PropertyName]()"
-                    $method = sprintf('set%s', GeneralUtility::underscoredToUpperCamelCase($property));
+                    $method = sprintf('set%s', GeneralUtility::underscoredToUpperCamelCase($parameter));
                     if (is_callable([$this, $method])) {
                         $this->$method($value);
                     }
@@ -240,16 +254,16 @@ class Demand
         $parameters = [];
 
         // Call function "get[PropertyName]()" and add to array
-        foreach ($this->propertyNames as $propertyName) {
-            $method = sprintf('get%s', GeneralUtility::underscoredToUpperCamelCase($propertyName));
+        foreach ($this->allowedParameters as $parameter) {
+            $method = sprintf('get%s', GeneralUtility::underscoredToUpperCamelCase($parameter));
             if (is_callable([$this, $method])) {
-                $parameters[$propertyName] = $this->$method();
+                $parameters[$parameter] = $this->$method();
             }
         }
 
         // Return array with/without empty values
-        return !$ignoreEmptyValues ? $parameters : array_filter($parameters, static function ($v) {
-            return !empty($v);
+        return !$ignoreEmptyValues ? $parameters : array_filter($parameters, static function ($value) {
+            return !empty($value);
         });
     }
 }
