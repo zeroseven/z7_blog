@@ -38,7 +38,7 @@ class Demand
     protected $tags;
 
     /** @var int */
-    protected $topPostsMode;
+    protected $topPostMode;
 
     /** @var int */
     protected $archiveMode;
@@ -164,14 +164,14 @@ class Demand
        return $this->setTypeArray($this->tags, $tags);
     }
 
-    public function getTopPostsMode(): int
+    public function getTopPostMode(): int
     {
-        return (int)$this->topPostsMode;
+        return (int)$this->topPostMode;
     }
 
-    public function setTopPostsMode($topPostsMode): self
+    public function setTopPostMode($topPostMode): self
     {
-        return $this->setTypeInt($this->topPostsMode, $topPostsMode);
+        return $this->setTypeInt($this->topPostMode, $topPostMode);
     }
 
     public function getArchiveMode(): int
@@ -206,22 +206,22 @@ class Demand
 
     public function topPostsFirst(): bool
     {
-        return $this->getTopPostsMode() === self::TOP_POSTS_FIRST;
+        return $this->getTopPostMode() === self::TOP_POSTS_FIRST;
     }
 
     public function topPostsOnly(): bool
     {
-        return $this->getTopPostsMode() === self::TOP_POSTS_ONLY;
+        return $this->getTopPostMode() === self::TOP_POSTS_ONLY;
     }
 
     public function archivedPostsHidden(): bool
     {
-        return $this->getTopPostsMode() === self::ARCHIVED_POSTS_HIDDEN;
+        return $this->getTopPostMode() === self::ARCHIVED_POSTS_HIDDEN;
     }
 
     public function archivedPostsOnly(): bool
     {
-        return $this->getTopPostsMode() === self::ARCHIVED_POSTS_ONLY;
+        return $this->getTopPostMode() === self::ARCHIVED_POSTS_ONLY;
     }
 
     public function setParameterArray(bool $ignoreEmptyValues, ...$arguments): self
