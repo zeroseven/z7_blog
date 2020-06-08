@@ -11,6 +11,9 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 class Stage extends ObjectStorage
 {
 
+    /** @var Pagination */
+    protected $pagination;
+
     /** @var int */
     protected $index;
 
@@ -20,14 +23,20 @@ class Stage extends ObjectStorage
     /** @var bool */
     protected $selected;
 
-    public function getIndex(): int
+    public function __construct(Pagination $pagination)
     {
-        return $this->index;
+        $this->pagination = $pagination;
     }
 
-    public function setIndex(int $index)
+    public function getIndex(): int
+    {
+        return (int)$this->index;
+    }
+
+    public function setIndex(int $index): self
     {
         $this->index = $index;
+        return $this;
     }
 
     public function isActive(): bool
@@ -35,9 +44,10 @@ class Stage extends ObjectStorage
         return $this->active;
     }
 
-    public function setActive(bool $active)
+    public function setActive(bool $active): self
     {
         $this->active = $active;
+        return $this;
     }
 
     public function isSelected(): bool
@@ -45,14 +55,20 @@ class Stage extends ObjectStorage
         return $this->selected;
     }
 
-    public function setSelected(bool $selected)
+    public function setSelected(bool $selected): self
     {
         $this->selected = $selected;
+        return $this;
     }
 
     public function getItems(): array
     {
         return $this->toArray();
+    }
+
+    public function getRange(): array
+    {
+        return $this->pagination->getRange($this->getIndex());
     }
 
 }
@@ -62,20 +78,9 @@ class Stages extends ObjectStorage
 
     protected $pagination;
 
-    protected $stageLengths;
-
     public function __construct(Pagination $pagination)
     {
         $this->pagination = $pagination;
-    }
-
-    protected function determineStageLengths(): void
-    {
-        $stageLengths = GeneralUtility::intExplode(',', $this->pagination->getItemsPerStage(), true);
-        $stages = array_slice($stageLengths, 0, $this->pagination->getMaxStages());
-
-        // Set calculated lengths
-        $this->stageLengths = array_replace(array_fill(0, $this->pagination->getMaxStages(), end($stages)), array_values($stages));
     }
 
     public function initialize(): void
@@ -84,26 +89,23 @@ class Stages extends ObjectStorage
         // Remove all existing objects
         $this->removeAll($this);
 
-        // Recalculate the stage lengths
-        $this->determineStageLengths();
-
         // Create array of items
         $items = $this->pagination->getItems()->toArray();
 
         // Build new stages
-        foreach ($this->stageLengths as $index => $stageLength) {
+        foreach ($this->pagination->getStageLengths() as $index => $stageLength) {
             if (count($items)) {
 
                 // Add items to stage
-                $stage = GeneralUtility::makeInstance(Stage::class);
+                $stage = GeneralUtility::makeInstance(Stage::class, $this->pagination);
                 foreach (array_splice($items, 0, $stageLength) as $item) {
                     $stage->attach($item);
                 }
 
                 // Set attributes on stage object
-                $stage->setIndex($index);
-                $stage->setActive($index <= $this->pagination->getSelectedStage());
-                $stage->setSelected($index === $this->pagination->getSelectedStage());
+                $stage->setIndex($index)
+                    ->setActive($index <= $this->pagination->getSelectedStage())
+                    ->setSelected($index === $this->pagination->getSelectedStage());
 
                 // Add stage to the stages
                 $this->attach($stage);
@@ -123,14 +125,14 @@ class Stages extends ObjectStorage
 
     public function getActive(): array
     {
-        return array_filter($this->toArray(), static function($stage){
+        return array_filter($this->toArray(), static function ($stage) {
             return $stage->isActive();
         });
     }
 
     public function getInactive(): array
     {
-        return array_filter($this->toArray(), static function($stage){
+        return array_filter($this->toArray(), static function ($stage) {
             return !$stage->isActive();
         });
     }
@@ -155,6 +157,9 @@ class Pagination
     /** @var int */
     protected $maxStages;
 
+    /** @var array */
+    protected $stageLengths;
+
     public function __construct(QueryResultInterface $items, $selectedStage = null, $itemsPerStage = null, $maxStages = null)
     {
 
@@ -167,8 +172,18 @@ class Pagination
             ->initialize();
     }
 
+    protected function updateStageLengths(): void
+    {
+        $stageLengths = GeneralUtility::intExplode(',', $this->getItemsPerStage(), true);
+        $stages = array_slice($stageLengths, 0, $this->getMaxStages());
+
+        // Set calculated lengths
+        $this->stageLengths = array_replace(array_fill(0, $this->getMaxStages(), end($stages)), array_values($stages));
+    }
+
     protected function initialize(): void
     {
+        $this->updateStageLengths();
         $this->getStages()->initialize();
     }
 
@@ -180,16 +195,6 @@ class Pagination
     public function getStages()
     {
         return $this->stages;
-    }
-
-    public function getStagesLength(): int
-    {
-        return $this->getStages()->count();
-    }
-
-    public function getItemsLength(): int
-    {
-        return $this->items->count();
     }
 
     public function getItems(): QueryResultInterface
@@ -224,7 +229,7 @@ class Pagination
         return $this;
     }
 
-    public function getItemsPerStage(): string
+    protected function getItemsPerStage(): string
     {
         return $this->itemsPerStage;
     }
@@ -240,7 +245,7 @@ class Pagination
         return $this;
     }
 
-    public function getMaxStages(): int
+    protected function getMaxStages(): int
     {
         return $this->maxStages;
     }
@@ -254,6 +259,59 @@ class Pagination
         }
 
         return $this;
+    }
+
+    public function getStageLengths(): array
+    {
+        return $this->stageLengths;
+    }
+
+    public function getRange(int $stage = null): array
+    {
+
+        // Determine stage with fallback of the selected
+        $stage = $stage ?? $this->getSelectedStage();
+
+        // Create array
+        $range = [
+            'from' => array_sum(array_slice($this->stageLengths, 0, $stage)),
+            'length' => $this->stageLengths[$stage],
+        ];
+
+
+        // Calculate the "to" property
+        $range['to'] = $range['from'] + $range['length'];
+
+        // Return array
+        return $range;
+    }
+
+    public function getNextStage(): ?int
+    {
+        $range = $this->getRange();
+        return $this->getSelectedStage() < $this->getMaxStages() && $this->getItems()->count() > $range['to'] ? ($this->getSelectedStage() + 1) : null;
+    }
+
+    public function getPreviousStage(): ?int
+    {
+        return $this->getSelectedStage() > 0 ? $this->getSelectedStage() - 1 : null;
+    }
+
+    public function getIndicators(): array
+    {
+        $items = [];
+        $count = 0;
+        $total = $this->getItems()->count();
+
+        foreach ($this->getStageLengths() as $key => $value) {
+            if(($count += $value) > $total) {
+                return $items;
+            }
+
+            $items[$key] = $key + 1;
+        }
+
+        return $items;
     }
 
 }
