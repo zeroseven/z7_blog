@@ -46,6 +46,9 @@ class Demand
     /** @var string */
     protected $ordering;
 
+    /** @var bool */
+    protected $ajax;
+
     /** @var int */
     protected $listId;
 
@@ -104,6 +107,17 @@ class Demand
             $property = null;
         } else {
             throw new Exception(sprintf('Type of "%s" can not be converted to array.', gettype($value)));
+        }
+
+        return $this;
+    }
+
+    protected function setTypeBool(&$property, $value): self
+    {
+        if($value === null || !is_array($value) && !is_object($value)) {
+            $property = (bool)$value;
+        } else {
+            throw new Exception(sprintf('Type of "%s" can not be converted to bool.', gettype($value)));
         }
 
         return $this;
@@ -187,6 +201,16 @@ class Demand
     public function setOrdering($ordering): self
     {
         return $this->setTypeString($this->ordering, $ordering);
+    }
+
+    public function isAjax(): bool
+    {
+        return (bool)$this->ajax;
+    }
+
+    public function setAjax($ajax): self
+    {
+        return $this->setTypeBool($this->ajax, $ajax);
     }
 
     public function getListId(): int
