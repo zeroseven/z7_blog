@@ -45,7 +45,7 @@ class PostController extends ActionController
 
         // Create pagination object
         $itemsPerPage = $this->settings['itemsPerStage'] ?: $this->settings['post']['list']['defaultItemsPerStage'];
-        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, (int)$this->settings['maxStages']);
+        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['maxStages']);
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([
