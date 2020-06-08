@@ -8,34 +8,23 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 class SettingsService
 {
 
     public const EXTENSION_KEY = 'z7_blog';
 
-    protected static function getKey(array $array, string $key = null)
+    protected static function getPropertyPath($subject, string $propertyPath = null)
     {
-
-        if($key === null) {
-            return $array;
+        if($propertyPath === null) {
+            return (array)$subject;
         }
 
-        $settings = $array;
-        $parts = GeneralUtility::trimExplode('.', $key, true);
+        return ObjectAccess::getPropertyPath((array)$subject, $propertyPath);
+     }
 
-        foreach ($parts as $part) {
-            if ($value = $settings[$part] ?? null) {
-                $settings = $value;
-            } else {
-                return null;
-            }
-        }
-
-        return $settings ?? null;
-    }
-
-    public static function getPluginConfiguration(string $key = null)
+    public static function getPluginConfiguration(string $propertyPath = null)
     {
         // Try to get settings from cache
         if (!is_array($pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['plugin_configuration'] ?? null)) {
@@ -46,14 +35,14 @@ class SettingsService
             }
         }
 
-        return self::getKey($pluginConfiguration, $key);
+        return self::getPropertyPath($pluginConfiguration, $propertyPath);
     }
 
-    public static function getSettings(string $key = null)
+    public static function getSettings(string $propertyPath = null)
     {
-        $settings = self::getPluginConfiguration('settings') ?? [];
+        $settings = self::getPluginConfiguration('settings');
 
-        return self::getKey($settings, $key);
+        return self::getPropertyPath($settings, $propertyPath);
     }
 
 }
