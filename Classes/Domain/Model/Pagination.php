@@ -128,6 +128,13 @@ class Stages extends ObjectStorage
         });
     }
 
+    public function getInactive(): array
+    {
+        return array_filter($this->toArray(), static function($stage){
+            return !$stage->isActive();
+        });
+    }
+
 }
 
 class Pagination
