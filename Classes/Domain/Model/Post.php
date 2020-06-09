@@ -36,6 +36,12 @@ class Post extends AbstractPageModel
      */
     protected $topics;
 
+    /** @var string */
+    protected $tagList;
+
+    /** @var array */
+    protected $tags;
+
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
      * @Extbase\ORM\Cascade("remove")
@@ -84,6 +90,7 @@ class Post extends AbstractPageModel
     public function setArchiveDate(\DateTime $archiveDate): self
     {
         $this->archiveDate = $archiveDate;
+        $this->archived = null;
         return $this;
     }
 
@@ -141,6 +148,27 @@ class Post extends AbstractPageModel
     {
         $this->topics = $topics;
         return $this;
+    }
+
+    public function getTagList(): string
+    {
+        return $this->tagList;
+    }
+
+    public function setTagList(string $tagList): self
+    {
+        $this->tagList = $tagList;
+        $this->tags = null;
+        return $this;
+    }
+
+    public function getTags(): ?array
+    {
+        if($this->tags === null) {
+            return $this->tags = RepositoryService::getTagRepository()->findByPost($this);
+        }
+
+        return $this->tags;
     }
 
     public function addRelated(Post $related): void

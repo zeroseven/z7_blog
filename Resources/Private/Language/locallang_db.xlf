@@ -32,6 +32,9 @@
 			<trans-unit id="pages.post_topics">
 				<source>Topics</source>
 			</trans-unit>
+			<trans-unit id="pages.post_tags">
+				<source>Tags</source>
+			</trans-unit>
 			<trans-unit id="pages.post_related">
 				<source>Related Posts</source>
 			</trans-unit>

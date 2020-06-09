@@ -32,7 +32,7 @@ return [
             'date' => [
                 'fieldName' => 'post_date'
             ],
-            'tags' => [
+            'tagList' => [
                 'fieldName' => 'post_tags'
             ],
             'author' => [
