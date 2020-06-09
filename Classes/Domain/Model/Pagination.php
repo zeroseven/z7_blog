@@ -289,7 +289,7 @@ class Pagination
     public function getNextStage(): ?int
     {
         $range = $this->getRange();
-        return $this->getSelectedStage() < $this->getMaxStages() && $this->getItems()->count() > $range['to'] ? ($this->getSelectedStage() + 1) : null;
+        return $this->getSelectedStage() < $this->getMaxStages() - 1 && $this->getItems()->count() > $range['to'] ? ($this->getSelectedStage() + 1) : null;
     }
 
     public function getPreviousStage(): ?int

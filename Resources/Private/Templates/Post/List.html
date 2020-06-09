@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Blog/Blogpages/ViewHelpers" data-namespace-typo3-fluid="true">
+	<div class="blglst">
+		<div id="z7blog-list-{data.uid}">
+			<f:if condition="{demand.ajax}">
+				<f:then>
+					<f:comment><!-- Load the selected stage only --></f:comment>
+					{f:render(section: 'Stage', arguments: '{stage: pagination.stages.selected}')}
+				</f:then>
+				<f:else>
+					<f:comment><!-- Load all active states (in range from 0 to [selected stage]) --></f:comment>
+					<f:for each="{pagination.stages.active}" as="stage">
+						{f:render(section: 'Stage', arguments: '{stage:stage}')}
+					</f:for>
+				</f:else>
+			</f:if>
+		</div>
+		<div id="z7blog-control-{data.uid}">
+			<f:if condition="{pagination.nextStage}">
+				<f:link.action action="list" controller="Post" arguments="{stage:pagination.nextStage}">NEXT</f:link.action>
+			</f:if>
+		</div>
+	</div>
+</html>
+
+<f:section name="Stage">
+	<f:for each="{stage}" as="post">
+		(Page: {stage.index + 1}) {post.title -> f:format.crop(maxCharacters:20)}<br />
+	</f:for>
+</f:section>
