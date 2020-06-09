@@ -94,7 +94,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.firstname',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
+                'default' => ''
             ]
         ],
         'lastname' => [
@@ -103,7 +104,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.lastname',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'expertise' => [
@@ -111,7 +113,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.expertise',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'email' => [
@@ -120,7 +123,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.email',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'image' => [
@@ -153,7 +157,8 @@ return [
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim',
-                'enableRichtext' => 1
+                'enableRichtext' => 1,
+                'default' => ''
             ]
         ],
         'page' => [
@@ -163,7 +168,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputLink',
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'twitter' => [
@@ -172,7 +178,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.twitter',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'linkedin' => [
@@ -181,7 +188,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.linkedin',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'xing' => [
@@ -190,7 +198,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.xing',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ]
         ]
     ]

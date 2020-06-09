@@ -51,8 +51,8 @@ return [
                 'items' => [
                     ['', 0]
                 ],
-                'foreign_table' => 'tx_z7blog_domain_model_author',
-                'foreign_table_where' => 'AND tx_z7blog_domain_model_author.pid=###CURRENT_PID### AND tx_z7blog_domain_model_author.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_z7blog_domain_model_topic',
+                'foreign_table_where' => 'AND tx_z7blog_domain_model_topic.pid=###CURRENT_PID### AND tx_z7blog_domain_model_topic.sys_language_uid IN (-1,0)',
             ]
         ],
         'l10n_diffsource' => [
@@ -86,7 +86,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_topic.title',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
+                'default' => ''
             ]
         ]
     ]
