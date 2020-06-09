@@ -88,9 +88,9 @@ class PostRepository extends AbstractPageRepository
 
         // Filter post by tags
         if ($tags = $demand->getTags()) {
-            foreach ($tags as $tag) {
-                $constraints[] = $query->like('tags', '%' . $tag . '%');
-            }
+            $constraints[] = $query->logicalOr(array_map(static function($tag) use($query) {
+                return $query->like('tagList', '%' . $tag . '%');
+            }, $tags));
         }
 
         // Set archive mode
