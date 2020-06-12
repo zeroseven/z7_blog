@@ -72,6 +72,17 @@
 						</TCEforms>
 					</settings.topic>
 
+					<settings.tags>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.tags</label>
+							<config>
+								<type>select</type>
+								<renderType>selectCheckBox</renderType>
+								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getTags</itemsProcFunc>
+							</config>
+						</TCEforms>
+					</settings.tags>
+
 				</el>
 			</ROOT>
 		</general>

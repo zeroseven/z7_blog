@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
+use Zeroseven\Z7Blog\Domain\Model\Demand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
 use Zeroseven\Z7Blog\Service\SettingsService;
@@ -17,6 +18,15 @@ class ItemsProcFunc
     protected function getPageUid(array $config): int
     {
         return GeneralUtility::_GP('id') ?: $config['flexParentDatabaseRow']['pid'];
+    }
+
+    protected function getRootPageUid(array $config): int
+    {
+        if ($currentUid = $this->getPageUid($config)) {
+            return RootlineService::getRootPage($currentUid);
+        }
+
+        return 0;
     }
 
     protected function initializeRepository(RepositoryInterface $repository, bool $setStoragePid): RepositoryInterface
@@ -51,10 +61,7 @@ class ItemsProcFunc
     {
 
         // Get the current pid
-        $rootPageUid = 0;
-        if ($currentUid = $this->getPageUid($PA)) {
-            $rootPageUid = RootlineService::getRootPage($currentUid);
-        }
+        $rootPageUid = $this->getRootPageUid($PA);
 
         // Add categories to the items
         foreach (RepositoryService::getCategoryRepository()->findAll($rootPageUid) ?: [] as $category) {
@@ -79,6 +86,20 @@ class ItemsProcFunc
         // Add topics to the items
         foreach ($topicRepository->findAll() ?: [] as $topic) {
             $PA['items'][] = [$topic->getTitle(), $topic->getUid(), 'plugin-z7blog-topic'];
+        }
+    }
+
+    public function getTags(array &$PA)
+    {
+        // Get the current pid
+        $rootPageUid = $this->getRootPageUid($PA);
+
+        // Build demand object
+        $demand = Demand::makeInstance()->setCategory($rootPageUid);
+
+        // Add topics to the items
+        foreach (RepositoryService::getTagRepository()->findAll($demand) ?: [] as $tag) {
+            $PA['items'][] = [$tag, $tag, 'plugin-z7blog-tag'];
         }
     }
 
