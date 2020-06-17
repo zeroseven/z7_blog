@@ -110,8 +110,9 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
             'exclude' => true,
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags',
             'config' => [
-                'type' => 'input',
-                'eval' => 'trim'
+                'type' => 'user',
+                'renderType' => 'Tags',
+                'placeholder' => 'add tag'
             ]
         ],
         'post_related' => [

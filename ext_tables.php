@@ -56,4 +56,25 @@ call_user_func(static function () {
         ['source' => 'EXT:z7_blog/Resources/Public/Icons/apps-pagetree-blogcategory-hideinmenu.svg']
     );
 
+    // Register custom TCA renderType
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1592395778] = [
+        'nodeName' => 'Tags',
+        'priority' => 100,
+        'class' => \Zeroseven\Z7Blog\Backend\Form\Element\Tags::class,
+    ];
+
+    // Add JavaScript to the backend
+    if (TYPO3_MODE === 'BE') {
+        $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+        $pageRenderer->loadRequireJsModule('TYPO3/CMS/Z7Blog/Backend/Tags');
+    }
+
+    // Add styles to the backend
+    $GLOBALS['TBE_STYLES']['skins'][] = [
+        'name' => 'z7_blog',
+        'stylesheetDirectories' => [
+            'css' => 'EXT:z7_blog/Resources/Public/Css/Backend/'
+        ]
+    ];
+
 });
