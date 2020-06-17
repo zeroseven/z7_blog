@@ -7,7 +7,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Topic extends AbstractEntity
 {
     /** @var string */
-    protected $title = '';
+    protected $title;
 
     /**
      * Returns the title
@@ -16,7 +16,7 @@ class Topic extends AbstractEntity
      */
     public function getTitle(): string
     {
-        return $this->title;
+        return (string)$this->title;
     }
 
     /**
