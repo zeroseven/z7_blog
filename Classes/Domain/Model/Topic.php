@@ -9,9 +9,9 @@ class Topic extends AbstractEntity
     /** @var string */
     protected $title;
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
-        return $this->title;
+        return (string)$this->title;
     }
 
     public function setTitle(string $title): self
