@@ -81,13 +81,16 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.tags.placeholder">
 				<source>Search tags</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.0">
-				<source>Show all</source>
+			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode">
+				<source>Top posts</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.1">
+			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode.0">
+				<source>Normal</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode.1">
 				<source>Show top posts first</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.2">
+			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode.2">
 				<source>Only top posts</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.ordering">
