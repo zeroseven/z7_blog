@@ -26,6 +26,9 @@ class Tags extends AbstractFormElement
     /** string */
     protected $value;
 
+    /** int */
+    protected $languageUid;
+
     public function __construct(NodeFactory $nodeFactory, array $data)
     {
         parent::__construct($nodeFactory, $data);
@@ -33,11 +36,13 @@ class Tags extends AbstractFormElement
 
         $parameterArray = $this->data['parameterArray'];
         $placeholder = $parameterArray['fieldConf']['config']['placeholder'] ?? '';
+        $sysLanguageUid = $this->data['databaseRow']['sys_language_uid'];
 
         $this->name = $parameterArray['itemFormElName'];
         $this->id = $parameterArray['itemFormElID'];
         $this->placeholder = strpos($placeholder, 'LLL') === 0 ? $this->getLanguageService()->sL($placeholder) : $placeholder;
         $this->value = $parameterArray['itemFormElValue'] ?? '';
+        $this->languageUid = (int)(is_array($sysLanguageUid) ? $sysLanguageUid[0] : $sysLanguageUid);
     }
 
     protected function registerJavaScript(): void
@@ -45,7 +50,9 @@ class Tags extends AbstractFormElement
         // Get tags
         $rootPage = RootlineService::getRootPage($this->data['tableName'] === 'pages' ? $this->data['databaseRow']['uid'] : $this->data['databaseRow']['pid']);
         $demand = Demand::makeInstance()->setCategory((int)$rootPage);
-        $tags = RepositoryService::getTagRepository()->findAll($demand);
+
+        // Get tags
+        $tags = RepositoryService::getTagRepository()->findAll($demand, true, $this->languageUid);
 
         // Add JavaScript
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);

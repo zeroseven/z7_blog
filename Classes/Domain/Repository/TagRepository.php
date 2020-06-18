@@ -36,14 +36,26 @@ class TagRepository
         return $tags;
     }
 
-    public function findAll(Demand $demand = null, bool $ignoreTagsFromDemand = null): ?array
+    public function findAll(Demand $demand = null, bool $ignoreTagsFromDemand = null, int $languageUid = null): ?array
     {
 
+        // Create demand object, if empty
         if ($demand === null) {
             $demand = Demand::makeInstance();
         }
 
-        if ($posts = RepositoryService::getPostRepository()->findAll($ignoreTagsFromDemand === true ? $demand->setTags(null) : $demand)) {
+        // Get post repository
+        $repository = RepositoryService::getPostRepository();
+
+        // Override language
+        if($languageUid !== null) {
+            $querySettings = $repository->getDefaultQuerySettings();
+            $querySettings->setLanguageUid($languageUid);
+            $repository->setDefaultQuerySettings($querySettings);
+        }
+
+        // Find Posts and return their tags
+        if ($posts = $repository->findAll($ignoreTagsFromDemand === true ? $demand->setTags(null) : $demand)) {
             return $this->findByPosts($posts->toArray());
         }
 
