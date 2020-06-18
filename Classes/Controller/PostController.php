@@ -22,7 +22,6 @@ class PostController extends ActionController
 
     public function listAction(): void
     {
-
         // Get data of content element
         $data = $this->getContentData();
 
@@ -44,8 +43,8 @@ class PostController extends ActionController
         $posts = RepositoryService::getPostRepository()->findAll($demand);
 
         // Create pagination object
-        $itemsPerPage = $this->settings['itemsPerStage'] ?: $this->settings['post']['list']['defaultItemsPerStage'] ?: '6';
-        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['maxStages']);
+        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
+        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages']);
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([

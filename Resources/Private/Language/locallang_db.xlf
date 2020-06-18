@@ -81,28 +81,28 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.tags.placeholder">
 				<source>Search tags</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode">
+			<trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode">
 				<source>Top posts</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode.0">
+			<trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode.0">
 				<source>Normal</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode.1">
+			<trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode.1">
 				<source>Show top posts first</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode.2">
+			<trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode.2">
 				<source>Only top posts</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode">
+			<trans-unit id="tt_content.flexForms.z7blog_list.archive_mode">
 				<source>Archived posts</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode.0">
+			<trans-unit id="tt_content.flexForms.z7blog_list.archive_mode.0">
 				<source>Hide archived posts</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode.1">
+			<trans-unit id="tt_content.flexForms.z7blog_list.archive_mode.1">
 				<source>Show all posts</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode.2">
+			<trans-unit id="tt_content.flexForms.z7blog_list.archive_mode.2">
 				<source>Archived posts only</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.ordering">
@@ -120,19 +120,19 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.title_desc">
 				<source>By title, descending</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.itemsPerStages">
+			<trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages">
 				<source>Items per stage</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.itemsPerStages.placeholder">
+			<trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages.placeholder">
 				<source>Default</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.itemsPerStages.description">
+			<trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages.description">
 				<source>Example: Add "4, 8" to display 4 elements for the first stage and 8 for the second and all subsequent ones.</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.maxStages">
+			<trans-unit id="tt_content.flexForms.z7blog_list.max_stages">
 				<source>Maximum number of stages</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.maxStages.0">
+			<trans-unit id="tt_content.flexForms.z7blog_list.max_stages.0">
 				<source>Unlimited</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.layout">

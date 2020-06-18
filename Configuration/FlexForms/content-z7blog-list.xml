@@ -94,9 +94,9 @@
 				<type>array</type>
 				<el>
 
-					<settings.topPostMode>
+					<settings.top_post_mode>
 						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.topPostMode</label>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode</label>
 							<config>
 								<type>select</type>
 								<renderType>selectSingle</renderType>
@@ -104,25 +104,25 @@
 								<maxitems>1</maxitems>
 								<items type="array">
 									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.topPostMode.0</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode.0</numIndex>
 										<numIndex index="1">0</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.topPostMode.1</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode.1</numIndex>
 										<numIndex index="1">1</numIndex>
 									</numIndex>
 									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.topPostMode.2</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode.2</numIndex>
 										<numIndex index="1">2</numIndex>
 									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
-					</settings.topPostMode>
+					</settings.top_post_mode>
 
-					<settings.archiveMode>
+					<settings.archive_mode>
 						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archiveMode</label>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode</label>
 							<config>
 								<type>select</type>
 								<renderType>selectSingle</renderType>
@@ -130,21 +130,21 @@
 								<maxitems>1</maxitems>
 								<items type="array">
 									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archiveMode.0</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode.0</numIndex>
 										<numIndex index="1">0</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archiveMode.1</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode.1</numIndex>
 										<numIndex index="1">1</numIndex>
 									</numIndex>
 									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archiveMode.2</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode.2</numIndex>
 										<numIndex index="1">2</numIndex>
 									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
-					</settings.archiveMode>
+					</settings.archive_mode>
 
 					<settings.ordering>
 						<TCEforms>
@@ -187,22 +187,22 @@
 				<type>array</type>
 				<el>
 
-					<settings.itemsPerStage>
+					<settings.items_per_stages>
 						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.itemsPerStages</label>
-							<description>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.itemsPerStages.description</description>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stagess</label>
+							<description>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stagess.description</description>
 							<config>
-								<placeholder>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.itemsPerStages.placeholder</placeholder>
+								<placeholder>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stagess.placeholder</placeholder>
 								<type>input</type>
 								<eval>trim,is_in</eval>
 								<is_in>0123456789,</is_in>
 							</config>
 						</TCEforms>
-					</settings.itemsPerStage>
+					</settings.items_per_stages>
 
-					<settings.maxStages>
+					<settings.max_stages>
 						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.maxStages</label>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.max_stages</label>
 							<config>
 								<type>select</type>
 								<renderType>selectSingle</renderType>
@@ -210,7 +210,7 @@
 								<maxitems>1</maxitems>
 								<items type="array">
 									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.maxStages.0</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.max_stages.0</numIndex>
 										<numIndex index="1">0</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
@@ -236,7 +236,7 @@
 								</items>
 							</config>
 						</TCEforms>
-					</settings.maxStages>
+					</settings.max_stages>
 
 					<settings.layout>
 						<TCEforms>

@@ -18,7 +18,7 @@ plugin.tx_z7blog {
             # cat=plugin.tx_z7blog/list; type=int+; label=Default list page:E.g. to filter all posts by tags or author.
             list.defaultListPage = 0
             # cat=plugin.tx_z7blog/list; type=int+; label=Pagination of posts
-            list.defaultItemsPerStage = 6
+            list.itemsPerStages = 6
         }
     }
 }
