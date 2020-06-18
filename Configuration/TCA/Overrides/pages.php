@@ -117,7 +117,6 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         ],
         'post_related' => [
             'exclude' => false,
-            'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_related',
             'config' => [
                 'type' => 'group',
