@@ -15,15 +15,15 @@ class Tags extends AbstractFormElement
 {
 
     /** @var string */
-    protected $name
+    protected $name;
 
-    /** string */;
+    /** string */
     protected $id;
 
     /** @var string */
-    protected $placeholder
+    protected $placeholder;
 
-    /** string */;
+    /** string */
     protected $value;
 
     public function __construct(NodeFactory $nodeFactory, array $data)
