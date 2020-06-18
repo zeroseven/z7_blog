@@ -235,12 +235,12 @@ class Demand
 
     public function archivedPostsHidden(): bool
     {
-        return $this->getTopPostMode() === self::ARCHIVED_POSTS_HIDDEN;
+        return $this->getArchiveMode() === self::ARCHIVED_POSTS_HIDDEN;
     }
 
     public function archivedPostsOnly(): bool
     {
-        return $this->getTopPostMode() === self::ARCHIVED_POSTS_ONLY;
+        return $this->getArchiveMode() === self::ARCHIVED_POSTS_ONLY;
     }
 
     public function setParameterArray(bool $ignoreEmptyValues, ...$arguments): self
