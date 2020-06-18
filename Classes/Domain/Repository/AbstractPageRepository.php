@@ -4,6 +4,7 @@ namespace Zeroseven\Z7Blog\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -17,6 +18,11 @@ abstract class AbstractPageRepository extends Repository
         $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
+    }
+
+    public function getDefaultQuerySettings(): QuerySettingsInterface
+    {
+        return $this->defaultQuerySettings;
     }
 
     public function getRootlineAndLanguageConstraints(int $startPageId = null): array

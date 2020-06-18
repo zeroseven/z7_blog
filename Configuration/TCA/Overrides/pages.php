@@ -106,9 +106,17 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'default' => 0,
             ],
         ],
+        'post_tags' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags',
+            'config' => [
+                'type' => 'user',
+                'renderType' => 'Tags',
+                'placeholder' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags.placeholder'
+            ]
+        ],
         'post_related' => [
             'exclude' => false,
-            'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_related',
             'config' => [
                 'type' => 'group',
@@ -165,7 +173,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog, 
             post_top, 
             --palette--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.palette.blogpost_date_settings;blogpost_date_settings, 
-            post_author, post_topics, post_related, 
+            post_author, post_topics, post_tags, post_related 
     ', (string)$postDoktype);
 
     // Add fields to category pages

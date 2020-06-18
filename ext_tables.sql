@@ -4,6 +4,7 @@ CREATE TABLE pages (
 	post_date int(11) DEFAULT '0' NOT NULL,
 	post_author int(11) unsigned DEFAULT '0',
 	post_topics int(11) unsigned DEFAULT '0' NOT NULL,
+	post_tags varchar(255) DEFAULT '' NOT NULL,
 	post_related int(11) unsigned DEFAULT '0' NOT NULL,
 	post_redirect_category tinyint(1) unsigned DEFAULT '0' NOT NULL
 );
