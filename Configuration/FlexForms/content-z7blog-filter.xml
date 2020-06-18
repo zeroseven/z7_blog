@@ -28,7 +28,7 @@
 								</suggestOptions>
 								<filter>
 									<items type="array">
-										<userFunc>Zeroseven\Z7Blog\TCA\GroupFilter->filterCTypes</userFunc>
+										<userFunc>Zeroseven\Z7Blog\TCA\GroupFilter->filterTypes</userFunc>
 										<parameters>
 											<allowed>z7blog_list</allowed>
 										</parameters>

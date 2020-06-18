@@ -124,7 +124,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'foreign_table' => $table,
                 'filter' => [
                     [
-                        'userFunc' => \Zeroseven\Z7Blog\TCA\GroupFilter::class . '->filterDoktypes',
+                        'userFunc' => \Zeroseven\Z7Blog\TCA\GroupFilter::class . '->filterTypes',
                         'parameters' => [
                             'allowed' => $postDoktype
                         ],

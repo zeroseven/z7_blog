@@ -9,18 +9,22 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class GroupFilter
 {
 
-    public function filterDoktypes(array $parameters): array
+    public function filterTypes(array $parameters): array
     {
-        if (isset($parameters['values'], $parameters['allowed'])) {
+        $table = $parameters['tcaFieldConfig']['foreign_table'] ?? '';
+        $type = $GLOBALS['TCA'][$table]['ctrl']['type'] ?? null;
+
+        if ($type && isset($parameters['values'], $parameters['allowed'])) {
 
             $values = [];
-            $allowed = GeneralUtility::intExplode(',', $parameters['allowed'], true);
+            $allowedTypes = GeneralUtility::trimExplode(',', $parameters['allowed'], true);
 
             foreach ($parameters['values'] as $value) {
                 if (preg_match('/^([a-z_]+)_(\d+)$/', $value, $matches)
-                    && ($row = BackendUtility::getRecord($matches[1], (int)$matches[2], 'doktype'))
-                    && in_array((int)$row['doktype'], $allowed, true)) {
-                    $values[] = $value;
+                    && ($table === $matches[1])
+                    && ($row = BackendUtility::getRecord($matches[1], (string)$matches[2], $type))
+                    && in_array((string)$row[$type], $allowedTypes, true)) {
+                        $values[] = $value;
                 }
             }
 
