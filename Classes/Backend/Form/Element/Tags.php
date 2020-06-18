@@ -30,16 +30,18 @@ class Tags extends AbstractFormElement
     {
         parent::__construct($nodeFactory, $data);
 
-        $field = $this->data['fieldName'];
-        $this->name = $this->data['parameterArray']['itemFormElName'];
-        $this->id = $this->data['parameterArray']['itemFormElID'];
-        $this->placeholder = $this->data['parameterArray']['fieldConf']['config']['placeholder'] ?? '';
-        $this->value = $this->data['databaseRow'][$field] ?? '';
+
+        $parameterArray = $this->data['parameterArray'];
+        $placeholder = $parameterArray['fieldConf']['config']['placeholder'] ?? '';
+
+        $this->name = $parameterArray['itemFormElName'];
+        $this->id = $parameterArray['itemFormElID'];
+        $this->placeholder = strpos($placeholder, 'LLL') === 0 ? $this->getLanguageService()->sL($placeholder) : $placeholder;
+        $this->value = $parameterArray['itemFormElValue'] ?? '';
     }
 
     protected function registerJavaScript(): void
     {
-
         // Get tags
         $rootPage = RootlineService::getRootPage($this->data['tableName'] === 'pages' ? $this->data['databaseRow']['uid'] : $this->data['databaseRow']['pid']);
         $demand = Demand::makeInstance()->setCategory((int)$rootPage);
@@ -92,7 +94,6 @@ class Tags extends AbstractFormElement
                 </div>
             </div>    
         ', $this->createFormField(), $fieldWizardResult['html'])];
-
     }
 
 }

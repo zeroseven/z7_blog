@@ -35,6 +35,9 @@
 			<trans-unit id="pages.post_tags">
 				<source>Tags</source>
 			</trans-unit>
+			<trans-unit id="pages.post_tags.placeholder">
+				<source>Add new tag</source>
+			</trans-unit>
 			<trans-unit id="pages.post_related">
 				<source>Related Posts</source>
 			</trans-unit>
@@ -71,6 +74,12 @@
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.topic">
 				<source>Topic</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.tags">
+				<source>Tags</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.tags.placeholder">
+				<source>Search tags</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.topEvents.0">
 				<source>Show all</source>
