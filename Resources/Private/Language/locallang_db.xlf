@@ -93,6 +93,18 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.topPostMode.2">
 				<source>Only top posts</source>
 			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode">
+				<source>Archived posts</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode.0">
+				<source>Hide archived posts</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode.1">
+				<source>Show all posts</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.archiveMode.2">
+				<source>Archived posts only</source>
+			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.ordering">
 				<source>Ordering</source>
 			</trans-unit>
