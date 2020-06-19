@@ -1,4 +1,13 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Blog/Blogpages/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
 <div class="blgfltr">
-	{_all -> f:debug()}
+	{demand -> f:debug()}
+	<blog:link.demand object="{demand}" topPostMode="1">Top post first</blog:link.demand>
+	<blog:link.demand object="{demand}" topPostMode="0">Top post YOLO</blog:link.demand>
+
+	<br/>
+
+	<f:for each="{tags}" as="tag">
+		<blog:link.demand object="{demand}" tags="{tag}">TAG:{tag}</blog:link.demand>
+	</f:for>
+
 </html>
