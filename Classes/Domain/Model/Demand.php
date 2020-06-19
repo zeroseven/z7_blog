@@ -53,21 +53,17 @@ class Demand
     protected $listId;
 
     /** @var array */
-    public $allowedParameters;
+    protected $parameterMapping;
 
     public function __construct()
     {
 
         // Create array of allowed parameters by property names of reflection class
-        $properties = GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties();
-        $this->allowedParameters = array_map(static function($reflection) {
-            return GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name);
-        }, $properties);
-
-        // Remove the parameter "allowed_parameters" from array of allowed parameters ;-)
-        $this->allowedParameters = array_filter($this->allowedParameters, static function($parameter) {
-            return $parameter !== 'allowed_parameters';
-        });
+        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
+            if($reflection->name !== 'parameterMapping') {
+                $this->parameterMapping[GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name)] = $reflection->name;
+            }
+        }
     }
 
     public static function makeInstance(): self
@@ -223,6 +219,11 @@ class Demand
         return $this->setTypeInt($this->listId, $listId);
     }
 
+    public function getParameterMapping(): array
+    {
+        return $this->parameterMapping;
+    }
+
     public function topPostsFirst(): bool
     {
         return $this->getTopPostMode() === self::TOP_POSTS_FIRST;
@@ -253,11 +254,11 @@ class Demand
             }
 
             // Set properties
-            foreach ($argument as $parameter => $value) {
-                if ((!empty($value) || !$ignoreEmptyValues) && in_array($parameter, $this->allowedParameters, true)) {
+            foreach ($this->getParameterMapping() as $parameter => $propertyName) {
+                if(isset($argument[$parameter]) && (($value = $argument[$parameter]) || !$ignoreEmptyValues)) {
 
                     // Call function "set[PropertyName]()"
-                    $method = sprintf('set%s', GeneralUtility::underscoredToUpperCamelCase($parameter));
+                    $method = sprintf('set%s', ucfirst($propertyName));
                     if (is_callable([$this, $method])) {
                         $this->$method($value);
                     }
@@ -273,8 +274,8 @@ class Demand
         $parameters = [];
 
         // Call function "get[PropertyName]()" and add to array
-        foreach ($this->allowedParameters as $parameter) {
-            $method = sprintf('get%s', GeneralUtility::underscoredToUpperCamelCase($parameter));
+        foreach ($this->parameterMapping as $parameter => $propertyName) {
+            $method = sprintf('get%s', ucfirst($propertyName));
             if (is_callable([$this, $method])) {
                 $parameters[$parameter] = $this->$method();
             }
