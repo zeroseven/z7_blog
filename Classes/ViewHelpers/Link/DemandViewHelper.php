@@ -47,6 +47,27 @@ class DemandViewHelper extends ActionViewHelper
         if (($demand = $this->arguments['object']) instanceof Demand) {
             $this->demand = clone $demand;
 
+            // Mark matched links
+            // TODO: This is an experimental feature. Do some tests with real data
+            $matches = [];
+            foreach ($this->arguments as $propertyName => $value) {
+                if ($value !== null
+                    && isset($this->typeMapping[$propertyName])
+                    && (
+                        $this->typeMapping[$propertyName] === 'array'
+                        && (empty($value) && empty($demand->getProperty($propertyName)) || 0 === count(array_diff((array)$value ?: null, (array)$demand->getProperty($propertyName))))
+                        || $value === $demand->getProperty($propertyName)
+                    )
+                ) {
+                    $matches[] = $propertyName;
+                }
+            }
+
+            if (count($matches)) {
+                $this->tag->addAttribute('data-demand-matches', count($matches));
+                $this->tag->addAttribute('data-demand-matches-properties', implode(',', $matches));
+            }
+
         }
 
         // Collect overrides
