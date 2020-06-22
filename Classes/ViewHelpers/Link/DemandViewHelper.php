@@ -31,8 +31,8 @@ class DemandViewHelper extends ActionViewHelper
     {
         parent::initializeArguments();
 
-        // Register demand object
         $this->registerArgument('object', 'object', 'The demand object');
+        $this->registerArgument('stateAttribute', 'bool', 'Display state of the link in data attributes', false, true);
 
         // Register all allowed properties of demand object
         foreach ($this->parameterMapping as $propertyName => $parameter) {
@@ -42,32 +42,29 @@ class DemandViewHelper extends ActionViewHelper
 
     public function render(): string
     {
-
         // Override demand object
-        if (($demand = $this->arguments['object']) instanceof Demand) {
+        if ($this->arguments['stateAttribute'] && ($demand = $this->arguments['object']) instanceof Demand) {
             $this->demand = clone $demand;
 
             // Mark matched links
             // TODO: This is an experimental feature. Do some tests with real data
-            $matches = [];
+            $matchedProperties = [];
+            $unmatchedProperties = [];
             foreach ($this->arguments as $propertyName => $value) {
-                if ($value !== null
-                    && isset($this->typeMapping[$propertyName])
-                    && (
-                        $this->typeMapping[$propertyName] === 'array'
-                        && (empty($value) && empty($demand->getProperty($propertyName)) || 0 === count(array_diff((array)$value ?: null, (array)$demand->getProperty($propertyName))))
-                        || $value === $demand->getProperty($propertyName)
-                    )
-                ) {
-                    $matches[] = $propertyName;
+                if ($value !== null && isset($this->typeMapping[$propertyName])) {
+                    if (($this->typeMapping[$propertyName] === 'array' && (empty($value) && empty($demand->getProperty($propertyName)) || 0 === count(array_diff((array)$value ?: null, (array)$demand->getProperty($propertyName)))) || $value === $demand->getProperty($propertyName))) {
+                        $matchedProperties[] = $propertyName;
+                    } else {
+                        $unmatchedProperties[] = $propertyName;
+                    }
                 }
             }
 
-            if (count($matches)) {
-                $this->tag->addAttribute('data-demand-matches', count($matches));
-                $this->tag->addAttribute('data-demand-matches-properties', implode(',', $matches));
+            if(!count($unmatchedProperties)) {
+                $this->tag->addAttribute('data-demand-selected', 'true');
+            } elseif (count($matchedProperties)) {
+                $this->tag->addAttribute('data-demand-active', count($matchedProperties) . '/' . (count($matchedProperties) + count($unmatchedProperties)));
             }
-
         }
 
         // Collect overrides
