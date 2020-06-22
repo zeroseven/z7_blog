@@ -6,6 +6,7 @@ namespace Zeroseven\Z7Blog\Domain\Model;
 use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use Zeroseven\Z7Blog\Service\SettingsService;
 
 class Demand
 {
@@ -61,27 +62,50 @@ class Demand
     public function __construct()
     {
 
-        // Create array of allowed parameters by property names of reflection class
-        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
+        // Try to get arrays from "cache"
+        if (empty($parameterMapping = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['parameters'] ?? null) || empty($typeMapping = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['types'] ?? null)){
 
-            if (!$reflection->isProtected()) {
+            // Define empty arrays
+            $parameterMapping = [];
+            $typeMapping = [];
 
-                // Define parameter name of property
-                $this->parameterMapping[$reflection->name] = GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name);
+            // Create array of allowed parameters by property names of reflection class
+            foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
 
-                // Get property type with fallback to annotation @see:https://www.php.net/manual/de/reflectionproperty.gettype.php#125075
-                if (empty($type = $reflection->type) && preg_match('/@var\s+([^\s]+)/', $reflection->getDocComment(), $matches)) {
-                    $type = $matches[1];
+                if (!$reflection->isProtected()) {
+
+                    // Define parameter name of property
+                    $parameterMapping[$reflection->name] = GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name);
+
+                    // Get property type with fallback to annotation @see:https://www.php.net/manual/de/reflectionproperty.gettype.php#125075
+                    if (empty($type = $reflection->type) && preg_match('/@var\s+([^\s]+)/', $reflection->getDocComment(), $matches)) {
+                        $type = $matches[1];
+                    }
+
+                    // Map the type of properties
+                    $typeMapping[$reflection->name] = $type;
                 }
-
-                // Map the type of properties
-                $this->typeMapping[$reflection->name] = $type;
             }
+
+            $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['parameters'] = $parameterMapping;
+            $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['types'] = $typeMapping;
         }
+
+        $this->parameterMapping = $parameterMapping;
+        $this->typeMapping = $typeMapping;
     }
 
     public static function makeInstance(): self
     {
+
+        // Return custom demand object
+        if ($demand = $GLOBALS['TYPO3_CONF_VARS']['EXT'][SettingsService::EXTENSION_KEY]['demand'] ?? null) {
+            if (class_exists($demand) && is_a($demand, self::class)) {
+                return GeneralUtility::makeInstance($demand);
+            }
+        }
+
+        // Return default demand object
         return GeneralUtility::makeInstance(self::class);
     }
 
