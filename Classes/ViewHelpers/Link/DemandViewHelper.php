@@ -32,6 +32,9 @@ class DemandViewHelper extends ActionViewHelper
         parent::initializeArguments();
 
         $this->registerArgument('object', 'object', 'The demand object');
+        $this->registerArgument('addTag', 'string', 'Adds a tag');
+        $this->registerArgument('removeTag', 'string', 'Removes a tag');
+        $this->registerArgument('toggleTag', 'string', 'If the tag is existing removes it, otherwise adds a tag');
         $this->registerArgument('stateAttribute', 'bool', 'Display state of the link in data attributes', false, true);
 
         // Register all allowed properties of demand object
@@ -50,6 +53,8 @@ class DemandViewHelper extends ActionViewHelper
             // TODO: This is an experimental feature. Do some tests with real data
             $matchedProperties = [];
             $unmatchedProperties = [];
+
+            // Loop arguments
             foreach ($this->arguments as $propertyName => $value) {
                 if ($value !== null && isset($this->typeMapping[$propertyName])) {
 
@@ -70,6 +75,18 @@ class DemandViewHelper extends ActionViewHelper
                 }
             }
 
+            // Check tags
+            foreach (['addTag', 'toggleTag'] as $tag) {
+                if(($tag = $this->arguments[$tag]) !== null) {
+                    if (in_array($tag, $this->demand->getTags(),true)) {
+                        $matchedProperties[] = $tag;
+                    } else {
+                        $unmatchedProperties[] = $tag;
+                    }
+                }
+            }
+
+            // Set data attributes
             if(!count($unmatchedProperties)) {
                 $this->tag->addAttribute('data-demand-selected', 'true');
             } elseif (count($matchedProperties)) {
@@ -89,6 +106,11 @@ class DemandViewHelper extends ActionViewHelper
         if (!empty($parameter)) {
             $this->demand->setParameterArray(false, $parameters);
         }
+
+        // Add/remove/toggle tags
+        if($tag = $this->arguments['addTag'] ?? null) { $this->demand->addTag($tag); }
+        if($tag = $this->arguments['removeTag'] ?? null) { $this->demand->removeTag($tag); }
+        if($tag = $this->arguments['toggleTag'] ?? null) { $this->demand->toggleTag($tag); }
 
         // Set some "action" parameters
         $this->arguments['controller'] = 'Post';

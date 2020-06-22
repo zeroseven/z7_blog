@@ -33,7 +33,7 @@
 		<dt class="blgfltr__title">{f:translate(key:'filter.tag')}:</dt>
 		<f:for each="{tags}" as="tag">
 			<dd>
-				<blog:link.demand object="{demand}" tags="{0:tag}">{tag}</blog:link.demand>
+				<blog:link.demand object="{demand}" toggleTag="{tag}">{tag}</blog:link.demand>
 			</dd>
 		</f:for>
 

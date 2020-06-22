@@ -136,12 +136,15 @@ class Demand
         if (is_array($value)) {
             $property = $value;
         } elseif ($value === null || empty($value)) {
-            $property = null;
+            $property = [];
         } elseif (is_string($value)) {
             $property = GeneralUtility::trimExplode(',', $value);
         } else {
             throw new Exception(sprintf('Type of "%s" can not be converted to array.', gettype($value)));
         }
+
+        // This will reduce the length of cHashes
+        sort($property);
 
         return $this;
     }
@@ -205,6 +208,36 @@ class Demand
     public function setTags($tags): self
     {
         return $this->setTypeArray($this->tags, $tags);
+    }
+
+    public function addTag(string $tag): self
+    {
+        if(is_array($this->getTags())) {
+            $this->tags[] = $tag;
+        } else {
+            $this->tags = [$tag];
+        }
+        return $this;
+    }
+
+    public function removeTag(string $tag): self
+    {
+        $this->tags = array_filter(
+            $this->getTags(), static function($v) use ($tag) {
+                return $v !== $tag;
+            }
+        );
+
+        return $this;
+    }
+
+    public function toggleTag(string $tag): self
+    {
+        if(in_array($tag, $this->getTags(), true)) {
+            return $this->removeTag($tag);
+        } else {
+            return $this->addTag($tag);
+        }
     }
 
     public function getTopPostMode(): int
