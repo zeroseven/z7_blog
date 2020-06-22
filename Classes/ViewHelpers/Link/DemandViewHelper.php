@@ -52,7 +52,17 @@ class DemandViewHelper extends ActionViewHelper
             $unmatchedProperties = [];
             foreach ($this->arguments as $propertyName => $value) {
                 if ($value !== null && isset($this->typeMapping[$propertyName])) {
-                    if (($this->typeMapping[$propertyName] === 'array' && (empty($value) && empty($demand->getProperty($propertyName)) || 0 === count(array_diff((array)$value ?: null, (array)$demand->getProperty($propertyName)))) || $value === $demand->getProperty($propertyName))) {
+
+                    $type = $this->typeMapping[$propertyName];
+                    $demandValue = $demand->getProperty($propertyName);
+
+                    if (
+                        $type === 'array' && 0 === count(array_diff((array)$value ?: null, $demandValue))
+                        || $type === 'int' && (int)$value === (int)$demandValue
+                        || $type === 'string' && (string)$value === (string)$demandValue
+                        || $type === 'bool' && (bool)$value === (bool)$demandValue
+                        || $value === $demandValue
+                    ) {
                         $matchedProperties[] = $propertyName;
                     } else {
                         $unmatchedProperties[] = $propertyName;

@@ -8,9 +8,9 @@
 				<type>array</type>
 				<el>
 
-					<settings.list>
+					<settings.list_id>
 						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.list</label>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.list_id</label>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
@@ -36,7 +36,7 @@
 								</filter>
 							</config>
 						</TCEforms>
-					</settings.list>
+					</settings.list_id>
 
 				</el>
 			</ROOT>

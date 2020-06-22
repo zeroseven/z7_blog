@@ -41,7 +41,7 @@ class PostController extends ActionController
         ));
 
         // Try to find the category if empty
-        if (empty($demand->getCategory() === 0) && $category = RootlineService::findCategory()) {
+        if (empty($demand->getCategory()) && $category = RootlineService::findCategory()) {
             $demand->setCategory($category);
         }
 
@@ -101,10 +101,10 @@ class PostController extends ActionController
     {
         $this->view->assignMultiple([
             'categories' => RepositoryService::getCategoryRepository()->findAll(),
-            'author' => RepositoryService::getAuthorRepository()->findAll(),
+            'authors' => RepositoryService::getAuthorRepository()->findAll(),
             'topics' => RepositoryService::getTopicRepository()->findAll(),
             'tags' => RepositoryService::getTagRepository()->findAll(),
-            'demand' => $this->getDemand()
+            'demand' => $this->getDemand(true, true)
         ]);
     }
 }

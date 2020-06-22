@@ -197,9 +197,9 @@ class Demand
         return $this->setTypeInt($this->topic, $topic);
     }
 
-    public function getTags(): ?array
+    public function getTags(): array
     {
-        return empty($this->tags) ? null : $this->tags;
+        return (array)$this->tags;
     }
 
     public function setTags($tags): self
@@ -227,9 +227,9 @@ class Demand
         return $this->setTypeInt($this->archiveMode, $archiveMode);
     }
 
-    public function getOrdering(): ?string
+    public function getOrdering(): string
     {
-        return $this->ordering;
+        return (string)$this->ordering;
     }
 
     public function setOrdering($ordering): self
