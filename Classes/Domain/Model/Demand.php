@@ -113,6 +113,7 @@ class Demand
     protected function castArray($value): array
     {
         if (is_array($value)) {
+            sort($value);
             return $value;
         }
 
@@ -121,7 +122,9 @@ class Demand
         }
 
         if (is_string($value)) {
-            return GeneralUtility::trimExplode(',', $value);
+            $array = GeneralUtility::trimExplode(',', $value);
+            sort($array);
+            return $array;
         }
 
         throw new Exception(sprintf('Type of "%s" can not be converted to array.', gettype($value)));
