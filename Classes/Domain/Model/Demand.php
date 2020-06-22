@@ -24,34 +24,34 @@ class Demand
     public const ARCHIVED_POSTS_ONLY = 2;
 
     /** @var int */
-    private $stage;
+    private $stage = 0;
 
     /** @var int */
-    private $category;
+    private $category = 0;
 
     /** @var int */
-    private $author;
+    private $author = 0;
 
     /** @var int */
-    private $topic;
+    private $topic = 0;
 
     /** @var array */
-    private $tags;
+    private $tags = [];
 
     /** @var int */
-    private $topPostMode;
+    private $topPostMode = 0;
 
     /** @var int */
-    private $archiveMode;
+    private $archiveMode = 0;
 
     /** @var string */
-    private $ordering;
+    private $ordering = '';
 
     /** @var bool */
-    private $ajax;
+    private $ajax = false;
 
     /** @var int */
-    private $listId;
+    private $listId = 0;
 
     /** @var array */
     protected $parameterMapping;
@@ -62,37 +62,20 @@ class Demand
     public function __construct()
     {
 
-        // Try to get arrays from "cache"
-        if (empty($parameterMapping = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['parameters'] ?? null) || empty($typeMapping = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['types'] ?? null)){
+        // Create array of property names of reflection class
+        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
+            if (!$reflection->isProtected()) {
 
-            // Define empty arrays
-            $parameterMapping = [];
-            $typeMapping = [];
+                $name = $reflection->getName();
+                $value = $this->{$name};
 
-            // Create array of allowed parameters by property names of reflection class
-            foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
+                // Define parameter name of property
+                $this->parameterMapping[$name] = GeneralUtility::camelCaseToLowerCaseUnderscored($name);
 
-                if (!$reflection->isProtected()) {
-
-                    // Define parameter name of property
-                    $parameterMapping[$reflection->name] = GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name);
-
-                    // Get property type with fallback to annotation @see:https://www.php.net/manual/de/reflectionproperty.gettype.php#125075
-                    if (empty($type = $reflection->type) && preg_match('/@var\s+([^\s]+)/', $reflection->getDocComment(), $matches)) {
-                        $type = $matches[1];
-                    }
-
-                    // Map the type of properties
-                    $typeMapping[$reflection->name] = $type;
-                }
+                // Map the type of properties
+                $this->typeMapping[$name] = is_int($value) ? 'int' : (is_array($value) ? 'array' : (is_bool($value) ? 'bool' : (is_string($value) ? 'string' : null)));
             }
-
-            $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['parameters'] = $parameterMapping;
-            $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['types'] = $typeMapping;
         }
-
-        $this->parameterMapping = $parameterMapping;
-        $this->typeMapping = $typeMapping;
     }
 
     public static function makeInstance(): self
@@ -109,55 +92,48 @@ class Demand
         return GeneralUtility::makeInstance(self::class);
     }
 
-    protected function setTypeInt(&$property, $value): self
+    protected function castInt($value): int
     {
         if ($value === null || is_int($value) || MathUtility::canBeInterpretedAsInteger($value)) {
-            $property = (int)$value;
-        } else {
-            throw new Exception(sprintf('Type of "%s" can not be converted to integer.', gettype($value)));
+            return (int)$value;
         }
 
-        return $this;
+        throw new Exception(sprintf('Type of "%s" can not be converted to integer.', gettype($value)));
     }
 
-    protected function setTypeString(&$property, $value): self
+    protected function castString($value): string
     {
-        if ($value === null || is_string($value)) {
-            $property = (string)$value;
-        } else {
-            throw new Exception(sprintf('Type of "%s" can not be converted to string.', gettype($value)));
+        if ($value === null || is_string($value) || is_int($value)) {
+            return (string)$value;
         }
 
-        return $this;
+        throw new Exception(sprintf('Type of "%s" can not be converted to string.', gettype($value)));
     }
 
-    protected function setTypeArray(&$property, $value): self
+    protected function castArray($value): array
     {
         if (is_array($value)) {
-            $property = $value;
-        } elseif ($value === null || empty($value)) {
-            $property = [];
-        } elseif (is_string($value)) {
-            $property = GeneralUtility::trimExplode(',', $value);
-        } else {
-            throw new Exception(sprintf('Type of "%s" can not be converted to array.', gettype($value)));
+            return $value;
         }
 
-        // This will reduce the length of cHashes
-        sort($property);
+        if ($value === null || empty($value)) {
+            return [];
+        }
 
-        return $this;
+        if (is_string($value)) {
+            return GeneralUtility::trimExplode(',', $value);
+        }
+
+        throw new Exception(sprintf('Type of "%s" can not be converted to array.', gettype($value)));
     }
 
-    protected function setTypeBool(&$property, $value): self
+    protected function castBool($value): bool
     {
         if ($value === null || !is_array($value) && !is_object($value)) {
-            $property = (bool)$value;
-        } else {
-            throw new Exception(sprintf('Type of "%s" can not be converted to bool.', gettype($value)));
+            return (bool)$value;
         }
 
-        return $this;
+        throw new Exception(sprintf('Type of "%s" can not be converted to bool.', gettype($value)));
     }
 
     public function getStage(): int
@@ -167,7 +143,8 @@ class Demand
 
     public function setStage($stage): self
     {
-        return $this->setTypeInt($this->stage, $stage);
+        $this->stage = $this->castInt($stage);
+        return $this;
     }
 
     public function getCategory(): int
@@ -177,7 +154,8 @@ class Demand
 
     public function setCategory($category): self
     {
-        return $this->setTypeInt($this->category, $category);
+        $this->category = $this->castInt($category);
+        return $this;
     }
 
     public function getAuthor(): int
@@ -187,7 +165,8 @@ class Demand
 
     public function setAuthor($author): self
     {
-        return $this->setTypeInt($this->author, $author);
+        $this->author = $this->castInt($author);
+        return $this;
     }
 
     public function getTopic(): int
@@ -197,7 +176,8 @@ class Demand
 
     public function setTopic($topic): self
     {
-        return $this->setTypeInt($this->topic, $topic);
+        $this->topic = $this->castInt($topic);
+        return $this;
     }
 
     public function getTags(): array
@@ -207,16 +187,13 @@ class Demand
 
     public function setTags($tags): self
     {
-        return $this->setTypeArray($this->tags, $tags);
+        $this->tags = $this->castArray($tags);
+        return $this;
     }
 
     public function addTag(string $tag): self
     {
-        if(is_array($this->getTags())) {
-            $this->tags[] = $tag;
-        } else {
-            $this->tags = [$tag];
-        }
+        $this->tags[] = $tag;
         return $this;
     }
 
@@ -247,7 +224,8 @@ class Demand
 
     public function setTopPostMode($topPostMode): self
     {
-        return $this->setTypeInt($this->topPostMode, $topPostMode);
+        $this->topPostMode = $this->castInt($topPostMode);
+        return $this;
     }
 
     public function getArchiveMode(): int
@@ -257,7 +235,8 @@ class Demand
 
     public function setArchiveMode($archiveMode): self
     {
-        return $this->setTypeInt($this->archiveMode, $archiveMode);
+        $this->archiveMode = $this->castInt($archiveMode);
+        return $this;
     }
 
     public function getOrdering(): string
@@ -267,7 +246,8 @@ class Demand
 
     public function setOrdering($ordering): self
     {
-        return $this->setTypeString($this->ordering, $ordering);
+        $this->ordering = $this->castString($ordering);
+        return $this;
     }
 
     public function isAjax(): bool
@@ -277,7 +257,8 @@ class Demand
 
     public function setAjax($ajax): self
     {
-        return $this->setTypeBool($this->ajax, $ajax);
+        $this->ajax = $this->castBool($ajax);
+        return $this;
     }
 
     public function getListId(): int
@@ -287,7 +268,8 @@ class Demand
 
     public function setListId($listId): self
     {
-        return $this->setTypeInt($this->listId, $listId);
+        $this->listId = $this->castInt($listId);
+        return $this;
     }
 
     public function getParameterMapping(): array
