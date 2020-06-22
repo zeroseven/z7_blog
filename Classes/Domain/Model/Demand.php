@@ -6,6 +6,7 @@ namespace Zeroseven\Z7Blog\Domain\Model;
 use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use Zeroseven\Z7Blog\Service\SettingsService;
 
 class Demand
 {
@@ -23,55 +24,88 @@ class Demand
     public const ARCHIVED_POSTS_ONLY = 2;
 
     /** @var int */
-    protected $stage;
+    private $stage;
 
     /** @var int */
-    protected $category;
+    private $category;
 
     /** @var int */
-    protected $author;
+    private $author;
 
     /** @var int */
-    protected $topic;
+    private $topic;
 
     /** @var array */
-    protected $tags;
+    private $tags;
 
     /** @var int */
-    protected $topPostMode;
+    private $topPostMode;
 
     /** @var int */
-    protected $archiveMode;
+    private $archiveMode;
 
     /** @var string */
-    protected $ordering;
+    private $ordering;
 
     /** @var bool */
-    protected $ajax;
+    private $ajax;
 
     /** @var int */
-    protected $listId;
+    private $listId;
 
     /** @var array */
-    public $allowedParameters;
+    protected $parameterMapping;
+
+    /** @var array */
+    protected $typeMapping;
 
     public function __construct()
     {
 
-        // Create array of allowed parameters by property names of reflection class
-        $properties = GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties();
-        $this->allowedParameters = array_map(static function($reflection) {
-            return GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name);
-        }, $properties);
+        // Try to get arrays from "cache"
+        if (empty($parameterMapping = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['parameters'] ?? null) || empty($typeMapping = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['types'] ?? null)){
 
-        // Remove the parameter "allowed_parameters" from array of allowed parameters ;-)
-        $this->allowedParameters = array_filter($this->allowedParameters, static function($parameter) {
-            return $parameter !== 'allowed_parameters';
-        });
+            // Define empty arrays
+            $parameterMapping = [];
+            $typeMapping = [];
+
+            // Create array of allowed parameters by property names of reflection class
+            foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
+
+                if (!$reflection->isProtected()) {
+
+                    // Define parameter name of property
+                    $parameterMapping[$reflection->name] = GeneralUtility::camelCaseToLowerCaseUnderscored($reflection->name);
+
+                    // Get property type with fallback to annotation @see:https://www.php.net/manual/de/reflectionproperty.gettype.php#125075
+                    if (empty($type = $reflection->type) && preg_match('/@var\s+([^\s]+)/', $reflection->getDocComment(), $matches)) {
+                        $type = $matches[1];
+                    }
+
+                    // Map the type of properties
+                    $typeMapping[$reflection->name] = $type;
+                }
+            }
+
+            $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['parameters'] = $parameterMapping;
+            $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['demand']['mapping']['types'] = $typeMapping;
+        }
+
+        $this->parameterMapping = $parameterMapping;
+        $this->typeMapping = $typeMapping;
     }
 
     public static function makeInstance(): self
     {
+
+        // Return custom demand object
+        if ($demand = $GLOBALS['TYPO3_CONF_VARS']['EXT'][SettingsService::EXTENSION_KEY]['demand'] ?? null) {
+            if (class_exists($demand) && is_a($demand, self::class)) {
+                return GeneralUtility::makeInstance($demand);
+            }
+        }
+
+        // Return default demand object
         return GeneralUtility::makeInstance(self::class);
     }
 
@@ -88,7 +122,7 @@ class Demand
 
     protected function setTypeString(&$property, $value): self
     {
-        if($value === null || is_string($value)) {
+        if ($value === null || is_string($value)) {
             $property = (string)$value;
         } else {
             throw new Exception(sprintf('Type of "%s" can not be converted to string.', gettype($value)));
@@ -101,10 +135,10 @@ class Demand
     {
         if (is_array($value)) {
             $property = $value;
+        } elseif ($value === null || empty($value)) {
+            $property = null;
         } elseif (is_string($value)) {
             $property = GeneralUtility::trimExplode(',', $value);
-        } elseif ($value === null) {
-            $property = null;
         } else {
             throw new Exception(sprintf('Type of "%s" can not be converted to array.', gettype($value)));
         }
@@ -114,7 +148,7 @@ class Demand
 
     protected function setTypeBool(&$property, $value): self
     {
-        if($value === null || !is_array($value) && !is_object($value)) {
+        if ($value === null || !is_array($value) && !is_object($value)) {
             $property = (bool)$value;
         } else {
             throw new Exception(sprintf('Type of "%s" can not be converted to bool.', gettype($value)));
@@ -163,14 +197,14 @@ class Demand
         return $this->setTypeInt($this->topic, $topic);
     }
 
-    public function getTags(): ?array
+    public function getTags(): array
     {
-        return empty($this->tags) ? null : $this->tags;
+        return (array)$this->tags;
     }
 
     public function setTags($tags): self
     {
-       return $this->setTypeArray($this->tags, $tags);
+        return $this->setTypeArray($this->tags, $tags);
     }
 
     public function getTopPostMode(): int
@@ -193,9 +227,9 @@ class Demand
         return $this->setTypeInt($this->archiveMode, $archiveMode);
     }
 
-    public function getOrdering(): ?string
+    public function getOrdering(): string
     {
-        return $this->ordering;
+        return (string)$this->ordering;
     }
 
     public function setOrdering($ordering): self
@@ -223,6 +257,16 @@ class Demand
         return $this->setTypeInt($this->listId, $listId);
     }
 
+    public function getParameterMapping(): array
+    {
+        return $this->parameterMapping;
+    }
+
+    public function getTypeMapping(): array
+    {
+        return $this->typeMapping;
+    }
+
     public function topPostsFirst(): bool
     {
         return $this->getTopPostMode() === self::TOP_POSTS_FIRST;
@@ -243,6 +287,26 @@ class Demand
         return $this->getArchiveMode() === self::ARCHIVED_POSTS_ONLY;
     }
 
+    public function getProperty(string $propertyName)
+    {
+        $method = sprintf('get%s', ucfirst($propertyName));
+        if (is_callable([$this, $method])) {
+           return $this->$method();
+        }
+
+        return null;
+    }
+
+    public function setProperty(string $propertyName, $value)
+    {
+        $method = sprintf('set%s', ucfirst($propertyName));
+        if (is_callable([$this, $method])) {
+            return $this->$method($value);
+        }
+
+        return $this;
+    }
+
     public function setParameterArray(bool $ignoreEmptyValues, ...$arguments): self
     {
 
@@ -253,14 +317,9 @@ class Demand
             }
 
             // Set properties
-            foreach ($argument as $parameter => $value) {
-                if ((!empty($value) || !$ignoreEmptyValues) && in_array($parameter, $this->allowedParameters, true)) {
-
-                    // Call function "set[PropertyName]()"
-                    $method = sprintf('set%s', GeneralUtility::underscoredToUpperCamelCase($parameter));
-                    if (is_callable([$this, $method])) {
-                        $this->$method($value);
-                    }
+            foreach ($this->getParameterMapping() as $propertyName => $parameter) {
+                if (isset($argument[$parameter]) && (($value = $argument[$parameter]) || !$ignoreEmptyValues)) {
+                    $this->setProperty($propertyName, $value);
                 }
             }
         }
@@ -272,12 +331,9 @@ class Demand
     {
         $parameters = [];
 
-        // Call function "get[PropertyName]()" and add to array
-        foreach ($this->allowedParameters as $parameter) {
-            $method = sprintf('get%s', GeneralUtility::underscoredToUpperCamelCase($parameter));
-            if (is_callable([$this, $method])) {
-                $parameters[$parameter] = $this->$method();
-            }
+        // Collect values in array
+        foreach ($this->parameterMapping as $propertyName => $parameter) {
+            $parameters[$parameter] = $this->getProperty($propertyName);
         }
 
         // Return array with/without empty values
@@ -285,4 +341,5 @@ class Demand
             return !empty($value);
         });
     }
+
 }

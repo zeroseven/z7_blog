@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="z7_blog">
+		<header/>
+		<body>
+
+			<!-- Content element filter -->
+			<trans-unit id="filter.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="filter.author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="filter.topic">
+				<source>Topic</source>
+			</trans-unit>
+			<trans-unit id="filter.tag">
+				<source>Tag</source>
+			</trans-unit>
+			<trans-unit id="filter.ordering">
+				<source>Ordering</source>
+			</trans-unit>
+			<trans-unit id="filter.ordering.default">
+				<source>Latest first</source>
+			</trans-unit>
+			<trans-unit id="filter.ordering.date_asc">
+				<source>Oldest first</source>
+			</trans-unit>
+			<trans-unit id="filter.archiveMode">
+				<source>Archive</source>
+			</trans-unit>
+			<trans-unit id="filter.archiveMode.0">
+				<source>Hide archived posts</source>
+			</trans-unit>
+			<trans-unit id="filter.archiveMode.1">
+				<source>Show all posts</source>
+			</trans-unit>
+			<trans-unit id="filter.archiveMode.2">
+				<source>Archived posts only</source>
+			</trans-unit>
+			<trans-unit id="filter.topPostMode">
+				<source>Top Posts</source>
+			</trans-unit>
+			<trans-unit id="filter.topPostMode.0">
+				<source>Show all post</source>
+			</trans-unit>
+			<trans-unit id="filter.topPostMode.1">
+				<source>Show top posts first</source>
+			</trans-unit>
+			<trans-unit id="filter.topPostMode.2">
+				<source>Only top posts</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

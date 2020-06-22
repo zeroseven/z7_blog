@@ -1,0 +1,73 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="blgfltr">
+
+	<dl class="blgfltr">
+		<dt class="blgfltr__title">{f:translate(key:'filter.ordering')}:</dt>
+		<dd>
+			<blog:link.demand object="{demand}" ordering="">{f:translate(key:'filter.ordering.default')}</blog:link.demand>
+		</dd>
+		<dd>
+			<blog:link.demand object="{demand}" ordering="date_asc">{f:translate(key:'filter.ordering.date_asc')}</blog:link.demand>
+		</dd>
+
+		<dt class="blgfltr__title">{f:translate(key:'filter.author')}:</dt>
+		<f:for each="{authors}" as="author">
+			<dd>
+				<blog:link.demand object="{demand}" author="{author.uid}">{author.firstname} {author.lastname}</blog:link.demand>
+				<f:if condition="{demand.author} == {author.uid}">
+					<blog:link.demand object="{demand}" author="0">&times;</blog:link.demand>
+				</f:if>
+			</dd>
+		</f:for>
+
+		<dt class="blgfltr__title">{f:translate(key:'filter.topic')}:</dt>
+		<f:for each="{topics}" as="topic">
+			<dd>
+				<blog:link.demand object="{demand}" topic="{topic.uid}">{topic.title}</blog:link.demand>
+				<f:if condition="{demand.topic} == {topic.uid}">
+					<blog:link.demand object="{demand}" topic="0">&times;</blog:link.demand>
+				</f:if>
+			</dd>
+		</f:for>
+
+		<dt class="blgfltr__title">{f:translate(key:'filter.tag')}:</dt>
+		<f:for each="{tags}" as="tag">
+			<dd>
+				<blog:link.demand object="{demand}" tags="{0:tag}">{tag}</blog:link.demand>
+			</dd>
+		</f:for>
+
+		<dt class="blgfltr__title">{f:translate(key:'filter.archiveMode')}:</dt>
+		<dd>
+			<blog:link.demand object="{demand}" archiveMode="0">{f:translate(key:'filter.archiveMode.0')}</blog:link.demand>
+		</dd>
+		<dd>
+			<blog:link.demand object="{demand}" archiveMode="1">{f:translate(key:'filter.archiveMode.1')}</blog:link.demand>
+		</dd>
+		<dd>
+			<blog:link.demand object="{demand}" archiveMode="2">{f:translate(key:'filter.archiveMode.2')}</blog:link.demand>
+		</dd>
+
+		<dt class="blgfltr__title">{f:translate(key:'filter.topPostMode')}:</dt>
+		<dd>
+			<blog:link.demand object="{demand}" topPostMode="0">{f:translate(key:'filter.topPostMode.0')}</blog:link.demand>
+		</dd>
+		<dd>
+			<blog:link.demand object="{demand}" topPostMode="1">{f:translate(key:'filter.topPostMode.1')}</blog:link.demand>
+		</dd>
+		<dd>
+			<blog:link.demand object="{demand}" topPostMode="2">{f:translate(key:'filter.topPostMode.2')}</blog:link.demand>
+		</dd>
+
+		<dt class="blgfltr__title">{f:translate(key:'filter.category')}:</dt>
+		<f:for each="{categories}" as="category">
+			<dd>
+				<blog:link.demand object="{demand}" category="{category.uid}">{category.title} {demand.category} == {category.uid}</blog:link.demand>
+					<f:if condition="{demand.category} == {category.uid}">
+						<blog:link.demand class="blgfltr__remove" object="{demand}" category="0">&times;</blog:link.demand>
+					</f:if>
+			</dd>
+		</f:for>
+	</dl>
+
+</html>

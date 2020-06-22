@@ -1,0 +1,45 @@
+<T3DataStructure>
+	<sheets>
+		<general>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Filter</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.list_id>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.list_id</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<foreign_table>tt_content</foreign_table>
+								<allowed>tt_content</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<suggestOptions>
+									<default>
+										<searchWholePhrase>1</searchWholePhrase>
+									</default>
+									<tt_content>
+										<searchCondition>CType = 'z7blog_list'</searchCondition>
+									</tt_content>
+								</suggestOptions>
+								<filter>
+									<items type="array">
+										<userFunc>Zeroseven\Z7Blog\TCA\GroupFilter->filterTypes</userFunc>
+										<parameters>
+											<allowed>z7blog_list</allowed>
+										</parameters>
+									</items>
+								</filter>
+							</config>
+						</TCEforms>
+					</settings.list_id>
+
+				</el>
+			</ROOT>
+		</general>
+	</sheets>
+</T3DataStructure>
