@@ -15,16 +15,12 @@ class DemandViewHelper extends ActionViewHelper
     /** @var array */
     protected $parameterMapping;
 
-    /** @var array */
-    protected $typeMapping;
-
     public function __construct()
     {
         parent::__construct();
 
         $this->demand = Demand::makeInstance();
         $this->parameterMapping = $this->demand->getParameterMapping();
-        $this->typeMapping = $this->demand->getTypeMapping();
     }
 
     public function initializeArguments(): void
@@ -39,7 +35,7 @@ class DemandViewHelper extends ActionViewHelper
 
         // Register all allowed properties of demand object
         foreach ($this->parameterMapping as $propertyName => $parameter) {
-            $this->registerArgument($propertyName, $this->typeMapping[$propertyName] ?? null, sprintf('Override value "%s" in demand object.', $propertyName));
+            $this->registerArgument($propertyName, $this->demand->getType($propertyName), sprintf('Override value "%s" in demand object.', $propertyName));
         }
     }
 
@@ -56,9 +52,9 @@ class DemandViewHelper extends ActionViewHelper
 
             // Loop arguments
             foreach ($this->arguments as $propertyName => $value) {
-                if ($value !== null && isset($this->typeMapping[$propertyName])) {
+                if ($value !== null && $this->demand->hasProperty($propertyName)) {
 
-                    $type = $this->typeMapping[$propertyName];
+                    $type = $this->demand->getType($propertyName);
                     $demandValue = $demand->getProperty($propertyName);
 
                     if (
@@ -77,8 +73,8 @@ class DemandViewHelper extends ActionViewHelper
 
             // Check tags
             foreach (['addTag', 'toggleTag'] as $tag) {
-                if(($tag = $this->arguments[$tag]) !== null) {
-                    if (in_array($tag, $this->demand->getTags(),true)) {
+                if (($tag = $this->arguments[$tag]) !== null) {
+                    if (in_array($tag, $this->demand->getTags(), true)) {
                         $matchedProperties[] = $tag;
                     } else {
                         $unmatchedProperties[] = $tag;
@@ -87,7 +83,7 @@ class DemandViewHelper extends ActionViewHelper
             }
 
             // Set data attributes
-            if(!count($unmatchedProperties)) {
+            if (!count($unmatchedProperties)) {
                 $this->tag->addAttribute('data-demand-selected', 'true');
             } elseif (count($matchedProperties)) {
                 $this->tag->addAttribute('data-demand-active', count($matchedProperties) . '/' . (count($matchedProperties) + count($unmatchedProperties)));
@@ -108,9 +104,17 @@ class DemandViewHelper extends ActionViewHelper
         }
 
         // Add/remove/toggle tags
-        if($tag = $this->arguments['addTag'] ?? null) { $this->demand->addTag($tag); }
-        if($tag = $this->arguments['removeTag'] ?? null) { $this->demand->removeTag($tag); }
-        if($tag = $this->arguments['toggleTag'] ?? null) { $this->demand->toggleTag($tag); }
+        if ($tag = $this->arguments['addTag'] ?? null) {
+            $this->demand->addToTags($tag);
+        } elseif ($tag = $this->arguments['removeTag'] ?? null) {
+            $this->demand->removeFromTags($tag);
+        } elseif ($tag = $this->arguments['toggleTag'] ?? null) {
+            if (in_array($tag, $this->demand->getTags(), true)) {
+                $this->demand->removeFromTags($tag);
+            } else {
+                $this->demand->addToTags($tag);
+            }
+        }
 
         // Set some "action" parameters
         $this->arguments['controller'] = 'Post';

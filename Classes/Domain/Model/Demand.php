@@ -24,34 +24,34 @@ class Demand
     public const ARCHIVED_POSTS_ONLY = 2;
 
     /** @var int */
-    private $stage = 0;
+    public $stage = 0;
 
     /** @var int */
-    private $category = 0;
+    public $category = 0;
 
     /** @var int */
-    private $author = 0;
+    public $author = 0;
 
     /** @var int */
-    private $topic = 0;
+    public $topic = 0;
 
     /** @var array */
-    private $tags = [];
+    public $tags = [];
 
     /** @var int */
-    private $topPostMode = 0;
+    public $topPostMode = 0;
 
     /** @var int */
-    private $archiveMode = 0;
+    public $archiveMode = 0;
 
     /** @var string */
-    private $ordering = '';
+    public $ordering = '';
 
     /** @var bool */
-    private $ajax = false;
+    public $ajax = false;
 
     /** @var int */
-    private $listId = 0;
+    public $listId = 0;
 
     /** @var array */
     protected $parameterMapping;
@@ -136,150 +136,92 @@ class Demand
         throw new Exception(sprintf('Type of "%s" can not be converted to bool.', gettype($value)));
     }
 
-    public function getStage(): int
+    protected function checkPropertyAccess(string $propertyName): void
     {
-        return (int)$this->stage;
-    }
-
-    public function setStage($stage): self
-    {
-        $this->stage = $this->castInt($stage);
-        return $this;
-    }
-
-    public function getCategory(): int
-    {
-        return (int)$this->category;
-    }
-
-    public function setCategory($category): self
-    {
-        $this->category = $this->castInt($category);
-        return $this;
-    }
-
-    public function getAuthor(): int
-    {
-        return (int)$this->author;
-    }
-
-    public function setAuthor($author): self
-    {
-        $this->author = $this->castInt($author);
-        return $this;
-    }
-
-    public function getTopic(): int
-    {
-        return (int)$this->topic;
-    }
-
-    public function setTopic($topic): self
-    {
-        $this->topic = $this->castInt($topic);
-        return $this;
-    }
-
-    public function getTags(): array
-    {
-        return (array)$this->tags;
-    }
-
-    public function setTags($tags): self
-    {
-        $this->tags = $this->castArray($tags);
-        return $this;
-    }
-
-    public function addTag(string $tag): self
-    {
-        $this->tags[] = $tag;
-        return $this;
-    }
-
-    public function removeTag(string $tag): self
-    {
-        $this->tags = array_filter(
-            $this->getTags(), static function($v) use ($tag) {
-                return $v !== $tag;
-            }
-        );
-
-        return $this;
-    }
-
-    public function toggleTag(string $tag): self
-    {
-        if(in_array($tag, $this->getTags(), true)) {
-            return $this->removeTag($tag);
-        } else {
-            return $this->addTag($tag);
+        if(!$this->hasProperty($propertyName)) {
+            throw new Exception(sprintf('Property "%s" not found in demand model', $propertyName));
         }
     }
 
-    public function getTopPostMode(): int
+    public function hasProperty(string $propertyName)
     {
-        return (int)$this->topPostMode;
+        try {
+            if(GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperty($propertyName)) {
+                return true;
+            }
+        } catch (\ReflectionException $e) {
+        }
+
+        return false;
     }
 
-    public function setTopPostMode($topPostMode): self
+    public function getType(string $propertyName): ?string
     {
-        $this->topPostMode = $this->castInt($topPostMode);
+        $this->checkPropertyAccess($propertyName);
+        return $this->typeMapping[$propertyName] ?? null;
+    }
+
+    public function getProperty(string $propertyName)
+    {
+        $type = $this->getType($propertyName);
+
+        if ($type === 'int') {
+            return (int)$this->{$propertyName};
+        } elseif ($type === 'string') {
+            return (string)$this->{$propertyName};
+        } elseif ($type === 'array') {
+            return (array)$this->{$propertyName};
+        } elseif ($type === 'bool') {
+            return (bool)$this->{$propertyName};
+        }
+
+        return $this->{$propertyName};
+    }
+
+    public function setProperty(string $propertyName, $value)
+    {
+        $type = $this->getType($propertyName);
+
+        if ($type === 'int') {
+            $this->{$propertyName} = $this->castInt($value);
+        } elseif ($type === 'string') {
+            $this->{$propertyName} = $this->castString($value);
+        } elseif ($type === 'array') {
+            $this->{$propertyName} = $this->castArray($value);
+        } elseif ($type === 'bool') {
+            $this->{$propertyName} = $this->castBool($value);
+        } else {
+            $this->{$propertyName} = $value;
+        }
+
         return $this;
     }
 
-    public function getArchiveMode(): int
+    public function addToProperty(string $propertyName, $value): self
     {
-        return (int)$this->archiveMode;
+        if($this->getType($propertyName) === 'array') {
+            $array = $this->getProperty($propertyName);
+            $array[] = $value;
+
+            return $this->setProperty($propertyName, $array);
+        }
+
+        throw new Exception('AddToProperty is allowed on type array only');
+
     }
 
-    public function setArchiveMode($archiveMode): self
+    public function removeFromProperty(string $propertyName, $value): self
     {
-        $this->archiveMode = $this->castInt($archiveMode);
-        return $this;
-    }
+        if($this->getType($propertyName) === 'array') {
+            $array = array_filter(
+                $this->getProperty($propertyName), static function ($i) use ($value) {
+                return $i !== $value;
+            });
 
-    public function getOrdering(): string
-    {
-        return (string)$this->ordering;
-    }
+            return $this->setProperty($propertyName, $array);
+        }
 
-    public function setOrdering($ordering): self
-    {
-        $this->ordering = $this->castString($ordering);
-        return $this;
-    }
-
-    public function isAjax(): bool
-    {
-        return (bool)$this->ajax;
-    }
-
-    public function setAjax($ajax): self
-    {
-        $this->ajax = $this->castBool($ajax);
-        return $this;
-    }
-
-    public function getListId(): int
-    {
-        return (int)$this->listId;
-    }
-
-    public function setListId($listId): self
-    {
-        $this->listId = $this->castInt($listId);
-        return $this;
-    }
-
-    public function getParameterMapping(): array
-    {
-        return $this->parameterMapping;
-    }
-
-    public function getTypeMapping(): array
-    {
-        return $this->typeMapping;
+        throw new Exception('RemoveFromProperty is allowed on type array only');
     }
 
     public function topPostsFirst(): bool
@@ -300,26 +242,6 @@ class Demand
     public function archivedPostsOnly(): bool
     {
         return $this->getArchiveMode() === self::ARCHIVED_POSTS_ONLY;
-    }
-
-    public function getProperty(string $propertyName)
-    {
-        $method = sprintf('get%s', ucfirst($propertyName));
-        if (is_callable([$this, $method])) {
-           return $this->$method();
-        }
-
-        return null;
-    }
-
-    public function setProperty(string $propertyName, $value)
-    {
-        $method = sprintf('set%s', ucfirst($propertyName));
-        if (is_callable([$this, $method])) {
-            return $this->$method($value);
-        }
-
-        return $this;
     }
 
     public function setParameterArray(bool $ignoreEmptyValues, ...$arguments): self
@@ -355,6 +277,41 @@ class Demand
         return !$ignoreEmptyValues ? $parameters : array_filter($parameters, static function ($value) {
             return !empty($value);
         });
+    }
+
+    public function __call($name, $arguments)
+    {
+        if (preg_match('/((?:s|g)et|is|has|addTo|removeFrom)([A-Z].*)/', $name, $matches)) {
+
+            $action = $matches[1];
+            $propertyName = lcfirst($matches[2]);
+
+            if ($action === 'set') {
+                return $this->setProperty($propertyName, ...$arguments);
+            }
+
+            if ($action === 'get') {
+                return $this->getProperty($propertyName);
+            }
+
+            if ($action === 'is') {
+                return (bool)$this->getProperty($propertyName);
+            }
+
+            if ($action === 'has') {
+                return $this->hasProperty($propertyName);
+            }
+
+            if ($action === 'addTo') {
+                return $this->addToProperty($propertyName, ...$arguments);
+            }
+
+            if ($action === 'removeFrom') {
+                return $this->removeFromProperty($propertyName, ...$arguments);
+            }
+        }
+
+        throw new Exception(sprintf('Method "%s" not found in %s', $name, __CLASS__));
     }
 
 }
