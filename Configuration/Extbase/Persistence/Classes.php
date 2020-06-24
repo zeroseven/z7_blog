@@ -14,7 +14,7 @@ return [
         'tableName' => 'pages',
         'recordType' => \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE,
         'properties' => [
-            'redirectCategory' => [
+            'redirect' => [
                 'fieldName' => 'post_redirect_category'
             ]
         ]

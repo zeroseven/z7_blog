@@ -29,7 +29,7 @@ class OverrideIconOverlay
             }
 
             if (Category::DOKTYPE === $doktype && $category = RepositoryService::getCategoryRepository()->findByUid($row['uid'], true)) {
-                if ($category->isRedirectCategory()) {
+                if ($category->isRedirect()) {
                     return 'overlay-shortcut';
                 }
             }

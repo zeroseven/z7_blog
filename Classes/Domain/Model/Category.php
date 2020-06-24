@@ -9,21 +9,21 @@ class Category extends AbstractPageModel
     public const DOKTYPE = 146;
 
     /** @var bool */
-    protected $redirectCategory;
+    protected $redirect;
 
     public function getDoktype(): int
     {
         return self::DOKTYPE;
     }
 
-    public function isRedirectCategory(): bool
+    public function isRedirect(): bool
     {
-        return (bool)$this->redirectCategory;
+        return (bool)$this->redirect;
     }
 
-    public function setRedirectCategory($redirectCategory): self
+    public function setRedirect($redirect): self
     {
-        $this->redirectCategory = $redirectCategory;
+        $this->redirect = $redirect;
         return $this;
     }
 }
