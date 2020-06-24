@@ -3,6 +3,7 @@
 	<file source-language="en" datatype="plaintext" original="messages" product-name="z7_blog">
 		<header/>
 		<body>
+
 			<!-- Content element wizard -->
 			<trans-unit id="wizard.postList.title">
 				<source>Regular Postlist</source>
@@ -29,56 +30,12 @@
 				<source>Display several authors of blog posts</source>
 			</trans-unit>
 
-			<trans-unit id="date">
-				<source>Date</source>
+			<!-- Backend notifications -->
+			<trans-unit id="notification.resortPagetree.title">
+				<source>Blog-Posts have been reordered</source>
 			</trans-unit>
-			<trans-unit id="archive">
-				<source>In the archive</source>
-			</trans-unit>
-			<trans-unit id="category">
-				<source>Category</source>
-			</trans-unit>
-			<trans-unit id="tags">
-				<source>Tags</source>
-			</trans-unit>
-			<trans-unit id="author">
-				<source>Author</source>
-			</trans-unit>
-			<trans-unit id="yes">
-				<source>Yes</source>
-			</trans-unit>
-			<trans-unit id="yes.since">
-				<source>Yes, since %s.</source>
-			</trans-unit>
-			<trans-unit id="no">
-				<source>No</source>
-			</trans-unit>
-			<trans-unit id="edit">
-				<source>Edit</source>
-			</trans-unit>
-
-			<trans-unit id="post.pageinfo.title">
-				<source>Information about the blog post</source>
-			</trans-unit>
-
-			<trans-unit id="category.pageinfo.title">
-				<source>Blog category</source>
-			</trans-unit>
-			<trans-unit id="category.pageinfo.count">
-				<source>In this category there are %s Blog-Posts.</source>
-			</trans-unit>
-			<trans-unit id="category.pageinfo.redirectCategory">
-				<source>This page will be redirected to the default overview page (page uid %s)</source>
-			</trans-unit>
-			<trans-unit id="category.pageinfo.goToList">
-				<source>Go to module "list"</source>
-			</trans-unit>
-
-			<trans-unit id="flashmessage.sorting.title">
-				<source>The posts are reorder</source>
-			</trans-unit>
-			<trans-unit id="flashmessage.sorting.description">
-				<source>The sorting of the posts in the page tree, inside the page %s is changed.</source>
+			<trans-unit id="notification.resortPagetree.description">
+				<source>The sorting of blog posts in page tree inside "%s" has been changed to reflect their dates.</source>
 			</trans-unit>
 		</body>
 	</file>
