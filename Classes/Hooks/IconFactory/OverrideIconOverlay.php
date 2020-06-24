@@ -23,8 +23,15 @@ class OverrideIconOverlay
 
             $doktype = (int)$row['doktype'];
 
-            if (Post::DOKTYPE === $doktype && ($row = $this->getFullRecordData($row['uid'])) && $row['post_top']) {
-                return 'overlay-approved';
+            if (Post::DOKTYPE === $doktype && $row = $this->getFullRecordData($row['uid'])) {
+                if ((int)$row['post_archive'] > 0 && (int)$row['post_archive'] < time()) {
+                    return 'overlay-scheduled';
+                }
+
+                if ($row['post_top']) {
+                    return 'overlay-approved';
+                }
+
             }
 
             if (Category::DOKTYPE === $doktype && ($row = $this->getFullRecordData($row['uid'])) && $row['post_redirect_category']) {
