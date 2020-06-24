@@ -96,11 +96,11 @@ class Post extends AbstractPageModel
 
     public function isArchived(): bool
     {
-        if ($this->archived === null && ($archiveDate = $this->getArchiveDate())) {
-            return $this->archived = $archiveDate->format('U') > time();
+        if ($this->archived === null && $archiveDate = $this->getArchiveDate()) {
+            return $this->archived = $archiveDate->format('U') < time();
         }
 
-        return $this->archived;
+        return (bool)$this->archived;
     }
 
     public function getCategory(): ?Category
