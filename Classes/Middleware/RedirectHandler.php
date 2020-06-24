@@ -13,7 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Category;
-use Zeroseven\Z7Blog\Service\ArgumentsService;
+use Zeroseven\Z7Blog\Service\RequestService;
 use Zeroseven\Z7Blog\Service\SettingsService;
 
 class RedirectHandler implements MiddlewareInterface
@@ -24,12 +24,17 @@ class RedirectHandler implements MiddlewareInterface
 
         if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && ($row = $GLOBALS['TSFE']->page) && $row['post_redirect_category'] && (int)$row['doktype'] === Category::DOKTYPE) {
 
+            // Get target page uid of plugin settings
+            $targetUid = (int)SettingsService::getSettings('post.list.defaultListPage');
+
             // Return redirect response
-            return $this->buildRedirectResponse([
-                'parameter' => (int)SettingsService::getSettings('post.list.defaultListPage'),
-                'useCacheHash' => true,
-                'additionalParams' => '&' . ArgumentsService::REQUEST_KEY . '[category]=' . $row['uid'] . (($type = (int)GeneralUtility::_GET('type')) ? '&type=' . $type : '')
-            ]);
+            if($targetUid !== (int)$row['uid']) {
+                return $this->buildRedirectResponse([
+                    'parameter' => $targetUid ?: (int)$row['pid'],
+                    'useCacheHash' => true,
+                    'additionalParams' => '&' . RequestService::REQUEST_KEY . '[category]=' . $row['uid'] . (($type = (int)GeneralUtility::_GET('type')) ? '&type=' . $type : '')
+                ]);
+            }
         }
 
         return $handler->handle($request);
