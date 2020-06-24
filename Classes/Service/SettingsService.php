@@ -18,7 +18,7 @@ class SettingsService
     protected static function getPropertyPath($subject, string $propertyPath = null)
     {
         if($propertyPath === null) {
-            return (array)$subject;
+            return $subject;
         }
 
         return ObjectAccess::getPropertyPath((array)$subject, $propertyPath);
