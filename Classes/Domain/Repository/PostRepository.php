@@ -38,27 +38,6 @@ class PostRepository extends AbstractPageRepository
         $this->setDefaultOrderings($ordering);
     }
 
-    public function findByUid($uid, bool $ignoreRestrictions = null): ?Post
-    {
-
-        // Todo: fix for translations on ignored restrictions
-        if ($ignoreRestrictions) {
-            $query = $this->createQuery();
-            $query->setLimit(1);
-            $query->matching(
-                $query->equals('uid', (int)$uid)
-            );
-
-            // Allow hidden pages
-            $query->getQuerySettings()->setIgnoreEnableFields(true)->setIncludeDeleted(true)->setRespectStoragePage(false);
-
-            // Get posts and return the first one …
-            return ($posts = $query->execute()) ? $posts->getFirst() : null;
-        }
-
-        return parent::findByUid($uid);
-    }
-
     public function findAll(Demand $demand = null): ?QueryResultInterface
     {
 

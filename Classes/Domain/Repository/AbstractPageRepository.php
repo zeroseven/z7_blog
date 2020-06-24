@@ -67,4 +67,25 @@ abstract class AbstractPageRepository extends Repository
         // Execute the query
         return $query->execute();
     }
+
+    public function findByUid($uid, bool $ignoreRestrictions = null)
+    {
+
+        // Todo: fix for translations on ignored restrictions
+        if ($ignoreRestrictions) {
+            $query = $this->createQuery();
+            $query->setLimit(1);
+            $query->matching(
+                $query->equals('uid', (int)$uid)
+            );
+
+            // Allow hidden pages
+            $query->getQuerySettings()->setIgnoreEnableFields(true)->setIncludeDeleted(true)->setRespectStoragePage(false);
+
+            // Get posts and return the first one …
+            return ($posts = $query->execute()) ? $posts->getFirst() : null;
+        }
+
+        return parent::findByUid($uid);
+    }
 }
