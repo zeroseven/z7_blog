@@ -6,36 +6,32 @@ namespace Zeroseven\Z7Blog\Hooks\IconFactory;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use Zeroseven\Z7Blog\Domain\Model\Category;
 use Zeroseven\Z7Blog\Domain\Model\Post;
+use Zeroseven\Z7Blog\Service\RepositoryService;
 
 class OverrideIconOverlay
 {
 
-    protected const TABLE = 'pages';
-
-    protected function getFullRecordData($uid): array
-    {
-        return BackendUtility::getRecord(self::TABLE, (int)$uid);
-    }
-
     public function postOverlayPriorityLookup(string $table, array $row, array $status, string $iconName = null): ?string
     {
-        if ($table === self::TABLE && empty($iconName) && $mapping = $GLOBALS['TYPO3_CONF_VARS']['SYS']['IconFactory']['recordStatusMapping'] ?? null) {
+        if ($table === 'pages' && empty($iconName) && $mapping = $GLOBALS['TYPO3_CONF_VARS']['SYS']['IconFactory']['recordStatusMapping'] ?? null) {
 
             $doktype = (int)$row['doktype'];
 
-            if (Post::DOKTYPE === $doktype && $row = $this->getFullRecordData($row['uid'])) {
-                if ((int)$row['post_archive'] > 0 && (int)$row['post_archive'] < time()) {
+            if (Post::DOKTYPE === $doktype && $post = RepositoryService::getPostRepository()->findByUid($row['uid'], true)) {
+                if ($post->isArchived()) {
                     return 'overlay-scheduled';
                 }
 
-                if ($row['post_top']) {
+                if ($post->isTop()) {
                     return 'overlay-approved';
                 }
 
             }
 
-            if (Category::DOKTYPE === $doktype && ($row = $this->getFullRecordData($row['uid'])) && $row['post_redirect_category']) {
-                return 'overlay-shortcut';
+            if (Category::DOKTYPE === $doktype && $category = RepositoryService::getCategoryRepository()->findByUid($row['uid'], true)) {
+                if ($category->isRedirectCategory()) {
+                    return 'overlay-shortcut';
+                }
             }
         }
 
