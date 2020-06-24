@@ -27,8 +27,7 @@ class SettingsService
     public static function getPluginConfiguration(string $propertyPath = null)
     {
         // Try to get settings from cache
-        if (!is_array($pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['plugin_configuration'] ?? null)) {
-
+        if (!($pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['plugin_configuration'] ?? null)) {
             $typoScriptSetup = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationManager::class)->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
             if ($settings = ($typoScriptSetup['plugin.']['tx_z7blog.'] ?? null)) {
                 $pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['plugin_configuration'] = (array)GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($settings);
