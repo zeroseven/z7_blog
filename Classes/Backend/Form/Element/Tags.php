@@ -76,7 +76,8 @@ class Tags extends AbstractFormElement
                 'name' => $this->name,
                 'value' => $this->value,
                 'id' => $this->id,
-                'placeholder' => $this->placeholder
+                'placeholder' => $this->placeholder,
+                'class' => 'form-control form-control--tags'
             ], true) . ' />';
     }
 
