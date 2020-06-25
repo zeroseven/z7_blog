@@ -60,7 +60,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'size' => 10,
                 'eval' => 'date,int',
                 'default' => 0
-            ],
+            ]
         ],
         'post_date' => [
             'exclude' => false,
@@ -72,7 +72,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'size' => 10,
                 'eval' => 'date,required',
                 'default' => time()
-            ],
+            ]
         ],
         'post_author' => [
             'exclude' => true,
@@ -89,8 +89,8 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'default' => 0,
                 'items' => [
                     ['-', 0, 'plugin-z7blog-author']
-                ],
-            ],
+                ]
+            ]
         ],
         'post_topics' => [
             'exclude' => true,
@@ -104,7 +104,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'MM' => 'tx_z7blog_post_topic_mm',
                 'itemsProcFunc' => 'Zeroseven\\Z7Blog\\TCA\\ItemsProcFunc->getTopics',
                 'default' => 0,
-            ],
+            ]
         ],
         'post_tags' => [
             'exclude' => true,
@@ -115,20 +115,23 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 'placeholder' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags.placeholder'
             ]
         ],
-        'post_related' => [
+        'post_relations_to' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_related',
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_to',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
+                'allowed' => $table,
                 'foreign_table' => $table,
+                'MM_opposite_field' => 'post_relations_from',
+                'MM' => 'tx_z7blog_post_mm',
                 'filter' => [
                     [
                         'userFunc' => \Zeroseven\Z7Blog\TCA\GroupFilter::class . '->filterTypes',
                         'parameters' => [
                             'allowed' => $postDoktype
-                        ],
-                    ],
+                        ]
+                    ]
                 ],
                 'suggestOptions' => [
                     'default' => [
@@ -138,12 +141,27 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                         'searchCondition' => 'doktype = ' . $postDoktype
                     ]
                 ],
-                'allowed' => $table,
-                'MM' => 'tx_z7blog_post_mm',
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ],
                 'size' => 5,
                 'autoSizeMax' => 10,
-                'maxitems' => 99,
-            ],
+                'maxitems' => 99
+            ]
+        ],
+        'post_relations_from' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_from',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'foreign_table' => $table,
+                'allowed' => $table,
+                'size' => 5,
+                'maxitems' => 100,
+                'MM' => 'tx_z7blog_post_mm',
+                'readOnly' => 1
+            ]
         ],
         'post_redirect_category' => [
             'exclude' => true,
@@ -158,7 +176,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 ],
                 'default' => 0
             ]
-        ],
+        ]
     ]);
 
     // Register post palette
@@ -173,7 +191,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog, 
             post_top, 
             --palette--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.palette.blogpost_date_settings;blogpost_date_settings, 
-            post_author, post_topics, post_tags, post_related 
+            post_author, post_topics, post_tags, post_relations_to, post_relations_from 
     ', (string)$postDoktype);
 
     // Add fields to category pages
