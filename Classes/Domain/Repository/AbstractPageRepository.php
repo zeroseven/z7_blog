@@ -29,7 +29,7 @@ abstract class AbstractPageRepository extends Repository
     {
 
         // Set the root page as fallback for "Automatic [0]"
-        if (empty($startPageId)) {
+        if ($startPageId < 1) {
             $startPageId = RootlineService::getRootPage();
         }
 
