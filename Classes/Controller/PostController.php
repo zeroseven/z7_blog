@@ -101,7 +101,7 @@ class PostController extends ActionController
     {
 
         // Create demand object
-        $demand = $this->getDemand(true, true);
+        $demand = $this->getDemand(true, false);
 
         // Add plugin settings of target list
         if($listId = (int)$this->settings['list_id']) {
@@ -127,7 +127,7 @@ class PostController extends ActionController
             'authors' => RepositoryService::getAuthorRepository()->findAll(),
             'topics' => RepositoryService::getTopicRepository()->findAll(),
             'tags' => RepositoryService::getTagRepository()->findAll(),
-            'demand' => $demand
+            'demand' => $demand->setParameterArray(true, $this->requestArguments)
         ]);
     }
 }
