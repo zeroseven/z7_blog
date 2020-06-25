@@ -26,16 +26,18 @@ class ResortPagetree
                     if ((int)$uid && (int)$data['doktype'] === Post::DOKTYPE) {
 
                         // Get data of given page
-                        $row = BackendUtility::getRecord(self::TABLE, $uid);
-                        $pid = (int)$row['pid'];
+                        $pid = (int)BackendUtility::getRecord(self::TABLE, $uid, 'pid')['pid'];
 
                         // Send message about the sorting
                         if ($this->sortItemsOnPid($pid, $dataHanlder)) {
+
+                            $parentRow = BackendUtility::getRecord(self::TABLE, $pid);
+
                             $message = GeneralUtility::makeInstance(FlashMessage::class,
                                 LocalizationUtility::translate(
                                     'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:notification.resortPagetree.description',
                                     'z7_blog',
-                                    [0 => BackendUtility::getRecordTitle(self::TABLE, $row)]
+                                    [0 => BackendUtility::getRecordTitle(self::TABLE, $parentRow)]
                                 ),
                                 LocalizationUtility::translate(
                                     'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:notification.resortPagetree.title',
