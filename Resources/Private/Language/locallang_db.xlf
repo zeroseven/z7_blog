@@ -38,8 +38,11 @@
 			<trans-unit id="pages.post_tags.placeholder">
 				<source>Add new tag</source>
 			</trans-unit>
-			<trans-unit id="pages.post_related">
+			<trans-unit id="pages.post_relations_to">
 				<source>Related Posts</source>
+			</trans-unit>
+			<trans-unit id="pages.post_relations_from">
+				<source>The blog post has also relations from these articles.</source>
 			</trans-unit>
 			<trans-unit id="pages.post_redirect_category">
 				<source>Redirect to the overview page</source>

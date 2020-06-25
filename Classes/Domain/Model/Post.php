@@ -2,10 +2,11 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Zeroseven\Z7Blog\Service\RepositoryService;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
 use Zeroseven\Z7Blog\Service\RootlineService;
+use TYPO3\CMS\Extbase\Annotation\ORM as Extbase;
 
 class Post extends AbstractPageModel
 {
@@ -30,10 +31,7 @@ class Post extends AbstractPageModel
     /** @var \Zeroseven\Z7Blog\Domain\Model\Author */
     protected $author;
 
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Topic>
-     * @Extbase\ORM\Cascade("remove")
-     */
+    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Topic> */
     protected $topics;
 
     /** @var string */
@@ -42,11 +40,20 @@ class Post extends AbstractPageModel
     /** @var array */
     protected $tags;
 
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
-     * @Extbase\ORM\Cascade("remove")
+    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
+     * @Extbase\Cascade("remove")
+     * @Extbase\Lazy
      */
-    protected $related;
+    protected $relationsTo;
+
+    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
+     * @Extbase\Cascade("remove")
+     * @Extbase\Lazy
+     */
+    protected $relationsFrom;
+
+    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post> */
+    protected $relations;
 
     protected function initStorageObjects(): void
     {
@@ -171,24 +178,44 @@ class Post extends AbstractPageModel
         return $this->tags;
     }
 
-    public function addRelated(Post $related): void
+    public function getRelationsTo(): ObjectStorage
     {
-        $this->related->attach($related);
+        return $this->relationsTo;
     }
 
-    public function removeRelated(Post $relatedToRemove): void
+    public function setRelationsTo(ObjectStorage $relationsTo): self
     {
-        $this->related->detach($relatedToRemove);
-    }
-
-    public function getRelated(): ObjectStorage
-    {
-        return $this->related;
-    }
-
-    public function setRelated(ObjectStorage $related): self
-    {
-        $this->related = $related;
+        $this->relationsTo = $relationsTo;
+        $this->relations = null;
         return $this;
+    }
+
+    public function getRelationsFrom(): ObjectStorage
+    {
+        return $this->relationsFrom;
+    }
+
+    public function setRelationsFrom(ObjectStorage $relationsFrom): self
+    {
+        $this->relationsFrom = $relationsFrom;
+        $this->relations = null;
+        return $this;
+    }
+
+    public function getRelations(): ObjectStorage
+    {
+        if($this->relations === null) {
+            $this->relations = GeneralUtility::makeInstance(ObjectStorage::class);
+
+            if($relationsTo = $this->getRelationsTo()) {
+                $this->relations->addAll($relationsTo);
+            }
+
+            if($relationsFrom = $this->getRelationsFrom()) {
+                $this->relations->addAll($relationsFrom);
+            }
+        }
+
+        return $this->relations;
     }
 }

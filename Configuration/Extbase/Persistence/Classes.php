@@ -41,9 +41,12 @@ return [
             'topics' => [
                 'fieldName' => 'post_topics'
             ],
-            'related' => [
-                'fieldName' => 'post_related'
+            'relationsTo' => [
+                'fieldName' => 'post_relations_to'
+            ],
+            'relationsFrom' => [
+                'fieldName' => 'post_relations_from'
             ]
         ]
-    ],
+    ]
 ];
