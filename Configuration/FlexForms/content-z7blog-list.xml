@@ -24,6 +24,11 @@
 										<numIndex index="2">apps-pagetree-blogcategory</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.category.all</numIndex>
+										<numIndex index="1">-1</numIndex>
+										<numIndex index="2">apps-pagetree-blogcategory</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
 										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.category.available</numIndex>
 										<numIndex index="1">--div--</numIndex>
 									</numIndex>

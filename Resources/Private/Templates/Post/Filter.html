@@ -64,7 +64,7 @@
 			<dd>
 				<blog:link.demand object="{demand}" category="{category.uid}">{category.title} {demand.category} == {category.uid}</blog:link.demand>
 					<f:if condition="{demand.category} == {category.uid}">
-						<blog:link.demand class="blgfltr__remove" object="{demand}" category="0">&times;</blog:link.demand>
+						<blog:link.demand class="blgfltr__remove" object="{demand}" category="-1">&times;</blog:link.demand>
 					</f:if>
 			</dd>
 		</f:for>
