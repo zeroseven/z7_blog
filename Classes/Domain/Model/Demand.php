@@ -94,7 +94,7 @@ class Demand
 
     protected function castInt($value): int
     {
-        if ($value === null || is_int($value) || MathUtility::canBeInterpretedAsInteger($value)) {
+        if ($value === null || is_int($value) || MathUtility::canBeInterpretedAsInteger($value) || empty($value)) {
             return (int)$value;
         }
 

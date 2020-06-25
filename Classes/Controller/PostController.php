@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Controller;
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
@@ -17,17 +19,32 @@ class PostController extends ActionController
 {
 
     /** @var array */
+    protected $contentData;
+
+    /** @var array */
     protected $requestArguments;
 
-    public function __construct()
+    public function initializeAction()
     {
+        parent::initializeAction();
+
+        /** @extensionScannerIgnoreLine */
+        $this->contentData = $this->configurationManager->getContentObject()->data;
         $this->requestArguments = RequestService::getArguments();
     }
 
-    protected function getContentData(): array
+    protected function resolveView(): ViewInterface
     {
-        /** @extensionScannerIgnoreLine */
-        return $this->configurationManager->getContentObject()->data;
+        // Get "original" view object
+        $view = parent::resolveView();
+
+        // Assign variables to all actions
+        $view->assignMultiple([
+            'requestArguments' => $this->requestArguments,
+            'data' => $this->contentData
+        ]);
+
+        return $view;
     }
 
     protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): Demand
@@ -48,27 +65,11 @@ class PostController extends ActionController
         return $demand;
     }
 
-    protected function resolveView(): ViewInterface
-    {
-        // Get "original" view object
-        $view = parent::resolveView();
-
-        // Assign variables to all actions
-        $view->assignMultiple([
-            'requestArguments' => $this->requestArguments,
-            'data' => $this->getContentData()
-        ]);
-
-        return $view;
-    }
-
     public function listAction(): void
     {
-        // Get data of content element
-        $data = $this->getContentData();
 
         // Get request data
-        $applyRequestArguments = $this->request->hasArgument('list_id') === false || (int)$this->request->getArgument('list_id') === (int)$data['uid'];
+        $applyRequestArguments = $this->request->hasArgument('list_id') === false || (int)$this->request->getArgument('list_id') === (int)$this->contentData['uid'];
 
         // Determine relevant arguments for filtering
         $demand = $this->getDemand(true, $applyRequestArguments);
@@ -98,12 +99,35 @@ class PostController extends ActionController
 
     public function filterAction(): void
     {
+
+        // Create demand object
+        $demand = $this->getDemand(true, true);
+
+        // Add plugin settings of target list
+        if($listId = (int)$this->settings['list_id']) {
+
+            // Get flexform
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
+            $row = $queryBuilder
+                ->select('pi_flexform')
+                ->from('tt_content')
+                ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($listId, \PDO::PARAM_INT)))
+                ->execute()
+                ->fetch();
+
+            if($flexform = $row['pi_flexform']) {
+                $flexFormSettings = GeneralUtility::makeInstance(FlexFormService::class)->convertFlexFormContentToArray($flexform);
+                $demand->setParameterArray(true, $flexFormSettings['settings']);
+            }
+
+        }
+
         $this->view->assignMultiple([
             'categories' => RepositoryService::getCategoryRepository()->findAll(),
             'authors' => RepositoryService::getAuthorRepository()->findAll(),
             'topics' => RepositoryService::getTopicRepository()->findAll(),
             'tags' => RepositoryService::getTagRepository()->findAll(),
-            'demand' => $this->getDemand(true, true)
+            'demand' => $demand
         ]);
     }
 }
