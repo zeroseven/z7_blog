@@ -20,7 +20,7 @@
     return targetElement;
   };
 
-  const addToList = (listSelector, controlSelector, button, e) => {
+  const addToList = (listSelector, controlSelector, loadingText, button, e) => {
 
     const event = e || window.event;
 
@@ -44,6 +44,10 @@
 
     // Change the layout of the target
     elements.button.style.cursor = 'no-drop';
+
+    if(loadingText) {
+      elements.button.innerText = loadingText;
+    }
 
     // Add data attributes
     Object.keys(elements).forEach(key => elements[key].dataset.loading = 'true');

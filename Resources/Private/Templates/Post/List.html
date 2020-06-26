@@ -17,7 +17,8 @@
 		<div class="blglst__control" id="js-blog-control-{data.uid}">
 			<f:if condition="{pagination.nextStage}">
 				<f:then>
-					<blog:link.pagination class="blglst__next" object="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#js-blog-list-{data.uid}', '#js-blog-control-{data.uid}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
+					<f:variable name="loadingText" value="{f:translate(key:'pagination.loading')}" />
+					<blog:link.pagination class="blglst__next" object="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#js-blog-list-{data.uid}', '#js-blog-control-{data.uid}', '{loadingText}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
 						{f:translate(key: 'pagination.next')}
 					</blog:link.pagination>
 				</f:then>
