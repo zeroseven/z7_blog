@@ -23,6 +23,10 @@ class DemandViewHelper extends AbstractLinkViewHelper
     {
         parent::overrideDemandParameters();
 
+        // Reset the pagination
+        $this->demand->setStage(0);
+
+
         // Add/remove/toggle tags
         if ($tag = $this->arguments['addTag'] ?? null) {
             $this->demand->addToTags($tag);
