@@ -56,6 +56,9 @@
     Zeroseven.Blog.loadContents(elements.button.dataset.href, (contents, status) => {
       if (status < 400) {
 
+        // Get the number of links
+        const linkLength = elements.list.getElementsByTagName('a').length;
+
         // Remove loading classes
         Object.keys(elements).forEach(key => delete elements[key].dataset.loading);
 
@@ -64,6 +67,9 @@
 
         // Replace content of the control area
         appendChilds(contents[controlSelector], removeChilds(elements.control), true);
+
+        // Focus the first link of new results
+        elements.list.getElementsByTagName('a')[linkLength].focus();
 
       } else {
         if (confirm('The requested site could not be loaded:\n' + status + ').\n\nDo you want to try again?')) {
