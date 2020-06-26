@@ -19,7 +19,7 @@ class DemandViewHelper extends AbstractLinkViewHelper
         $this->registerArgument('stateAttribute', 'bool', 'Display state of the link in data attributes', false, true);
     }
 
-    public function overrideDemandParameters(): void
+    protected function overrideDemandParameters(): void
     {
         parent::overrideDemandParameters();
 

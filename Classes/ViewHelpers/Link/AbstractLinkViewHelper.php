@@ -36,21 +36,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         }
     }
 
-    public function initialize(): void
-    {
-        parent::initialize();
-
-        // Take copy of given demand object
-        if (($demand = $this->arguments['object']) instanceof Demand) {
-            $this->demand = clone $demand;
-        }
-
-        // Set default arguments
-        $this->arguments['controller'] = 'Post';
-        $this->arguments['pluginName'] = 'List';
-    }
-
-    public function overrideDemandParameters(): void
+    protected function overrideDemandParameters(): void
     {
         // Collect overrides
         $parameters = [];
@@ -66,13 +52,35 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         }
     }
 
+    protected function beforeRendering(): void
+    {
+    }
+
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        // Take copy of given demand object
+        if (($demand = $this->arguments['object']) instanceof Demand) {
+            $this->demand = clone $demand;
+        }
+
+        // Set default arguments
+        $this->arguments['controller'] = 'Post';
+        $this->arguments['pluginName'] = 'List';
+    }
+
     public function render(): string
     {
+
         // Override demand arguments
         $this->overrideDemandParameters();
 
         // Set arguments
         $this->arguments['arguments'] = array_merge($this->arguments['arguments'] ?? [], $this->demand->getParameterArray(true));
+
+        // Call this method before the tag will be rendered by the actionViewHelper
+        $this->beforeRendering();
 
         // Call the action ViewHelper (like <f:link.action … />)
         return parent::render();

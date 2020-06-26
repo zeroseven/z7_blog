@@ -213,11 +213,6 @@ class Pagination
         return $this;
     }
 
-    public function getSelectedStage(): int
-    {
-        return $this->selectedStage;
-    }
-
     public function setSelectedStage($stage = null, bool $updatePagination = null): self
     {
         $this->selectedStage = MathUtility::canBeInterpretedAsInteger($stage) ? (int)$stage : 0;
@@ -266,6 +261,22 @@ class Pagination
         return $this->stageLengths;
     }
 
+    public function getSelectedStage(): int
+    {
+        return $this->selectedStage;
+    }
+
+    public function getNextStage(): ?int
+    {
+        $range = $this->getRange();
+        return $this->getSelectedStage() < $this->getMaxStages() - 1 && $this->getItems()->count() > $range['to'] ? ($this->getSelectedStage() + 1) : null;
+    }
+
+    public function getPreviousStage(): ?int
+    {
+        return $this->getSelectedStage() > 0 ? $this->getSelectedStage() - 1 : null;
+    }
+
     public function getRange(int $stage = null): array
     {
 
@@ -284,17 +295,6 @@ class Pagination
 
         // Return array
         return $range;
-    }
-
-    public function getNextStage(): ?int
-    {
-        $range = $this->getRange();
-        return $this->getSelectedStage() < $this->getMaxStages() - 1 && $this->getItems()->count() > $range['to'] ? ($this->getSelectedStage() + 1) : null;
-    }
-
-    public function getPreviousStage(): ?int
-    {
-        return $this->getSelectedStage() > 0 ? $this->getSelectedStage() - 1 : null;
     }
 
     public function getIndicators(): array
