@@ -47,9 +47,6 @@ class Demand
     /** @var string */
     public $ordering = '';
 
-    /** @var bool */
-    public $ajax = false;
-
     /** @var int */
     public $listId = 0;
 
@@ -94,7 +91,7 @@ class Demand
 
     protected function castInt($value): int
     {
-        if ($value === null || is_int($value) || MathUtility::canBeInterpretedAsInteger($value) || empty($value)) {
+        if ($value === null || is_int($value) || empty($value) || MathUtility::canBeInterpretedAsInteger($value)) {
             return (int)$value;
         }
 
