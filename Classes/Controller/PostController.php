@@ -72,7 +72,7 @@ class PostController extends ActionController
         $applyRequestArguments = !isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid'];
 
         // Determine relevant arguments for filtering
-        $demand = $this->getDemand(true, $applyRequestArguments);
+        $demand = $this->getDemand(true, $applyRequestArguments)->setListId((int)$this->contentData['uid']);
 
         // Get posts depending on demand object
         $posts = RepositoryService::getPostRepository()->findAll($demand);
