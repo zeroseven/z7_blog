@@ -69,7 +69,7 @@ class PostController extends ActionController
     {
 
         // Get request data
-        $applyRequestArguments = $this->request->hasArgument('list_id') === false || (int)$this->request->getArgument('list_id') === (int)$this->contentData['uid'];
+        $applyRequestArguments = !isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid'];
 
         // Determine relevant arguments for filtering
         $demand = $this->getDemand(true, $applyRequestArguments);
