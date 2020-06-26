@@ -4,6 +4,17 @@
 		<header/>
 		<body>
 
+			<!-- Pagination -->
+			<trans-unit id="pagination.next">
+				<source>Show more</source>
+			</trans-unit>
+			<trans-unit id="pagination.all">
+				<source>Show all</source>
+			</trans-unit>
+			<trans-unit id="pagination.loading">
+				<source>loading ...</source>
+			</trans-unit>
+
 			<!-- Content element filter -->
 			<trans-unit id="filter.category">
 				<source>Category</source>

@@ -240,7 +240,7 @@ class Pagination
         return $this;
     }
 
-    protected function getMaxStages(): int
+    public function getMaxStages(): int
     {
         return $this->maxStages;
     }
