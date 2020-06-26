@@ -194,10 +194,10 @@
 
 					<settings.items_per_stages>
 						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stagess</label>
-							<description>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stagess.description</description>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stages</label>
+							<description>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stages.description</description>
 							<config>
-								<placeholder>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stagess.placeholder</placeholder>
+								<placeholder>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stages.placeholder</placeholder>
 								<type>input</type>
 								<eval>trim,is_in</eval>
 								<is_in>0123456789,</is_in>
