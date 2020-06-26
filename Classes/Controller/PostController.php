@@ -106,15 +106,19 @@ class PostController extends ActionController
         // Add plugin settings of target list
         if($listId = (int)$this->settings['list_id']) {
 
-            // Get flexform
+            // Get target content element
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
             $row = $queryBuilder
-                ->select('pi_flexform')
+                ->select('pi_flexform', 'pid')
                 ->from('tt_content')
                 ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($listId, \PDO::PARAM_INT)))
                 ->execute()
                 ->fetch();
 
+            // Define the target page
+            $this->view->assign('pageUid', (int)$row['pid']);
+
+            // Set flexform settings
             if($flexform = $row['pi_flexform']) {
                 $flexFormSettings = GeneralUtility::makeInstance(FlexFormService::class)->convertFlexFormContentToArray($flexform);
                 $demand->setParameterArray(true, $flexFormSettings['settings']);
