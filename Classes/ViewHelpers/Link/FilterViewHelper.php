@@ -5,7 +5,7 @@ namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
 use Zeroseven\Z7Blog\Domain\Model\Demand;
 
-class DemandViewHelper extends AbstractLinkViewHelper
+class FilterViewHelper extends AbstractLinkViewHelper
 {
 
     public function initializeArguments(): void
@@ -16,7 +16,7 @@ class DemandViewHelper extends AbstractLinkViewHelper
         $this->registerArgument('addTag', 'string', 'Adds a tag');
         $this->registerArgument('removeTag', 'string', 'Removes a tag');
         $this->registerArgument('toggleTag', 'string', 'If the tag is existing removes it, otherwise adds a tag');
-        $this->registerArgument('stateAttribute', 'bool', 'Display state of the link in data attributes', false, true);
+        $this->registerArgument('dataAttributes', 'bool', 'Display state of the link in data attributes', false, true);
     }
 
     protected function overrideDemandParameters(): void
@@ -43,8 +43,8 @@ class DemandViewHelper extends AbstractLinkViewHelper
 
     public function render(): string
     {
-        // Override demand object
-        if ($this->arguments['stateAttribute']) {
+        // Mark active links
+        if ($this->arguments['dataAttributes']) {
 
             // Mark matched links
             // TODO: This is an experimental feature. Do some tests with real data
@@ -85,9 +85,9 @@ class DemandViewHelper extends AbstractLinkViewHelper
 
             // Set data attributes
             if (!count($unmatchedProperties)) {
-                $this->tag->addAttribute('data-demand-selected', 'true');
+                $this->tag->addAttribute('data-filter-selected', 'true');
             } elseif (count($matchedProperties)) {
-                $this->tag->addAttribute('data-demand-active', count($matchedProperties) . '/' . (count($matchedProperties) + count($unmatchedProperties)));
+                $this->tag->addAttribute('data-filter-active', count($matchedProperties) . '/' . (count($matchedProperties) + count($unmatchedProperties)));
             }
         }
 
