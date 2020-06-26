@@ -3,9 +3,8 @@
 namespace Zeroseven\Z7Blog\Domain\Model;
 
 use TYPO3\CMS\Core\Resource\AbstractFile;
-use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
@@ -37,13 +36,13 @@ abstract class AbstractPageModel extends AbstractEntity
      */
     protected $fileReferences;
 
-    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Core\Resource\File> */
+    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Core\Resource\FileReference> */
     protected $media;
 
-    /** @var \TYPO3\CMS\Core\Resource\File */
+    /** @var \TYPO3\CMS\Core\Resource\FileReference */
     protected $firstMedia;
 
-    /** @var \TYPO3\CMS\Core\Resource\File */
+    /** @var \TYPO3\CMS\Core\Resource\FileReference */
     protected $firstImage;
 
     public function __construct()
@@ -139,7 +138,7 @@ abstract class AbstractPageModel extends AbstractEntity
             $this->media = GeneralUtility::makeInstance(ObjectStorage::class);
 
             foreach ($fileReferences->toArray() as $fileReference) {
-                if ($file = $fileReference instanceof FileReference ? $fileReference->getOriginalResource()->getOriginalFile() : null) {
+                if ($file = $fileReference instanceof \TYPO3\CMS\Extbase\Domain\Model\FileReference ? $fileReference->getOriginalResource() : null) {
                     $this->media->attach($file);
                 }
             }
@@ -151,21 +150,23 @@ abstract class AbstractPageModel extends AbstractEntity
     public function setMedia(ObjectStorage $media): self
     {
         $this->media = $media;
+        $this->firstMedia = null;
+        $this->firstImage = null;
         return $this;
     }
 
-    public function getFirstMedia(): ?File
+    public function getFirstMedia(): ?FileReference
     {
         if ($this->firstMedia === null && $media = $this->getMedia()) {
             return $this->firstMedia = $media->offsetGet(0);
         }
 
-        return null;
+        return $this->firstMedia;
     }
 
-    public function getFirstImage(): ?File
+    public function getFirstImage(): ?FileReference
     {
-        if ($this->firstMedia === null && $media = $this->getMedia()) {
+        if ($this->firstImage === null && $media = $this->getMedia()) {
             foreach ($media->toArray() ?? [] as $asset) {
                 if ($asset->getType() === AbstractFile::FILETYPE_IMAGE) {
                     return $this->firstImage = $asset;
@@ -173,7 +174,7 @@ abstract class AbstractPageModel extends AbstractEntity
             }
         }
 
-        return null;
+        return $this->firstImage;
     }
 
 }
