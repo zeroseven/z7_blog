@@ -12,7 +12,6 @@ class PaginationViewHelper extends AbstractLinkViewHelper
 
         // Register arguments
         $this->registerArgument('ajaxPageType', 'int', 'Additional url for a "data-href" attribute.');
-        $this->registerArgument('ajaxContentUid', 'int', 'The uid of the content element, loading in an ajax request');
     }
 
     protected function beforeRendering(): void

@@ -1,1 +1,3 @@
 node_modules
+Resources/Public/JavaScript/Frontend/**/*.js
+!Resources/Public/JavaScript/Frontend/**/*min.js

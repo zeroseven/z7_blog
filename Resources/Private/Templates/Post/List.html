@@ -1,7 +1,7 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Blog/Blogpages/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
 	<div class="blglst">
-		<div id="z7blog-list-{data.uid}">
-			<f:if condition="{demand.ajax}">
+		<div class="blglst__list" id="js-blog-list-{data.uid}">
+			<f:if condition="{requestArguments.ajax}">
 				<f:then>
 					<f:comment><!-- Load the selected stage only --></f:comment>
 					{f:render(section: 'Stage', arguments: '{stage: pagination.stages.selected}')}
@@ -14,9 +14,11 @@
 				</f:else>
 			</f:if>
 		</div>
-		<div id="z7blog-control-{data.uid}">
+		<div class="blglst__control" id="js-blog-control-{data.uid}">
 			<f:if condition="{pagination.nextStage}">
-				<f:link.action action="list" controller="Post" arguments="{stage:pagination.nextStage}">NEXT</f:link.action>
+				<blog:link.pagination class="blglst__next" object="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#js-blog-list-{data.uid}', '#js-blog-control-{data.uid}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
+					NEXT
+				</blog:link.pagination>
 			</f:if>
 		</div>
 	</div>
@@ -24,6 +26,6 @@
 
 <f:section name="Stage">
 	<f:for each="{stage}" as="post">
-		(Page: {stage.index + 1}) {post.title -> f:format.crop(maxCharacters:20)}<br />
+		{post.title -> f:format.crop(maxCharacters:20) -> f:link.page(pageUid:post.uid)}<br />
 	</f:for>
 </f:section>

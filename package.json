@@ -1,8 +1,14 @@
 {
-		"name": "z7_blog",
-		"private": true,
-		"devDependencies": {
-				"@yaireo/tagify": "3.11.3",
-				"gulp-rename": "^2.0.0"
-		}
+  "name": "z7_blog",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.10.3",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
+    "@yaireo/tagify": "3.11.3"
+  }
 }

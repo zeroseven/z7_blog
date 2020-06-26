@@ -26,7 +26,6 @@ class FilterViewHelper extends AbstractLinkViewHelper
         // Reset the pagination
         $this->demand->setStage(0);
 
-
         // Add/remove/toggle tags
         if ($tag = $this->arguments['addTag'] ?? null) {
             $this->demand->addToTags($tag);
