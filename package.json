@@ -2,7 +2,7 @@
 		"name": "z7_blog",
 		"private": true,
 		"devDependencies": {
-				"@yaireo/tagify": "3.11.1",
+				"@yaireo/tagify": "3.11.3",
 				"gulp-rename": "^2.0.0"
 		}
 }
