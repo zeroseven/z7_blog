@@ -123,15 +123,18 @@ class PostController extends ActionController
                 $flexFormSettings = GeneralUtility::makeInstance(FlexFormService::class)->convertFlexFormContentToArray($flexform);
                 $demand->setParameterArray(true, $flexFormSettings['settings']);
             }
-
         }
 
+        // Set request data to the demand
+        $demand->setParameterArray(true, $this->requestArguments);
+
+        // Pass variables to the content
         $this->view->assignMultiple([
             'categories' => RepositoryService::getCategoryRepository()->findAll(),
             'authors' => RepositoryService::getAuthorRepository()->findAll(),
             'topics' => RepositoryService::getTopicRepository()->findAll(),
-            'tags' => RepositoryService::getTagRepository()->findAll(),
-            'demand' => $demand->setParameterArray(true, $this->requestArguments)
+            'tags' => RepositoryService::getTagRepository()->findAll($demand, true),
+            'demand' => $demand
         ]);
     }
 }

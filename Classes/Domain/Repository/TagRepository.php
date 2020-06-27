@@ -36,13 +36,11 @@ class TagRepository
         return $tags;
     }
 
-    public function findAll(Demand $demand = null, bool $ignoreTagsFromDemand = null, int $languageUid = null): ?array
+    public function findAll(Demand $demandObject = null, bool $ignoreTagsFromDemand = null, int $languageUid = null): ?array
     {
 
         // Create demand object, if empty
-        if ($demand === null) {
-            $demand = Demand::makeInstance();
-        }
+        $demand = $demandObject === null ? Demand::makeInstance() : clone $demandObject;
 
         // Get post repository
         $repository = RepositoryService::getPostRepository();
