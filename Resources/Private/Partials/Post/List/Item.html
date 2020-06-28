@@ -1,0 +1,27 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="blgitm">
+
+	<f:link.page class="blgitm__link" pageUid="{post.uid}">
+		<f:if condition="{post.firstImage}">
+			<f:image class="blgitm__image" image="{post.firstImage}" maxHeight="180" maxWidth="320" alt="{f:if(condition:post.firstImage.alternative, then:post.firstImage.alternative, else:post.title)}"/>
+		</f:if>
+
+		<span class="blgitm__title">{post.title}</span>
+
+		<f:if condition="{post.abstract} || {post.description}">
+			<span class="blgitm__description">
+				{f:if(condition:post.abstract, then:post.abstract, else:post.description) -> f:format.crop(maxCharacters: '120') -> f:format.nl2br()}
+			</span>
+		</f:if>
+	</f:link.page>
+
+	<f:if condition="{post.tags}">
+		<ul class="blgitm__tags">
+			<f:for each="{post.tags}" as="tag">
+				<li>{tag -> blog:link.filter(class: 'blgitm__tag', object:demand, tags:'{0:tag}')}</li>
+			</f:for>
+		</ul>
+	</f:if>
+
+</div>
+</html>

@@ -4,12 +4,12 @@
 			<f:if condition="{requestArguments.ajax}">
 				<f:then>
 					<f:comment><!-- Load the selected stage only --></f:comment>
-					{f:render(section: 'Stage', arguments: '{stage: pagination.stages.selected}')}
+					{f:render(section: 'Stage', arguments: '{stage: pagination.stages.selected, settings:settings, demand:demand}')}
 				</f:then>
 				<f:else>
 					<f:comment><!-- Load all active states (in range from 0 to [selected stage]) --></f:comment>
 					<f:for each="{pagination.stages.active}" as="stage">
-						{f:render(section: 'Stage', arguments: '{stage:stage}')}
+						{f:render(section: 'Stage', arguments: '{stage:stage, settings:settings, demand:demand}')}
 					</f:for>
 				</f:else>
 			</f:if>
@@ -36,6 +36,6 @@
 
 <f:section name="Stage">
 	<f:for each="{stage}" as="post">
-		{post.title -> f:format.crop(maxCharacters:20) -> f:link.page(pageUid:post.uid)}<br />
+		{f:render(partial:'Post/List/Item', arguments: '{_all}')}
 	</f:for>
 </f:section>
