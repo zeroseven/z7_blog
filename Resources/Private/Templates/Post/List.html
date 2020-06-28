@@ -18,13 +18,13 @@
 			<f:if condition="{pagination.nextStage}">
 				<f:then>
 					<f:variable name="loadingText" value="{f:translate(key:'pagination.loading')}" />
-					<blog:link.pagination class="blglst__next" object="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#js-blog-list-{data.uid}', '#js-blog-control-{data.uid}', '{loadingText}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
+					<blog:link.pagination class="blglst__next" demand="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#js-blog-list-{data.uid}', '#js-blog-control-{data.uid}', '{loadingText}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
 						{f:translate(key: 'pagination.next')}
 					</blog:link.pagination>
 				</f:then>
 				<f:else>
 					<f:if condition="{pagination.maxStages} == {pagination.selectedStage + 1}">
-						<blog:link.filter class="blglst__all" pageUid="{settings.post.list.defaultPid}" object="{demand}" dataAttributes="false">
+						<blog:link.filter class="blglst__all" pageUid="{settings.post.list.defaultPid}" demand="{demand}" dataAttributes="false">
 							{f:translate(key:'pagination.all')}
 						</blog:link.filter>
 					</f:if>

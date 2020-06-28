@@ -28,7 +28,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         parent::initializeArguments();
 
         // Register demand argument
-        $this->registerArgument('object', 'object', 'The demand object');
+        $this->registerArgument('demand', 'object', 'The demand object');
 
         // Register all allowed properties of demand object
         foreach ($this->parameterMapping as $propertyName => $parameter) {
@@ -61,7 +61,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         parent::initialize();
 
         // Take copy of given demand object
-        if (($demand = $this->arguments['object']) instanceof Demand) {
+        if (($demand = $this->arguments['demand']) instanceof Demand) {
             $this->demand = clone $demand;
         }
 
