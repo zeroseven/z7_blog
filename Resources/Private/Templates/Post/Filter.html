@@ -5,15 +5,15 @@
 	<style type="text/css">*[data-filter-selected] { background: yellow; color: #000; }</style>
 
 	<dl class="blgfltr">
-		<dt class="blgfltr__title">{f:translate(key:'filter.ordering')}:</dt>
+		<dt class="blgfltr__title">{f:translate(key:'post.ordering')}:</dt>
 		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" ordering="">{f:translate(key:'filter.ordering.default')}</blog:link.filter>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" ordering="">{f:translate(key:'post.ordering.default')}</blog:link.filter>
 		</dd>
 		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" ordering="date_asc">{f:translate(key:'filter.ordering.date_asc')}</blog:link.filter>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" ordering="date_asc">{f:translate(key:'post.ordering.date_asc')}</blog:link.filter>
 		</dd>
 
-		<dt class="blgfltr__title">{f:translate(key:'filter.author')}:</dt>
+		<dt class="blgfltr__title">{f:translate(key:'post.author')}:</dt>
 		<f:for each="{authors}" as="author">
 			<dd>
 				<blog:link.filter object="{demand}" pageUid="{pageUid}" author="{author.uid}">{author.firstname} {author.lastname}</blog:link.filter>
@@ -23,7 +23,7 @@
 			</dd>
 		</f:for>
 
-		<dt class="blgfltr__title">{f:translate(key:'filter.topic')}:</dt>
+		<dt class="blgfltr__title">{f:translate(key:'post.topic')}:</dt>
 		<f:for each="{topics}" as="topic">
 			<dd>
 				<blog:link.filter object="{demand}" pageUid="{pageUid}" topic="{topic.uid}">{topic.title}</blog:link.filter>
@@ -33,36 +33,36 @@
 			</dd>
 		</f:for>
 
-		<dt class="blgfltr__title">{f:translate(key:'filter.tag')}:</dt>
+		<dt class="blgfltr__title">{f:translate(key:'post.tag')}:</dt>
 		<f:for each="{tags}" as="tag">
 			<dd>
 				<blog:link.filter object="{demand}" pageUid="{pageUid}" toggleTag="{tag}">{tag}</blog:link.filter>
 			</dd>
 		</f:for>
 
-		<dt class="blgfltr__title">{f:translate(key:'filter.archiveMode')}:</dt>
+		<dt class="blgfltr__title">{f:translate(key:'post.archiveMode')}:</dt>
 		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" archiveMode="0">{f:translate(key:'filter.archiveMode.0')}</blog:link.filter>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" archiveMode="0">{f:translate(key:'post.archiveMode.0')}</blog:link.filter>
 		</dd>
 		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" archiveMode="1">{f:translate(key:'filter.archiveMode.1')}</blog:link.filter>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" archiveMode="1">{f:translate(key:'post.archiveMode.1')}</blog:link.filter>
 		</dd>
 		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" archiveMode="2">{f:translate(key:'filter.archiveMode.2')}</blog:link.filter>
-		</dd>
-
-		<dt class="blgfltr__title">{f:translate(key:'filter.topPostMode')}:</dt>
-		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" topPostMode="0">{f:translate(key:'filter.topPostMode.0')}</blog:link.filter>
-		</dd>
-		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" topPostMode="1">{f:translate(key:'filter.topPostMode.1')}</blog:link.filter>
-		</dd>
-		<dd>
-			<blog:link.filter object="{demand}" pageUid="{pageUid}" topPostMode="2">{f:translate(key:'filter.topPostMode.2')}</blog:link.filter>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" archiveMode="2">{f:translate(key:'post.archiveMode.2')}</blog:link.filter>
 		</dd>
 
-		<dt class="blgfltr__title">{f:translate(key:'filter.category')}:</dt>
+		<dt class="blgfltr__title">{f:translate(key:'post.topPostMode')}:</dt>
+		<dd>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" topPostMode="0">{f:translate(key:'post.topPostMode.0')}</blog:link.filter>
+		</dd>
+		<dd>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" topPostMode="1">{f:translate(key:'post.topPostMode.1')}</blog:link.filter>
+		</dd>
+		<dd>
+			<blog:link.filter object="{demand}" pageUid="{pageUid}" topPostMode="2">{f:translate(key:'post.topPostMode.2')}</blog:link.filter>
+		</dd>
+
+		<dt class="blgfltr__title">{f:translate(key:'post.category')}:</dt>
 		<f:for each="{categories}" as="category">
 			<dd>
 				<blog:link.filter object="{demand}" pageUid="{pageUid}" category="{category.uid}">{category.title}</blog:link.filter>

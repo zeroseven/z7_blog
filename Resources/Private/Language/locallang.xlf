@@ -15,50 +15,50 @@
 				<source>loading ...</source>
 			</trans-unit>
 
-			<!-- Content element filter -->
-			<trans-unit id="filter.category">
+			<!-- Post attributes -->
+			<trans-unit id="post.category">
 				<source>Category</source>
 			</trans-unit>
-			<trans-unit id="filter.author">
+			<trans-unit id="post.author">
 				<source>Author</source>
 			</trans-unit>
-			<trans-unit id="filter.topic">
+			<trans-unit id="post.topic">
 				<source>Topic</source>
 			</trans-unit>
-			<trans-unit id="filter.tag">
+			<trans-unit id="post.tag">
 				<source>Tag</source>
 			</trans-unit>
-			<trans-unit id="filter.ordering">
+			<trans-unit id="post.ordering">
 				<source>Ordering</source>
 			</trans-unit>
-			<trans-unit id="filter.ordering.default">
+			<trans-unit id="post.ordering.default">
 				<source>Latest first</source>
 			</trans-unit>
-			<trans-unit id="filter.ordering.date_asc">
+			<trans-unit id="post.ordering.date_asc">
 				<source>Oldest first</source>
 			</trans-unit>
-			<trans-unit id="filter.archiveMode">
+			<trans-unit id="post.archiveMode">
 				<source>Archive</source>
 			</trans-unit>
-			<trans-unit id="filter.archiveMode.0">
+			<trans-unit id="post.archiveMode.0">
 				<source>Hide archived posts</source>
 			</trans-unit>
-			<trans-unit id="filter.archiveMode.1">
+			<trans-unit id="post.archiveMode.1">
 				<source>Show all posts</source>
 			</trans-unit>
-			<trans-unit id="filter.archiveMode.2">
+			<trans-unit id="post.archiveMode.2">
 				<source>Archived posts only</source>
 			</trans-unit>
-			<trans-unit id="filter.topPostMode">
+			<trans-unit id="post.topPostMode">
 				<source>Top Posts</source>
 			</trans-unit>
-			<trans-unit id="filter.topPostMode.0">
+			<trans-unit id="post.topPostMode.0">
 				<source>Show all post</source>
 			</trans-unit>
-			<trans-unit id="filter.topPostMode.1">
+			<trans-unit id="post.topPostMode.1">
 				<source>Show top posts first</source>
 			</trans-unit>
-			<trans-unit id="filter.topPostMode.2">
+			<trans-unit id="post.topPostMode.2">
 				<source>Only top posts</source>
 			</trans-unit>
 
