@@ -142,9 +142,20 @@
 				<source>Unlimited</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.layout">
-				<source>Layout options</source>
+				<source>Layout</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.layout.0">
+				<source>Default</source>
+			</trans-unit>
+
+			<!-- Flexform of plugin z7blog_filter -->
+			<trans-unit id="tt_content.flexForms.z7blog_filter.list_id">
+				<source>Target list</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_filter.layout">
+				<source>Layout</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_filter.layout.0">
 				<source>Default</source>
 			</trans-unit>
 
