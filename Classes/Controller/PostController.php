@@ -140,6 +140,15 @@ class PostController extends ActionController
 
     public function infoAction(): string
     {
-        
+
+        // Load post data and return the fluid template
+        if ($post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id)) {
+            $this->view->assign('post', $post);
+
+            return $this->view->render();
+        }
+
+        // Return simple error message
+        return 'Sorry! An error occurred. No post data given.';
     }
 }

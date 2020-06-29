@@ -1,0 +1,36 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+	<div class="blgsmry">
+		<table class="blgsmry__table">
+			<tr>
+				<th>{f:translate(key: 'post.date')}:</th>
+				<td>{post.date -> f:format.date(format: 'd-m-Y')}</td>
+			</tr>
+			<f:if condition="{post.category}">
+				<tr>
+					<th>{f:translate(key: 'post.category')}:</th>
+					<td>
+						{post.category.title -> f:link.page(pageUid:post.category.uid)}
+					</td>
+				</tr>
+			</f:if>
+			<f:if condition="{post.tags}">
+				<tr>
+					<th>{f:translate(key: 'post.tags')}:</th>
+					<td>
+						<f:for each="{tags}" as="tag">
+							<blog:link.filter pageUid="{settings.post.list.defaultListPage}" tags="{0:tag}">{tag}</blog:link.filter>
+						</f:for>
+					</td>
+				</tr>
+			</f:if>
+			<f:if condition="{post.author}">
+				<tr>
+					<th>{f:translate(key: 'post.author')}:</th>
+					<td>
+						<blog:link.filter pageUid="{settings.post.list.defaultListPage}" author="{post.author.uid}">{author.firstname} {author.lastname}</blog:link.filter>
+					</td>
+				</tr>
+			</f:if>
+		</table>
+	</div>
+</html>

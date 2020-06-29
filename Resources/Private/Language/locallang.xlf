@@ -25,8 +25,8 @@
 			<trans-unit id="post.topic">
 				<source>Topic</source>
 			</trans-unit>
-			<trans-unit id="post.tag">
-				<source>Tag</source>
+			<trans-unit id="post.tags">
+				<source>Tags</source>
 			</trans-unit>
 			<trans-unit id="post.ordering">
 				<source>Ordering</source>
