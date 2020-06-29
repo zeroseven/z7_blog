@@ -137,4 +137,9 @@ class PostController extends ActionController
             'demand' => $demand
         ]);
     }
+
+    public function infoAction(): string
+    {
+        
+    }
 }

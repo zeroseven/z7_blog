@@ -29,8 +29,8 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Zeroseven.Z7Blog',
-        'Detail',
-        ['Post' => 'detail'],
+        'Info',
+        ['Post' => 'info'],
         []
     );
 
