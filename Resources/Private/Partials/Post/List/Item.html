@@ -18,7 +18,7 @@
 	<f:if condition="{post.tags}">
 		<ul class="blgitm__tags">
 			<f:for each="{post.tags}" as="tag">
-				<li>{tag -> blog:link.filter(class: 'blgitm__tag', demand:demand, tags:'{0:tag}')}</li>
+				<li>{tag -> blog:link.filter(class: 'blgitm__tag', pageUid:settings.post.list.defaultListPage, demand:demand, tags:'{0:tag}')}</li>
 			</f:for>
 		</ul>
 	</f:if>
