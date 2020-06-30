@@ -46,8 +46,8 @@ class InfoRenderUtility
         $this->initialize();
 
         // Get the post
-        if ($post === null || $post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'] ?? null) {
-            $post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'] = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id);
+        if ($post === null && !($post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post']['info'] ?? null)) {
+            $post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post']['info'] = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id);
         }
 
         // Set Template
