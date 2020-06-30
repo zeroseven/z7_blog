@@ -16,14 +16,17 @@
 			</trans-unit>
 
 			<!-- Post attributes -->
+			<trans-unit id="post.date">
+				<source>Date</source>
+			</trans-unit>
 			<trans-unit id="post.category">
 				<source>Category</source>
 			</trans-unit>
 			<trans-unit id="post.author">
 				<source>Author</source>
 			</trans-unit>
-			<trans-unit id="post.topic">
-				<source>Topic</source>
+			<trans-unit id="post.topics">
+				<source>Topics</source>
 			</trans-unit>
 			<trans-unit id="post.tags">
 				<source>Tags</source>

@@ -23,7 +23,7 @@
 			</dd>
 		</f:for>
 
-		<dt class="blgfltr__title">{f:translate(key:'post.topic')}:</dt>
+		<dt class="blgfltr__title">{f:translate(key:'post.topics')}:</dt>
 		<f:for each="{topics}" as="topic">
 			<dd>
 				<blog:link.filter demand="{demand}" pageUid="{pageUid}" topic="{topic.uid}">{topic.title}</blog:link.filter>

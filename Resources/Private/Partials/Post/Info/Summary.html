@@ -13,21 +13,31 @@
 					</td>
 				</tr>
 			</f:if>
-			<f:if condition="{post.tags}">
-				<tr>
-					<th>{f:translate(key: 'post.tags')}:</th>
-					<td>
-						<f:for each="{tags}" as="tag">
-							<blog:link.filter pageUid="{settings.post.list.defaultListPage}" tags="{0:tag}">{tag}</blog:link.filter>
-						</f:for>
-					</td>
-				</tr>
-			</f:if>
 			<f:if condition="{post.author}">
 				<tr>
 					<th>{f:translate(key: 'post.author')}:</th>
 					<td>
-						<blog:link.filter pageUid="{settings.post.list.defaultListPage}" author="{post.author.uid}">{author.firstname} {author.lastname}</blog:link.filter>
+						<blog:link.filter pageUid="{settings.post.list.defaultListPage}" author="{post.author.uid}" dataAttributes="0">{post.author.firstname} {post.author.lastname}</blog:link.filter>
+					</td>
+				</tr>
+			</f:if>
+			<f:if condition="{post.topics}">
+				<tr>
+					<th>{f:translate(key: 'post.topics')}:</th>
+					<td>
+						<f:for each="{post.topics}" as="topic">
+							<blog:link.filter pageUid="{settings.post.list.defaultListPage}" topic="{topic.uid}" dataAttributes="0">{topic.title}</blog:link.filter>
+						</f:for>
+					</td>
+				</tr>
+			</f:if>
+			<f:if condition="{post.tags}">
+				<tr>
+					<th>{f:translate(key: 'post.tags')}:</th>
+					<td>
+						<f:for each="{post.tags}" as="tag">
+							<blog:link.filter pageUid="{settings.post.list.defaultListPage}" tags="{0:tag}" dataAttributes="0">{tag}</blog:link.filter>
+						</f:for>
 					</td>
 				</tr>
 			</f:if>
