@@ -16,7 +16,7 @@
 		<dt class="blgfltr__title">{f:translate(key:'post.author')}:</dt>
 		<f:for each="{authors}" as="author">
 			<dd>
-				<blog:link.filter demand="{demand}" pageUid="{pageUid}" author="{author.uid}">{author.firstname} {author.lastname}</blog:link.filter>
+				<blog:link.filter demand="{demand}" pageUid="{pageUid}" author="{author.uid}">{author.fullName}</blog:link.filter>
 				<f:if condition="{demand.author} == {author.uid}">
 					<blog:link.filter demand="{demand}" pageUid="{pageUid}" author="0">&times;</blog:link.filter>
 				</f:if>
