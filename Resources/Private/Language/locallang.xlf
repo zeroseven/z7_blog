@@ -65,6 +65,23 @@
 				<source>Only top posts</source>
 			</trans-unit>
 
+			<!-- Author attributes -->
+			<trans-unit id="author.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="author.twitter">
+				<source>Twitter</source>
+			</trans-unit>
+			<trans-unit id="author.linkedin">
+				<source>LinkedIn</source>
+			</trans-unit>
+			<trans-unit id="author.xing">
+				<source>Xing</source>
+			</trans-unit>
+			<trans-unit id="author.more">
+				<source>More</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

@@ -1,0 +1,54 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:if condition="{author}">
+		<div class="blgthr">
+			<f:if condition="{author.image}">
+				<f:image image="{author.image}" alt="{author.fullName}" class="blgthr__image" maxWidth="200" maxHeight="200"/>
+			</f:if>
+
+			<div class="blgthr__data">
+				<span class="blgthr__name">{author.fullName}</span>
+
+				<f:if condition="{author.expertise}">
+					<span class="blgthr__expertise">{author.expertise}</span>
+				</f:if>
+
+				<f:if condition="{author.description}">
+					{author.description -> f:format.html()}
+				</f:if>
+
+				<f:if condition="{author.email}">
+					<f:link.email class="blgthr__email" email="{author.email}">
+						{f:translate(key:'author.email')}
+					</f:link.email>
+				</f:if>
+
+				<f:if condition="{author.twitter}">
+					<f:link.typolink parameter="{author.twitter}" class="blgthr__twitter">
+						{f:translate(key:'author.twitter')}
+					</f:link.typolink>
+				</f:if>
+
+				<f:if condition="{author.linkedin}">
+					<f:link.typolink parameter="{author.linkedin}" class="blgthr__linkedin">
+						{f:translate(key:'author.linkedin')}
+					</f:link.typolink>
+				</f:if>
+
+				<f:if condition="{author.xing}">
+					<f:link.typolink parameter="{author.xing}" class="blgthr__xing">
+						{f:translate(key:'author.xing')}
+					</f:link.typolink>
+				</f:if>
+
+				<f:if condition="{author.page}">
+					<f:then>
+						<f:link.typolink class="blghtr__more" parameter="{author.page}">{f:translate(key:'author.more')}</f:link.typolink>
+					</f:then>
+					<f:else>
+						<blog:link.filter class="blghtr__more" defaultList="true" author="{author.uid}">{f:translate(key:'author.more')}</blog:link.filter>
+					</f:else>
+				</f:if>
+			</div>
+		</div>
+	</f:if>
+</html>
