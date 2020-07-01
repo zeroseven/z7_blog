@@ -2,9 +2,6 @@
 	<sheets>
 		<general>
 			<ROOT>
-				<TCEforms>
-					<sheetTitle>Filter</sheetTitle>
-				</TCEforms>
 				<type>array</type>
 				<el>
 
