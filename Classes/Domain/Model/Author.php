@@ -11,10 +11,10 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 class Author extends AbstractEntity
 {
     /** @var string */
-    protected $firstname;
+    protected $firstName;
 
     /** @var string */
-    protected $lastname;
+    protected $lastName;
 
     /** @var string */
     protected $expertise;
@@ -43,38 +43,34 @@ class Author extends AbstractEntity
     /** @var string */
     protected $fullName;
 
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @Extbase\ORM\Cascade("remove")
-     */
+    /** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference */
     protected $image;
 
-    public function getFirstname(): ?string
+    public function getFirstName(): string
     {
-        return $this->firstname;
+        return (string)$this->firstName;
     }
 
-    public function setFirstname($firstname): self
+    public function setFirstName($firstName): self
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getLastName(): string
     {
-        return $this->lastname;
+        return (string)$this->lastName;
     }
 
-    public function setLastname($lastname): self
+    public function setLastName($lastName): self
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
         return $this;
     }
 
-    public function getExpertise(): ?string
+    public function getExpertise(): string
     {
-        return $this->expertise;
+        return (string)$this->expertise;
     }
 
     public function setExpertise($expertise): self
@@ -83,9 +79,9 @@ class Author extends AbstractEntity
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
-        return $this->email;
+        return (string)$this->email;
     }
 
     public function setEmail($email): self
@@ -105,9 +101,9 @@ class Author extends AbstractEntity
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
-        return $this->description;
+        return (string)$this->description;
     }
 
     public function setDescription($description): self
@@ -116,9 +112,9 @@ class Author extends AbstractEntity
         return $this;
     }
 
-    public function getPage(): ?string
+    public function getPage(): string
     {
-        return $this->page;
+        return (string)$this->page;
     }
 
     public function setPage(string $page): self
@@ -127,9 +123,9 @@ class Author extends AbstractEntity
         return $this;
     }
 
-    public function getTwitter(): ?string
+    public function getTwitter(): string
     {
-        return $this->twitter;
+        return (string)$this->twitter;
     }
 
     public function setTwitter(string $twitter): self
@@ -138,9 +134,9 @@ class Author extends AbstractEntity
         return $this;
     }
 
-    public function getLinkedin(): ?string
+    public function getLinkedin(): string
     {
-        return $this->linkedin;
+        return (string)$this->linkedin;
     }
 
     public function setLinkedin(string $linkedin): self
@@ -149,9 +145,9 @@ class Author extends AbstractEntity
         return $this;
     }
 
-    public function getXing(): ?string
+    public function getXing(): string
     {
-        return $this->xing;
+        return (string)$this->xing;
     }
 
     public function setXing(string $xing): self
@@ -160,7 +156,7 @@ class Author extends AbstractEntity
         return $this;
     }
 
-    public function getPageLink(): ?string
+    public function getPageLink(): string
     {
         if($this->pageLink === null) {
             return $this->pageLink = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
@@ -168,16 +164,16 @@ class Author extends AbstractEntity
             ]);
         }
 
-        return null;
+        return (string)$this->pageLink;
     }
 
-    public function getFullName(): ?string
+    public function getFullName(): string
     {
         if($this->fullName === null) {
-            return $this->fullName = trim((string)$this->getFirstname() . ' ' . (string)$this->getLastname());
+            return $this->fullName = trim((string)$this->getFirstName() . ' ' . (string)$this->getLastName());
         }
 
-        return null;
+        return (string)$this->fullName;
     }
 
 }
