@@ -50,7 +50,6 @@ return [
         ]
     ],
     \Zeroseven\Z7Blog\Domain\Model\Author::class => [
-        'tableName' => 'pages',
         'properties' => [
             'firstName' => [
                 'fieldName' => 'firstname'
