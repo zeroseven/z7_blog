@@ -4,6 +4,20 @@
 			<ROOT>
 				<type>array</type>
 				<el>
+
+					<settings.authors>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.authors</label>
+							<config>
+								<type>select</type>
+								<renderType>selectMultipleSideBySide</renderType>
+								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getAuthors</itemsProcFunc>
+								<minitems>1</minitems>
+								<maxitems>99</maxitems>
+							</config>
+						</TCEforms>
+					</settings.authors>
+
 					<settings.layout>
 						<TCEforms>
 							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.layout</label>

@@ -170,7 +170,7 @@ class Author extends AbstractEntity
     public function getFullName(): string
     {
         if($this->fullName === null) {
-            return $this->fullName = trim((string)$this->getFirstName() . ' ' . (string)$this->getLastName());
+            return $this->fullName = trim($this->getFirstName() . ' ' . $this->getLastName());
         }
 
         return (string)$this->fullName;

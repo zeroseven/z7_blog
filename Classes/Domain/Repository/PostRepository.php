@@ -122,5 +122,4 @@ class PostRepository extends AbstractPageRepository
         return $this->execute(null, [$constraint]);
     }
 
-
 }
