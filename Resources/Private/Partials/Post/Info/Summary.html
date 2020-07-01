@@ -22,7 +22,7 @@
 								<f:link.typolink parameter="{post.author.page}">{post.author.fullName}</f:link.typolink>
 							</f:then>
 							<f:else>
-								<blog:link.filter pageUid="{settings.post.list.defaultListPage}" author="{post.author.uid}" dataAttributes="0">{post.author.fullName}</blog:link.filter>
+								<blog:link.filter defaultList="true" author="{post.author.uid}" dataAttributes="0">{post.author.fullName}</blog:link.filter>
 							</f:else>
 						</f:if>
 					</td>
@@ -33,7 +33,7 @@
 					<th>{f:translate(key: 'post.topics')}:</th>
 					<td>
 						<f:for each="{post.topics}" as="topic">
-							<blog:link.filter pageUid="{settings.post.list.defaultListPage}" topic="{topic.uid}" dataAttributes="0">{topic.title}</blog:link.filter>
+							<blog:link.filter defaultList="true" topic="{topic.uid}" dataAttributes="0">{topic.title}</blog:link.filter>
 						</f:for>
 					</td>
 				</tr>
@@ -43,7 +43,7 @@
 					<th>{f:translate(key: 'post.tags')}:</th>
 					<td>
 						<f:for each="{post.tags}" as="tag">
-							<blog:link.filter pageUid="{settings.post.list.defaultListPage}" tags="{0:tag}" dataAttributes="0">{tag}</blog:link.filter>
+							<blog:link.filter defaultList="true" tags="{0:tag}" dataAttributes="0">{tag}</blog:link.filter>
 						</f:for>
 					</td>
 				</tr>

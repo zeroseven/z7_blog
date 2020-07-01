@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
 use Zeroseven\Z7Blog\Domain\Model\Demand;
+use Zeroseven\Z7Blog\Service\SettingsService;
 
 class FilterViewHelper extends AbstractLinkViewHelper
 {
@@ -17,6 +18,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
         $this->registerArgument('removeTag', 'string', 'Removes a tag');
         $this->registerArgument('toggleTag', 'string', 'If the tag is existing removes it, otherwise adds a tag');
         $this->registerArgument('dataAttributes', 'bool', 'Display state of the link in data attributes', false, true);
+        $this->registerArgument('defaultList', 'bool', 'Apply arguments on the default list page', false, true);
     }
 
     protected function overrideDemandParameters(): void
@@ -40,7 +42,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
         }
     }
 
-    public function render(): string
+    protected function setDataAttributes(): void
     {
         // Mark active links
         if ($this->arguments['dataAttributes']) {
@@ -89,6 +91,29 @@ class FilterViewHelper extends AbstractLinkViewHelper
                 $this->tag->addAttribute('data-filter-active', count($matchedProperties) . '/' . (count($matchedProperties) + count($unmatchedProperties)));
             }
         }
+    }
+
+    protected function setPageUid(): void
+    {
+        if (empty($this->arguments['pageUid'])) {
+
+            if ($this->arguments['defaultList']) {
+                $settings = $this->templateVariableContainer->get('settings') ?? SettingsService::getSettings();
+
+                if ($defaultListPage = $settings['post']['list']['defaultListPage'] ?? null) {
+                    $this->arguments['pageUid'] = $defaultListPage;
+                }
+            } else {
+                // TODO: Go recursive through the page tree
+            }
+        }
+    }
+
+    public function render(): string
+    {
+
+        $this->setDataAttributes();
+        $this->setPageUid();
 
         return parent::render();
     }
