@@ -17,7 +17,14 @@
 				<tr>
 					<th>{f:translate(key: 'post.author')}:</th>
 					<td>
-						<blog:link.filter pageUid="{settings.post.list.defaultListPage}" author="{post.author.uid}" dataAttributes="0">{post.author.firstname} {post.author.lastname}</blog:link.filter>
+						<f:if condition="{post.author.page}">
+							<f:then>
+								<f:link.typolink parameter="{post.author.page}">{post.author.fullName}</f:link.typolink>
+							</f:then>
+							<f:else>
+								<blog:link.filter pageUid="{settings.post.list.defaultListPage}" author="{post.author.uid}" dataAttributes="0">{post.author.fullName}</blog:link.filter>
+							</f:else>
+						</f:if>
 					</td>
 				</tr>
 			</f:if>
