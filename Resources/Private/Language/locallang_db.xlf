@@ -159,6 +159,14 @@
 				<source>Default</source>
 			</trans-unit>
 
+			<!-- Flexform of plugin z7blog_authors -->
+			<trans-unit id="tt_content.flexForms.z7blog_authors.layout">
+				<source>Layout</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_authors.layout.0">
+				<source>Default</source>
+			</trans-unit>
+
 			<!-- Blog Authors -->
 			<trans-unit id="tx_z7blog_domain_model_author">
 				<source>Blog author</source>
