@@ -40,23 +40,18 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
     public function prepareArguments()
     {
 
-        // Call original function
-        $argumentDefinitions = parent::prepareArguments();
-
         // If the type of an argument have to be an integer and an object is specified, try to get the uid
-        foreach ($argumentDefinitions as $argumentName => $registeredArgument) {
-            if ($this->hasArgument($argumentName) && $registeredArgument->getType() === 'int') {
-
-                $value = $this->arguments[$argumentName];
-
-                if($value instanceof AbstractDomainObject && method_exists($value, 'getUid')) {
-                    $this->arguments[$argumentName] = $value->getUid();
-                }
+        foreach ($this->parameterMapping as $propertyName => $parameter) {
+            if (($value = $this->arguments[$propertyName] ?? null)
+                && $value instanceof AbstractDomainObject
+                && $this->demand->getType($propertyName) === 'int'
+                && method_exists($value, 'getUid')) {
+                    $this->arguments[$propertyName] = $value->getUid();
             }
         }
 
         // Return the value of the parent function
-        return $argumentDefinitions;
+        return parent::prepareArguments();
     }
 
     protected function overrideDemandParameters(): void
