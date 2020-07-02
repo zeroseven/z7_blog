@@ -15,7 +15,7 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden'
         ],
-        'searchFields' => 'firstname,lastname,email,image,description',
+        'searchFields' => 'firstname, lastname, email, image, description',
         'typeicon_classes' => [
             'default' => 'plugin-z7blog-author'
         ]
@@ -40,11 +40,7 @@ return [
                 'renderType' => 'selectSingle',
                 'special' => 'languages',
                 'items' => [
-                    [
-                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ]
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1, 'flags-multiple']
                 ],
                 'default' => 0
             ]
@@ -123,6 +119,14 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.email',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, spec, folder, telephone, page, url'
+                        ]
+                    ]
+                ],
                 'eval' => 'trim',
                 'default' => ''
             ]
@@ -168,6 +172,13 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, spec, folder, mail, telephone'
+                        ]
+                    ]
+                ],
                 'eval' => 'trim',
                 'default' => ''
             ]
@@ -178,6 +189,14 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.twitter',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
+                        ]
+                    ]
+                ],
                 'eval' => 'trim',
                 'default' => ''
             ]
@@ -188,6 +207,14 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.linkedin',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
+                        ]
+                    ]
+                ],
                 'eval' => 'trim',
                 'default' => ''
             ]
@@ -198,6 +225,14 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.xing',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
+                        ]
+                    ]
+                ],
                 'eval' => 'trim',
                 'default' => ''
             ]
