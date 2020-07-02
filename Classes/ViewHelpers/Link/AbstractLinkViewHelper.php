@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 use Zeroseven\Z7Blog\Domain\Model\Demand;
 
@@ -34,6 +35,28 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         foreach ($this->parameterMapping as $propertyName => $parameter) {
             $this->registerArgument($propertyName, $this->demand->getType($propertyName), sprintf('Override value "%s" in demand object.', $propertyName));
         }
+    }
+
+    public function prepareArguments()
+    {
+
+        // Call original function
+        $argumentDefinitions = parent::prepareArguments();
+
+        // If the type of an argument have to be an integer and an object is specified, try to get the uid
+        foreach ($argumentDefinitions as $argumentName => $registeredArgument) {
+            if ($this->hasArgument($argumentName) && $registeredArgument->getType() === 'int') {
+
+                $value = $this->arguments[$argumentName];
+
+                if($value instanceof AbstractDomainObject && method_exists($value, 'getUid')) {
+                    $this->arguments[$argumentName] = $value->getUid();
+                }
+            }
+        }
+
+        // Return the value of the parent function
+        return $argumentDefinitions;
     }
 
     protected function overrideDemandParameters(): void
