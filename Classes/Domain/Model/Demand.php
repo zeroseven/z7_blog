@@ -32,8 +32,8 @@ class Demand
     /** @var int */
     public $author = 0;
 
-    /** @var int */
-    public $topic = 0;
+    /** @var array */
+    public $topics = [];
 
     /** @var array */
     public $tags = [];

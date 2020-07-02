@@ -78,8 +78,8 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.author">
 				<source>Author</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.topic">
-				<source>Topic</source>
+			<trans-unit id="tt_content.flexForms.z7blog_list.topics">
+				<source>Topics</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.tags">
 				<source>Tags</source>

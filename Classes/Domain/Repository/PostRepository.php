@@ -61,8 +61,8 @@ class PostRepository extends AbstractPageRepository
         }
 
         // Add topic constraint
-        if ($topic = $demand->getTopic()) {
-            $constraints[] = $query->contains('topics', $topic);
+        if ($topics = $demand->getTopics()) {
+            $constraints[] = $query->in('topics', $topics);
         }
 
         // Filter post by tags

@@ -26,10 +26,7 @@
 		<dt class="blgfltr__title">{f:translate(key:'post.topics')}:</dt>
 		<f:for each="{topics}" as="topic">
 			<dd>
-				<blog:link.filter demand="{demand}" pageUid="{pageUid}" topic="{topic}">{topic.title}</blog:link.filter>
-				<f:if condition="{demand.topic} == {topic.uid}">
-					<blog:link.filter demand="{demand}" pageUid="{pageUid}" topic="0">&times;</blog:link.filter>
-				</f:if>
+				<blog:link.filter demand="{demand}" pageUid="{pageUid}" toggleTopic="{topic}">{topic.title}</blog:link.filter>
 			</dd>
 		</f:for>
 
