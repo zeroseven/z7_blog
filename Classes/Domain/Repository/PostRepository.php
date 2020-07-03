@@ -103,9 +103,9 @@ class PostRepository extends AbstractPageRepository
         return $this->findAll(($demand ?: Demand::makeInstance())->setTags($tags));
     }
 
-    public function findByTopic(int $topic, Demand $demand = null): ?QueryResultInterface
+    public function findByTopics(array $topics, Demand $demand = null): ?QueryResultInterface
     {
-        return $this->findAll(($demand ?: Demand::makeInstance())->setTopic($topic));
+        return $this->findAll(($demand ?: Demand::makeInstance())->setTopic($topics));
     }
 
     public function findByUids(array $uids, Demand $demand = null): ?QueryResultInterface
