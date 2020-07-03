@@ -2,6 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\ColumnMap;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -37,6 +38,40 @@ class PostRepository extends AbstractPageRepository
         $this->setDefaultOrderings($ordering);
     }
 
+    protected function createDemandConstraints(Demand $demand, QueryInterface $query): array
+    {
+        $constraints = [];
+        $dataMapper = $this->objectManager->get(DataMapper::class);
+
+        /**
+         * This function has been tested with the current scope of the expansion.
+         * With more practical tests, there will likely be a little more.
+         */
+        foreach ($demand->getTypeMapping() as $propertyName => $type) {
+            if (($value = $demand->getProperty($propertyName)) && $columnMap = $dataMapper->getDataMap(Post::class)->getColumnMap($propertyName)) {
+                if ($type === 'array') {
+                    if (in_array($columnMap->getTypeOfRelation(), [ColumnMap::RELATION_HAS_MANY, ColumnMap::RELATION_HAS_AND_BELONGS_TO_MANY], true)) {
+                        $constraints[] = $query->logicalOr(array_map(static function ($v) use ($query, $propertyName) {
+                            return $query->contains($propertyName, $v);
+                        }, $value));
+                    } elseif ($columnMap->getTypeOfRelation() === ColumnMap::RELATION_NONE) {
+                        $constraints[] = $query->logicalOr(array_map(static function ($v) use ($query, $propertyName) {
+                            return $query->like($propertyName, '%' . $v . '%');
+                        }, $value));
+                    } else {
+                        $constraints[] = $query->contains($propertyName, $value);
+                    }
+                } elseif ($type === 'string') {
+                    $constraints[] = $query->like($propertyName, '%' . $value . '%');
+                } else {
+                    $constraints[] = $query->equals($propertyName, $value);
+                }
+            }
+        }
+
+        return $constraints;
+    }
+
     public function findAll(Demand $demand = null): ?QueryResultInterface
     {
 
@@ -51,25 +86,8 @@ class PostRepository extends AbstractPageRepository
         // Create query
         $query = $this->createQuery();
 
-        // Array to collect constraints
-        $constraints = [];
-
-        // Filter post by author
-        if ($author = $demand->getAuthor()) {
-            $constraints[] = $query->equals('author', $author);
-        }
-
-        // Add topic constraint
-        if ($topics = $demand->getTopics()) {
-            $constraints[] = $query->in('topics', $topics);
-        }
-
-        // Filter post by tags
-        if ($tags = $demand->getTags()) {
-            $constraints[] = $query->logicalOr(array_map(static function($tag) use($query) {
-                return $query->like('tagList', '%' . $tag . '%');
-            }, $tags));
-        }
+        // Get constraints of demand object
+        $constraints = $this->createDemandConstraints($demand, $query);
 
         // Set archive mode
         if ($demand->archivedPostsHidden()) {
