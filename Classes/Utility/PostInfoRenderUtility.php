@@ -11,7 +11,7 @@ use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\SettingsService;
 
-class InfoRenderUtility
+class PostInfoRenderUtility
 {
 
     /** @var StandaloneView */

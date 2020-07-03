@@ -7,9 +7,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Zeroseven\Z7Blog\Service\RepositoryService;
-use Zeroseven\Z7Blog\Utility\InfoRenderUtility;
+use Zeroseven\Z7Blog\Utility\PostInfoRenderUtility;
 
-class InfoViewHelper extends AbstractViewHelper
+class PostInfoViewHelper extends AbstractViewHelper
 {
 
     protected $escapeOutput = false;
@@ -28,6 +28,6 @@ class InfoViewHelper extends AbstractViewHelper
     {
         $post = ($postUid = (int)$arguments['postUid']) ? RepositoryService::getPostRepository()->findByUid($postUid) : null;
 
-        return GeneralUtility::makeInstance(InfoRenderUtility::class)->render($arguments['file'], $arguments['settings'], $post);
+        return GeneralUtility::makeInstance(PostInfoRenderUtility::class)->render($arguments['file'], $arguments['settings'], $post);
     }
 }
