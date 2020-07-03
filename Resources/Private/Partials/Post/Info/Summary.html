@@ -33,7 +33,7 @@
 					<th>{f:translate(key: 'post.topics')}:</th>
 					<td>
 						<f:for each="{post.topics}" as="topic">
-							<blog:link.filter defaultList="true" topic="{topic}" dataAttributes="0">{topic.title}</blog:link.filter>
+							<blog:link.filter defaultList="true" topics="{0:topic}" dataAttributes="0">{topic.title}</blog:link.filter>
 						</f:for>
 					</td>
 				</tr>
