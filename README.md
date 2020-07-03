@@ -9,6 +9,10 @@ page.100 = USER
 page.100 {
     userFunc = Zeroseven\Z7Blog\Utility\InfoRenderUtility->renderUserFunc
     file = EXT:z7_blog/Resources/Private/Partials/Post/Info/Summary.html
+    settings {
+        pass.any = settings
+        to = the template
+    }
 }
 ```
 

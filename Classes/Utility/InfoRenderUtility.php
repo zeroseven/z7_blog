@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Utility;
 
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -35,7 +36,7 @@ class InfoRenderUtility
         $this->view->setFormat('html');
     }
 
-    public function render(string $templateNameAndFilePath, Post $post = null): string
+    public function render(string $templateNameAndFilePath, array $settings = null, Post $post = null): string
     {
         // Abort if page is not a post
         if ((int)$GLOBALS['TSFE']->page['doktype'] !== Post::DOKTYPE) {
@@ -56,7 +57,7 @@ class InfoRenderUtility
         // Assign variables to the view
         $this->view->assignMultiple([
            'post' => $post,
-           'settings' => $this->pluginConfiguration['settings']
+           'settings' => array_merge($this->pluginConfiguration['settings'], $settings ?: [])
         ]);
 
         return $this->view->render();
@@ -64,7 +65,9 @@ class InfoRenderUtility
 
     public function renderUserFunc(string $content, array $conf): string
     {
-        return ($content ?: '') . $this->render($conf['file']);
+        $settings = $conf['settings.'] ? GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($conf['settings.']) : [];
+
+        return ($content ?: '') . $this->render($conf['file'], $settings);
     }
 
 

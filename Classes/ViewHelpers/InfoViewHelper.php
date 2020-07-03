@@ -20,6 +20,7 @@ class InfoViewHelper extends AbstractViewHelper
 
         $this->registerArgument('postUid', 'int', 'The uid of the post');
         $this->registerArgument('file', 'string', 'The template file');
+        $this->registerArgument('settings', 'array', 'Pass settings to the template');
     }
 
 
@@ -27,6 +28,6 @@ class InfoViewHelper extends AbstractViewHelper
     {
         $post = ($postUid = (int)$arguments['postUid']) ? RepositoryService::getPostRepository()->findByUid($postUid) : null;
 
-        return GeneralUtility::makeInstance(InfoRenderUtility::class)->render($arguments['file'], $post);
+        return GeneralUtility::makeInstance(InfoRenderUtility::class)->render($arguments['file'], $arguments['settings'], $post);
     }
 }
