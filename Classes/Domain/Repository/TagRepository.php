@@ -10,21 +10,12 @@ use Zeroseven\Z7Blog\Service\RepositoryService;
 class TagRepository
 {
 
-    public function findByPost(Post $post): ?array
-    {
-        if ($tagList = $post->getTagList()) {
-            return GeneralUtility::trimExplode(',', $tagList, true);
-        }
-
-        return null;
-    }
-
     public function findByPosts(array $posts): ?array
     {
         $tags = [];
 
         foreach ($posts as $post) {
-            foreach ($this->findByPost($post) ?? [] as $tag) {
+            foreach ($post->getTags() ?? [] as $tag) {
                 if (!in_array($tag, $tags, true)) {
                     $tags[] = $tag;
                 }

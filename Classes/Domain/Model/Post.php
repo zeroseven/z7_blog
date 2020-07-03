@@ -10,6 +10,8 @@ use TYPO3\CMS\Extbase\Annotation\ORM as Extbase;
 
 class Post extends AbstractPageModel
 {
+    protected const TAG_DELIMITER = ',';
+
     /** @var int */
     public const DOKTYPE = 147;
 
@@ -35,9 +37,6 @@ class Post extends AbstractPageModel
     protected $topics;
 
     /** @var string */
-    protected $tagList;
-
-    /** @var array */
     protected $tags;
 
     /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
@@ -157,25 +156,19 @@ class Post extends AbstractPageModel
         return $this;
     }
 
-    public function getTagList(): string
+    public function getTags(): array
     {
-        return $this->tagList;
-    }
-
-    public function setTagList(string $tagList): self
-    {
-        $this->tagList = $tagList;
-        $this->tags = null;
-        return $this;
-    }
-
-    public function getTags(): ?array
-    {
-        if($this->tags === null) {
-            return $this->tags = RepositoryService::getTagRepository()->findByPost($this);
+        if($tagList = $this->tags) {
+            return GeneralUtility::trimExplode(self::TAG_DELIMITER, $tagList, true);
         }
 
-        return $this->tags;
+        return [];
+    }
+
+    public function setTags($tags): self
+    {
+        $this->tags = is_array($tags) ? implode(self::TAG_DELIMITER, $tags) : (string)$tags;
+        return $this;
     }
 
     public function getRelationsTo(): ObjectStorage
