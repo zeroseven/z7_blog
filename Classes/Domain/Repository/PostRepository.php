@@ -2,7 +2,6 @@
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -24,8 +23,8 @@ class PostRepository extends AbstractPageRepository
         if ($demand && $demand->getOrdering()) {
 
             // Examples: "date_desc", "title_asc", "title",
-            if (preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getSorting(), $matches) && $property = $matches[1] ?? null) {
-                $columnName = GeneralUtility::makeInstance(DataMapper::class)->convertPropertyNameToColumnName($property, Post::class);
+            if (preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) && $property = $matches[1] ?? null) {
+                $columnName = $this->objectManager->get(DataMapper::class)->convertPropertyNameToColumnName($property, Post::class);
                 $ordering[$columnName] = ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING;
             }
         } else {
