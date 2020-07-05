@@ -1,9 +1,9 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<f:if condition="{post.relations}">
-		<div class="blgrltns">
-			<f:for each="{post.relations}" as="relation">
-				{f:render(partial:'Post/List/Item', arguments: '{post:relation, settings:settings}')}
-			</f:for>
-		</div>
-	</f:if>
+<f:if condition="{post.relations}">
+	<div class="blgrltns">
+		<f:for each="{post.relations}" as="relation">
+			{f:render(partial:'Post/List/Item', arguments: '{post:relation, settings:settings}')}
+		</f:for>
+	</div>
+</f:if>
 </html>

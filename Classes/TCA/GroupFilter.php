@@ -24,7 +24,7 @@ class GroupFilter
                     && ($table === $matches[1])
                     && ($row = BackendUtility::getRecord($matches[1], (string)$matches[2], $type))
                     && in_array((string)$row[$type], $allowedTypes, true)) {
-                        $values[] = $value;
+                    $values[] = $value;
                 }
             }
 

@@ -56,8 +56,8 @@ class PostInfoRenderUtility
 
         // Assign variables to the view
         $this->view->assignMultiple([
-           'post' => $post,
-           'settings' => array_merge($this->pluginConfiguration['settings'], $settings ?: [])
+            'post' => $post,
+            'settings' => array_merge($this->pluginConfiguration['settings'], $settings ?: [])
         ]);
 
         return $this->view->render();

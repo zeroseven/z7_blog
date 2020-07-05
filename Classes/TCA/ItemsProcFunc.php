@@ -31,7 +31,7 @@ class ItemsProcFunc
 
     protected function initializeRepository(RepositoryInterface $repository, bool $setStoragePid): RepositoryInterface
     {
-        if($setStoragePid) {
+        if ($setStoragePid) {
 
             // Get the storage pid by plugin configuration
             $storagePids = (int)SettingsService::getPluginConfiguration('persistence.storagePid');
@@ -50,7 +50,7 @@ class ItemsProcFunc
         $pagesTsConfig = BackendUtility::getPagesTSconfig($this->getPageUid($PA));
         $key = $PA['flexParentDatabaseRow']['CType'];
 
-        if($key && $options = $pagesTsConfig['tx_z7blog.']['content.'][$key . '.']['layouts.'] ?? []) {
+        if ($key && $options = $pagesTsConfig['tx_z7blog.']['content.'][$key . '.']['layouts.'] ?? []) {
             foreach ($options as $value => $label) {
                 $PA['items'][] = [$label, $value, null];
             }

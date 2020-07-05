@@ -46,7 +46,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
                 && $value instanceof AbstractDomainObject
                 && $this->demand->getType($propertyName) === 'int'
                 && method_exists($value, 'getUid')) {
-                    $this->arguments[$propertyName] = $value->getUid();
+                $this->arguments[$propertyName] = $value->getUid();
             }
         }
 

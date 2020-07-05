@@ -17,12 +17,12 @@ class SettingsService
 
     protected static function getPropertyPath($subject, string $propertyPath = null)
     {
-        if($propertyPath === null) {
+        if ($propertyPath === null) {
             return $subject;
         }
 
         return ObjectAccess::getPropertyPath((array)$subject, $propertyPath);
-     }
+    }
 
     public static function getPluginConfiguration(string $propertyPath = null)
     {

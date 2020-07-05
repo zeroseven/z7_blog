@@ -49,7 +49,7 @@ class Tags extends AbstractFormElement
     {
         // Get tags
         $rootPage = RootlineService::getRootPage($this->data['tableName'] === 'pages' ? $this->data['databaseRow']['uid'] : $this->data['databaseRow']['pid']);
-        $demand = Demand::makeInstance()->setCategory((int)$rootPage);
+        $demand = Demand::makeInstance()->setCategory($rootPage);
 
         // Get tags
         $tags = RepositoryService::getTagRepository()->findAll($demand, true, $this->languageUid);
@@ -63,7 +63,7 @@ class Tags extends AbstractFormElement
                     originalInputValueFormat: (function (valuesArr) {
                       return valuesArr.map(function (item) {
                         return item.value;
-                      }).join(\', \').trim();
+                      }).join(", ").trim();
                     })
                 });
             });

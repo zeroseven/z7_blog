@@ -9,12 +9,12 @@
 		<span class="blgitm__title">{post.title}</span>
 
 		<f:if condition="{post.abstract} || {post.description}">
-			<span class="blgitm__description">
-				{f:if(condition:post.abstract, then:post.abstract, else:post.description) -> f:format.crop(maxCharacters: '120') -> f:format.nl2br()}
-			</span>
+				<span class="blgitm__description">
+					{f:if(condition:post.abstract, then:post.abstract, else:post.description) -> f:format.crop(maxCharacters: '120') -> f:format.nl2br()}
+				</span>
 		</f:if>
 	</f:link.page>
-
+	
 	<f:if condition="{post.tags}">
 		<ul class="blgitm__tags">
 			<f:for each="{post.tags}" as="tag">

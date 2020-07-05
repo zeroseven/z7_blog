@@ -1,72 +1,75 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
 
-	<f:comment><!-- This is just an example template. We recommend that you take the effort and set up your own template.	--></f:comment>
+<f:comment><!-- This is just an example template. We recommend that you take the effort and set up your own template.	--></f:comment>
 
-	<style type="text/css">*[data-filter-selected] { background: yellow; color: #000; }</style>
+<style type="text/css">*[data-filter-selected] {
+	background: yellow;
+	color: #000;
+}</style>
 
-	<dl class="blgfltr">
-		<dt class="blgfltr__title">{f:translate(key:'post.ordering')}:</dt>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" ordering="">{f:translate(key:'post.ordering.default')}</blog:link.filter>
-		</dd>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" ordering="date_asc">{f:translate(key:'post.ordering.date_asc')}</blog:link.filter>
-		</dd>
+<dl class="blgfltr">
+	<dt class="blgfltr__title">{f:translate(key:'post.ordering')}:</dt>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" ordering="">{f:translate(key:'post.ordering.default')}</blog:link.filter>
+	</dd>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" ordering="date_asc">{f:translate(key:'post.ordering.date_asc')}</blog:link.filter>
+	</dd>
 
-		<dt class="blgfltr__title">{f:translate(key:'post.author')}:</dt>
-		<f:for each="{authors}" as="author">
-			<dd>
-				<blog:link.filter demand="{demand}" pageUid="{pageUid}" author="{author}">{author.fullName}</blog:link.filter>
-				<f:if condition="{demand.author} == {author.uid}">
-					<blog:link.filter demand="{demand}" pageUid="{pageUid}" author="0">&times;</blog:link.filter>
-				</f:if>
-			</dd>
-		</f:for>
+	<dt class="blgfltr__title">{f:translate(key:'post.author')}:</dt>
+	<f:for each="{authors}" as="author">
+		<dd>
+			<blog:link.filter demand="{demand}" pageUid="{pageUid}" author="{author}">{author.fullName}</blog:link.filter>
+			<f:if condition="{demand.author} == {author.uid}">
+				<blog:link.filter demand="{demand}" pageUid="{pageUid}" author="0">&times;</blog:link.filter>
+			</f:if>
+		</dd>
+	</f:for>
 
-		<dt class="blgfltr__title">{f:translate(key:'post.topics')}:</dt>
-		<f:for each="{topics}" as="topic">
-			<dd>
-				<blog:link.filter demand="{demand}" pageUid="{pageUid}" toggleTopic="{topic}">{topic.title}</blog:link.filter>
-			</dd>
-		</f:for>
+	<dt class="blgfltr__title">{f:translate(key:'post.topics')}:</dt>
+	<f:for each="{topics}" as="topic">
+		<dd>
+			<blog:link.filter demand="{demand}" pageUid="{pageUid}" toggleTopic="{topic}">{topic.title}</blog:link.filter>
+		</dd>
+	</f:for>
 
-		<dt class="blgfltr__title">{f:translate(key:'post.tags')}:</dt>
-		<f:for each="{tags}" as="tag">
-			<dd>
-				<blog:link.filter demand="{demand}" pageUid="{pageUid}" toggleTag="{tag}">{tag}</blog:link.filter>
-			</dd>
-		</f:for>
+	<dt class="blgfltr__title">{f:translate(key:'post.tags')}:</dt>
+	<f:for each="{tags}" as="tag">
+		<dd>
+			<blog:link.filter demand="{demand}" pageUid="{pageUid}" toggleTag="{tag}">{tag}</blog:link.filter>
+		</dd>
+	</f:for>
 
-		<dt class="blgfltr__title">{f:translate(key:'post.archiveMode')}:</dt>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" archiveMode="0">{f:translate(key:'post.archiveMode.0')}</blog:link.filter>
-		</dd>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" archiveMode="1">{f:translate(key:'post.archiveMode.1')}</blog:link.filter>
-		</dd>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" archiveMode="2">{f:translate(key:'post.archiveMode.2')}</blog:link.filter>
-		</dd>
+	<dt class="blgfltr__title">{f:translate(key:'post.archiveMode')}:</dt>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" archiveMode="0">{f:translate(key:'post.archiveMode.0')}</blog:link.filter>
+	</dd>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" archiveMode="1">{f:translate(key:'post.archiveMode.1')}</blog:link.filter>
+	</dd>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" archiveMode="2">{f:translate(key:'post.archiveMode.2')}</blog:link.filter>
+	</dd>
 
-		<dt class="blgfltr__title">{f:translate(key:'post.topPostMode')}:</dt>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" topPostMode="0">{f:translate(key:'post.topPostMode.0')}</blog:link.filter>
-		</dd>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" topPostMode="1">{f:translate(key:'post.topPostMode.1')}</blog:link.filter>
-		</dd>
-		<dd>
-			<blog:link.filter demand="{demand}" pageUid="{pageUid}" topPostMode="2">{f:translate(key:'post.topPostMode.2')}</blog:link.filter>
-		</dd>
+	<dt class="blgfltr__title">{f:translate(key:'post.topPostMode')}:</dt>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" topPostMode="0">{f:translate(key:'post.topPostMode.0')}</blog:link.filter>
+	</dd>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" topPostMode="1">{f:translate(key:'post.topPostMode.1')}</blog:link.filter>
+	</dd>
+	<dd>
+		<blog:link.filter demand="{demand}" pageUid="{pageUid}" topPostMode="2">{f:translate(key:'post.topPostMode.2')}</blog:link.filter>
+	</dd>
 
-		<dt class="blgfltr__title">{f:translate(key:'post.category')}:</dt>
-		<f:for each="{categories}" as="category">
-			<dd>
-				<blog:link.filter demand="{demand}" pageUid="{pageUid}" category="{category}">{category.title}</blog:link.filter>
-				<f:if condition="{demand.category} == {category.uid}">
-					<blog:link.filter class="blgfltr__remove" demand="{demand}" category="-1">&times;</blog:link.filter>
-				</f:if>
-			</dd>
-		</f:for>
-	</dl>
+	<dt class="blgfltr__title">{f:translate(key:'post.category')}:</dt>
+	<f:for each="{categories}" as="category">
+		<dd>
+			<blog:link.filter demand="{demand}" pageUid="{pageUid}" category="{category}">{category.title}</blog:link.filter>
+			<f:if condition="{demand.category} == {category.uid}">
+				<blog:link.filter class="blgfltr__remove" demand="{demand}" category="-1">&times;</blog:link.filter>
+			</f:if>
+		</dd>
+	</f:for>
+</dl>
 </html>

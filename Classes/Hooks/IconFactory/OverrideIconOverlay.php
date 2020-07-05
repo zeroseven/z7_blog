@@ -25,7 +25,6 @@ class OverrideIconOverlay
                 if ($post->isTop()) {
                     return 'overlay-approved';
                 }
-
             }
 
             if (Category::DOKTYPE === $doktype && $category = RepositoryService::getCategoryRepository()->findByUid($row['uid'], true)) {

@@ -1,53 +1,53 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
-	<div class="blgsmry">
-		<table class="blgsmry__table">
+<div class="blgsmry">
+	<table class="blgsmry__table">
+		<tr>
+			<th>{f:translate(key: 'post.date')}:</th>
+			<td>{post.date -> f:format.date(format: 'd-m-Y')}</td>
+		</tr>
+		<f:if condition="{post.category}">
 			<tr>
-				<th>{f:translate(key: 'post.date')}:</th>
-				<td>{post.date -> f:format.date(format: 'd-m-Y')}</td>
+				<th>{f:translate(key: 'post.category')}:</th>
+				<td>
+					{post.category.title -> f:link.page(pageUid:post.category.uid)}
+				</td>
 			</tr>
-			<f:if condition="{post.category}">
-				<tr>
-					<th>{f:translate(key: 'post.category')}:</th>
-					<td>
-						{post.category.title -> f:link.page(pageUid:post.category.uid)}
-					</td>
-				</tr>
-			</f:if>
-			<f:if condition="{post.author}">
-				<tr>
-					<th>{f:translate(key: 'post.author')}:</th>
-					<td>
-						<f:if condition="{post.author.page}">
-							<f:then>
-								<f:link.typolink parameter="{post.author.page}">{post.author.fullName}</f:link.typolink>
-							</f:then>
-							<f:else>
-								<blog:link.filter defaultList="true" author="{post.author}" dataAttributes="0">{post.author.fullName}</blog:link.filter>
-							</f:else>
-						</f:if>
-					</td>
-				</tr>
-			</f:if>
-			<f:if condition="{post.topics}">
-				<tr>
-					<th>{f:translate(key: 'post.topics')}:</th>
-					<td>
-						<f:for each="{post.topics}" as="topic">
-							<blog:link.filter defaultList="true" topics="{0:topic}" dataAttributes="0">{topic.title}</blog:link.filter>
-						</f:for>
-					</td>
-				</tr>
-			</f:if>
-			<f:if condition="{post.tags}">
-				<tr>
-					<th>{f:translate(key: 'post.tags')}:</th>
-					<td>
-						<f:for each="{post.tags}" as="tag">
-							<blog:link.filter defaultList="true" tags="{0:tag}" dataAttributes="0">{tag}</blog:link.filter>
-						</f:for>
-					</td>
-				</tr>
-			</f:if>
-		</table>
-	</div>
+		</f:if>
+		<f:if condition="{post.author}">
+			<tr>
+				<th>{f:translate(key: 'post.author')}:</th>
+				<td>
+					<f:if condition="{post.author.page}">
+						<f:then>
+							<f:link.typolink parameter="{post.author.page}">{post.author.fullName}</f:link.typolink>
+						</f:then>
+						<f:else>
+							<blog:link.filter defaultList="true" author="{post.author}" dataAttributes="0">{post.author.fullName}</blog:link.filter>
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+		</f:if>
+		<f:if condition="{post.topics}">
+			<tr>
+				<th>{f:translate(key: 'post.topics')}:</th>
+				<td>
+					<f:for each="{post.topics}" as="topic">
+						<blog:link.filter defaultList="true" topics="{0:topic}" dataAttributes="0">{topic.title}</blog:link.filter>
+					</f:for>
+				</td>
+			</tr>
+		</f:if>
+		<f:if condition="{post.tags}">
+			<tr>
+				<th>{f:translate(key: 'post.tags')}:</th>
+				<td>
+					<f:for each="{post.tags}" as="tag">
+						<blog:link.filter defaultList="true" tags="{0:tag}" dataAttributes="0">{tag}</blog:link.filter>
+					</f:for>
+				</td>
+			</tr>
+		</f:if>
+	</table>
+</div>
 </html>

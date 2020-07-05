@@ -17,7 +17,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
         parent::__construct();
 
         foreach ($this->demand->getTypeMapping() as $propertyName => $type) {
-            if($type === 'array') {
+            if ($type === 'array') {
                 $argumentSuffix = ucfirst(rtrim($propertyName, 's'));
 
                 $this->arrayPropertyArguments['add' . $argumentSuffix] = $propertyName;
@@ -64,7 +64,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
         // Add/remove/toggle the value in arrays
         foreach ($this->arrayPropertyArguments as $argument => $propertyName) {
             if ($value = $this->arguments[$argument] ?? null) {
-                if(strpos($argument, 'add') === 0) {
+                if (strpos($argument, 'add') === 0) {
                     $this->demand->addToProperty($propertyName, $value);
                 } elseif (strpos($argument, 'remove') === 0) {
                     $this->demand->removeFromProperty($propertyName, $value);

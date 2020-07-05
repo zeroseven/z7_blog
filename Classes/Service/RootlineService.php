@@ -21,7 +21,7 @@ class RootlineService
         } else {
             $startingPoint = (int)($startingPoint ?: GeneralUtility::_GP('id'));
         }
-        
+
         if ($rootLine === null) {
             $rootLine = $rootLine ?: GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint)->get();
         }

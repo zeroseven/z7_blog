@@ -139,7 +139,7 @@ class Demand
     protected function checkPropertyAccess(string $propertyName): void
     {
         if(!$this->hasProperty($propertyName)) {
-            throw new Exception(sprintf('Property "%s" not found in demand model', $propertyName));
+            throw new Exception(sprintf('Property "%s" not found in demand model.', $propertyName));
         }
     }
 
