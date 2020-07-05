@@ -10,10 +10,11 @@ use TYPO3\CMS\Extbase\Annotation\ORM as Extbase;
 
 class Post extends AbstractPageModel
 {
-    protected const TAG_DELIMITER = ',';
-
     /** @var int */
     public const DOKTYPE = 147;
+
+    /** @var string */
+    protected const TAG_DELIMITER = ',';
 
     /** @var \DateTime */
     protected $date;

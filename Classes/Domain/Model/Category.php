@@ -2,6 +2,9 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
+use Zeroseven\Z7Blog\Service\RepositoryService;
+use Zeroseven\Z7Blog\Service\RootlineService;
+
 class Category extends AbstractPageModel
 {
 
@@ -10,6 +13,9 @@ class Category extends AbstractPageModel
 
     /** @var bool */
     protected $redirect;
+
+    /** @var Category */
+    protected $parentCategory;
 
     public function getDoktype(): int
     {
@@ -26,4 +32,14 @@ class Category extends AbstractPageModel
         $this->redirect = $redirect;
         return $this;
     }
+
+    public function getParentCategory(): ?Category
+    {
+        if ($this->parentCategory === null && $uid = RootlineService::findCategory($this->getPid())) {
+            $this->parentCategory = RepositoryService::getCategoryRepository()->findByUid($uid);
+        }
+
+        return $this->parentCategory;
+    }
+
 }

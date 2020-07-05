@@ -12,24 +12,23 @@ use Zeroseven\Z7Blog\Domain\Model\Category;
 class RootlineService
 {
 
-    public static function findCategory(int $startingPoint = null): ?int
+    public static function findCategory(int $startingPoint = null, array $rootLine = null): ?int
     {
 
-        if(empty($startingPoint)) {
-            if($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $GLOBALS['TSFE']->id) {
-                $startingPoint = (int)$GLOBALS['TSFE']->id;
-            } else {
-                $startingPoint = (int)GeneralUtility::_GP('id');
-            }
+        if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $GLOBALS['TSFE']->id) {
+            $startingPoint = (int)($startingPoint ?: $GLOBALS['TSFE']->id);
+            $rootLine = $rootLine === null && $startingPoint === (int)$GLOBALS['TSFE']->id ? $GLOBALS['TSFE']->rootLine : null;
+        } else {
+            $startingPoint = (int)($startingPoint ?: GeneralUtility::_GP('id'));
+        }
+        
+        if ($rootLine === null) {
+            $rootLine = $rootLine ?: GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint)->get();
         }
 
-        if($startingPoint) {
-            $rootLine = $GLOBALS['TSFE']->rootLine ?: GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint)->get();
-
-            foreach ($rootLine as $key => $row) {
-                if ((int)$row['doktype'] === Category::DOKTYPE) {
-                    return (int)$row['uid'];
-                }
+        foreach ($rootLine as $key => $row) {
+            if ((int)$row['doktype'] === Category::DOKTYPE) {
+                return (int)$row['uid'];
             }
         }
 
@@ -38,7 +37,7 @@ class RootlineService
 
     public static function getRootPage(int $startingPoint = null): int
     {
-        if($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $rootPage = $GLOBALS['TSFE']->domainStartPage) {
+        if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $rootPage = $GLOBALS['TSFE']->domainStartPage) {
             return $rootPage;
         }
 
