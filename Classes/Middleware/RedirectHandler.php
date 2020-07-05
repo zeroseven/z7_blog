@@ -31,8 +31,13 @@ class RedirectHandler implements MiddlewareInterface
             if($targetUid !== (int)$row['uid']) {
                 return $this->buildRedirectResponse([
                     'parameter' => $targetUid ?: (int)$row['pid'],
+                    'forceAbsoluteUrl' => true,
                     'useCacheHash' => true,
-                    'additionalParams' => '&' . RequestService::REQUEST_KEY . '[category]=' . $row['uid'] . (($type = (int)GeneralUtility::_GET('type')) ? '&type=' . $type : '')
+                    'additionalParams' => '&' . RequestService::REQUEST_KEY . '[category]=' . $row['uid'],
+                    'addQueryString' => true,
+                    'addQueryString.' => [
+                        'exclude' => RequestService::REQUEST_KEY . '[list_id],' . RequestService::REQUEST_KEY . '[category], cHash, id'
+                    ]
                 ]);
             }
         }
