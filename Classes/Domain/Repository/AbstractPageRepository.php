@@ -42,6 +42,7 @@ abstract class AbstractPageRepository extends Repository
         // Return constraints
         return [
             $query->in('pid', $pids),
+            $query->equals('nav_hide', 0),
             $query->logicalOr([
                 $query->equals('l18n_cfg', 0),
                 $query->logicalAnd([
