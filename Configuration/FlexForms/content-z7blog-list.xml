@@ -3,7 +3,7 @@
 		<general>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Filter</sheetTitle>
+					<sheetTitle>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.sheetTitle.filter</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
@@ -87,7 +87,7 @@
 		<options>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Options</sheetTitle>
+					<sheetTitle>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.sheetTitle.options</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
@@ -180,7 +180,7 @@
 		<layout>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>Layout</sheetTitle>
+					<sheetTitle>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.sheetTitle.layout</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>

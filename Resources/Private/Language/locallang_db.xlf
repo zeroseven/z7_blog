@@ -63,6 +63,15 @@
 			</trans-unit>
 
 			<!-- Flexform of plugin z7blog_list -->
+			<trans-unit id="tt_content.flexForms.z7blog_list.sheetTitle.filter">
+				<source>Filter</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.sheetTitle.options">
+				<source>Options</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.sheetTitle.layout">
+				<source>Layout</source>
+			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.category">
 				<source>Category</source>
 			</trans-unit>
