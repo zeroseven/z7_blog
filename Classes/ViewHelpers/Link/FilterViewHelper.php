@@ -121,7 +121,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
 
             // Set data attributes
             if (!count($unmatchedProperties)) {
-                $this->tag->addAttribute('data-filter-selected', 'true');
+                $this->tag->addAttribute('data-filter-selected', '');
             } elseif (count($matchedProperties)) {
                 $this->tag->addAttribute('data-filter-active', count($matchedProperties) . '/' . (count($matchedProperties) + count($unmatchedProperties)));
             }
