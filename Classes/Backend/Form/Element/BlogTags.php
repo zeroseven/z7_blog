@@ -11,7 +11,7 @@ use Zeroseven\Z7Blog\Domain\Model\Demand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
 
-class Tags extends AbstractFormElement
+class BlogTags extends AbstractFormElement
 {
 
     /** @var string */
@@ -32,7 +32,6 @@ class Tags extends AbstractFormElement
     public function __construct(NodeFactory $nodeFactory, array $data)
     {
         parent::__construct($nodeFactory, $data);
-
 
         $parameterArray = $this->data['parameterArray'];
         $placeholder = $parameterArray['fieldConf']['config']['placeholder'] ?? '';

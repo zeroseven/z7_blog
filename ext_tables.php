@@ -58,15 +58,15 @@ call_user_func(static function () {
 
     // Register custom TCA renderType
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1592395778] = [
-        'nodeName' => 'Tags',
+        'nodeName' => 'blogTags',
         'priority' => 100,
-        'class' => \Zeroseven\Z7Blog\Backend\Form\Element\Tags::class,
+        'class' => \Zeroseven\Z7Blog\Backend\Form\Element\BlogTags::class,
     ];
 
     // Add JavaScript to the backend
     if (TYPO3_MODE === 'BE') {
         $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
-        $pageRenderer->loadRequireJsModule('TYPO3/CMS/Z7Blog/Backend/Tags');
+        $pageRenderer->loadRequireJsModule('TYPO3/CMS/Z7Blog/Backend/BlogTags');
     }
 
     // Add styles to the backend

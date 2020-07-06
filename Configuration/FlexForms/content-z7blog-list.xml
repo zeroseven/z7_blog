@@ -75,7 +75,7 @@
 							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.tags</label>
 							<config>
 								<type>user</type>
-								<renderType>Tags</renderType>
+								<renderType>blogTags</renderType>
 								<placeholder>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.tags.placeholder</placeholder>
 							</config>
 						</TCEforms>

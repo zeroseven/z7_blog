@@ -111,7 +111,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags',
             'config' => [
                 'type' => 'user',
-                'renderType' => 'Tags',
+                'renderType' => 'blogTags',
                 'placeholder' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags.placeholder'
             ]
         ],
