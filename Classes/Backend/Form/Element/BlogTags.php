@@ -44,63 +44,60 @@ class BlogTags extends AbstractFormElement
         $this->languageUid = (int)(is_array($sysLanguageUid) ? $sysLanguageUid[0] : $sysLanguageUid);
     }
 
-    protected function registerJavaScript(): void
+    protected function renderRequireJsModules(): array
     {
-        // Get tags
+        // Create demand object
         $rootPage = RootlineService::getRootPage($this->data['tableName'] === 'pages' ? $this->data['databaseRow']['uid'] : $this->data['databaseRow']['pid']);
         $demand = Demand::makeInstance()->setCategory($rootPage);
 
         // Get tags
         $tags = RepositoryService::getTagRepository()->findAll($demand, true, $this->languageUid);
 
-        // Add JavaScript
-        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-        $pageRenderer->addJsInlineCode('z7_blog_tags', '
-            require(["TYPO3/CMS/Z7Blog/Backend/Tagify"], function(Tagify){
-                new Tagify(document.getElementById("' . $this->id . '"), {
-                    whitelist: ' . json_encode($tags) . ',
-                    originalInputValueFormat: (function (valuesArr) {
-                      return valuesArr.map(function (item) {
-                        return item.value;
-                      }).join(", ").trim();
-                    })
-                });
-            });
-        ');
+        return [['TYPO3/CMS/Z7Blog/Backend/Tagify' => 'function(Tagify){
+             new Tagify(document.getElementById("' . $this->id . '"), {
+                whitelist: ' . json_encode($tags) . ',
+                originalInputValueFormat: (function (valuesArr) {
+                  return valuesArr.map(function (item) {
+                    return item.value;
+                  }).join(", ").trim();
+                })
+            })
+        }']];
     }
 
-    protected function createFormField(): string
+
+    protected function renderHtml(): string
     {
-        return '<input type="text" ' . GeneralUtility::implodeAttributes([
-                'name' => $this->name,
-                'value' => $this->value,
-                'id' => $this->id,
-                'placeholder' => $this->placeholder,
-                'class' => 'form-control form-control--tags'
-            ], true) . ' />';
+
+        // Get id of the form field
+        $fieldWizardResult = $this->renderFieldWizard();
+
+        // Create form field
+        $formField = '<input type="text" ' . GeneralUtility::implodeAttributes([
+            'name' => $this->name,
+            'value' => $this->value,
+            'id' => $this->id,
+            'placeholder' => $this->placeholder,
+            'class' => 'form-control form-control--tags'
+        ], true) . ' />';
+
+        // Return html
+        return '
+            <div class="form-control-wrap">
+                <div class="form-wizards-wrap">
+                    <div class="form-wizards-element">' . $formField . '</div>
+                    <div class="form-wizards-items-bottom">' . ($fieldWizardResult['html'] ?? '') . '</div>
+                </div>
+            </div>    
+        ';
     }
 
     public function render(): array
     {
-        // Get id of the form field
-        $fieldWizardResult = $this->renderFieldWizard();
-
-        // Add JavaScript to the backend
-        $this->registerJavaScript();
-
-        // Create output
-        return ['html' => sprintf('
-            <div class="form-control-wrap">
-                <div class="form-wizards-wrap">
-                    <div class="form-wizards-element">
-                        %s
-                    </div>
-                    <div class="form-wizards-items-bottom">
-                        %s
-                    </div>
-                </div>
-            </div>    
-        ', $this->createFormField(), $fieldWizardResult['html'])];
+        return [
+            'html' => $this->renderHtml(),
+            'requireJsModules' => $this->renderRequireJsModules()
+        ];
     }
 
 }

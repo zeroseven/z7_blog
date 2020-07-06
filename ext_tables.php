@@ -63,12 +63,6 @@ call_user_func(static function () {
         'class' => \Zeroseven\Z7Blog\Backend\Form\Element\BlogTags::class,
     ];
 
-    // Add JavaScript to the backend
-    if (TYPO3_MODE === 'BE') {
-        $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
-        $pageRenderer->loadRequireJsModule('TYPO3/CMS/Z7Blog/Backend/BlogTags');
-    }
-
     // Add styles to the backend
     $GLOBALS['TBE_STYLES']['skins'][] = [
         'name' => 'z7_blog',
