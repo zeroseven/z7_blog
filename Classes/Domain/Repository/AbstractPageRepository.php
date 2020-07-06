@@ -2,6 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
@@ -72,13 +73,18 @@ abstract class AbstractPageRepository extends Repository
     public function findByUid($uid, bool $ignoreRestrictions = null)
     {
 
-        // Todo: fix for translations on ignored restrictions
         if ($ignoreRestrictions) {
+
             $query = $this->createQuery();
+
+            if ((int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0) > 0) {
+                $constraint = $query->equals('l10n_parent', (int)$uid);
+            } else {
+                $constraint = $query->equals('uid', (int)$uid);
+            }
+
             $query->setLimit(1);
-            $query->matching(
-                $query->equals('uid', (int)$uid)
-            );
+            $query->matching($constraint);
 
             // Allow hidden pages
             $query->getQuerySettings()->setIgnoreEnableFields(true)->setIncludeDeleted(true)->setRespectStoragePage(false);
