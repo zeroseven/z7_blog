@@ -1,0 +1,19 @@
+#post-info-table {
+    margin: 1em 0;
+}
+
+#post-info-table th {
+    padding-right: 1em;
+}
+
+#post-info-table th,
+#post-info-table td {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+#cache-lifetime-manipulation {
+    max-width: 400px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 12px;
+}

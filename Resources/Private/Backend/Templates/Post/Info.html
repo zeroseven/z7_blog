@@ -1,0 +1,90 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:be.infobox title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.title')}" iconName="{f:if(condition:post.top, then:'star', else:'info')}" state="{state}">
+
+	<table id="post-info-table">
+		<tr>
+			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.category')}:</th>
+			<td>
+				{post.category.title}
+			</td>
+		</tr>
+		<tr>
+			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
+			<td>
+				<f:if condition="{post.author}">
+					<f:then>
+						{post.author.lastName}, {post.author.firstName}
+					</f:then>
+				</f:if>
+			</td>
+		</tr>
+		<tr>
+			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
+			<td>
+				<f:if condition="{post.topics}">
+					<f:then>
+						<f:for each="{post.topics}" as="topic" iteration="i">
+							{topic.title}{f:if(condition: '{i.isLast} == false', then: ', ')}
+						</f:for>
+					</f:then>
+				</f:if>
+			</td>
+		</tr>
+		<tr>
+			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.tags')}:</th>
+			<td>
+				<f:if condition="{post.tagList}">
+					<f:then>
+						{post.tagList}
+					</f:then>
+				</f:if>
+			</td>
+		</tr>
+		<tr>
+		<tr>
+			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations')}:</th>
+			<td>
+				<f:if condition="{post.relationsTo} || {post.relationsFrom}">
+					<f:then>
+						<f:if condition="{post.relationsTo}">
+							<f:variable name="relatedTo">{f:count(subject: post.relationsTo)}</f:variable>
+							{f:translate(key: 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations.relationsTo', arguments: {0: '{relatedTo}'} )}
+						</f:if>
+						<f:if condition="{post.relationsFrom}">
+							<f:variable name="relatedFrom">{f:count(subject: post.relationsFrom)}</f:variable>
+							{f:translate(key: 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations.relationsFrom', arguments: {0: '{relatedFrom}'} )}
+						</f:if>
+					</f:then>
+					<f:else>
+						{f:translate(key: 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations.noRelations')}
+					</f:else>
+				</f:if>
+			</td>
+		</tr>
+		<tr>
+			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.date')}:</th>
+			<td>
+				<f:if condition="{post.date}">
+					<f:then>
+						{post.date -> f:format.date(format:'d.m.Y')}
+					</f:then>
+				</f:if>
+			</td>
+		</tr>
+		<tr>
+			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
+			<td>
+				<f:if condition="{post.archiveDate}">
+					<f:then>
+						{post.archiveDate -> f:format.date(format:'d.m.Y')}
+					</f:then>
+				</f:if>
+			</td>
+		</tr>
+	</table>
+
+	<a class="btn btn-info btn-sm" href="{editLink}">{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}</a>
+
+</f:be.infobox>
+</html>

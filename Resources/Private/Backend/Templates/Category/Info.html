@@ -1,0 +1,22 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:be.infobox title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:category.pageinfo.title')}" iconName="info" state="{state}">
+
+	<p>
+		<f:if condition="{category}">
+			<f:then>
+				{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:category.pageinfo.countPosts', arguments:'{0:\'{posts -> f:count()}\'}')}
+
+				<f:if condition="{category.redirect}">
+					{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:category.pageinfo.redirect')}
+				</f:if>
+			</f:then>
+			<f:else>
+				{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:category.pageinfo.hidden')}
+			</f:else>
+		</f:if>
+	</p>
+
+	<a class="btn btn-info btn-sm" href="{editLink}">{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:category.pageinfo.edit')}</a>
+</f:be.infobox>
+</html>

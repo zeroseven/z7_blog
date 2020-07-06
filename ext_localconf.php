@@ -54,3 +54,5 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
 // Register hooks
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][TYPO3\CMS\Core\Imaging\IconFactory::class]['overrideIconOverlay'][] = \Zeroseven\Z7Blog\Hooks\IconFactory\OverrideIconOverlay::class;
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \Zeroseven\Z7Blog\Hooks\DataHandler\ResortPagetree::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']['drawHeaderHook'][] = \Zeroseven\Z7Blog\Hooks\DrawHeaderHook\PostHeaderHook::class . '->render';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']['drawHeaderHook'][] = \Zeroseven\Z7Blog\Hooks\DrawHeaderHook\CategoryHeaderHook::class . '->render';
