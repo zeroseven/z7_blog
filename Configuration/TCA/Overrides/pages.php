@@ -117,6 +117,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         ],
         'post_relations_to' => [
             'exclude' => false,
+            'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_to',
             'config' => [
                 'type' => 'group',
@@ -151,6 +152,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         ],
         'post_relations_from' => [
             'exclude' => true,
+            'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_from',
             'config' => [
                 'type' => 'group',
@@ -188,15 +190,15 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
 
     // Add fields to post pages
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table,'
-        --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog, 
-            post_top, 
-            --palette--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.palette.blogpost_date_settings;blogpost_date_settings, 
-            post_author, post_topics, post_tags, post_relations_to, post_relations_from 
+        --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog,
+            post_top,
+            --palette--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.palette.blogpost_date_settings;blogpost_date_settings,
+            post_author, post_topics, post_tags, post_relations_to, post_relations_from
     ', (string)$postDoktype);
 
     // Add fields to category pages
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table,'
-        --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog, 
+        --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog,
             post_redirect_category
     ', (string)$categoryDoktype);
 

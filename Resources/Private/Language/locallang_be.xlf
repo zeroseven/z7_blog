@@ -37,6 +37,58 @@
 			<trans-unit id="notification.resortPagetree.description">
 				<source>The sorting of blog posts in page tree inside "%s" has been changed to reflect their dates.</source>
 			</trans-unit>
+
+			<!-- Backend post page info -->
+			<trans-unit id="post.pageinfo.title">
+				<source>About this blog post</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.category">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.author">
+				<source>Author</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.topics">
+				<source>Topics</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.tags">
+				<source>Tags</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.relations">
+				<source>Relations</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.relations.relationsTo">
+				<source>This post is related to %s post(s).</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.relations.relationsFrom">
+				<source>This post is related from %s post(s).</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.relations.noRelations">
+				<source>This post has no relations to any other post.</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.archiveDate">
+				<source>Archival date</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.edit">
+				<source>Edit post</source>
+			</trans-unit>
+
+			<!-- Backend category page info -->
+			<trans-unit id="category.pageinfo.title">
+				<source>Blog category</source>
+			</trans-unit>
+			<trans-unit id="category.pageinfo.countPosts">
+				<source>This category contains %s posts.</source>
+			</trans-unit>
+			<trans-unit id="category.pageinfo.redirect">
+				<source>The user will be redirected to the pre-filtered list of the default page.</source>
+			</trans-unit>
+			<trans-unit id="category.pageinfo.edit">
+				<source>Edit category</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

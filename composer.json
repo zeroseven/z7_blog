@@ -29,6 +29,6 @@
     }
   },
   "replace": {
-    "z7_blog": "self.version"
+    "zeroseven/z7-blog": "self.version"
   }
 }
