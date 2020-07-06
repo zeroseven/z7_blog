@@ -34,9 +34,11 @@
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.tags')}:</th>
 			<td>
-				<f:if condition="{post.tagList}">
+				<f:if condition="{post.tags}">
 					<f:then>
-						{post.tagList}
+						<f:for each="{post.tags}" as="tag" iteration="i">
+							{tag}{f:if(condition: '{i.isLast} == false', then: ', ')}
+						</f:for>
 					</f:then>
 				</f:if>
 			</td>
