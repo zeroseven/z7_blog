@@ -15,10 +15,9 @@ class CategoryHeaderHook extends AbstractHeaderHook
 
         // Check if the page is a category
         if ((int)$this->row['doktype'] === Category::DOKTYPE) {
-            $demand = Demand::makeInstance()->setProperty('category', $this->id);
             return $this->createView('EXT:z7_blog/Resources/Private/Backend/Templates/Category/Info.html', [
                 'category' => RepositoryService::getCategoryRepository()->findByUid($this->id),
-                'posts' => RepositoryService::getPostRepository()->findAll($demand)
+                'posts' => RepositoryService::getPostRepository()->findAll(Demand::makeInstance()->setCategory($this->id))
             ])->render();
         }
 
