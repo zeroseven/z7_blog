@@ -2,6 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Resource\AbstractFile;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Resource\FileReference;
@@ -14,6 +15,9 @@ abstract class AbstractPageModel extends AbstractEntity
 
     /** @var int */
     protected $doktype;
+
+    /** @var int */
+    protected $l10nParent;
 
     /** @var string */
     protected $title;
@@ -53,6 +57,14 @@ abstract class AbstractPageModel extends AbstractEntity
     protected function initStorageObjects(): void
     {
         $this->fileReferences = new ObjectStorage();
+    }
+
+    public function getUid(): ?int
+    {
+        if ((int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0) > 0) {
+            return $this->l10nParent;
+        }
+        return $this->uid;
     }
 
     public function getDoktype(): int
