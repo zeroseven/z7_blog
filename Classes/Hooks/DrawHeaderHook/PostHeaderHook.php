@@ -26,15 +26,14 @@ class PostHeaderHook extends AbstractHeaderHook
         $dataMap = GeneralUtility::makeInstance(ObjectManager::class)->get(DataMapper::class)->getDataMap($class);
         $backendUserAuthentication = $this->getBackendUser();
 
-        // Get properties
-        $properties = array_map(static function ($reflection) {
-            return $reflection->name;
-        }, GeneralUtility::makeInstance(\ReflectionClass::class, $class)->getProperties() ?? []);
+        $permissions = [];
+        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, $class)->getProperties() ?? [] as $reflection) {
+            if($property = $reflection->name) {
+                $permissions[$property] = ($columnMap = $dataMap->getColumnMap($property)) && ((($table = $columnMap->getChildTableName()) && $backendUserAuthentication->check('tables_select', $table)) || $backendUserAuthentication->check('non_exclude_fields', $dataMap->getTableName() . ':' . $columnMap->getColumnName()));
+            }
+        }
 
-        // Filter allowed properties
-        return array_flip(array_filter($properties, static function ($property) use ($dataMap, $backendUserAuthentication) {
-            return ($columnMap = $dataMap->getColumnMap($property)) && ((($table = $columnMap->getChildTableName()) && $backendUserAuthentication->check('tables_select', $table)) || $backendUserAuthentication->check('non_exclude_fields', $dataMap->getTableName() . ':' . $columnMap->getColumnName()));
-        }));
+        return $permissions;
     }
 
     public function render(): string
