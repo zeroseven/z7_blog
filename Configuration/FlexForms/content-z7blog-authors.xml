@@ -21,6 +21,7 @@
 					<settings.layout>
 						<TCEforms>
 							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.layout</label>
+							<exclude>1</exclude>
 							<config>
 								<type>select</type>
 								<renderType>selectSingle</renderType>
