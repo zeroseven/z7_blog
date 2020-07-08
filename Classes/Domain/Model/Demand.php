@@ -270,7 +270,13 @@ class Demand
 
         // Collect values in array
         foreach ($this->parameterMapping as $propertyName => $parameter) {
-            $parameters[$parameter] = $this->getProperty($propertyName);
+            $value = $this->getProperty($propertyName);
+
+            if (is_array($value)) {
+                $parameters[$parameter] = implode(',', $value);
+            } else {
+                $parameters[$parameter] = (string)$value;
+            }
         }
 
         // Return array with/without empty values
