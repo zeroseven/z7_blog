@@ -110,7 +110,6 @@ class Demand
     protected function castArray($value): array
     {
         if (is_array($value)) {
-            sort($value);
             return $value;
         }
 
@@ -120,7 +119,6 @@ class Demand
 
         if (is_string($value)) {
             $array = GeneralUtility::trimExplode(',', $value);
-            sort($array);
             return $array;
         }
 
@@ -273,6 +271,7 @@ class Demand
             $value = $this->getProperty($propertyName);
 
             if (is_array($value)) {
+                sort($value); // Reduce length of cHashes
                 $parameters[$parameter] = implode(',', $value);
             } else {
                 $parameters[$parameter] = (string)$value;
