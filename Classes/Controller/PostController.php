@@ -122,11 +122,14 @@ class PostController extends ActionController
             if($flexform = $row['pi_flexform']) {
                 $flexFormSettings = GeneralUtility::makeInstance(FlexFormService::class)->convertFlexFormContentToArray($flexform);
                 $demand->setParameterArray(true, $flexFormSettings['settings']);
+
+                // Override settings in variable provider
+                $this->view->getRenderingContext()->getVariableProvider()->add('settings', array_merge($flexFormSettings['settings'], $this->settings));
             }
         }
 
         // Set request data to the demand
-        $demand->setParameterArray(true, $this->requestArguments);
+        $demand->setParameterArray(false, $this->requestArguments);
 
         // Pass variables to the content
         $this->view->assignMultiple([

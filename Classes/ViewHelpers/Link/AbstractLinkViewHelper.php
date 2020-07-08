@@ -90,12 +90,18 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
 
     public function render(): string
     {
-
         // Override demand arguments
         $this->overrideDemandParameters();
 
         // Set arguments
-        $this->arguments['arguments'] = array_merge($this->arguments['arguments'] ?? [], $this->demand->getParameterArray(true));
+        $settings = $this->templateVariableContainer->get('settings');
+        foreach ($this->demand->getParameterArray(false) as $parameter => $value) {
+            if (!empty($value)) {
+                $this->arguments['arguments'][$parameter] = $value;
+            } elseif (!empty($settings[$parameter])) {
+                $this->arguments['arguments'][$parameter] = '';
+            }
+        }
 
         // Call this method before the tag will be rendered by the actionViewHelper
         $this->beforeRendering();
