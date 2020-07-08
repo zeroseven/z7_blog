@@ -25,9 +25,6 @@ class Post extends AbstractPageModel
     /** @var \DateTime */
     protected $archiveDate;
 
-    /** @var bool */
-    protected $archived;
-
     /** @var \Zeroseven\Z7Blog\Domain\Model\Category */
     protected $category;
 
@@ -97,17 +94,12 @@ class Post extends AbstractPageModel
     public function setArchiveDate(\DateTime $archiveDate): self
     {
         $this->archiveDate = $archiveDate;
-        $this->archived = null;
         return $this;
     }
 
     public function isArchived(): bool
     {
-        if ($this->archived === null && $archiveDate = $this->getArchiveDate()) {
-            return $this->archived = $archiveDate->format('U') < time();
-        }
-
-        return (bool)$this->archived;
+        return $this->archived = $archiveDate->format('U') < time();
     }
 
     public function getCategory(): ?Category
