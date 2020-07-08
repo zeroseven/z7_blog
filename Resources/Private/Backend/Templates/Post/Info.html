@@ -9,6 +9,7 @@
 				{post.category.title}
 			</td>
 		</tr>
+		<f:if condition="{propertyPermissions.author}">
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
 			<td>
@@ -19,6 +20,8 @@
 				</f:if>
 			</td>
 		</tr>
+		</f:if>
+		<f:if condition="{propertyPermissions.topics}">
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
 			<td>
@@ -31,19 +34,23 @@
 				</f:if>
 			</td>
 		</tr>
+		</f:if>
+		<f:if condition="{propertyPermissions.tags}">
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.tags')}:</th>
 			<td>
 				<f:if condition="{post.tags}">
 					<f:then>
 						<f:for each="{post.tags}" as="tag" iteration="i">
-							{tag}{f:if(condition: '{i.isLast} == false', then: ', ')}
+							{tag}{f:if(condition: i.isLast, else: ', ')}
 						</f:for>
 					</f:then>
 				</f:if>
 			</td>
 		</tr>
+		</f:if>
 		<tr>
+		</tr>
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations')}:</th>
 			<td>
