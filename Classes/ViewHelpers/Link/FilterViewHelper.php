@@ -63,7 +63,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
 
         // Add/remove/toggle the value in arrays
         foreach ($this->arrayPropertyArguments as $argument => $propertyName) {
-            if ($value = $this->arguments[$argument] ?? null) {
+            if ($value = (string)($this->arguments[$argument] ?? '')) {
                 if (strpos($argument, 'add') === 0) {
                     $this->demand->addToProperty($propertyName, $value);
                 } elseif (strpos($argument, 'remove') === 0) {
@@ -111,7 +111,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
             // Check array values
             foreach ($this->arrayPropertyArguments as $argument => $propertyName) {
                 if (($value = $this->arguments[$argument]) !== null) {
-                    if (in_array($value, $this->demand->getProperty($propertyName), false)) {
+                    if (in_array((string)$value, $this->demand->getProperty($propertyName), true)) {
                         $matchedProperties[] = $propertyName;
                     } else {
                         $unmatchedProperties[] = $propertyName;
