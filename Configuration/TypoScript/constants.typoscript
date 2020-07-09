@@ -1,24 +1,28 @@
 plugin.tx_z7blog {
-    view {
-        # cat=plugin.tx_z7blog/file; type=string; label=Path to template root (FE)
-        templateRootPath =
-        # cat=plugin.tx_z7blog/file; type=string; label=Path to template partials (FE)
-        partialRootPath =
-        # cat=plugin.tx_z7blog/file; type=string; label=Path to template layouts (FE)
-        layoutRootPath =
+  view {
+    # cat=plugin.tx_z7blog/file; type=string; label=Path to template root (FE)
+    templateRootPath =
+    # cat=plugin.tx_z7blog/file; type=string; label=Path to template partials (FE)
+    partialRootPath =
+    # cat=plugin.tx_z7blog/file; type=string; label=Path to template layouts (FE)
+    layoutRootPath =
+  }
+
+  persistence {
+    # cat=plugin.tx_z7blog/links; type=string; label=Default storage PID
+    storagePid = 0
+  }
+
+  settings {
+    post {
+      # customsubcategory=list=Post settings
+      list {
+        ajaxTypeNum = 1591299420
+        # cat=plugin.tx_z7blog/list; type=int+; label=Default list page:E.g. to filter all posts by tags or author.
+        defaultListPage = 0
+        # cat=plugin.tx_z7blog/list; type=int+; label=Pagination of posts
+        itemsPerStages = 6
+      }
     }
-    persistence {
-        # cat=plugin.tx_z7blog/links; type=string; label=Default storage PID
-        storagePid = 0
-    }
-    settings {
-        # customsubcategory=list=Post settings
-        post {
-            list.ajaxTypeNum = 1591299420
-            # cat=plugin.tx_z7blog/list; type=int+; label=Default list page:E.g. to filter all posts by tags or author.
-            list.defaultListPage = 0
-            # cat=plugin.tx_z7blog/list; type=int+; label=Pagination of posts
-            list.itemsPerStages = 6
-        }
-    }
+  }
 }
