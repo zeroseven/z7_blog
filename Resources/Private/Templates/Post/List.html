@@ -1,19 +1,19 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
 	<div class="blglst">
+
 		<div class="blglst__list" id="js-blog-list-{data.uid}">
 			<f:if condition="{requestArguments.ajax}">
 				<f:then>
 					<f:comment><!-- Load the selected stage only --></f:comment>
-					{f:render(section: 'Stage', arguments: '{stage: pagination.stages.selected, settings:settings, demand:demand}')}
+					{f:render(section: 'Stages', arguments: '{stages: {0:pagination.stages.selected}, settings:settings, demand:demand}')}
 				</f:then>
 				<f:else>
 					<f:comment><!-- Load all active states (in range from 0 to [selected stage]) --></f:comment>
-					<f:for each="{pagination.stages.active}" as="stage">
-						{f:render(section: 'Stage', arguments: '{stage:stage, settings:settings, demand:demand}')}
-					</f:for>
+					{f:render(section: 'Stages', arguments: '{stages:pagination.stages.active, settings:settings, demand:demand}')}
 				</f:else>
 			</f:if>
 		</div>
+
 		<div class="blglst__control" id="js-blog-control-{data.uid}">
 			<f:if condition="{pagination.nextStage}">
 				<f:then>
@@ -31,11 +31,14 @@
 				</f:else>
 			</f:if>
 		</div>
+		
 	</div>
 </html>
 
-<f:section name="Stage">
-	<f:for each="{stage}" as="post">
-		{f:render(partial:'Post/List/Item', arguments: '{_all}')}
+<f:section name="Stages">
+	<f:for each="{stages}" as="stage">
+		<f:for each="{stage.items}" as="post">
+			{f:render(partial:'Post/List/Item', arguments: '{_all}')}
+		</f:for>
 	</f:for>
 </f:section>
