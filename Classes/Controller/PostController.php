@@ -69,7 +69,7 @@ class PostController extends ActionController
         $demand = $this->getDemand(true, $applyRequestArguments)->setListId((int)$this->contentData['uid']);
 
         // Get posts depending on demand object
-        $posts = RepositoryService::getPostRepository()->findAll($demand);
+        $posts = RepositoryService::getPostRepository()->applyDemand($demand);
 
         // Create pagination object
         $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';

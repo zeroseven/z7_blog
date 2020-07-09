@@ -72,16 +72,12 @@ class PostRepository extends AbstractPageRepository
         return $constraints;
     }
 
-    public function findAll(Demand $demand = null): ?QueryResultInterface
+    // TODO: I don't like the name of the method
+    public function applyDemand(Demand $demand): ?QueryResultInterface
     {
 
         // Override sorting of the posts
         $this->setOrdering($demand);
-
-        // Abort here, if no demand object is given
-        if ($demand === null) {
-            return $this->execute();
-        }
 
         // Create query
         $query = $this->createQuery();
@@ -111,19 +107,24 @@ class PostRepository extends AbstractPageRepository
         return $this->execute($demand->getCategory(), $constraints);
     }
 
+    public function findAll(Demand $demand = null): ?QueryResultInterface
+    {
+        return $this->applyDemand($demand ?: Demand::makeInstance());
+    }
+
     public function findByAuthor(int $author, Demand $demand = null): ?QueryResultInterface
     {
-        return $this->findAll(($demand ?: Demand::makeInstance())->setAuthor($author));
+        return $this->applyDemand(($demand ?: Demand::makeInstance())->setAuthor($author));
     }
 
     public function findByTags(array $tags, Demand $demand = null): ?QueryResultInterface
     {
-        return $this->findAll(($demand ?: Demand::makeInstance())->setTags($tags));
+        return $this->applyDemand(($demand ?: Demand::makeInstance())->setTags($tags));
     }
 
     public function findByTopics(array $topics, Demand $demand = null): ?QueryResultInterface
     {
-        return $this->findAll(($demand ?: Demand::makeInstance())->setTopic($topics));
+        return $this->applyDemand(($demand ?: Demand::makeInstance())->setTopic($topics));
     }
 
     public function findByUids(array $uids, Demand $demand = null): ?QueryResultInterface
