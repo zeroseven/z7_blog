@@ -63,6 +63,12 @@ class PostController extends ActionController
         return $demand;
     }
 
+    protected function getPagination($posts, int $stage): Pagination
+    {
+        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
+        return GeneralUtility::makeInstance(Pagination::class, $posts, $stage, $itemsPerPage, $this->settings['max_stages']);
+    }
+
     public function listAction(): void
     {
 
@@ -72,13 +78,9 @@ class PostController extends ActionController
         // Get posts depending on demand object
         $posts = RepositoryService::getPostRepository()->applyDemand($demand);
 
-        // Create pagination object
-        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
-        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages']);
-
         // Pass variables to the fluid template
         $this->view->assignMultiple([
-            'pagination' => $pagination,
+            'pagination' => $this->getPagination($posts, $demand->getStage()),
             'demand' => $demand
         ]);
     }
