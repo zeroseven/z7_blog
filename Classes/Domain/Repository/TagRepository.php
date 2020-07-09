@@ -44,7 +44,7 @@ class TagRepository
         }
 
         // Find Posts and return their tags
-        if ($posts = $repository->applyDemand($ignoreTagsFromDemand === true ? $demand->setTags(null) : $demand)) {
+        if ($posts = $repository->findByDemand($ignoreTagsFromDemand === true ? $demand->setTags(null) : $demand)) {
             return $this->findByPosts($posts->toArray());
         }
 

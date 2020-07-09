@@ -17,7 +17,7 @@ class CategoryHeaderHook extends AbstractHeaderHook
         if ((int)$this->row['doktype'] === Category::DOKTYPE) {
             return $this->createView('EXT:z7_blog/Resources/Private/Backend/Templates/Category/Info.html', [
                 'category' => RepositoryService::getCategoryRepository()->findByUid($this->id),
-                'posts' => RepositoryService::getPostRepository()->applyDemand(Demand::makeInstance()->setCategory($this->id))
+                'posts' => RepositoryService::getPostRepository()->findByDemand(Demand::makeInstance()->setCategory($this->id))
             ])->render();
         }
 

@@ -76,7 +76,7 @@ class PostController extends ActionController
         $demand = $this->getDemand(true);
 
         // Get posts depending on demand object
-        $posts = RepositoryService::getPostRepository()->applyDemand($demand);
+        $posts = RepositoryService::getPostRepository()->findByDemand($demand);
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([

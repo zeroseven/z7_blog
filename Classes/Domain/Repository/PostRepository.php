@@ -72,8 +72,7 @@ class PostRepository extends AbstractPageRepository
         return $constraints;
     }
 
-    // TODO: I don't like the name of the method
-    public function applyDemand(Demand $demand): ?QueryResultInterface
+    public function findByDemand(Demand $demand): ?QueryResultInterface
     {
 
         // Override sorting of the posts
@@ -109,22 +108,22 @@ class PostRepository extends AbstractPageRepository
 
     public function findAll(Demand $demand = null): ?QueryResultInterface
     {
-        return $this->applyDemand($demand ?: Demand::makeInstance());
+        return $this->findByDemand($demand ?: Demand::makeInstance());
     }
 
     public function findByAuthor(int $author, Demand $demand = null): ?QueryResultInterface
     {
-        return $this->applyDemand(($demand ?: Demand::makeInstance())->setAuthor($author));
+        return $this->findByDemand(($demand ?: Demand::makeInstance())->setAuthor($author));
     }
 
     public function findByTags(array $tags, Demand $demand = null): ?QueryResultInterface
     {
-        return $this->applyDemand(($demand ?: Demand::makeInstance())->setTags($tags));
+        return $this->findByDemand(($demand ?: Demand::makeInstance())->setTags($tags));
     }
 
     public function findByTopics(array $topics, Demand $demand = null): ?QueryResultInterface
     {
-        return $this->applyDemand(($demand ?: Demand::makeInstance())->setTopic($topics));
+        return $this->findByDemand(($demand ?: Demand::makeInstance())->setTopic($topics));
     }
 
     public function findByUids(array $uids, Demand $demand = null): ?QueryResultInterface
