@@ -2,6 +2,10 @@
     margin: 1em 0;
 }
 
+.post-info-table-spacer {
+    height: 1em;
+}
+
 #post-info-table th {
     padding-right: 1em;
 }
@@ -10,6 +14,12 @@
 #post-info-table td {
     padding-top: 0.2em;
     padding-bottom: 0.2em;
+}
+
+.post-info-tag {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.2em 1em;
 }
 
 #cache-lifetime-manipulation {

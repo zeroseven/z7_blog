@@ -3,72 +3,30 @@
 <f:be.infobox title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.title')}" iconName="{f:if(condition:post.top, then:'star', else:'info')}" state="{state}">
 
 	<table id="post-info-table">
+
+		<f:comment><!-- Category --></f:comment>
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.category')}:</th>
 			<td>
 				{post.category.title}
 			</td>
 		</tr>
+
+		<f:comment><!-- Author --></f:comment>
 		<f:if condition="{propertyPermissions.author}">
-		<tr>
-			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
-			<td>
-				<f:if condition="{post.author}">
-					<f:then>
-						{post.author.lastName}, {post.author.firstName}
-					</f:then>
-				</f:if>
-			</td>
-		</tr>
+			<tr>
+				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
+				<td>
+					<f:if condition="{post.author}">
+						<f:then>
+							{post.author.lastName}, {post.author.firstName}
+						</f:then>
+					</f:if>
+				</td>
+			</tr>
 		</f:if>
-		<f:if condition="{propertyPermissions.topics}">
-		<tr>
-			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
-			<td>
-				<f:if condition="{post.topics}">
-					<f:then>
-						<f:for each="{post.topics}" as="topic" iteration="i">
-							{topic.title}{f:if(condition: '{i.isLast} == false', then: ', ')}
-						</f:for>
-					</f:then>
-				</f:if>
-			</td>
-		</tr>
-		</f:if>
-		<f:if condition="{propertyPermissions.tags}">
-		<tr>
-			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.tags')}:</th>
-			<td>
-				<f:if condition="{post.tags}">
-					<f:then>
-						<f:for each="{post.tags}" as="tag" iteration="i">
-							{tag}{f:if(condition: i.isLast, else: ', ')}
-						</f:for>
-					</f:then>
-				</f:if>
-			</td>
-		</tr>
-		</f:if>
-		<tr>
-		</tr>
-		<tr>
-			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations')}:</th>
-			<td>
-				<f:if condition="{post.relationsTo} || {post.relationsFrom}">
-					<f:then>
-						<f:if condition="{post.relationsTo}">
-							{f:translate(key: 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations.relationsTo', arguments:'{0: \'{post.relationsTo -> f:count()}\'}' )}
-						</f:if>
-						<f:if condition="{post.relationsFrom}">
-							{f:translate(key: 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations.relationsFrom', arguments:'{0: \'{post.relationsFrom -> f:count()}\'}' )}
-						</f:if>
-					</f:then>
-					<f:else>
-						{f:translate(key: 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.relations.noRelations')}
-					</f:else>
-				</f:if>
-			</td>
-		</tr>
+
+		<f:comment><!-- Date --></f:comment>
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.date')}:</th>
 			<td>
@@ -79,6 +37,8 @@
 				</f:if>
 			</td>
 		</tr>
+
+		<f:comment><!-- Archive info --></f:comment>
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
 			<td>
@@ -89,6 +49,41 @@
 				</f:if>
 			</td>
 		</tr>
+
+		<f:comment><!-- Empty space --></f:comment>
+		<tr class="post-info-table-spacer"></tr>
+
+		<f:if condition="{propertyPermissions.topics}">
+			<tr>
+				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
+				<td>
+					<f:if condition="{post.topics}">
+						<f:then>
+							<f:for each="{post.topics}" as="topic" iteration="i">
+								{topic.title}{f:if(condition: i.isLast, else: ', ')}
+							</f:for>
+						</f:then>
+					</f:if>
+				</td>
+			</tr>
+		</f:if>
+
+		<f:comment><!-- Tags --></f:comment>
+		<f:if condition="{propertyPermissions.tags}">
+			<tr>
+				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.tags')}:</th>
+				<td>
+					<f:if condition="{post.tags}">
+						<f:then>
+							<f:for each="{post.tags}" as="tag" iteration="i">
+								<span class="post-info-tag">{tag}</span>
+							</f:for>
+						</f:then>
+					</f:if>
+				</td>
+			</tr>
+		</f:if>
+
 	</table>
 
 	<a class="btn btn-info btn-sm" href="{editLink}">{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}</a>

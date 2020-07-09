@@ -54,23 +54,11 @@
 			<trans-unit id="post.pageinfo.tags">
 				<source>Tags</source>
 			</trans-unit>
-			<trans-unit id="post.pageinfo.relations">
-				<source>Relations</source>
-			</trans-unit>
-			<trans-unit id="post.pageinfo.relations.relationsTo">
-				<source>This post is related to %s post(s).</source>
-			</trans-unit>
-			<trans-unit id="post.pageinfo.relations.relationsFrom">
-				<source>This post is related from %s post(s).</source>
-			</trans-unit>
-			<trans-unit id="post.pageinfo.relations.noRelations">
-				<source>This post has no relations to any other post.</source>
-			</trans-unit>
 			<trans-unit id="post.pageinfo.date">
 				<source>Date</source>
 			</trans-unit>
 			<trans-unit id="post.pageinfo.archiveDate">
-				<source>Archival date</source>
+				<source>Archived in</source>
 			</trans-unit>
 			<trans-unit id="post.pageinfo.edit">
 				<source>Edit post</source>
