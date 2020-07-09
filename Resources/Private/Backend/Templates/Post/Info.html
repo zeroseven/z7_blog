@@ -39,16 +39,21 @@
 		</tr>
 
 		<f:comment><!-- Archive info --></f:comment>
-		<tr>
-			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
-			<td>
-				<f:if condition="{post.archiveDate}">
-					<f:then>
-						{post.archiveDate -> f:format.date(format:'d.m.Y')}
-					</f:then>
-				</f:if>
-			</td>
-		</tr>
+		<f:if condition="{post.archiveDate}">
+			<tr>
+				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
+				<td>
+					<f:if condition="{post.archived}">
+						<f:then>
+							{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archived')}
+						</f:then>
+						<f:else>
+							{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDiff', arguments: '{0: post.archiveDiff}')}
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+		</f:if>
 
 		<f:comment><!-- Empty space --></f:comment>
 		<tr class="post-info-table-spacer"></tr>

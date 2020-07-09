@@ -60,6 +60,12 @@
 			<trans-unit id="post.pageinfo.archiveDate">
 				<source>Archived in</source>
 			</trans-unit>
+			<trans-unit id="post.pageinfo.archiveDiff">
+				<source>%s day(s)</source>
+			</trans-unit>
+			<trans-unit id="post.pageinfo.archived">
+				<source>Post is already archived</source>
+			</trans-unit>
 			<trans-unit id="post.pageinfo.edit">
 				<source>Edit post</source>
 			</trans-unit>

@@ -102,6 +102,15 @@ class Post extends AbstractPageModel
         return ($archiveDate = $this->getArchiveDate()) && $archiveDate->format('U') < time();
     }
 
+    public function getArchiveDiff(): int
+    {
+        if ($this->archiveDate && !$this->isArchived()) {
+            return date_diff(new \DateTime('today'), $this->archiveDate)->days;
+        }
+
+        return 0;
+    }
+
     public function getCategory(): ?Category
     {
         if ($this->category === null && $uid = RootlineService::findCategory($this->getUid())) {
