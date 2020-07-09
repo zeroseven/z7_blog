@@ -13,7 +13,6 @@ use Zeroseven\Z7Blog\Domain\Model\Demand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
-use Zeroseven\Z7Blog\Service\RootlineService;
 
 class PostController extends ActionController
 {
@@ -56,11 +55,6 @@ class PostController extends ActionController
             $applyRequestArguments === false ? [] : $this->requestArguments,
             ...$arguments
         ));
-
-        // Try to find the category if empty
-        if (empty($demand->getCategory()) && $category = RootlineService::findCategory()) {
-            $demand->setCategory($category);
-        }
 
         return $demand;
     }

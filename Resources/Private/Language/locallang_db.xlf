@@ -75,15 +75,6 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.category">
 				<source>Category</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.category.auto">
-				<source>Auto</source>
-			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.category.all">
-				<source>All</source>
-			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_list.category.available">
-				<source>Available categories:</source>
-			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.author">
 				<source>Author</source>
 			</trans-unit>

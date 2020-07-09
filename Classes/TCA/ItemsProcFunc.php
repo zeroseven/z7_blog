@@ -60,12 +60,34 @@ class ItemsProcFunc
     public function getCategories(array &$PA)
     {
 
-        // Get the current pid
-        $rootPageUid = $this->getRootPageUid($PA);
+        if(($currentPageUid = $this->getPageUid($PA)) > 0) {
 
-        // Add categories to the items
-        foreach (RepositoryService::getCategoryRepository()->findAll($rootPageUid) ?: [] as $category) {
-            $PA['items'][] = [$category->getTitle(), $category->getUid(), 'apps-pagetree-blogcategory'];
+            // Get page uids
+            $rootPageUid = $this->getRootPageUid($PA);
+
+            // Get the "auto" category
+            $categoryRepository = RepositoryService::getCategoryRepository();
+            $autoCategory = ($categoryUid = RootlineService::findCategory($currentPageUid)) ? $categoryRepository->findByUid($categoryUid) : null;
+
+            // Suggest category
+            if ($autoCategory) {
+                $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.auto', '--div--'];
+                $PA['items'][] = [$autoCategory->getTitle(), $autoCategory->getUid(), 'apps-pagetree-blogcategory'];
+            }
+
+            // Add static options
+            $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.all', '--div--'];
+            $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.all.0', 0, 'apps-pagetree-blogcategory'];
+            $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.manuel', '--div--'];
+
+            // Add categories to the items
+            foreach ($categoryRepository->findAll($rootPageUid) ?: [] as $category) {
+                if($autoCategory === null || $category->getUid() !== $autoCategory->getUid()) {
+                    $PA['items'][] = [$category->getTitle(), $category->getUid(), 'apps-pagetree-blogcategory'];
+                }
+            }
+        } else {
+            $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.empty', ''];
         }
     }
 
