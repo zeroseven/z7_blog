@@ -56,7 +56,7 @@ class PostController extends ActionController
         $demand = Demand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
 
         // Set list id
-        if($demand->getListId() === 0) {
+        if ($demand->getListId() === 0) {
             $demand->setListId($this->contentData['uid']);
         }
 
@@ -126,7 +126,9 @@ class PostController extends ActionController
         }
 
         // Set request data to the demand
-        $demand->setParameterArray(false, $this->requestArguments);
+        if (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->settings['list_id']) {
+            $demand->setParameterArray(false, $this->requestArguments);
+        }
 
         // Pass variables to the content
         $this->view->assignMultiple([
