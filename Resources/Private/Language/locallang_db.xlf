@@ -168,6 +168,14 @@
 				<source>Default</source>
 			</trans-unit>
 
+			<!-- Flexform of plugin z7blog_static -->
+			<trans-unit id="tt_content.flexForms.z7blog_static.sheetTitle.selection">
+				<source>Selection</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_static.posts">
+				<source>Posts</source>
+			</trans-unit>
+
 			<!-- Flexform of plugin z7blog_authors -->
 			<trans-unit id="tt_content.flexForms.z7blog_authors.layout">
 				<source>Layout</source>
