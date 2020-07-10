@@ -63,24 +63,27 @@ class PostController extends ActionController
         return $demand;
     }
 
-    protected function getPagination($posts, int $stage): Pagination
+    protected function getRequestArgument(string $key)
     {
-        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
-        return GeneralUtility::makeInstance(Pagination::class, $posts, $stage, $itemsPerPage, $this->settings['max_stages']);
+        return $this->request->hasArgument($key) ? $this->request->getArgument($key) : null;
     }
 
     public function listAction(): void
     {
 
         // Determine relevant arguments for filtering
-        $demand = $this->getDemand(true);
+        $demand = $this->getRequestArgument('demand') ?: $this->getDemand(true);
 
         // Get posts depending on demand object
-        $posts = RepositoryService::getPostRepository()->findByDemand($demand);
+        $posts = $this->getRequestArgument('posts') ?: RepositoryService::getPostRepository()->findByDemand($demand);
+
+        // Create pagination
+        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
+        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages']);
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([
-            'pagination' => $this->getPagination($posts, $demand->getStage()),
+            'pagination' => $pagination,
             'demand' => $demand
         ]);
     }
@@ -92,6 +95,18 @@ class PostController extends ActionController
         } catch (StopActionException $e) {
             return;
         }
+    }
+
+    public function staticAction(): void
+    {
+        // Determine relevant arguments for filtering
+        $demand = $this->getDemand(true);
+
+        // Get posts depending on demand object
+        $posts = RepositoryService::getPostRepository()->findByDemand($demand);
+
+        // 🚓🚨 Nothing to see here, just walk along to the listAction, Sir. 👮‍🚧
+        $this->forward('list', null, null, ['demand' => $demand, 'posts' => $posts]);
     }
 
     public function filterAction(): void
