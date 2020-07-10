@@ -83,6 +83,24 @@
 			<trans-unit id="category.pageinfo.edit">
 				<source>Edit category</source>
 			</trans-unit>
+
+			<!-- ItemsProcFunc -->
+			<trans-unit id="itemsProcFunc.category.auto">
+				<source>Find category in rootline</source>
+			</trans-unit>
+			<trans-unit id="itemsProcFunc.category.all">
+				<source>No restrictions</source>
+			</trans-unit>
+			<trans-unit id="itemsProcFunc.category.all.0">
+				<source>All categories</source>
+			</trans-unit>
+			<trans-unit id="itemsProcFunc.category.manuel">
+				<source>Available categories</source>
+			</trans-unit>
+			<trans-unit id="itemsProcFunc.category.empty">
+				<source>No selection possible. Please save the record first</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

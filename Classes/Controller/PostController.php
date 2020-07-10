@@ -13,7 +13,6 @@ use Zeroseven\Z7Blog\Domain\Model\Demand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
-use Zeroseven\Z7Blog\Service\RootlineService;
 
 class PostController extends ActionController
 {
@@ -50,40 +49,38 @@ class PostController extends ActionController
     protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): Demand
     {
 
-        // Determine relevant arguments for filtering
-        $demand = Demand::makeInstance()->setParameterArray(false, array_merge(
-            $applySettings === false ? [] : $this->settings,
-            $applyRequestArguments === false ? [] : $this->requestArguments,
-            ...$arguments
-        ));
+        // Get request data
+        $requestArguments = $applyRequestArguments !== false && (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid']) ? $this->requestArguments : [];
 
-        // Try to find the category if empty
-        if (empty($demand->getCategory()) && $category = RootlineService::findCategory()) {
-            $demand->setCategory($category);
+        // Create demand object with relevant arguments for filtering
+        $demand = Demand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
+
+        // Set list id
+        if ($demand->getListId() === 0) {
+            $demand->setListId($this->contentData['uid']);
         }
 
         return $demand;
     }
 
+    protected function getPagination($posts, int $stage): Pagination
+    {
+        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
+        return GeneralUtility::makeInstance(Pagination::class, $posts, $stage, $itemsPerPage, $this->settings['max_stages']);
+    }
+
     public function listAction(): void
     {
 
-        // Get request data
-        $applyRequestArguments = !isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid'];
-
         // Determine relevant arguments for filtering
-        $demand = $this->getDemand(true, $applyRequestArguments)->setListId((int)$this->contentData['uid']);
+        $demand = $this->getDemand(true);
 
         // Get posts depending on demand object
-        $posts = RepositoryService::getPostRepository()->findAll($demand);
-
-        // Create pagination object
-        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
-        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages']);
+        $posts = RepositoryService::getPostRepository()->findByDemand($demand);
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([
-            'pagination' => $pagination,
+            'pagination' => $this->getPagination($posts, $demand->getStage()),
             'demand' => $demand
         ]);
     }
@@ -104,7 +101,7 @@ class PostController extends ActionController
         $demand = $this->getDemand(true, false);
 
         // Add plugin settings of target list
-        if($listId = (int)$this->settings['list_id']) {
+        if ($listId = (int)$this->settings['list_id']) {
 
             // Get target content element
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
@@ -119,7 +116,7 @@ class PostController extends ActionController
             $this->view->assign('pageUid', (int)$row['pid']);
 
             // Set flexform settings
-            if($flexform = $row['pi_flexform']) {
+            if ($flexform = $row['pi_flexform']) {
                 $flexFormSettings = GeneralUtility::makeInstance(FlexFormService::class)->convertFlexFormContentToArray($flexform);
                 $demand->setParameterArray(true, $flexFormSettings['settings']);
 
@@ -129,7 +126,9 @@ class PostController extends ActionController
         }
 
         // Set request data to the demand
-        $demand->setParameterArray(false, $this->requestArguments);
+        if (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->settings['list_id']) {
+            $demand->setParameterArray(false, $this->requestArguments);
+        }
 
         // Pass variables to the content
         $this->view->assignMultiple([
