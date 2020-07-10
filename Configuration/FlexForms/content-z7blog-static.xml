@@ -8,7 +8,7 @@
 				<type>array</type>
 				<el>
 
-					<settings.topics>
+					<settings.uids>
 						<TCEforms>
 							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_static.posts</label>
 							<exclude>1</exclude>
@@ -37,7 +37,7 @@
 								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getAllPosts</itemsProcFunc>
 							</config>
 						</TCEforms>
-					</settings.topics>
+					</settings.uids>
 
 				</el>
 			</ROOT>
