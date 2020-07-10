@@ -84,6 +84,11 @@ class PostRepository extends AbstractPageRepository
         // Get constraints of demand object
         $constraints = $this->createDemandConstraints($demand, $query);
 
+        // Search for specific uids
+        if ($uids = $demand->getUids()) {
+            $constraints[] = $query->in('uid', $uids);
+        }
+
         // Set archive mode
         if ($demand->archivedPostsHidden()) {
             $constraints[] = $query->logicalOr([

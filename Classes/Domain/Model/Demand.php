@@ -26,6 +26,9 @@ class Demand
     /** @var int */
     public $stage = 0;
 
+    /** @var array */
+    public $uids = [];
+
     /** @var int */
     public $category = 0;
 
