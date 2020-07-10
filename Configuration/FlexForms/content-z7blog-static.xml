@@ -1,0 +1,223 @@
+<T3DataStructure>
+	<sheets>
+		<general>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_static.sheetTitle.selection</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.topics>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_static.posts</label>
+							<exclude>1</exclude>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<foreign_table>pages</foreign_table>
+								<filter>
+									<userFunc>Zeroseven\Z7Blog\TCA\GroupFilter->filterTypes</userFunc>
+									<parameters>
+										<allowed>147</allowed>
+									</parameters>
+								</filter>
+								<suggestOptions>
+									<default>
+										<searchWholePhrase>1</searchWholePhrase>
+									</default>
+									<pages>
+										<searchCondition>doktype = 147</searchCondition>
+									</pages>
+								</suggestOptions>
+								<size>5</size>
+								<autoSizeMax>10</autoSizeMax>
+								<maxitems>99</maxitems>
+								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getAllPosts</itemsProcFunc>
+							</config>
+						</TCEforms>
+					</settings.topics>
+
+				</el>
+			</ROOT>
+		</general>
+		<options>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.sheetTitle.options</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.top_post_mode>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode</label>
+							<exclude>1</exclude>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<minitems>1</minitems>
+								<maxitems>1</maxitems>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode.0</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode.1</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode.2</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.top_post_mode>
+
+					<settings.archive_mode>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode</label>
+							<exclude>1</exclude>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<minitems>1</minitems>
+								<maxitems>1</maxitems>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode.0</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode.1</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.archive_mode.2</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.archive_mode>
+
+					<settings.ordering>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.ordering</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<minitems>1</minitems>
+								<maxitems>1</maxitems>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.ordering.date_desc</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.ordering.date_asc</numIndex>
+										<numIndex index="1">date_asc</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.ordering.title_asc</numIndex>
+										<numIndex index="1">title_asc</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.ordering.title_desc</numIndex>
+										<numIndex index="1">title_desc</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.ordering>
+
+				</el>
+			</ROOT>
+		</options>
+		<layout>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.sheetTitle.layout</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<settings.items_per_stages>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stages</label>
+							<description>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stages.description</description>
+							<config>
+								<placeholder>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.items_per_stages.placeholder</placeholder>
+								<type>input</type>
+								<eval>trim,is_in</eval>
+								<is_in>0123456789,</is_in>
+							</config>
+						</TCEforms>
+					</settings.items_per_stages>
+
+					<settings.max_stages>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.max_stages</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<minitems>1</minitems>
+								<maxitems>1</maxitems>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.max_stages.0</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">1</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">2</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">3</numIndex>
+										<numIndex index="1">3</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">4</numIndex>
+										<numIndex index="1">4</numIndex>
+									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">5</numIndex>
+										<numIndex index="1">5</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.max_stages>
+
+					<settings.layout>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.layout</label>
+							<exclude>1</exclude>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getContentLayouts</itemsProcFunc>
+								<minitems>0</minitems>
+								<maxitems>1</maxitems>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.layout.0</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.layout>
+
+				</el>
+			</ROOT>
+		</layout>
+	</sheets>
+</T3DataStructure>
