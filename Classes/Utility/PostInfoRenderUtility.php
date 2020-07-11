@@ -14,6 +14,14 @@ use Zeroseven\Z7Blog\Service\SettingsService;
 class PostInfoRenderUtility
 {
 
+    /**
+     * Back reference to the parent content object
+     * This has to be public as it is set directly from TYPO3
+     *
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    public $cObj;
+    
     /** @var StandaloneView */
     protected $view;
 
@@ -57,7 +65,8 @@ class PostInfoRenderUtility
         // Assign variables to the view
         $this->view->assignMultiple([
             'post' => $post,
-            'settings' => array_merge($this->pluginConfiguration['settings'], $settings ?: [])
+            'settings' => array_merge($this->pluginConfiguration['settings'], $settings ?: []),
+            'data' => $this->cObj->data
         ]);
 
         return $this->view->render();
