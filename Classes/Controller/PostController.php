@@ -87,11 +87,7 @@ class PostController extends ActionController
 
     public function listUncachedAction(): void
     {
-        try {
-            $this->forward('list');
-        } catch (StopActionException $e) {
-            return;
-        }
+        $this->forward('list');
     }
 
     public function filterAction(): void
