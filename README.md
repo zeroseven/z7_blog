@@ -16,7 +16,7 @@ page.100 {
 }
 ```
 
-… or call a viewHelper in your template:
+… or render the info by a viewHelper in your template:
 
 ```fluid
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
@@ -25,6 +25,21 @@ page.100 {
         <blog:postInfo file="EXT:z7_blog/Resources/Private/Partials/Post/Info/Summary.html" />
     </main>
 </html>
+```
+
+… or render a custom content element:
+
+```typo3_typoscript
+tt_content.custom_blogpost_info =< lib.contentElement
+tt_content.custom_blogpost_info {
+    templateName = Generic
+
+    20 = USER
+    20 {
+        userFunc = Zeroseven\Z7Blog\Utility\PostInfoRenderUtility->renderUserFunc
+        file = EXT:z7_blog/Resources/Private/Partials/Post/Info/Summary.html
+    }
+}
 ```
 
 ## Use different layouts
