@@ -178,7 +178,7 @@
 				<source>Ordering</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_authors.ordering.manual">
-				<source>Manual</source>
+				<source>Manual, like selected</source>
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_authors.ordering.auto">
 				<source>Auto</source>
