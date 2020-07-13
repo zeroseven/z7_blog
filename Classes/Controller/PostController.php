@@ -106,6 +106,7 @@ class PostController extends ActionController
         // Get posts depending on demand object
         $posts = RepositoryService::getPostRepository()->findByDemand($demand);
 
+        // Reorder posts
         if ($posts && $this->settings['ordering'] === 'manual') {
             $posts = ManualOrderUtility::order($this->settings['uids'], $posts->toArray());
         }
