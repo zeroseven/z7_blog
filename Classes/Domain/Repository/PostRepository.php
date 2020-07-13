@@ -21,13 +21,15 @@ class PostRepository extends AbstractPageRepository
         }
 
         // Override default ordering by propertyName with optional direction
-        if ($demand && $demand->getOrdering()) {
-
-            // Examples: "date_desc", "title_asc", "title",
-            if (preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) && $property = $matches[1] ?? null) {
-                $columnName = $this->objectManager->get(DataMapper::class)->convertPropertyNameToColumnName($property, Post::class);
-                $ordering[$columnName] = ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING;
-            }
+        if (
+            $demand
+            && $demand->getOrdering()
+            && preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) // Examples: "date_desc", "title_asc", "title",
+            && ($property = $matches[1] ?? null)
+            && ($dataMapper = $this->objectManager->get(DataMapper::class))
+            && ($columnMap = $dataMapper->getDataMap(Post::class)->getColumnMap($property))
+        ) {
+            $ordering[$columnMap->getColumnName()] = ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING;
         } else {
             $ordering['post_date'] = QueryInterface::ORDER_DESCENDING;
         }
@@ -83,6 +85,11 @@ class PostRepository extends AbstractPageRepository
 
         // Get constraints of demand object
         $constraints = $this->createDemandConstraints($demand, $query);
+
+        // Search for specific uids
+        if ($uids = $demand->getUids()) {
+            $constraints[] = $query->in('uid', $uids);
+        }
 
         // Set archive mode
         if ($demand->archivedPostsHidden()) {

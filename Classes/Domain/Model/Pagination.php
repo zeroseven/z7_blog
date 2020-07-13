@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use Zeroseven\Z7Blog\Service\TypeCastService;
 
 class Stage extends ObjectStorage
 {
@@ -90,7 +91,7 @@ class Stages extends ObjectStorage
         $this->removeAll($this);
 
         // Create array of items
-        $items = $this->pagination->getItems()->toArray();
+        $items = $this->pagination->getItems();
 
         // Build new stages
         foreach ($this->pagination->getStageLengths() as $index => $stageLength) {
@@ -160,7 +161,7 @@ class Pagination
     /** @var array */
     protected $stageLengths;
 
-    public function __construct(QueryResultInterface $items, $selectedStage = null, $itemsPerStage = null, $maxStages = null)
+    public function __construct($items, $selectedStage = null, $itemsPerStage = null, $maxStages = null)
     {
 
         $this->stages = GeneralUtility::makeInstance(Stages::class, $this);
@@ -197,14 +198,14 @@ class Pagination
         return $this->stages;
     }
 
-    public function getItems(): QueryResultInterface
+    public function getItems(): array
     {
         return $this->items;
     }
 
-    public function setItems(QueryResultInterface $items, bool $updatePagination = null): self
+    public function setItems($items, bool $updatePagination = null): self
     {
-        $this->items = $items;
+        $this->items = TypeCastService::array($items);
 
         if ($updatePagination !== false) {
             $this->update();
@@ -269,7 +270,7 @@ class Pagination
     public function getNextStage(): ?int
     {
         $range = $this->getRange();
-        return $this->getSelectedStage() < $this->getMaxStages() - 1 && $this->getItems()->count() > $range['to'] ? ($this->getSelectedStage() + 1) : null;
+        return $this->getSelectedStage() < $this->getMaxStages() - 1 && count($this->getItems()) > $range['to'] ? ($this->getSelectedStage() + 1) : null;
     }
 
     public function getPreviousStage(): ?int
@@ -301,7 +302,7 @@ class Pagination
     {
         $items = [];
         $count = 0;
-        $total = $this->getItems()->count();
+        $total = count($this->getItems());
 
         foreach ($this->getStageLengths() as $key => $value) {
             if(($count += $value) > $total) {

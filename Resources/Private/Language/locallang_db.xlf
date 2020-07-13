@@ -126,6 +126,9 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.title_desc">
 				<source>By title, descending</source>
 			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.manual">
+				<source>Manual, like selected</source>
+			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages">
 				<source>Items per stage</source>
 			</trans-unit>
@@ -157,6 +160,14 @@
 			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_filter.layout.0">
 				<source>Default</source>
+			</trans-unit>
+
+			<!-- Flexform of plugin z7blog_static -->
+			<trans-unit id="tt_content.flexForms.z7blog_static.sheetTitle.selection">
+				<source>Selection</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_static.posts">
+				<source>Posts</source>
 			</trans-unit>
 
 			<!-- Flexform of plugin z7blog_authors -->
