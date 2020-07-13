@@ -13,6 +13,7 @@ use Zeroseven\Z7Blog\Domain\Model\Demand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
+use Zeroseven\Z7Blog\Utility\ManualOrderUtility;
 
 class PostController extends ActionController
 {
@@ -104,6 +105,10 @@ class PostController extends ActionController
 
         // Get posts depending on demand object
         $posts = RepositoryService::getPostRepository()->findByDemand($demand);
+
+        if ($posts && $this->settings['ordering'] === 'manual') {
+            $posts = ManualOrderUtility::order($this->settings['uids'], $posts->toArray());
+        }
 
         // 🚓🚨 Nothing to see here, just walk along to the listAction, Sir. 👮‍🚧
         $this->forward('list', null, null, ['demand' => $demand, 'posts' => $posts]);
