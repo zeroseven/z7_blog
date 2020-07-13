@@ -171,6 +171,18 @@
 			</trans-unit>
 
 			<!-- Flexform of plugin z7blog_authors -->
+			<trans-unit id="tt_content.flexForms.z7blog_authors.authors">
+				<source>Selected authors</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_authors.ordering">
+				<source>Ordering</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_authors.ordering.manual">
+				<source>Manual</source>
+			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_authors.ordering.auto">
+				<source>Auto</source>
+			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_authors.layout">
 				<source>Layout</source>
 			</trans-unit>

@@ -6,6 +6,7 @@ namespace Zeroseven\Z7Blog\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Zeroseven\Z7Blog\Service\RepositoryService;
+use Zeroseven\Z7Blog\Utility\ManualOrderUtility;
 
 class AuthorController extends ActionController
 {
@@ -15,6 +16,11 @@ class AuthorController extends ActionController
 
         // Collect authors
         $authors = RepositoryService::getAuthorRepository()->findByUids(GeneralUtility::intExplode(',', $this->settings['authors']));
+
+        // Reorder posts
+        if ($authors && $this->settings['ordering'] === 'manual') {
+            $authors = ManualOrderUtility::order($this->settings['authors'], $authors->toArray());
+        }
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([

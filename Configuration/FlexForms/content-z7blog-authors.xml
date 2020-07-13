@@ -18,6 +18,28 @@
 						</TCEforms>
 					</settings.authors>
 
+					<settings.ordering>
+						<TCEforms>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<minitems>1</minitems>
+								<maxitems>1</maxitems>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.manual</numIndex>
+										<numIndex index="1">manual</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.auto</numIndex>
+										<numIndex index="1">auto</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.ordering>
+
 					<settings.layout>
 						<TCEforms>
 							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.layout</label>

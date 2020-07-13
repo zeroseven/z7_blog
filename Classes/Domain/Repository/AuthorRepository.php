@@ -3,7 +3,9 @@
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use Zeroseven\Z7Blog\Service\TypeCastService;
 
 class AuthorRepository extends Repository
 {
@@ -13,12 +15,18 @@ class AuthorRepository extends Repository
         'uid' => QueryInterface::ORDER_ASCENDING
     ];
 
-    public function findByUids(array $uids): array
+    public function findByUids($uids): ?QueryResultInterface
     {
-        // Keep the sorting of the given list
-        return array_map(function($uid) {
-            return $this->findByUid($uid);
-        }, $uids);
+        // Create query
+        $query = $this->createQuery();
+
+        // Search for specific uids
+        $query->matching(
+            $query->in('uid', TypeCastService::array($uids))
+        );
+
+        // Ciao!
+        return $query->execute();
     }
 
 }
