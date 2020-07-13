@@ -129,6 +129,10 @@
 										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.ordering.title_desc</numIndex>
 										<numIndex index="1">title_desc</numIndex>
 									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.ordering.manual</numIndex>
+										<numIndex index="1">manual</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>

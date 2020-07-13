@@ -126,6 +126,9 @@
 			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.title_desc">
 				<source>By title, descending</source>
 			</trans-unit>
+			<trans-unit id="tt_content.flexForms.z7blog_list.ordering.manual">
+				<source>Manual, like selected</source>
+			</trans-unit>
 			<trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages">
 				<source>Items per stage</source>
 			</trans-unit>
