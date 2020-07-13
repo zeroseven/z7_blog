@@ -7,6 +7,7 @@ use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use Zeroseven\Z7Blog\Service\SettingsService;
+use Zeroseven\Z7Blog\Service\TypeCastService;
 
 class Demand
 {
@@ -92,52 +93,6 @@ class Demand
         return GeneralUtility::makeInstance(self::class);
     }
 
-    protected function castInt($value): int
-    {
-        if ($value === null || is_int($value) || empty($value) || MathUtility::canBeInterpretedAsInteger($value)) {
-            return (int)$value;
-        }
-
-        throw new Exception(sprintf('Type of "%s" can not be converted to integer.', gettype($value)));
-    }
-
-    protected function castString($value): string
-    {
-        if ($value === null || is_string($value) || is_int($value)) {
-            return (string)$value;
-        }
-
-        throw new Exception(sprintf('Type of "%s" can not be converted to string.', gettype($value)));
-    }
-
-    protected function castArray($value): array
-    {
-        if (is_array($value)) {
-            return array_map(static function($v) {
-                return (string)$v;
-            }, $value);
-        }
-
-        if ($value === null || empty($value)) {
-            return [];
-        }
-
-        if (is_string($value)) {
-            return GeneralUtility::trimExplode(',', $value);
-        }
-
-        throw new Exception(sprintf('Type of "%s" can not be converted to array.', gettype($value)));
-    }
-
-    protected function castBool($value): bool
-    {
-        if ($value === null || !is_array($value) && !is_object($value)) {
-            return (bool)$value;
-        }
-
-        throw new Exception(sprintf('Type of "%s" can not be converted to bool.', gettype($value)));
-    }
-
     protected function checkPropertyAccess(string $propertyName): void
     {
         if(!$this->hasProperty($propertyName)) {
@@ -185,13 +140,15 @@ class Demand
         $type = $this->getType($propertyName);
 
         if ($type === 'int') {
-            $this->{$propertyName} = $this->castInt($value);
+            $this->{$propertyName} = TypeCastService::int($value);
         } elseif ($type === 'string') {
-            $this->{$propertyName} = $this->castString($value);
+            $this->{$propertyName} = TypeCastService::string($value);
         } elseif ($type === 'array') {
-            $this->{$propertyName} = $this->castArray($value);
+            $this->{$propertyName} = array_map(static function($v) {
+                return (string)$v;
+            }, TypeCastService::array($value));
         } elseif ($type === 'bool') {
-            $this->{$propertyName} = $this->castBool($value);
+            $this->{$propertyName} = TypeCastService::bool($value);
         } else {
             $this->{$propertyName} = $value;
         }
