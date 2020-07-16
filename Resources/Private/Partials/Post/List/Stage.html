@@ -1,0 +1,5 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:for each="{stage.items}" as="post" iteration="i">
+	{f:render(partial:'Post/List/Item', arguments: '{_all}')}
+</f:for>
+</html>
