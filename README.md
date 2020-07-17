@@ -53,3 +53,32 @@ tx_z7blog.content.[CType].layouts {
   archive = Archive
 }
 ```
+
+## Update from extension "blogpages"
+
+Diese mysql queries kannst du verwenden, um einige Tabellen und Felder aus der Erweiterung "blogpages" upzudaten. Dabei ist es wichtig, dass du das **vor dem Installieren** ausführst. 
+
+**ACHTUNG:** Erstelle zuerst ein vollständiges Backup der Datenbank und schau dir genau an, was du machst. Die Queries sind keine Garantie, sondern nur eine Hilfestellung. Auch ist damit nicht alles gelöst. Beispielsweise die User-Berechtigungen, Flexform-Einstellungen oder andere Verknüpfungen müssen noch händisch ergänzt werden. 
+
+```mysql
+-- Update authors
+RENAME TABLE `tx_blogpages_domain_model_author` TO `tx_z7blog_domain_model_author`;
+UPDATE `sys_file_reference` SET `tablenames` = 'tx_z7blog_domain_model_author' WHERE `tablenames` = 'tx_blogpages_domain_model_author';
+
+-- The reincarnation of the topics (was called "tags" in previous life)
+ALTER TABLE `pages` CHANGE `post_tags` `post_topics` INT(11) unsigned DEFAULT '0' NOT NULL;
+RENAME TABLE `tx_blogpages_domain_model_tag` TO `tx_z7blog_domain_model_topic`;
+RENAME TABLE `tx_blogpages_post_tag_mm` TO `tx_z7blog_post_topic_mm`;
+
+-- Move the relations between the posts
+ALTER TABLE `pages` CHANGE `post_related` `post_relations_to` INT(10) UNSIGNED NOT NULL DEFAULT '0';
+RENAME TABLE `tx_blogpages_post__mm` TO `tx_z7blog_post_mm`;
+
+-- Update content elements
+UPDATE `tt_content` SET `CType` = 'z7blog_list', `hidden` = '1', `rowDescription` = CONCAT('The content type was changed and the element disabled while upgrading the blog extension.\n\n', rowDescription) WHERE `CType` = 'blogpages_list';
+UPDATE `tt_content` SET `CType` = 'z7blog_filter', `hidden` = '1', `rowDescription` = CONCAT('The content type was changed and the element disabled while upgrading the blog extension.\n\n', rowDescription) WHERE `CType` = 'blogpages_filter';
+```
+
+## Todo:
+
+* Upgrades von div. TYPO3-Blog-Erweiterungen könnten über einen Upgrade-Wizard umgesetzt werden.
