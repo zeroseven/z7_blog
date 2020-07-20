@@ -2,6 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
@@ -15,6 +16,11 @@ class PostRepository extends AbstractPageRepository
         'uid' => QueryInterface::ORDER_ASCENDING
     ];
 
+    public function getDefaultQuerySettings(): QuerySettingsInterface
+    {
+        return $this->defaultQuerySettings;
+    }
+
     protected function setOrdering(AbstractDemand $demand = null): void
     {
 
@@ -25,45 +31,6 @@ class PostRepository extends AbstractPageRepository
         if ($demand && $demand->topPostsFirst()) {
             $this->setDefaultOrderings(array_merge(['post_top' => QueryInterface::ORDER_DESCENDING], $this->defaultOrderings));
         }
-    }
-
-    public function findByDemand(AbstractDemand $demand): ?QueryResultInterface
-    {
-
-        // Override sorting of the posts
-        $this->setOrdering($demand);
-
-        // Create query
-        $query = $this->createQuery();
-
-        // Get constraints of demand object
-        $constraints = $this->createDemandConstraints($demand, $query);
-
-        // Set archive mode
-        if ($demand->archivedPostsHidden()) {
-            $constraints[] = $query->logicalOr([
-                $query->equals('archiveDate', 0),
-                $query->greaterThan('archiveDate', time())
-            ]);
-        } elseif ($demand->archivedPostsOnly()) {
-            $constraints[] = $query->logicalAnd([
-                $query->greaterThan('archiveDate', 1),
-                $query->lessThan('archiveDate', time())
-            ]);
-        }
-
-        // Display only top posts
-        if ($demand->topPostsOnly()) {
-            $constraints[] = $query->equals('top', 1);
-        }
-
-        // Ciao!
-        return $this->execute($demand->getCategory(), $constraints);
-    }
-
-    public function findAll(): ?QueryResultInterface
-    {
-        return $this->findByDemand(PostDemand::makeInstance());
     }
 
     public function findByCategory($category, PostDemand $demand = null): ?QueryResultInterface
@@ -84,11 +51,6 @@ class PostRepository extends AbstractPageRepository
     public function findByTopics($topics, PostDemand $demand = null): ?QueryResultInterface
     {
         return $this->findByDemand(($demand ?: PostDemand::makeInstance())->setTopic($topics));
-    }
-
-    public function findByUids($uids, PostDemand $demand = null): ?QueryResultInterface
-    {
-        return $this->findByDemand(($demand ?: PostDemand::makeInstance())->setUids($uids));
     }
 
 }

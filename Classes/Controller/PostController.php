@@ -96,19 +96,8 @@ class PostController extends ActionController
 
     public function staticAction(): void
     {
-        // Determine relevant arguments for filtering
-        $demand = $this->getDemand(true);
-
-        // Get posts depending on demand object
-        $posts = RepositoryService::getPostRepository()->findByDemand($demand);
-
-        // Reorder posts
-        if ($posts && $this->settings['ordering'] === 'manual') {
-            $posts = ManualOrderUtility::order($this->settings['uids'], $posts->toArray());
-        }
-
         // 🚓🚨 Nothing to see here, just walk along to the listAction, Sir. 👮‍🚧
-        $this->forward('list', null, null, ['demand' => $demand, 'posts' => $posts]);
+        $this->forward('list');
     }
 
     public function filterAction(): void

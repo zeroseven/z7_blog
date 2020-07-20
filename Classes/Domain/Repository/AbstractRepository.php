@@ -7,11 +7,38 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use Zeroseven\Z7Blog\Service\TypeCastService;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
+use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
+use Zeroseven\Z7Blog\Domain\Demand\CategoryDemand;
+use Zeroseven\Z7Blog\Domain\Demand\AuthorDemand;
+use Zeroseven\Z7Blog\Domain\Demand\TopicDemand;
 use Zeroseven\Z7Blog\Domain\Model\Post;
+use Zeroseven\Z7Blog\Domain\Model\Category;
+use Zeroseven\Z7Blog\Domain\Model\Author;
+use Zeroseven\Z7Blog\Domain\Model\Topic;
 
 abstract class AbstractRepository extends Repository
 {
+
+    protected function initializeDemand(): AbstractDemand
+    {
+        if($this->objectType === Post::class) {
+            return PostDemand::makeInstance();
+        }
+
+        if($this->objectType === Category::class) {
+            return CategoryDemand::makeInstance();
+        }
+
+        if($this->objectType === Author::class) {
+            return AuthorDemand::makeInstance();
+        }
+
+        if($this->objectType === Topic::class) {
+            return TopicDemand::makeInstance();
+        }
+    }
 
     protected function setOrdering(AbstractDemand $demand = null): void
     {
@@ -23,15 +50,12 @@ abstract class AbstractRepository extends Repository
             && preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) // Examples: "date_desc", "title_asc", "title",
             && ($property = $matches[1] ?? null)
             && ($dataMapper = $this->objectManager->get(DataMapper::class))
-            && ($columnMap = $dataMapper->getDataMap(Post::class)->getColumnMap($property)) // Todo: get requested model
+            && ($columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($property)) // Todo: get requested model
         ) {
             $ordering[$columnMap->getColumnName()] = ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING;
         } elseif(!empty($this->defaultOrderings)) {
             $ordering = $this->defaultOrderings;
         }
-
-        // And at finally by the uid
-        $ordering['uid'] = QueryInterface::ORDER_DESCENDING;
 
         // Store the array
         $this->setDefaultOrderings($ordering);
@@ -57,7 +81,7 @@ abstract class AbstractRepository extends Repository
          * With more practical tests, there will likely be a little more.
          */
         foreach ($demand->getTypeMapping() as $propertyName => $type) {
-            if (($value = $demand->getProperty($propertyName)) && $columnMap = $dataMapper->getDataMap(Post::class)->getColumnMap($propertyName)) {
+            if (($value = $demand->getProperty($propertyName)) && $columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($propertyName)) {
                 if ($type === 'array') {
                     if (in_array($columnMap->getTypeOfRelation(), [ColumnMap::RELATION_HAS_MANY, ColumnMap::RELATION_HAS_AND_BELONGS_TO_MANY], true)) {
                         $constraints[] = $query->logicalOr(array_map(static function ($v) use ($query, $propertyName) {
@@ -81,22 +105,63 @@ abstract class AbstractRepository extends Repository
         return $constraints;
     }
 
+    protected function orderByUid($orderReference, QueryResultInterface $objects): QueryResultInterface
+    {
+        // Create ordered list
+        $sortedList = array_fill_keys(TypeCastService::array($orderReference), null);
+
+        // Assign objects
+        foreach ($objects as $object) {
+            if ($uid = $object->getUid()) {
+                $sortedList[$uid] = $object;
+            }
+        }
+
+        // Remove empty objects
+        $sortedList = array_filter($sortedList, static function($o) {
+           return $o;
+        });
+
+        // Resort objects in result
+        foreach ($objects as $key => $value) {
+            $objects->offsetSet($key, array_shift($sortedList));
+        }
+
+        return $objects;
+    }
+
     public function findByDemand(AbstractDemand $demand): ?QueryResultInterface
     {
 
-        // Override sorting of the posts
+        // Override sorting
         $this->setOrdering($demand);
 
         // Create query
         $query = $this->createQuery();
 
         // Apply constraints
-        $query->matching(
-            $this->logicalAnd($this->createDemandConstraints($demand, $query))
-        );
+        if(!empty($constraints = $this->createDemandConstraints($demand, $query))) {
+            $query->matching(
+                $query->logicalAnd($constraints)
+            );
+        }
 
-        // Ciao!
-        return $query->execute();
+        // Execute
+        if ($demand->getOrdering() === 'manual' && $uids = $demand->getUids()) {
+            return $this->orderByUid($uids, $query->execute());
+        } else {
+            return $query->execute();
+        }
+    }
+
+    public function findAll(AbstractDemand $demand = null): ?QueryResultInterface
+    {
+        return $this->findByDemand($demand ?: $this->initializeDemand());
+    }
+
+    public function findByUids($uids, AbstractDemand $demand = null): ?QueryResultInterface
+    {
+        return $this->findByDemand(($demand ?: $this->initializeDemand())->setUids($uids));
     }
 
 }
