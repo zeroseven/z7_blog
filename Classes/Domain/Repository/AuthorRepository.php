@@ -4,10 +4,9 @@ namespace Zeroseven\Z7Blog\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
 use Zeroseven\Z7Blog\Service\TypeCastService;
 
-class AuthorRepository extends Repository
+class AuthorRepository extends AbstractRepository
 {
 
     protected $defaultOrderings = [

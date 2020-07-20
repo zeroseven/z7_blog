@@ -8,10 +8,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
 use Zeroseven\Z7Blog\Service\RootlineService;
 
-abstract class AbstractPageRepository extends Repository
+abstract class AbstractPageRepository extends AbstractRepository
 {
 
     public function initializeObject()
