@@ -2,9 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Zeroseven\Z7Blog\Domain\Model\Demand;
-use Zeroseven\Z7Blog\Domain\Model\Post;
+use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 
 class TagRepository
@@ -27,11 +25,11 @@ class TagRepository
         return $tags;
     }
 
-    public function findAll(Demand $demandObject = null, bool $ignoreTagsFromDemand = null, int $languageUid = null): ?array
+    public function findAll(PostDemand $demandObject = null, bool $ignoreTagsFromDemand = null, int $languageUid = null): ?array
     {
 
         // Create demand object, if empty
-        $demand = $demandObject === null ? Demand::makeInstance() : clone $demandObject;
+        $demand = $demandObject === null ? PostDemand::makeInstance() : clone $demandObject;
 
         // Get post repository
         $repository = RepositoryService::getPostRepository();

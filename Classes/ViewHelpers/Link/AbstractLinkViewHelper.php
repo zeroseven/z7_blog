@@ -5,12 +5,12 @@ namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
-use Zeroseven\Z7Blog\Domain\Model\Demand;
+use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 
 abstract class AbstractLinkViewHelper extends ActionViewHelper
 {
 
-    /** @var Demand */
+    /** @var PostDemand */
     protected $demand;
 
     /** @var array */
@@ -20,7 +20,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
     {
         parent::__construct();
 
-        $this->demand = Demand::makeInstance();
+        $this->demand = PostDemand::makeInstance();
         $this->parameterMapping = $this->demand->getParameterMapping();
     }
 
@@ -79,7 +79,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         parent::initialize();
 
         // Take copy of given demand object
-        if (($demand = $this->arguments['demand']) instanceof Demand) {
+        if (($demand = $this->arguments['demand']) instanceof PostDemand) {
             $this->demand = clone $demand;
         }
 

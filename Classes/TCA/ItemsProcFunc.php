@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
-use Zeroseven\Z7Blog\Domain\Model\Demand;
+use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
 use Zeroseven\Z7Blog\Service\SettingsService;
@@ -117,7 +117,7 @@ class ItemsProcFunc
         $rootPageUid = $this->getRootPageUid($PA);
 
         // Build demand object
-        $demand = Demand::makeInstance()->setCategory($rootPageUid);
+        $demand = PostDemand::makeInstance()->setCategory($rootPageUid);
 
         // Add topics to the items
         foreach (RepositoryService::getTagRepository()->findAll($demand) ?: [] as $tag) {

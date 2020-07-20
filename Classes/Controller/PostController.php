@@ -7,9 +7,8 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use Zeroseven\Z7Blog\Domain\Model\Demand;
+use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
@@ -47,19 +46,20 @@ class PostController extends ActionController
         return $view;
     }
 
-    protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): Demand
+    protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): PostDemand
     {
 
         // Get request data
         $requestArguments = $applyRequestArguments !== false && (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid']) ? $this->requestArguments : [];
 
         // Create demand object with relevant arguments for filtering
-        $demand = Demand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
+        $demand = PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
 
         // Set list id
         if ($demand->getListId() === 0) {
             $demand->setListId($this->contentData['uid']);
         }
+        $demand = PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
 
         return $demand;
     }

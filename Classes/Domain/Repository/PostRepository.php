@@ -66,6 +66,11 @@ class PostRepository extends AbstractPageRepository
         return $this->findByDemand(PostDemand::makeInstance());
     }
 
+    public function findByCategory($category, PostDemand $demand = null): ?QueryResultInterface
+    {
+        return $this->findByDemand(($demand ?: PostDemand::makeInstance())->setCategory($category));
+    }
+
     public function findByAuthor($author, PostDemand $demand = null): ?QueryResultInterface
     {
         return $this->findByDemand(($demand ?: PostDemand::makeInstance())->setAuthor($author));

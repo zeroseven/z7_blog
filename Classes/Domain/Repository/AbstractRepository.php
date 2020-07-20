@@ -83,7 +83,7 @@ abstract class AbstractRepository extends Repository
 
     public function findByDemand(AbstractDemand $demand): ?QueryResultInterface
     {
-        \TYPO3\CMS\Core\Utility\DebugUtility::debug($this);
+
         // Override sorting of the posts
         $this->setOrdering($demand);
 
