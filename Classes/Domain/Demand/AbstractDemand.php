@@ -1,58 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\Domain\Model;
+namespace Zeroseven\Z7Blog\Domain\Demand;
 
 use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MathUtility;
 use Zeroseven\Z7Blog\Service\SettingsService;
 use Zeroseven\Z7Blog\Service\TypeCastService;
 
-class Demand
+abstract class AbstractDemand
 {
-
-    /** @var int */
-    public const TOP_POSTS_FIRST = 1;
-
-    /** @var int */
-    public const TOP_POSTS_ONLY = 2;
-
-    /** @var int */
-    public const ARCHIVED_POSTS_HIDDEN = 0;
-
-    /** @var int */
-    public const ARCHIVED_POSTS_ONLY = 2;
-
-    /** @var int */
-    public $stage = 0;
 
     /** @var array */
     public $uids = [];
 
-    /** @var int */
-    public $category = 0;
-
-    /** @var int */
-    public $author = 0;
-
-    /** @var array */
-    public $topics = [];
-
-    /** @var array */
-    public $tags = [];
-
-    /** @var int */
-    public $topPostMode = 0;
-
-    /** @var int */
-    public $archiveMode = 0;
-
     /** @var string */
     public $ordering = '';
-
-    /** @var int */
-    public $listId = 0;
 
     /** @var array */
     protected $parameterMapping;
@@ -181,26 +144,6 @@ class Demand
         }
 
         throw new Exception('RemoveFromProperty is allowed on type array only');
-    }
-
-    public function topPostsFirst(): bool
-    {
-        return $this->getTopPostMode() === self::TOP_POSTS_FIRST;
-    }
-
-    public function topPostsOnly(): bool
-    {
-        return $this->getTopPostMode() === self::TOP_POSTS_ONLY;
-    }
-
-    public function archivedPostsHidden(): bool
-    {
-        return $this->getArchiveMode() === self::ARCHIVED_POSTS_HIDDEN;
-    }
-
-    public function archivedPostsOnly(): bool
-    {
-        return $this->getArchiveMode() === self::ARCHIVED_POSTS_ONLY;
     }
 
     public function setParameterArray(bool $ignoreEmptyValues, ...$arguments): self
