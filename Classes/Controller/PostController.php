@@ -56,11 +56,6 @@ class PostController extends ActionController
         // Create demand object with relevant arguments for filtering
         $demand = Demand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
 
-        // Set list id
-        if ($demand->getListId() === 0) {
-            $demand->setListId($this->contentData['uid']);
-        }
-
         return $demand;
     }
 
@@ -77,6 +72,11 @@ class PostController extends ActionController
 
         // Get posts depending on demand object
         $posts = $this->getRequestArgument('posts') ?: RepositoryService::getPostRepository()->findByDemand($demand);
+
+        // Set list id
+        if ($demand->getListId() === 0) {
+            $demand->setListId($this->contentData['uid']);
+        }
 
         // Create pagination
         $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
