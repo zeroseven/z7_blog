@@ -6,6 +6,7 @@ namespace Zeroseven\Z7Blog\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 
 class TypeCastService
 {
@@ -19,6 +20,10 @@ class TypeCastService
     {
         if ($value === null || is_int($value) || empty($value) || MathUtility::canBeInterpretedAsInteger($value)) {
             return (int)$value;
+        }
+
+        if (is_object($value) && $value instanceof AbstractDomainObject) {
+            return $value->getUid();
         }
 
         self::throwException($value);
