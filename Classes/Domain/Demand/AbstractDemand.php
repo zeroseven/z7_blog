@@ -27,7 +27,7 @@ abstract class AbstractDemand
     {
 
         // Create array of property names of reflection class
-        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
+        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, static::class)->getProperties() ?? [] as $reflection) {
             if (!$reflection->isProtected()) {
 
                 $name = $reflection->getName();
@@ -46,14 +46,14 @@ abstract class AbstractDemand
     {
 
         // Return custom demand object
-        if ($demand = $GLOBALS['TYPO3_CONF_VARS']['EXT'][SettingsService::EXTENSION_KEY]['demand'] ?? null) {
+        if ($demand = $GLOBALS['TYPO3_CONF_VARS']['EXT'][SettingsService::EXTENSION_KEY][static::class] ?? null) {
             if (class_exists($demand) && is_a($demand, self::class)) {
                 return GeneralUtility::makeInstance($demand);
             }
         }
 
         // Return default demand object
-        return GeneralUtility::makeInstance(self::class);
+        return GeneralUtility::makeInstance(static::class);
     }
 
     protected function checkPropertyAccess(string $propertyName): void
@@ -66,7 +66,7 @@ abstract class AbstractDemand
     public function hasProperty(string $propertyName)
     {
         try {
-            if(GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperty($propertyName)) {
+            if(GeneralUtility::makeInstance(\ReflectionClass::class, static::class)->getProperty($propertyName)) {
                 return true;
             }
         } catch (\ReflectionException $e) {
