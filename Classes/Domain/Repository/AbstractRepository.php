@@ -50,15 +50,14 @@ abstract class AbstractRepository extends Repository
             && preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) // Examples: "date_desc", "title_asc", "title",
             && ($property = $matches[1] ?? null)
             && ($dataMapper = $this->objectManager->get(DataMapper::class))
-            && ($columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($property)) // Todo: get requested model
+            && ($columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($property))
+            && ($columnName = $columnMap->getColumnName())
         ) {
-            $ordering[$columnMap->getColumnName()] = ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING;
-        } elseif(!empty($this->defaultOrderings)) {
-            $ordering = $this->defaultOrderings;
+            $this->setDefaultOrderings([
+                $columnName => ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING
+            ]);
         }
 
-        // Store the array
-        $this->setDefaultOrderings($ordering);
     }
 
     protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query = null): array
