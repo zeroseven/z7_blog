@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
@@ -46,7 +47,7 @@ class PostController extends ActionController
         return $view;
     }
 
-    protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): PostDemand
+    protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): AbstractDemand
     {
 
         // Get request data
