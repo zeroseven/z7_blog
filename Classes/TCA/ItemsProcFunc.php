@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
+use Zeroseven\Z7Blog\Domain\Demand\CategoryDemand;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
@@ -62,8 +63,9 @@ class ItemsProcFunc
 
         if(($currentPageUid = $this->getPageUid($PA)) > 0) {
 
-            // Get page uids
+            // Get potential page uids of categories
             $rootPageUid = $this->getRootPageUid($PA);
+            $potentialPageIds = RootlineService::findPagesBelow($rootPageUid);
 
             // Get the "auto" category
             $categoryRepository = RepositoryService::getCategoryRepository();
@@ -78,12 +80,16 @@ class ItemsProcFunc
             // Add static options
             $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.all', '--div--'];
             $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.all.0', 0, 'apps-pagetree-blogcategory'];
-            $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.manuel', '--div--'];
 
-            // Add categories to the items
-            foreach ($categoryRepository->findAll($rootPageUid) ?: [] as $category) {
-                if($autoCategory === null || $category->getUid() !== $autoCategory->getUid()) {
-                    $PA['items'][] = [$category->getTitle(), $category->getUid(), 'apps-pagetree-blogcategory'];
+            // Add further categories
+            if(!empty($potentialPageIds) && $categories = $categoryRepository->findAll(CategoryDemand::makeInstance()->setUids($potentialPageIds))) {
+                $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.manuel', '--div--'];
+
+                // Add categories to the items
+                foreach ($categories as $category) {
+                    if($autoCategory === null || $category->getUid() !== $autoCategory->getUid()) {
+                        $PA['items'][] = [$category->getTitle(), $category->getUid(), 'apps-pagetree-blogcategory'];
+                    }
                 }
             }
         } else {

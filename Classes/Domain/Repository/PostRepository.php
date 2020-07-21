@@ -7,6 +7,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
+use Zeroseven\Z7Blog\Service\RootlineService;
 
 class PostRepository extends AbstractPageRepository
 {
@@ -33,8 +34,17 @@ class PostRepository extends AbstractPageRepository
         }
     }
 
-    protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query = null): array
+    protected function createDemandConstraints(AbstractDemand $originalDemand, QueryInterface $query): array
     {
+
+        // Create a copy of demand object, that can be modified
+        $demand = clone $originalDemand;
+
+        // Create uids in given category
+        if (empty($demand->getUids()) && $category = $demand->getCategory()) {
+            $uids = RootlineService::findPagesBelow($category);
+            $demand->setUids($uids);
+        }
 
         // Get the default demand constraints
         $constraints = parent::createDemandConstraints($demand, $query);

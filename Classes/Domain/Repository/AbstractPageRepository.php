@@ -3,7 +3,6 @@
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -20,41 +19,37 @@ abstract class AbstractPageRepository extends AbstractRepository
         $this->setDefaultQuerySettings($querySettings);
     }
 
-    public function getRootlineAndLanguageConstraints(int $startPageId = null): array
+    public function getRootlineAndLanguageConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
 
-        // Set the root page as fallback for "Automatic [0]"
-        if ((int)$startPageId === 0) {
-            $startPageId = RootlineService::getRootPage();
+        // Build array
+        $constraints = [];
+
+        // Stay in the hood
+        if (empty($demand->getUids()) && $startPageId = RootlineService::getRootPage()) {
+            $constraints[] = $query->in('uid', RootlineService::findPagesBelow($startPageId));
         }
 
-        // Get pages beyond the given page in the tree
-        $pids = GeneralUtility::intExplode(',', GeneralUtility::makeInstance(QueryGenerator::class)->getTreeList($startPageId, 99));
+        // Hide what wants to be hidden
+        $constraints[] = $query->equals('nav_hide', 0);
 
-        // Create query
-        $query = $this->createQuery();
+        // Add language constraints
+        $constraints[] = $query->logicalOr([
+            $query->equals('l18n_cfg', 0),
+            $query->logicalAnd([
+                $query->greaterThanOrEqual('l18n_cfg', 1),
+                $query->greaterThanOrEqual('sys_language_uid', 1),
+            ]),
+        ]);
 
-        // Return constraints
-        return [
-            $query->in('pid', $pids),
-            $query->equals('nav_hide', 0),
-            $query->logicalOr([
-                $query->equals('l18n_cfg', 0),
-                $query->logicalAnd([
-                    $query->greaterThanOrEqual('l18n_cfg', 1),
-                    $query->greaterThanOrEqual('sys_language_uid', 1),
-                ]),
-            ])
-        ];
+        return $constraints;
     }
 
-    protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query = null): array
+    protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
         $constraints = parent::createDemandConstraints($demand, $query);
 
-        $startPageId = $demand->hasProperty('category') ? $demand->getProperty('category') : 0;
-
-        return array_merge($constraints, $this->getRootlineAndLanguageConstraints($startPageId));
+        return array_merge($constraints, $this->getRootlineAndLanguageConstraints($demand, $query));
     }
 
     public function findByUid($uid, bool $ignoreRestrictions = null)

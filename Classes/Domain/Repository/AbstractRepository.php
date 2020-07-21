@@ -60,15 +60,10 @@ abstract class AbstractRepository extends Repository
 
     }
 
-    protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query = null): array
+    protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
         $constraints = [];
         $dataMapper = $this->objectManager->get(DataMapper::class);
-
-        // Create query if not exists
-        if($query === null) {
-            $query = $this->createQuery();
-        }
 
         // Search for specific uids
         if ($uids = $demand->getUids()) {
