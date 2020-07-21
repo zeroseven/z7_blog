@@ -33,6 +33,33 @@ class PostRepository extends AbstractPageRepository
         }
     }
 
+    protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query = null): array
+    {
+
+        // Get the default demand constraints
+        $constraints = parent::createDemandConstraints($demand, $query);
+
+        // Set archive mode
+        if ($demand->archivedPostsHidden()) {
+            $constraints[] = $query->logicalOr([
+                $query->equals('archiveDate', 0),
+                $query->greaterThan('archiveDate', time())
+            ]);
+        } elseif ($demand->archivedPostsOnly()) {
+            $constraints[] = $query->logicalAnd([
+                $query->greaterThan('archiveDate', 1),
+                $query->lessThan('archiveDate', time())
+            ]);
+        }
+
+        // Display only top posts
+        if ($demand->topPostsOnly()) {
+            $constraints[] = $query->equals('top', 1);
+        }
+
+        return $constraints;
+    }
+
     public function findByCategory($category, PostDemand $demand = null): ?QueryResultInterface
     {
         return $this->findByDemand(($demand ?: PostDemand::makeInstance())->setCategory($category));
