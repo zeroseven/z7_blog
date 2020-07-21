@@ -12,7 +12,7 @@ class PostRepository extends AbstractPageRepository
 {
 
     protected $defaultOrderings = [
-        'title' => QueryInterface::ORDER_ASCENDING,
+        'post_date' => QueryInterface::ORDER_DESCENDING,
         'uid' => QueryInterface::ORDER_ASCENDING
     ];
 
