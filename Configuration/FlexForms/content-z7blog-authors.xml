@@ -5,9 +5,9 @@
 				<type>array</type>
 				<el>
 
-					<settings.authors>
+					<settings.uids>
 						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.authors</label>
+							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.uids</label>
 							<config>
 								<type>select</type>
 								<renderType>selectMultipleSideBySide</renderType>
@@ -16,7 +16,7 @@
 								<maxitems>99</maxitems>
 							</config>
 						</TCEforms>
-					</settings.authors>
+					</settings.uids>
 
 					<settings.ordering>
 						<TCEforms>
@@ -32,8 +32,12 @@
 										<numIndex index="1">manual</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.auto</numIndex>
-										<numIndex index="1">auto</numIndex>
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.firstName</numIndex>
+										<numIndex index="1">firstName</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.lastName</numIndex>
+										<numIndex index="1">lastName</numIndex>
 									</numIndex>
 								</items>
 							</config>

@@ -7,9 +7,9 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use Zeroseven\Z7Blog\Domain\Model\Demand;
+use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
+use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
@@ -47,14 +47,14 @@ class PostController extends ActionController
         return $view;
     }
 
-    protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): Demand
+    protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): AbstractDemand
     {
 
         // Get request data
         $requestArguments = $applyRequestArguments !== false && (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid']) ? $this->requestArguments : [];
 
         // Create demand object with relevant arguments for filtering
-        $demand = Demand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
+        $demand = PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
 
         return $demand;
     }
@@ -96,19 +96,8 @@ class PostController extends ActionController
 
     public function staticAction(): void
     {
-        // Determine relevant arguments for filtering
-        $demand = $this->getDemand(true);
-
-        // Get posts depending on demand object
-        $posts = RepositoryService::getPostRepository()->findByDemand($demand);
-
-        // Reorder posts
-        if ($posts && $this->settings['ordering'] === 'manual') {
-            $posts = ManualOrderUtility::order($this->settings['uids'], $posts->toArray());
-        }
-
         // 🚓🚨 Nothing to see here, just walk along to the listAction, Sir. 👮‍🚧
-        $this->forward('list', null, null, ['demand' => $demand, 'posts' => $posts]);
+        $this->forward('list');
     }
 
     public function filterAction(): void

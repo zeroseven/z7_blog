@@ -1,58 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\Domain\Model;
+namespace Zeroseven\Z7Blog\Domain\Demand;
 
 use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MathUtility;
 use Zeroseven\Z7Blog\Service\SettingsService;
 use Zeroseven\Z7Blog\Service\TypeCastService;
 
-class Demand
+abstract class AbstractDemand
 {
-
-    /** @var int */
-    public const TOP_POSTS_FIRST = 1;
-
-    /** @var int */
-    public const TOP_POSTS_ONLY = 2;
-
-    /** @var int */
-    public const ARCHIVED_POSTS_HIDDEN = 0;
-
-    /** @var int */
-    public const ARCHIVED_POSTS_ONLY = 2;
-
-    /** @var int */
-    public $stage = 0;
 
     /** @var array */
     public $uids = [];
 
-    /** @var int */
-    public $category = 0;
-
-    /** @var int */
-    public $author = 0;
-
-    /** @var array */
-    public $topics = [];
-
-    /** @var array */
-    public $tags = [];
-
-    /** @var int */
-    public $topPostMode = 0;
-
-    /** @var int */
-    public $archiveMode = 0;
-
     /** @var string */
     public $ordering = '';
-
-    /** @var int */
-    public $listId = 0;
 
     /** @var array */
     protected $parameterMapping;
@@ -64,7 +27,7 @@ class Demand
     {
 
         // Create array of property names of reflection class
-        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperties() ?? [] as $reflection) {
+        foreach (GeneralUtility::makeInstance(\ReflectionClass::class, static::class)->getProperties() ?? [] as $reflection) {
             if (!$reflection->isProtected()) {
 
                 $name = $reflection->getName();
@@ -83,14 +46,14 @@ class Demand
     {
 
         // Return custom demand object
-        if ($demand = $GLOBALS['TYPO3_CONF_VARS']['EXT'][SettingsService::EXTENSION_KEY]['demand'] ?? null) {
+        if ($demand = $GLOBALS['TYPO3_CONF_VARS']['EXT'][SettingsService::EXTENSION_KEY][static::class] ?? null) {
             if (class_exists($demand) && is_a($demand, self::class)) {
                 return GeneralUtility::makeInstance($demand);
             }
         }
 
         // Return default demand object
-        return GeneralUtility::makeInstance(self::class);
+        return GeneralUtility::makeInstance(static::class);
     }
 
     protected function checkPropertyAccess(string $propertyName): void
@@ -103,7 +66,7 @@ class Demand
     public function hasProperty(string $propertyName)
     {
         try {
-            if(GeneralUtility::makeInstance(\ReflectionClass::class, self::class)->getProperty($propertyName)) {
+            if(GeneralUtility::makeInstance(\ReflectionClass::class, static::class)->getProperty($propertyName)) {
                 return true;
             }
         } catch (\ReflectionException $e) {
@@ -181,26 +144,6 @@ class Demand
         }
 
         throw new Exception('RemoveFromProperty is allowed on type array only');
-    }
-
-    public function topPostsFirst(): bool
-    {
-        return $this->getTopPostMode() === self::TOP_POSTS_FIRST;
-    }
-
-    public function topPostsOnly(): bool
-    {
-        return $this->getTopPostMode() === self::TOP_POSTS_ONLY;
-    }
-
-    public function archivedPostsHidden(): bool
-    {
-        return $this->getArchiveMode() === self::ARCHIVED_POSTS_HIDDEN;
-    }
-
-    public function archivedPostsOnly(): bool
-    {
-        return $this->getArchiveMode() === self::ARCHIVED_POSTS_ONLY;
     }
 
     public function setParameterArray(bool $ignoreEmptyValues, ...$arguments): self

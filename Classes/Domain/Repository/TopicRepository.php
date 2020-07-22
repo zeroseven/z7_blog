@@ -3,9 +3,8 @@
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class TopicRepository extends Repository
+class TopicRepository extends AbstractRepository
 {
     protected $defaultOrderings = [
         'title' => QueryInterface::ORDER_ASCENDING,

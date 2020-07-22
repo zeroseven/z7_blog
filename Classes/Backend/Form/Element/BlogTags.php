@@ -5,9 +5,8 @@ namespace Zeroseven\Z7Blog\Backend\Form\Element;
 
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 use TYPO3\CMS\Backend\Form\NodeFactory;
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Zeroseven\Z7Blog\Domain\Model\Demand;
+use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
 
@@ -48,10 +47,10 @@ class BlogTags extends AbstractFormElement
     {
         // Create demand object
         $rootPage = RootlineService::getRootPage($this->data['tableName'] === 'pages' ? $this->data['databaseRow']['uid'] : $this->data['databaseRow']['pid']);
-        $demand = Demand::makeInstance()->setCategory($rootPage);
+        $postDemand = PostDemand::makeInstance()->setCategory($rootPage);
 
         // Get tags
-        $tags = RepositoryService::getTagRepository()->findAll($demand, true, $this->languageUid);
+        $tags = RepositoryService::getTagRepository()->findAll($postDemand, true, $this->languageUid);
 
         return [['TYPO3/CMS/Z7Blog/Backend/Tagify' => 'function(Tagify){
              new Tagify(document.getElementById("' . $this->id . '"), {
