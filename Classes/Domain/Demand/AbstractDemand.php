@@ -44,11 +44,10 @@ abstract class AbstractDemand
 
     public static function makeInstance(): self
     {
-
         // Return custom demand object
-        if ($demand = $GLOBALS['TYPO3_CONF_VARS']['EXT'][SettingsService::EXTENSION_KEY][static::class] ?? null) {
-            if (class_exists($demand) && is_a($demand, self::class)) {
-                return GeneralUtility::makeInstance($demand);
+        if ($className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][SettingsService::EXTENSION_KEY][static::class] ?? null) {
+            if (class_exists($className) && ($class = GeneralUtility::makeInstance($className)) && $class instanceof self) {
+                return $class;
             }
         }
 
