@@ -54,6 +54,30 @@ tx_z7blog.content.[CType].layouts {
 }
 ```
 
+## Extend demand
+
+**ext_localconf.php**
+
+```php
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['Zeroseven\\Z7Blog\\Domain\\Demand\\PostDemand'] = \Namespace\ExtensionName\Demand\PostDemand::class;
+```
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace Namespace\ExtensionName\Demand;
+
+class PostDemand extends Zeroseven\Z7Blog\Domain\Demand\PostDemand
+{
+    /** @var bool */
+    public $navHide = false;   
+
+    /** @var array */
+    public $keywords = [];   
+}
+```
+
 ## Update from extension "blogpages"
 
 Diese mysql queries kannst du verwenden, um einige Tabellen und Felder aus der Erweiterung "blogpages" upzudaten. Dabei ist es wichtig, dass du das **vor dem Installieren** ausführst. 
