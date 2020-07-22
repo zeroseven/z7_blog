@@ -7,7 +7,7 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
         'Zeroseven.Z7Blog',
         'Filter',
         ['Post' => 'filter'],
-        ['Post' => 'filter'],
+        [],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
