@@ -61,5 +61,14 @@ return [
     ],
     \Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector::class => [
         'tableName' => 'pages'
+    ],
+    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\CategoryTraitCollector::class => [
+        'tableName' => 'pages'
+    ],
+    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\AuthorTraitCollector::class => [
+        'tableName' => 'tx_z7blog_domain_model_author'
+    ],
+    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\TopicTraitCollector::class => [
+        'tableName' => 'tx_z7blog_domain_model_topic'
     ]
 ];
