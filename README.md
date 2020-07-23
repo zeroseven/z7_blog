@@ -102,6 +102,45 @@ RENAME TABLE `tx_blogpages_post__mm` TO `tx_z7blog_post_mm`;
 UPDATE `tt_content` SET `CType` = 'z7blog_list', `hidden` = '1', `rowDescription` = CONCAT('The content type was changed and the element disabled while upgrading the blog extension.\n\n', rowDescription) WHERE `CType` = 'blogpages_list';
 UPDATE `tt_content` SET `CType` = 'z7blog_filter', `hidden` = '1', `rowDescription` = CONCAT('The content type was changed and the element disabled while upgrading the blog extension.\n\n', rowDescription) WHERE `CType` = 'blogpages_filter';
 ```
+## Extend models
+
+Es ist möglich domain models zu erweitern, indem du deine eigene `traits` hinterlegst.
+
+**your_extension/Classes/Domain/Model/Post.php**:
+
+```php
+<?php
+
+namespace Vendor\YourExtension\Domain\Model;
+
+trait Post
+{
+
+    protected $lol = true;
+
+    public function getLol(): bool
+    {
+        return $this->lol;
+    }
+
+}
+```
+
+**your_extension/ext_localconf.php**:
+
+```php
+<?php
+
+call_user_func(static function () {
+
+    // Load post trait collector instead of the "default" model 
+    $extbaseObjectContainer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class);
+    $extbaseObjectContainer->registerImplementation(\Zeroseven\Z7Blog\Domain\Model\Post::class, \Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector::class);
+});
+
+// Register trait
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Model\Post::class][] = \Vendor\YourExtension\Domain\Model\Post::class;
+```
 
 ## Todo:
 
