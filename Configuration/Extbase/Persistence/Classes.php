@@ -58,5 +58,8 @@ return [
                 'fieldName' => 'lastname'
             ]
         ]
+    ],
+    \Zeroseven\Z7Blog\Domain\Model\Collectors\PostTraitCollector::class => [
+        'tableName' => 'pages'
     ]
 ];
