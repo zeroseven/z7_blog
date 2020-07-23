@@ -85,7 +85,8 @@ class PostController extends ActionController
         // Pass variables to the fluid template
         $this->view->assignMultiple([
             'pagination' => $pagination,
-            'demand' => $demand
+            'demand' => $demand,
+            'posts' => $posts
         ]);
     }
 
