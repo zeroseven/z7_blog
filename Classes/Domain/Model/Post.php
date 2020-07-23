@@ -160,7 +160,7 @@ class Post extends AbstractPageModel
 
     public function getTags(): array
     {
-        if($tagList = $this->tags) {
+        if ($tagList = $this->tags) {
             return GeneralUtility::trimExplode(self::TAG_DELIMITER, $tagList, true);
         }
 
@@ -199,14 +199,14 @@ class Post extends AbstractPageModel
 
     public function getRelations(): ObjectStorage
     {
-        if($this->relations === null) {
+        if ($this->relations === null) {
             $this->relations = GeneralUtility::makeInstance(ObjectStorage::class);
 
-            if($relationsTo = $this->getRelationsTo()) {
+            if ($relationsTo = $this->getRelationsTo()) {
                 $this->relations->addAll($relationsTo);
             }
 
-            if($relationsFrom = $this->getRelationsFrom()) {
+            if ($relationsFrom = $this->getRelationsFrom()) {
                 $this->relations->addAll($relationsFrom);
             }
         }
