@@ -20,7 +20,7 @@ class TraitCollectorService
          *
          * #dontbeeval #evaltheterrible
          *
-         * TODO: Add more word jokes in version 3.0
+         * TODO: Add more puns in version 3.0
          */
 
         if(!class_exists('\\' . $namespace . '\\' . $className)) {
