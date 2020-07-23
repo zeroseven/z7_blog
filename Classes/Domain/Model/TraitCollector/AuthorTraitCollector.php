@@ -2,8 +2,11 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model\TraitCollector;
 
-\Zeroseven\Z7Blog\Service\TraitCollector::createClass(
+use Zeroseven\Z7Blog\Domain\Model\Post;
+use Zeroseven\Z7Blog\Service\TraitCollector;
+
+TraitCollector::createClass(
     __NAMESPACE__,
     'AuthorTraitCollector',
-    \Zeroseven\Z7Blog\Domain\Model\Post::class
+    Post::class
 );
