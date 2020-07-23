@@ -13,6 +13,16 @@ class TraitCollector
 
     public static function createClass(string $namespace, string $className, string $targetClassName = null): void
     {
+
+        /**
+         * Isn't that nicely done?
+         * … ok, it is (maybe) not! Since the objects cannot be changed at runtime, the 'eval' seems to be the only practical solution.
+         *
+         * #dontbeeval #evaltheterrible
+         *
+         * TODO: Add more word jokes in version 3.0
+         */
+
         if(!class_exists('\\' . $namespace . '\\' . $className)) {
             eval('
                 namespace ' . ltrim($namespace, '\\') . ';
