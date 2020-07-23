@@ -59,7 +59,7 @@ return [
             ]
         ]
     ],
-    \Zeroseven\Z7Blog\Domain\Model\Collectors\PostTraitCollector::class => [
+    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector::class => [
         'tableName' => 'pages'
     ]
 ];
