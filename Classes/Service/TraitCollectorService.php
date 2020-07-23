@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
-class TraitCollector
+class TraitCollectorService
 {
 
     public static function collect(string $className): ?array
