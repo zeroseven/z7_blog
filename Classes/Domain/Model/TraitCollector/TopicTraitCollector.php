@@ -2,6 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model\TraitCollector;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\TraitCollectorService;
 
@@ -10,3 +11,10 @@ TraitCollectorService::createClass(
     'TopicTraitCollector',
     Post::class
 );
+
+// Fallback for the ClassesConfigurationFactory
+if(!class_exists(TopicTraitCollector::class)) {
+    class TopicTraitCollector extends AbstractEntity {
+
+    }
+}
