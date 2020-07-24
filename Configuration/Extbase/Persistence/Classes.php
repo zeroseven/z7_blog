@@ -59,16 +59,19 @@ return [
             ]
         ]
     ],
-    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector::class => [
+    
+    // Configure trait collecor classes.
+    // Use this syntax because the classes do not yet exist.
+    'Zeroseven\\Z7Blog\\Domain\\Model\\TraitCollector\\PostTraitCollector' => [
         'tableName' => 'pages'
     ],
-    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\CategoryTraitCollector::class => [
+    'Zeroseven\\Z7Blog\\Domain\\Model\\TraitCollector\\CategoryTraitCollector' => [
         'tableName' => 'pages'
     ],
-    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\AuthorTraitCollector::class => [
+    'Zeroseven\\Z7Blog\\Domain\\Model\\TraitCollector\\AuthorTraitCollector' => [
         'tableName' => 'tx_z7blog_domain_model_author'
     ],
-    \Zeroseven\Z7Blog\Domain\Model\TraitCollector\TopicTraitCollector::class => [
+    'Zeroseven\\Z7Blog\\Domain\\Model\\TraitCollector\\TopicTraitCollector' => [
         'tableName' => 'tx_z7blog_domain_model_topic'
     ]
 ];
