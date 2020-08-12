@@ -7,8 +7,8 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 use TYPO3\CMS\Backend\Form\NodeFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
-use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
+use Zeroseven\Z7Blog\Service\TagService;
 
 class BlogTags extends AbstractFormElement
 {
@@ -50,7 +50,7 @@ class BlogTags extends AbstractFormElement
         $postDemand = PostDemand::makeInstance()->setCategory($rootPage);
 
         // Get tags
-        $tags = RepositoryService::getTagRepository()->findAll($postDemand, true, $this->languageUid);
+        $tags = TagService::getTags($postDemand, true, $this->languageUid);
 
         return [['TYPO3/CMS/Z7Blog/Backend/Tagify' => 'function(Tagify){
              new Tagify(document.getElementById("' . $this->id . '"), {

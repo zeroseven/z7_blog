@@ -12,6 +12,7 @@ use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
 use Zeroseven\Z7Blog\Service\SettingsService;
+use Zeroseven\Z7Blog\Service\TagService;
 
 class ItemsProcFunc
 {
@@ -126,7 +127,7 @@ class ItemsProcFunc
         $demand = PostDemand::makeInstance()->setCategory($rootPageUid);
 
         // Add topics to the items
-        foreach (RepositoryService::getTagRepository()->findAll($demand) ?: [] as $tag) {
+        foreach (TagService::getTags($demand) ?: [] as $tag) {
             $PA['items'][] = [$tag, $tag, 'plugin-z7blog-tag'];
         }
     }

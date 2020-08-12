@@ -13,6 +13,7 @@ use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
+use Zeroseven\Z7Blog\Service\TagService;
 use Zeroseven\Z7Blog\Utility\ManualOrderUtility;
 
 class PostController extends ActionController
@@ -142,7 +143,7 @@ class PostController extends ActionController
             'categories' => RepositoryService::getCategoryRepository()->findAll(),
             'authors' => RepositoryService::getAuthorRepository()->findAll(),
             'topics' => RepositoryService::getTopicRepository()->findAll(),
-            'tags' => RepositoryService::getTagRepository()->findAll($demand, true),
+            'tags' => TagService::getTags($demand, true),
             'demand' => $demand
         ]);
     }

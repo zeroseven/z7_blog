@@ -9,13 +9,12 @@ use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
 use Zeroseven\Z7Blog\Domain\Repository\PostRepository;
 use Zeroseven\Z7Blog\Domain\Repository\CategoryRepository;
 use Zeroseven\Z7Blog\Domain\Repository\AuthorRepository;
-use Zeroseven\Z7Blog\Domain\Repository\TagRepository;
 use Zeroseven\Z7Blog\Domain\Repository\TopicRepository;
 
 class RepositoryService
 {
 
-    protected static function initializeClass(string $class)
+    protected static function initializeClass(string $class): RepositoryInterface
     {
         // Get from cache
         if ($repository = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['repository'][$class] ?? null) {
@@ -44,11 +43,6 @@ class RepositoryService
     public static function getTopicRepository(): TopicRepository
     {
         return self::initializeClass(TopicRepository::class);
-    }
-
-    public static function getTagRepository(): TagRepository
-    {
-        return self::initializeClass(TagRepository::class);
     }
 
 }
