@@ -49,7 +49,7 @@ class ItemsProcFunc
     public function getContentLayouts(array &$PA)
     {
         $pagesTsConfig = BackendUtility::getPagesTSconfig($this->getPageUid($PA));
-        $key = $PA['flexParentDatabaseRow']['CType'];
+        $key = $PA['config']['contentLayoutKey'] ?? $PA['flexParentDatabaseRow']['CType'];
 
         if ($key && $options = $pagesTsConfig['tx_z7blog.']['content.'][$key . '.']['layouts.'] ?? []) {
             foreach ($options as $value => $label) {

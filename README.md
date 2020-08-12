@@ -54,6 +54,8 @@ tx_z7blog.content.[CType].layouts {
 }
 ```
 
+NOTE: The CType can be overridden by the TCA configuration `contentLayoutKey`.
+
 ## Extend demand
 
 **ext_localconf.php**

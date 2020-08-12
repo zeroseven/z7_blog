@@ -208,6 +208,7 @@
 								<type>select</type>
 								<renderType>selectSingle</renderType>
 								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getContentLayouts</itemsProcFunc>
+								<contentLayoutKey>z7blog_list</contentLayoutKey>
 								<minitems>0</minitems>
 								<maxitems>1</maxitems>
 								<items type="array">
