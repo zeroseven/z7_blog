@@ -4,7 +4,6 @@ namespace Zeroseven\Z7Blog\TCA;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class GroupFilter
 {
@@ -33,26 +32,5 @@ class GroupFilter
 
         return [];
     }
-
-//    public function filterLanguages(array $parameters): array
-//    {
-//        $table = $parameters['tcaFieldConfig']['foreign_table'] ?? '';
-//
-//        if (isset($parameters['values'])) {
-//
-//            $values = [];
-//
-//            foreach ($parameters['values'] as $value) {
-//                $record = BackendUtility::getRecord('pages', $value, 'sys_language_uid');
-//                if ($record['sys_language_uid'] === 0 || $record['sys_language_uid'] === -1) {
-//                    DebuggerUtility::var_dump($value);
-//                    $values[] = $value;
-//                }
-//            }
-//
-//            return $values;
-//        }
-//
-//        return [];
-//    }
+    
 }
