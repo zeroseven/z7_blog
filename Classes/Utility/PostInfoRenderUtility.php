@@ -46,7 +46,7 @@ class PostInfoRenderUtility
     public function render(string $templateNameAndFilePath, array $settings = null, Post $post = null): string
     {
         // Abort if page is not a post
-        if ((int)$GLOBALS['TSFE']->page['doktype'] !== Post::DOKTYPE) {
+        if ($post === null && (int)$GLOBALS['TSFE']->page['doktype'] !== Post::DOKTYPE) {
             return '';
         }
 
