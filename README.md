@@ -65,8 +65,7 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['Zeroseven\\Z7Blog\\Domain\\De
 ```
 
 ```php
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Namespace\ExtensionName\Demand;
 

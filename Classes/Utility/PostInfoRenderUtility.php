@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Utility;
 
@@ -21,7 +20,7 @@ class PostInfoRenderUtility
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
      */
     public $cObj;
-    
+
     /** @var StandaloneView */
     protected $view;
 
