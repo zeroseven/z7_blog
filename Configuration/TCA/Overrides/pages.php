@@ -117,7 +117,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         ],
         'post_relations_to' => [
             'exclude' => false,
-            'l10n_mode' => 'exclude',
+            'displayCond' => 'FIELD:l10n_parent:=:0',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_to',
             'config' => [
                 'type' => 'group',
@@ -136,14 +136,12 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 ],
                 'suggestOptions' => [
                     'default' => [
-                        'searchWholePhrase' => 1
+                        'searchWholePhrase' => 1,
+                        'addWhere' => ' AND ' . $table . '.uid != ###THIS_UID###'
                     ],
                     $table => [
                         'searchCondition' => 'doktype = ' . $postDoktype
                     ]
-                ],
-                'behaviour' => [
-                    'allowLanguageSynchronization' => true
                 ],
                 'size' => 5,
                 'autoSizeMax' => 10,
@@ -152,7 +150,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
         ],
         'post_relations_from' => [
             'exclude' => true,
-            'l10n_mode' => 'exclude',
+            'displayCond' => 'FIELD:l10n_parent:=:0',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_from',
             'config' => [
                 'type' => 'group',
