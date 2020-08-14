@@ -52,7 +52,7 @@ class ItemsProcFunc
         $pagesTsConfig = BackendUtility::getPagesTSconfig($this->getPageUid($PA));
         $key = $PA['config']['contentLayoutKey'] ?? $PA['flexParentDatabaseRow']['CType'];
 
-        if ($key && $options = $pagesTsConfig['tx_z7blog.']['content.'][$key . '.']['layouts.'] ?? []) {
+        if ($key && $options = $pagesTsConfig['tx_z7blog.']['content.'][$key . '.']['layouts.'] ?? null) {
             foreach ($options as $value => $label) {
                 $PA['items'][] = [$label, $value, null];
             }
