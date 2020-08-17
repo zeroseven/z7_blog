@@ -283,12 +283,11 @@ class Pagination
         // Determine stage with fallback of the selected
         $stage = $stage ?? $this->getSelectedStage();
 
-        // Create array
-        $range = [
-            'from' => array_sum(array_slice($this->stageLengths, 0, $stage)),
-            'length' => $this->stageLengths[$stage],
-        ];
+        // Calculate the start of the range
+        $range['from'] = array_sum(array_slice($this->stageLengths, 0, $stage));
 
+        // Calculate the length of items in current range
+        $range['length'] = min($this->stageLengths[$stage], count($this->getItems()) - $range['from']);
 
         // Calculate the "to" property
         $range['to'] = $range['from'] + $range['length'];
