@@ -68,7 +68,18 @@ class Stage extends ObjectStorage
 
     public function getRange(): array
     {
-        return $this->pagination->getRange($this->getIndex());
+
+        // Calculate the start of the range
+        $range['from'] = array_sum(array_slice($this->pagination->getStageLengths(), 0, $this->getIndex()));
+
+        // Calculate the length of items in current range
+        $range['length'] = min($this->pagination->getStageLengths()[$this->getIndex()], count($this->pagination->getItems()) - $range['from']);
+
+        // Calculate the "to" property
+        $range['to'] = $range['from'] + $range['length'];
+
+        // Return array
+        return $range;
     }
 
 }
@@ -121,6 +132,22 @@ class Stages extends ObjectStorage
     public function getSelected(): ?Stage
     {
         return $this->offsetGet($this->pagination->getSelectedStage());
+    }
+
+    public function getCurrent(): ?Stage
+    {
+        return $this->getSelected();
+    }
+
+    public function getNext(): ?Stage
+    {
+        $index = $this->pagination->getSelectedStage() + 1;
+
+        if ($this->offsetExists($index)) {
+            return $this->offsetGet($index);
+        }
+
+        return null;
     }
 
     public function getActive(): array
@@ -268,32 +295,12 @@ class Pagination
 
     public function getNextStage(): ?int
     {
-        $range = $this->getRange();
-        return $this->getSelectedStage() < $this->getMaxStages() - 1 && count($this->getItems()) > $range['to'] ? ($this->getSelectedStage() + 1) : null;
+        return $this->getSelectedStage() < $this->getMaxStages() - 1 && count($this->getItems()) > $this->stages->getSelected()->getRange()['to'] ? ($this->getSelectedStage() + 1) : null;
     }
 
     public function getPreviousStage(): ?int
     {
         return $this->getSelectedStage() > 0 ? $this->getSelectedStage() - 1 : null;
-    }
-
-    public function getRange(int $stage = null): array
-    {
-
-        // Determine stage with fallback of the selected
-        $stage = $stage ?? $this->getSelectedStage();
-
-        // Calculate the start of the range
-        $range['from'] = array_sum(array_slice($this->stageLengths, 0, $stage));
-
-        // Calculate the length of items in current range
-        $range['length'] = min($this->stageLengths[$stage], count($this->getItems()) - $range['from']);
-
-        // Calculate the "to" property
-        $range['to'] = $range['from'] + $range['length'];
-
-        // Return array
-        return $range;
     }
 
     public function getIndicators(): array
