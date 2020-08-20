@@ -1,29 +1,26 @@
 #post-info-table {
-    margin: 1em 0;
-}
-
-.post-info-table-spacer {
-    height: 1em;
+	margin: 1em 0;
 }
 
 #post-info-table th {
-    padding-right: 1em;
+	padding-right: 1em;
 }
 
 #post-info-table th,
 #post-info-table td {
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
 }
 
 .post-info-tag {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 0.2em 1em;
+	border: 1px solid black;
+	font-size: 10px;
+	padding: 0.2em 0.6em;
+	border-radius: 0.6em;
 }
 
 #cache-lifetime-manipulation {
-    max-width: 400px;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    font-size: 12px;
+	max-width: 400px;
+	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+	font-size: 12px;
 }
