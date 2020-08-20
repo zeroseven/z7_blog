@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:be.infobox title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.title')}" iconName="{f:if(condition:post.top, then:'star', else:'info')}" state="{state}">
 
@@ -91,7 +91,9 @@
 
 	</table>
 
-	<a class="btn btn-info btn-sm" href="{editLink}">{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}</a>
+	<be:link.editRecord uid="{post.uid}" table="pages" class="btn btn-info btn-sm">
+		{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}
+	</be:link.editRecord>
 
 </f:be.infobox>
 </html>
