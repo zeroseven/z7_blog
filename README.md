@@ -143,6 +143,18 @@ call_user_func(static function () {
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Model\Post::class][] = \Vendor\YourExtension\Domain\Model\Post::class;
 ```
 
+## SEO-Konfiguration
+
+Wenn Filter als Get-Parameter verwendet werden, ist es oftmals ratsam diese vom Crawler auszuschliens, vor allem bei der Mehrfachauswahl von Tags oder Topics können tausende Kobinationen entstehen.
+
+Beispiel: robots.txt
+
+```
+Disallow: *tx_z7blog_list%5Btopics%5D=*s
+Disallow: *tx_z7blog_list%5Btags%5D=*
+```
+
+
 ## Todo:
 
 * Upgrades von div. TYPO3-Blog-Erweiterungen könnten über einen Upgrade-Wizard umgesetzt werden.
