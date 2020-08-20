@@ -19,6 +19,11 @@
 	border-radius: 0.6em;
 }
 
+.post-info-tag,
+.post-info-tag:hover {
+	text-decoration: none;
+}
+
 #cache-lifetime-manipulation {
 	max-width: 400px;
 	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;

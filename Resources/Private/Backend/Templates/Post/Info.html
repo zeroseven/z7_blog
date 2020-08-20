@@ -4,11 +4,23 @@
 
 	<table id="post-info-table">
 
+		<f:comment><!-- Date --></f:comment>
+		<tr>
+			<th>
+				{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.date')}:
+			</th>
+			<td>
+				<be:link.editRecord uid="{post.uid}" table="pages" fields="post_date">
+					{post.date -> f:format.date(format:'d.m.Y')}
+				</be:link.editRecord>
+			</td>
+		</tr>
+
 		<f:comment><!-- Category --></f:comment>
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.category')}:</th>
 			<td>
-				{post.category.title}
+				{post.category.title -> f:be.link(route:'web_layout', parameters:'{id:post.category.uid}')}
 			</td>
 		</tr>
 
@@ -17,58 +29,55 @@
 			<tr>
 				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
 				<td>
-					<f:if condition="{post.author}">
-						<f:then>
-							{post.author.lastName}, {post.author.firstName}
-						</f:then>
-					</f:if>
+					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_author">
+						<f:if condition="{post.author}">
+							<f:then>
+								{post.author.lastName}, {post.author.firstName}
+							</f:then>
+							<f:else>
+								-
+							</f:else>
+						</f:if>
+					</be:link.editRecord>
 				</td>
 			</tr>
 		</f:if>
-
-		<f:comment><!-- Date --></f:comment>
-		<tr>
-			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.date')}:</th>
-			<td>
-				<f:if condition="{post.date}">
-					<f:then>
-						{post.date -> f:format.date(format:'d.m.Y')}
-					</f:then>
-				</f:if>
-			</td>
-		</tr>
 
 		<f:comment><!-- Archive info --></f:comment>
 		<f:if condition="{post.archiveDate}">
 			<tr>
 				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
 				<td>
-					<f:if condition="{post.archived}">
-						<f:then>
-							{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archived')}
-						</f:then>
-						<f:else>
-							{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDiff', arguments: '{0: post.archiveDiff}')}
-						</f:else>
-					</f:if>
+					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_archive">
+						<f:if condition="{post.archived}">
+							<f:then>
+								{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archived')}
+							</f:then>
+							<f:else>
+								{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDiff', arguments: '{0: post.archiveDiff}')}
+							</f:else>
+						</f:if>
+					</be:link.editRecord>
 				</td>
 			</tr>
 		</f:if>
-
-		<f:comment><!-- Empty space --></f:comment>
-		<tr class="post-info-table-spacer"></tr>
 
 		<f:if condition="{propertyPermissions.topics}">
 			<tr>
 				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
 				<td>
-					<f:if condition="{post.topics}">
-						<f:then>
-							<f:for each="{post.topics}" as="topic" iteration="i">
-								{topic.title}{f:if(condition: i.isLast, else: ', ')}
-							</f:for>
-						</f:then>
-					</f:if>
+					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_topics">
+						<f:if condition="{post.topics}">
+							<f:then>
+								<f:for each="{post.topics}" as="topic" iteration="i">
+									{topic.title}{f:if(condition: i.isLast, else: ', ')}
+								</f:for>
+							</f:then>
+							<f:else>
+								-
+							</f:else>
+						</f:if>
+					</be:link.editRecord>
 				</td>
 			</tr>
 		</f:if>
@@ -81,7 +90,7 @@
 					<f:if condition="{post.tags}">
 						<f:then>
 							<f:for each="{post.tags}" as="tag" iteration="i">
-								<span class="post-info-tag">{tag}</span>
+								<be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" class="post-info-tag">{tag}</be:link.editRecord>
 							</f:for>
 						</f:then>
 					</f:if>
