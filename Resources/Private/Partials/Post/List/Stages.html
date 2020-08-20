@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{posts}">
+	<f:then>
+		<f:if condition="{requestArguments.ajax}">
+			<f:then>
+				<f:comment><!-- Load the selected stage only --></f:comment>
+				{f:render(partial:'Post/List/Stage', arguments: '{stage:pagination.stages.selected, settings:settings, demand:demand, requestArguments:requestArguments}')}
+			</f:then>
+			<f:else>
+				<f:comment><!-- Load all active states (in range from 0 to [selected stage]) --></f:comment>
+				<f:for each="{pagination.stages.active}" as="stage">
+					{f:render(partial:'Post/List/Stage', arguments: '{stage:stage, settings:settings, demand:demand, requestArguments:requestArguments}')}
+				</f:for>
+			</f:else>
+		</f:if>
+	</f:then>
+	<f:else>
+		<p class="blglst__empty" role="alert">
+			{f:translate(key:'list.empty')}
+		</p>
+	</f:else>
+</f:if>
+</html>

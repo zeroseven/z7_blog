@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{posts}">
+	<f:if condition="{pagination.nextStage}">
+		<f:then>
+			<f:variable name="loadingText" value="{f:translate(key:'pagination.loading')}" />
+			<blog:link.pagination class="blglst__next" demand="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#{blogListId}', '#{blogControlId}', '{loadingText}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
+				{f:translate(key: 'pagination.next')}
+			</blog:link.pagination>
+		</f:then>
+		<f:else>
+			<f:if condition="{pagination.maxStages} == {pagination.selectedStage + 1}">
+				<blog:link.filter class="blglst__all" defaultList="true" demand="{demand}" dataAttributes="false">
+					{f:translate(key:'pagination.all')}
+				</blog:link.filter>
+			</f:if>
+		</f:else>
+	</f:if>
+</f:if>
+</html>
