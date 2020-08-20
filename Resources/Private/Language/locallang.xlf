@@ -4,6 +4,11 @@
 		<header/>
 		<body>
 
+			<!-- List -->
+			<trans-unit id="list.empty">
+				<source>No results were found.</source>
+			</trans-unit>
+
 			<!-- Pagination -->
 			<trans-unit id="pagination.next">
 				<source>Show more</source>

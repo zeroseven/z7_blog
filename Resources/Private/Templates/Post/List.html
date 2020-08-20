@@ -1,37 +1,53 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
 	<div class="blglst">
+		<f:if condition="{posts}">
+			<f:then>
 
-		<div class="blglst__list" id="js-blog-list-{data.uid}">
-			<f:if condition="{requestArguments.ajax}">
-				<f:then>
-					<f:comment><!-- Load the selected stage only --></f:comment>
-					{f:render(section: 'Stages', arguments: '{stages: {0:pagination.stages.selected}, settings:settings, demand:demand, requestArguments:requestArguments}')}
-				</f:then>
-				<f:else>
-					<f:comment><!-- Load all active states (in range from 0 to [selected stage]) --></f:comment>
-					{f:render(section: 'Stages', arguments: '{stages:pagination.stages.active, settings:settings, demand:demand, requestArguments:requestArguments}')}
-				</f:else>
-			</f:if>
-		</div>
+				<f:comment><!-- Define dynamic id's for ajax requests --></f:comment>
+				<f:variable name="blogListId" value="js-blog-list-{data.uid}" />
+				<f:variable name="blogControlId" value="js-blog-control-{data.uid}" />
 
-		<div class="blglst__control" id="js-blog-control-{data.uid}">
-			<f:if condition="{pagination.nextStage}">
-				<f:then>
-					<f:variable name="loadingText" value="{f:translate(key:'pagination.loading')}" />
-					<blog:link.pagination class="blglst__next" demand="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#js-blog-list-{data.uid}', '#js-blog-control-{data.uid}', '{loadingText}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
-						{f:translate(key: 'pagination.next')}
-					</blog:link.pagination>
-				</f:then>
-				<f:else>
-					<f:if condition="{pagination.maxStages} == {pagination.selectedStage + 1}">
-						<blog:link.filter class="blglst__all" defaultList="true" demand="{demand}" dataAttributes="false">
-							{f:translate(key:'pagination.all')}
-						</blog:link.filter>
+				<f:comment><!-- Render list of items --></f:comment>
+				<div class="blglst__list" id="{blogListId}">
+					<f:if condition="{requestArguments.ajax}">
+						<f:then>
+							<f:comment><!-- Load the selected stage only --></f:comment>
+							{f:render(section: 'Stages', arguments: '{stages: {0:pagination.stages.selected}, settings:settings, demand:demand, requestArguments:requestArguments}')}
+						</f:then>
+						<f:else>
+							<f:comment><!-- Load all active states (in range from 0 to [selected stage]) --></f:comment>
+							{f:render(section: 'Stages', arguments: '{stages:pagination.stages.active, settings:settings, demand:demand, requestArguments:requestArguments}')}
+						</f:else>
 					</f:if>
-				</f:else>
-			</f:if>
-		</div>
+				</div>
 
+				<f:comment><!-- Render controls for pagination --></f:comment>
+				<div class="blglst__control" id="{blogControlId}">
+					<f:if condition="{pagination.nextStage}">
+						<f:then>
+							<f:variable name="loadingText" value="{f:translate(key:'pagination.loading')}" />
+							<blog:link.pagination class="blglst__next" demand="{demand}" stage="{pagination.nextStage}" ajaxPageType="{settings.post.list.ajaxTypeNum}" onclick="Zeroseven.Blog.addToList('#{blogListId}', '#{blogControlId}', '{loadingText}');" data="{stage: '{pagination.selectedStage + 1}/{pagination.indicators -> f:count()}'}">
+								{f:translate(key: 'pagination.next')}
+							</blog:link.pagination>
+						</f:then>
+						<f:else>
+							<f:if condition="{pagination.maxStages} == {pagination.selectedStage + 1}">
+								<blog:link.filter class="blglst__all" defaultList="true" demand="{demand}" dataAttributes="false">
+									{f:translate(key:'pagination.all')}
+								</blog:link.filter>
+							</f:if>
+						</f:else>
+					</f:if>
+				</div>
+			</f:then>
+			<f:else>
+
+				<f:comment><!-- No results found --></f:comment>
+				<p class="blglst__empty" role="alert">
+					{f:translate(key:'list.empty')}
+				</p>
+			</f:else>
+		</f:if>
 	</div>
 </html>
 
