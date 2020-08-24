@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{requestArguments.ajax}">
+	<f:else>
+		<f:if condition="{requestArguments.category}">
+			<blog:demand.info property="category" demand="{demand}" />
+		</f:if>
+	</f:else>
+</f:if>
+</html>

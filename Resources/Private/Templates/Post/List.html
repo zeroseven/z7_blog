@@ -5,12 +5,15 @@
 			<f:variable name="blogListId" value="js-blog-list-{data.uid}" />
 			<f:variable name="blogControlId" value="js-blog-control-{data.uid}" />
 
+			<f:comment><!-- Render information about demand properties --></f:comment>
+			{f:render(partial:'Post/List/DemandInfo', arguments: '{_all}')}
+
 			<f:comment><!-- Render list of stages --></f:comment>
 			<div class="blglst__list" id="{blogListId}">
 				{f:render(partial:'Post/List/Stages', arguments: '{_all}')}
 			</div>
 
-			<f:comment><!-- Render controls for pagination --></f:comment>
+			<f:comment><!-- Render control for pagination --></f:comment>
 			<div class="blglst__control" id="{blogControlId}">
 				{f:render(partial:'Post/List/Control', arguments: '{_all}')}
 			</div>
