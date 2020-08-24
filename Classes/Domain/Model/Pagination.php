@@ -310,7 +310,7 @@ class Pagination
         $total = count($this->getItems());
 
         foreach ($this->getStageLengths() as $key => $value) {
-            if(($count += $value) > $total) {
+            if (($count += $value) > $total) {
                 return $items;
             }
 

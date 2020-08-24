@@ -62,7 +62,7 @@ class ItemsProcFunc
     public function getCategories(array &$PA)
     {
 
-        if(($currentPageUid = $this->getPageUid($PA)) > 0) {
+        if (($currentPageUid = $this->getPageUid($PA)) > 0) {
 
             // Get potential page uids of categories
             $rootPageUid = $this->getRootPageUid($PA);
@@ -83,12 +83,12 @@ class ItemsProcFunc
             $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.all.0', 0, 'apps-pagetree-blogcategory'];
 
             // Add further categories
-            if(!empty($potentialPageIds) && $categories = $categoryRepository->findAll(CategoryDemand::makeInstance()->setUids($potentialPageIds))) {
+            if (!empty($potentialPageIds) && $categories = $categoryRepository->findAll(CategoryDemand::makeInstance()->setUids($potentialPageIds))) {
                 $PA['items'][] = ['LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:itemsProcFunc.category.manuel', '--div--'];
 
                 // Add categories to the items
                 foreach ($categories as $category) {
-                    if($autoCategory === null || $category->getUid() !== $autoCategory->getUid()) {
+                    if ($autoCategory === null || $category->getUid() !== $autoCategory->getUid()) {
                         $PA['items'][] = [$category->getTitle(), $category->getUid(), 'apps-pagetree-blogcategory'];
                     }
                 }

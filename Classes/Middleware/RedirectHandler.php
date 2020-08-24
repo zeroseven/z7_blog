@@ -27,7 +27,7 @@ class RedirectHandler implements MiddlewareInterface
             $targetUid = (int)SettingsService::getSettings('post.list.defaultListPage');
 
             // Return redirect response
-            if($targetUid !== (int)$row['uid']) {
+            if ($targetUid !== (int)$row['uid']) {
                 return $this->buildRedirectResponse([
                     'parameter' => $targetUid ?: (int)$row['pid'],
                     'forceAbsoluteUrl' => true,

@@ -127,7 +127,7 @@ abstract class AbstractDemand
 
     public function addToProperty(string $propertyName, $value): self
     {
-        if($this->getType($propertyName) === 'array') {
+        if ($this->getType($propertyName) === 'array') {
             $array = $this->getProperty($propertyName);
             $array[] = $value;
 
@@ -140,7 +140,7 @@ abstract class AbstractDemand
 
     public function removeFromProperty(string $propertyName, $value): self
     {
-        if($this->getType($propertyName) === 'array') {
+        if ($this->getType($propertyName) === 'array') {
             $array = array_filter(
                 $this->getProperty($propertyName), static function ($i) use ($value) {
                 return $i !== $value;
