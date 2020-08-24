@@ -68,27 +68,4 @@ class TypeCastService
         self::throwException($value);
     }
 
-    public static function cast(string $type, $value)
-    {
-
-        if ($type === 'int' || $type === 'integer') {
-            return self::int($value);
-        }
-
-        if ($type === 'string') {
-            return self::string($value);
-        }
-
-        if ($type === 'array') {
-            return self::array($value);
-        }
-
-        if ($type === 'bool') {
-            return self::bool($value);
-        }
-
-        throw new Exception(sprintf('Unsupported type "%s" for casting.', $type));
-
-    }
-
 }

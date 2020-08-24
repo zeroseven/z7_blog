@@ -96,14 +96,12 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         // Set arguments
         $settings = $this->templateVariableContainer->get('settings');
         foreach ($this->demand->getParameterArray(false) as $parameter => $value) {
-            $originalValue = $this->demand->getParameter($parameter);
-
             if (
                 $parameter === 'list_id'
-                || ($type = gettype($originalValue))
+                || ($type = gettype($originalValue = $this->demand->getParameter($parameter)))
                 && (
-                    $type === 'array' && (count(array_diff(TypeCastService::array($settings[$parameter]), $originalValue)) || count(array_diff($originalValue, TypeCastService::array($settings[$parameter]))))
-                    || $type !== 'array' && TypeCastService::cast($type, $settings[$parameter]) !== $originalValue
+                    $type !== 'array' && $settings[$parameter] !== $value
+                    || $type === 'array' && (count(array_diff(TypeCastService::array($settings[$parameter]), $originalValue)) || count(array_diff($originalValue, TypeCastService::array($settings[$parameter]))))
                 )
             ) {
                 if (!empty($value)) {
