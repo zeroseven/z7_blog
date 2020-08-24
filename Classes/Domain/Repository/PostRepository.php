@@ -22,6 +22,11 @@ class PostRepository extends AbstractPageRepository
         return $this->defaultQuerySettings;
     }
 
+    protected function initializeDemand(): AbstractDemand
+    {
+        return PostDemand::makeInstance();
+    }
+
     protected function setOrdering(AbstractDemand $demand = null): void
     {
 
