@@ -59,7 +59,7 @@ abstract class AbstractDemand
 
     protected function checkPropertyAccess(string $propertyName): void
     {
-        if(!$this->hasProperty($propertyName)) {
+        if (!$this->hasProperty($propertyName)) {
             throw new Exception(sprintf('Property "%s" not found in demand model.', $propertyName));
         }
     }
@@ -67,7 +67,7 @@ abstract class AbstractDemand
     public function hasProperty(string $propertyName)
     {
         try {
-            if(GeneralUtility::makeInstance(\ReflectionClass::class, static::class)->getProperty($propertyName)) {
+            if (GeneralUtility::makeInstance(\ReflectionClass::class, static::class)->getProperty($propertyName)) {
                 return true;
             }
         } catch (\ReflectionException $e) {
@@ -108,7 +108,7 @@ abstract class AbstractDemand
         } elseif ($type === 'string') {
             $this->{$propertyName} = TypeCastService::string($value);
         } elseif ($type === 'array') {
-            $this->{$propertyName} = array_map(static function($v) {
+            $this->{$propertyName} = array_map(static function ($v) {
                 return (string)$v;
             }, TypeCastService::array($value));
         } elseif ($type === 'bool') {
@@ -118,6 +118,11 @@ abstract class AbstractDemand
         }
 
         return $this;
+    }
+
+    public function getParameter(string $parameter)
+    {
+        return $this->getProperty(array_search($parameter, $this->parameterMapping, true));
     }
 
     public function addToProperty(string $propertyName, $value): self
@@ -157,7 +162,7 @@ abstract class AbstractDemand
             }
 
             // Set properties
-            foreach ($this->getParameterMapping() as $propertyName => $parameter) {
+            foreach ($this->parameterMapping as $propertyName => $parameter) {
                 if (isset($argument[$parameter]) && (($value = $argument[$parameter]) || !$ignoreEmptyValues)) {
                     $this->setProperty($propertyName, $value);
                 }
