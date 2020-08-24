@@ -10,7 +10,7 @@
 				{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.date')}:
 			</th>
 			<td>
-				<be:link.editRecord uid="{post.uid}" table="pages" fields="post_date">
+				<be:link.editRecord uid="{post.uid}" table="pages" fields="post_date" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
 					{post.date -> f:format.date(format:'d.m.Y')}
 				</be:link.editRecord>
 			</td>
@@ -20,7 +20,7 @@
 		<tr>
 			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.category')}:</th>
 			<td>
-				{post.category.title -> f:be.link(route:'web_layout', parameters:'{id:post.category.uid}')}
+				{post.category.title}
 			</td>
 		</tr>
 
@@ -29,7 +29,7 @@
 			<tr>
 				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
 				<td>
-					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_author">
+					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_author" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
 						<f:if condition="{post.author}">
 							<f:then>
 								{post.author.lastName}, {post.author.firstName}
@@ -48,7 +48,7 @@
 			<tr>
 				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
 				<td>
-					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_archive">
+					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_archive" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
 						<f:if condition="{post.archived}">
 							<f:then>
 								{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archived')}
@@ -66,7 +66,7 @@
 			<tr>
 				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
 				<td>
-					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_topics">
+					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_topics" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
 						<f:if condition="{post.topics}">
 							<f:then>
 								<f:for each="{post.topics}" as="topic" iteration="i">
@@ -90,7 +90,7 @@
 					<f:if condition="{post.tags}">
 						<f:then>
 							<f:for each="{post.tags}" as="tag" iteration="i">
-								<be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" class="post-info-tag">{tag}</be:link.editRecord>
+								<be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" class="post-info-tag" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">{tag}</be:link.editRecord>
 							</f:for>
 						</f:then>
 					</f:if>
