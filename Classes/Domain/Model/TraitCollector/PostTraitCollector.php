@@ -12,8 +12,9 @@ TraitCollectorService::createClass(
 );
 
 // Fallback for the ClassesConfigurationFactory
-if(!class_exists(PostTraitCollector::class)) {
-    class PostTraitCollector extends Post {
+if (!class_exists(PostTraitCollector::class)) {
+    class PostTraitCollector extends Post
+    {
 
     }
 }

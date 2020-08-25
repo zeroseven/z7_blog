@@ -35,7 +35,7 @@ class TagService
         $repository = RepositoryService::getPostRepository();
 
         // Override language
-        if($languageUid !== null) {
+        if ($languageUid !== null) {
             $querySettings = $repository->getDefaultQuerySettings();
             $querySettings->setLanguageUid($languageUid);
             $repository->setDefaultQuerySettings($querySettings);

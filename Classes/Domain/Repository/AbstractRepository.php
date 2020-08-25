@@ -9,36 +9,9 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use Zeroseven\Z7Blog\Service\TypeCastService;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
-use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
-use Zeroseven\Z7Blog\Domain\Demand\CategoryDemand;
-use Zeroseven\Z7Blog\Domain\Demand\AuthorDemand;
-use Zeroseven\Z7Blog\Domain\Demand\TopicDemand;
-use Zeroseven\Z7Blog\Domain\Model\Post;
-use Zeroseven\Z7Blog\Domain\Model\Category;
-use Zeroseven\Z7Blog\Domain\Model\Author;
-use Zeroseven\Z7Blog\Domain\Model\Topic;
 
 abstract class AbstractRepository extends Repository
 {
-
-    protected function initializeDemand(): AbstractDemand
-    {
-        if($this->objectType === Post::class) {
-            return PostDemand::makeInstance();
-        }
-
-        if($this->objectType === Category::class) {
-            return CategoryDemand::makeInstance();
-        }
-
-        if($this->objectType === Author::class) {
-            return AuthorDemand::makeInstance();
-        }
-
-        if($this->objectType === Topic::class) {
-            return TopicDemand::makeInstance();
-        }
-    }
 
     protected function setOrdering(AbstractDemand $demand = null): void
     {
@@ -134,7 +107,7 @@ abstract class AbstractRepository extends Repository
         $query = $this->createQuery();
 
         // Apply constraints
-        if(!empty($constraints = $this->createDemandConstraints($demand, $query))) {
+        if (!empty($constraints = $this->createDemandConstraints($demand, $query))) {
             $query->matching(
                 $query->logicalAnd($constraints)
             );

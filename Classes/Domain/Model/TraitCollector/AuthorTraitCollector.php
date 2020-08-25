@@ -12,8 +12,9 @@ TraitCollectorService::createClass(
 );
 
 // Fallback for the ClassesConfigurationFactory
-if(!class_exists(AuthorTraitCollector::class)) {
-    class AuthorTraitCollector extends Author {
+if (!class_exists(AuthorTraitCollector::class)) {
+    class AuthorTraitCollector extends Author
+    {
 
     }
 }

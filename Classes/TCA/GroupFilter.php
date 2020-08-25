@@ -32,5 +32,5 @@ class GroupFilter
 
         return [];
     }
-    
+
 }

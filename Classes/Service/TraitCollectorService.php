@@ -22,16 +22,16 @@ class TraitCollectorService
          * TODO: Add more puns in version 3.0
          */
 
-        if(!class_exists('\\' . $namespace . '\\' . $className)) {
+        if (!class_exists('\\' . $namespace . '\\' . $className)) {
             eval('
                 namespace ' . ltrim($namespace, '\\') . ';
     
-                class ' . $className . ($targetClassName ? (' extends \\' . ltrim($targetClassName, '\\')) : '') .'
+                class ' . $className . ($targetClassName ? (' extends \\' . ltrim($targetClassName, '\\')) : '') . '
                 {' .
                     (($traits = static::collect($targetClassName)) ? 'use ' . implode(',', array_map(static function ($trait) {
                         return '\\' . ltrim($trait, '\\');
                     }, $traits)) . ';' : '')
-               . '}
+                . '}
             ');
         }
     }

@@ -6,6 +6,7 @@ use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\SettingsService;
@@ -17,7 +18,7 @@ class PostInfoRenderUtility
      * Back reference to the parent content object
      * This has to be public as it is set directly from TYPO3
      *
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     * @var ContentObjectRenderer
      */
     public $cObj;
 
