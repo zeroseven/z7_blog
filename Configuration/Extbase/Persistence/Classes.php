@@ -31,14 +31,14 @@ return [
             'date' => [
                 'fieldName' => 'post_date'
             ],
-            'tags' => [
-                'fieldName' => 'post_tags'
-            ],
             'author' => [
                 'fieldName' => 'post_author'
             ],
             'topics' => [
                 'fieldName' => 'post_topics'
+            ],
+            'tags' => [
+                'fieldName' => 'post_tags'
             ],
             'relationsTo' => [
                 'fieldName' => 'post_relations_to'
