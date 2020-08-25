@@ -5,6 +5,7 @@ namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
+use Zeroseven\Z7Blog\Service\RequestService;
 
 abstract class AbstractLinkViewHelper extends ActionViewHelper
 {
@@ -93,14 +94,8 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         $this->overrideDemandParameters();
 
         // Set arguments
-        $settings = $this->templateVariableContainer->get('settings');
-        foreach ($this->demand->getParameterArray(false) as $parameter => $value) {
-            if (!empty($value)) {
-                $this->arguments['arguments'][$parameter] = $value;
-            } elseif (!empty($settings[$parameter])) {
-                $this->arguments['arguments'][$parameter] = '';
-            }
-        }
+        $overrides = RequestService::getArgumentDifference($this->templateVariableContainer->get('settings'), $this->demand);
+        $this->arguments['arguments'] = array_merge((array)$this->arguments['arguments'], $overrides);
 
         // Call this method before the tag will be rendered by the actionViewHelper
         $this->beforeRendering();
