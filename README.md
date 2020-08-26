@@ -22,7 +22,7 @@ page.100 {
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
     <main>
         <h1>{page.title}</h1>
-        <blog:info.post file="EXT:z7_blog/Resources/Private/Partials/Post/Info/Summary.html" />
+        <blog:postInfo file="EXT:z7_blog/Resources/Private/Partials/Post/Info/Summary.html" />
     </main>
 </html>
 ```

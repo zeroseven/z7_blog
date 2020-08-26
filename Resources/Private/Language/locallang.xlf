@@ -8,6 +8,21 @@
 			<trans-unit id="list.empty">
 				<source>No results were found.</source>
 			</trans-unit>
+			<trans-unit id="list.reset">
+				<source>Reset</source>
+			</trans-unit>
+			<trans-unit id="list.status.category">
+				<source>Posts are filtered by category "%s"</source>
+			</trans-unit>
+			<trans-unit id="list.status.author">
+				<source>Displaying posts by %s</source>
+			</trans-unit>
+			<trans-unit id="list.status.topics">
+				<source>Posts are filtered by "%s"</source>
+			</trans-unit>
+			<trans-unit id="list.status.tags">
+				<source>Posts are filtered by tags "%s"</source>
+			</trans-unit>
 
 			<!-- Pagination -->
 			<trans-unit id="pagination.next">
@@ -85,20 +100,6 @@
 			</trans-unit>
 			<trans-unit id="author.more">
 				<source>More</source>
-			</trans-unit>
-
-			<!-- Filter info -->
-			<trans-unit id="filter.category">
-				<source>Posts are filtered by category "%s"</source>
-			</trans-unit>
-			<trans-unit id="filter.author">
-				<source>Displaying posts by %s</source>
-			</trans-unit>
-			<trans-unit id="filter.topics">
-				<source>Posts are filtered by "%s"</source>
-			</trans-unit>
-			<trans-unit id="filter.tags">
-				<source>Posts are filtered by tags "%s"</source>
 			</trans-unit>
 
 		</body>

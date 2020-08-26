@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\ViewHelpers\Info;
+namespace Zeroseven\Z7Blog\ViewHelpers;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -8,7 +8,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Utility\PostInfoRenderUtility;
 
-class PostViewHelper extends AbstractViewHelper
+class PostInfoViewHelper extends AbstractViewHelper
 {
 
     protected $escapeOutput = false;

@@ -6,7 +6,7 @@
 			<f:variable name="blogControlId" value="js-blog-control-{data.uid}" />
 
 			<f:comment><!-- Render information --></f:comment>
-			{f:render(partial:'Post/List/Info', arguments: '{_all}')}
+			{f:render(partial:'Post/List/Status', arguments: '{_all}')}
 
 			<f:comment><!-- Render list of stages --></f:comment>
 			<div class="blglst__list" id="{blogListId}">
