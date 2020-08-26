@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\Hooks\DrawHeaderHook;
+namespace Zeroseven\Z7Blog\Hooks\DrawHeader;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -9,7 +9,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 
-class PostHeaderHook extends AbstractHeaderHook
+class PostHeader extends AbstractHeader
 {
 
 

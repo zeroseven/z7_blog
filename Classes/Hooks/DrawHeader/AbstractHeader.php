@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\Hooks\DrawHeaderHook;
+namespace Zeroseven\Z7Blog\Hooks\DrawHeader;
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
-abstract class AbstractHeaderHook
+abstract class AbstractHeader
 {
 
     /** @var int */

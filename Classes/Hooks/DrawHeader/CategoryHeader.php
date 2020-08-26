@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\Hooks\DrawHeaderHook;
+namespace Zeroseven\Z7Blog\Hooks\DrawHeader;
 
 use Zeroseven\Z7Blog\Domain\Model\Category;
 use Zeroseven\Z7Blog\Domain\Model\Demand;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 
-class CategoryHeaderHook extends AbstractHeaderHook
+class CategoryHeader extends AbstractHeader
 {
 
     public function render(): string
