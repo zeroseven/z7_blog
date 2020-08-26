@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\ViewHelpers;
+namespace Zeroseven\Z7Blog\ViewHelpers\Info;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -8,7 +8,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Utility\PostInfoRenderUtility;
 
-class PostInfoViewHelper extends AbstractViewHelper
+class PostViewHelper extends AbstractViewHelper
 {
 
     protected $escapeOutput = false;
@@ -17,7 +17,7 @@ class PostInfoViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('postUid', 'int', 'The uid of the post');
+        $this->registerArgument('uid', 'int', 'The uid of the post');
         $this->registerArgument('file', 'string', 'The template file');
         $this->registerArgument('settings', 'array', 'Pass settings to the template');
     }

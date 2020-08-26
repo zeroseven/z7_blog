@@ -5,8 +5,8 @@
 			<f:variable name="blogListId" value="js-blog-list-{data.uid}" />
 			<f:variable name="blogControlId" value="js-blog-control-{data.uid}" />
 
-			<f:comment><!-- Render information about demand properties --></f:comment>
-			{f:render(partial:'Post/List/DemandInfo', arguments: '{_all}')}
+			<f:comment><!-- Render information --></f:comment>
+			{f:render(partial:'Post/List/Info', arguments: '{_all}')}
 
 			<f:comment><!-- Render list of stages --></f:comment>
 			<div class="blglst__list" id="{blogListId}">
