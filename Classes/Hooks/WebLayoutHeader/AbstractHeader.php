@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\Hooks\DrawHeader;
+namespace Zeroseven\Z7Blog\Hooks\WebLayoutHeader;
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

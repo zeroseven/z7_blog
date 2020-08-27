@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Zeroseven\Z7Blog\Hooks\DrawHeader;
+namespace Zeroseven\Z7Blog\Hooks\WebLayoutHeader;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -40,7 +40,7 @@ class PostHeader extends AbstractHeader
 
         // Check if the page is a category
         if ((int)$this->row['doktype'] === Post::DOKTYPE) {
-            return $this->createView('EXT:z7_blog/Resources/Private/Backend/Templates/Post/Info.html', [
+            return $this->createView('EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutHeader/Post.html', [
                 'post' => RepositoryService::getPostRepository()->findByUid($this->id, true),
                 'propertyPermissions' => $this->getPropertyPermissions()
             ])->render();
