@@ -32,10 +32,11 @@ plugin.tx_z7blog {
   }
 
   settings {
-    post {
-      list.ajaxTypeNum = {$plugin.tx_z7blog.settings.post.list.ajaxTypeNum}
-      list.defaultListPage = {$plugin.tx_z7blog.settings.post.list.defaultListPage}
-      list.itemsPerStages = {$plugin.tx_z7blog.settings.post.list.itemsPerStages}
+    post.list {
+      ajaxTypeNum = {$plugin.tx_z7blog.settings.post.list.ajaxTypeNum}
+      xmlTypeNum = {$plugin.tx_z7blog.settings.post.list.xmlTypeNum}
+      defaultListPage = {$plugin.tx_z7blog.settings.post.list.defaultListPage}
+      itemsPerStages = {$plugin.tx_z7blog.settings.post.list.itemsPerStages}
     }
   }
 }
@@ -68,6 +69,9 @@ blogAjaxPageRequest {
     disableAllHeaderCode = 1
     xhtml_cleaning = 0
     admPanel = 0
+    debug = 0
+    disablePrefixComment = 1
+    metaCharset = utf-8
     index_enable = 0
     additionalHeaders.10 {
       header = X-Robots-Tag:noindex
@@ -85,5 +89,42 @@ blogAjaxPageRequest {
     }
 
     stdWrap.if.isTrue.data = gp:tx_z7blog_list|list_id
+  }
+}
+
+##################################################
+# Ajax request page
+##################################################
+blogXMLPage = PAGE
+blogXMLPage {
+
+  # Configure pagex
+  typeNum = {$plugin.tx_z7blog.settings.post.list.xmlTypeNum}
+  config {
+    disableAllHeaderCode = 1
+    xhtml_cleaning = 0
+    admPanel = 0
+    debug = 0
+    disablePrefixComment = 1
+    metaCharset = utf-8
+    index_enable = 0
+    additionalHeaders {
+      10.header = Content-Type:application/rss+xml;charset=utf-8
+      20.header = X-Robots-Tag:noindex
+    }
+  }
+
+  # Load content
+  10 = CONTENT
+  10 {
+    table = tt_content
+    select {
+      where = CType IN('z7blog_list','z7blog_static')
+      max = 1
+      orderBy = sorting
+      pidInList = this
+    }
+    renderObj =< tt_content.z7blog_list.20
+    renderObj.format = xml
   }
 }

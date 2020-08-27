@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+	<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+		<channel>
+			<title>{f:translate(key:'rss.channel.title', default: 'Blog-RSS')}</title>
+			<generator>{f:translate(key:'rss.channel.generator', default: 'TYPO3 | z7_blog')}</generator>
+			<f:if condition="{f:translate(key:'rss.channel.description')}"><description>{f:translate(key:'rss.channel.description')}</description></f:if>
+			<f:if condition="{f:translate(key:'rss.channel.copyright')}"><copyright>{f:translate(key:'rss.channel.copyright')}</copyright></f:if>
+			<link>{blog:rss.channel.link()}</link>
+			<language>{blog:rss.channel.language()}</language>
+			<pubDate>{f:format.date(date: 'now', format: 'r')}</pubDate>
+			<lastBuildDate>{f:format.date(date: 'now', format: 'r')}</lastBuildDate>
+			<f:if condition="{demand.category}"><category>{blog:processValue.post(value:demand.category, property:'category')}</category></f:if>
+			<atom:link href="{f:uri.page(pageType:settings.post.list.xmlTypeNum, absolute: 'true') -> f:format.htmlentities()}" rel="self" type="application/rss+xml" />
+			<f:if condition="{posts}">
+				<f:for each="{posts}" as="post">
+					<item>
+						<guid isPermaLink="false">post{post.uid}</guid>
+						<pubDate>{f:format.date(date:post.date, format: 'r')}</pubDate>
+						<title>{post.title -> f:format.htmlspecialchars()}</title>
+						<link>{f:uri.page(pageUid:post.uid, absolute:1) -> f:format.htmlentities()}</link>
+						<description>{f:if(condition:post.abstract, then:post.abstract, else:post.description) -> f:format.stripTags() -> f:format.htmlspecialchars()}</description>
+						<f:if condition="{post.author}"><author>{post.author.firstName} {post.author.lastName}</author></f:if>
+						<f:if condition="{post.category}"><category>{post.category.title -> f:format.htmlspecialchars()}</category></f:if>
+						<f:if condition="{post.firstImage}"><enclosure url="{f:uri.image(image:post.firstImage, absolute:1, maxWidth: '1920', maxHeight: '1920')}" type="{post.firstImage.mimeType}"/></f:if>
+					</item>
+				</f:for>
+			</f:if>
+		</channel>
+	</rss>
+</html>
