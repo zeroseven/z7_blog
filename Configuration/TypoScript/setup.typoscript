@@ -73,9 +73,9 @@ blogAjaxPageRequest {
     disablePrefixComment = 1
     metaCharset = utf-8
     index_enable = 0
-    additionalHeaders.10 {
-      header = X-Robots-Tag:noindex
-      replace = 1
+    additionalHeaders {
+      10.header = X-Robots-Tag:noindex
+      20.header = X-TYPO3-Extension:z7_blog
     }
   }
 
@@ -93,10 +93,10 @@ blogAjaxPageRequest {
 }
 
 ##################################################
-# Ajax request page
+# RSS feed
 ##################################################
-blogXMLPage = PAGE
-blogXMLPage {
+blogRSSPage = PAGE
+blogRSSPage {
 
   # Configure pagex
   typeNum = {$plugin.tx_z7blog.settings.post.list.xmlTypeNum}
@@ -111,10 +111,11 @@ blogXMLPage {
     additionalHeaders {
       10.header = Content-Type:application/rss+xml;charset=utf-8
       20.header = X-Robots-Tag:noindex
+      30.header = X-TYPO3-Extension:z7_blog
     }
   }
 
-  # Load content
+  # Load the first blog list on current page
   10 = CONTENT
   10 {
     table = tt_content

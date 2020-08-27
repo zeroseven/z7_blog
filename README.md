@@ -145,7 +145,7 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Do
 
 ## SEO-Konfiguration
 
-Wenn Filter als Get-Parameter verwendet werden, ist es oftmals ratsam diese vom Crawler auszuschliens, vor allem bei der Mehrfachauswahl von Tags oder Topics können tausende Kobinationen entstehen.
+Wenn Filter als Get-Parameter verwendet werden, ist es oftmals ratsam diese vom Crawler auszuschliens, vor allem bei der Mehrfachauswahl von Tags oder Topics können schnell tausende Kobinationen entstehen.
 
 Beispiel: robots.txt
 
@@ -154,6 +154,29 @@ Disallow: *tx_z7blog_list%5Btopics%5D=*s
 Disallow: *tx_z7blog_list%5Btags%5D=*
 ```
 
+## Wie man einen RSS-Feed erstellt
+
+Jedes auf der Website verwendete List-Plugin kann gleichzeitig auch als RSS-Feed aufgerufen werden. 
+Dazu genügt es den Parameter `?type=1598538810` an die URL zu hängen und schon erhälst du den Feed mit allen hinterlegten Plugin-Einstellungen.
+
+Wenn du dir die Konfiguration für die Ausgabe lieber statisch hinterlegen möchtest, kannst du das wie in diesem Beispiel umsetzen: 
+
+```
+customBlogArchive < blogRSSPage
+customBlogArchive {
+  10 >
+  10 =< tt_content.z7blog_list.20
+  10 {
+    format = xml
+    settings {
+        category = 5
+        archiveMode = 2
+    }
+  }
+}
+```
+
+Notiz: Wenn auf einer Seite mehrere Listen hinterlegt sind, werden die Einstellungen des ersten Elements für den RSS-Feed verwendet.
 
 ## Todo:
 
