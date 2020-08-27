@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<table class="postlist-preview-table">
+	<f:for each="{pi_flexform_transformed.settings}" as="value" key="key">
+
+		<f:variable name="label" value="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.{key}')}" />
+
+		<f:if condition="{label} && {value}">
+			<tr>
+				<th>
+					<be:link.editRecord uid="{uid}" table="tt_content">{label}:</be:link.editRecord>
+				</th>
+				<td>
+					<be:link.editRecord uid="{uid}" table="tt_content">
+						{blog:processValue.post(value:value, property:key)}
+					</be:link.editRecord>
+				</td>
+			</tr>
+		</f:if>
+	</f:for>
+</table>
+
+</html>

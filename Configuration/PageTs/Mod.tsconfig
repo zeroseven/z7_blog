@@ -41,3 +41,5 @@ mod.wizards.newContentElement.wizardItems.blog {
   show = *
   after = common
 }
+
+mod.web_layout.tt_content.preview.z7blog_list = EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutContentPreview/PostList.html

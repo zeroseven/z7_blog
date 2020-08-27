@@ -1,0 +1,9 @@
+/* z7blog_list */
+.postlist-preview-table {
+	font-size: smaller;
+	margin-top: 1em;
+}
+
+.postlist-preview-table th {
+	padding-right: 1em;
+}
