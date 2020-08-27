@@ -194,6 +194,30 @@ abstract class AbstractDemand
         });
     }
 
+    public function getParameterDiff(array $base, array $protectedParameters = null): array
+    {
+        $result = [];
+        $parameterArray = $this->getParameterArray(false);
+
+        foreach ($this->parameterMapping as $propertyName => $parameter) {
+            if (
+                $protectedParameters && in_array($parameter, $protectedParameters, true)
+                || (
+                    $this->getType($propertyName) !== 'array' && $base[$parameter] !== $parameterArray[$parameter]
+                    || $this->getType($propertyName) === 'array' && (count(array_diff(TypeCastService::array($base[$parameter]), $this->getProperty($propertyName))) || count(array_diff($this->getProperty($propertyName), TypeCastService::array($base[$parameter]))))
+                )
+            ) {
+                if (!empty($parameterArray[$parameter])) {
+                    $result[$parameter] = $parameterArray[$parameter];
+                } elseif (!empty($base[$parameter])) {
+                    $result[$parameter] = '';
+                }
+            }
+        }
+
+        return $result;
+    }
+
     public function __call($name, $arguments)
     {
         if (preg_match('/((?:s|g)et|is|has|addTo|removeFrom)([A-Z].*)/', $name, $matches)) {
