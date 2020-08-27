@@ -6,10 +6,7 @@ use Zeroseven\Z7Blog\Domain\Model\Author;
 
 class AuthorViewHelper extends AbstractValueProcessor
 {
-    public function __construct()
-    {
-        parent::__construct();
 
-        $this->objectType = Author::class;
-    }
+    protected $objectType = Author::class;
+
 }

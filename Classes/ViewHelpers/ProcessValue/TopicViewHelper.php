@@ -6,10 +6,7 @@ use Zeroseven\Z7Blog\Domain\Model\Topic;
 
 class TopicViewHelper extends AbstractValueProcessor
 {
-    public function __construct()
-    {
-        parent::__construct();
 
-        $this->objectType = Topic::class;
-    }
+    protected $objectType = Topic::class;
+
 }

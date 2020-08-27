@@ -6,10 +6,7 @@ use Zeroseven\Z7Blog\Domain\Model\Category;
 
 class CategoryViewHelper extends AbstractValueProcessor
 {
-    public function __construct()
-    {
-        parent::__construct();
 
-        $this->objectType = Category::class;
-    }
+    protected $objectType = Category::class;
+    
 }

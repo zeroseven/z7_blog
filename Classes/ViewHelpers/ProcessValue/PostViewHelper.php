@@ -6,10 +6,14 @@ use Zeroseven\Z7Blog\Domain\Model\Post;
 
 class PostViewHelper extends AbstractValueProcessor
 {
-    public function __construct()
+    protected $objectType = Post::class;
+
+    protected function processFallback($value, string $property): ?string
     {
-        parent::__construct();
-        
-        $this->objectType = Post::class;
+        if($property === 'category') {
+            return $this->getDatabaseValue((int)$value, $this->dataMap->getTableName());
+        }
+
+        return parent::processFallback($value, $property);
     }
 }
