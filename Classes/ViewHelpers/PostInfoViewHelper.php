@@ -17,7 +17,7 @@ class PostInfoViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('postUid', 'int', 'The uid of the post');
+        $this->registerArgument('uid', 'int', 'The uid of the post');
         $this->registerArgument('file', 'string', 'The template file');
         $this->registerArgument('settings', 'array', 'Pass settings to the template');
     }

@@ -1,0 +1,35 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:if condition="{requestArguments.ajax}">
+	<f:else>
+
+		<f:if condition="{requestArguments.category}">
+			<p role="status" class="blgsts">
+				<span class="blgsts__message">{blog:processValue.post(value:demand.category, property:'category', format:'list.status.category')}</span>
+				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')}" demand="{demand}" category="">&times;</blog:link.filter>
+			</p>
+		</f:if>
+
+		<f:if condition="{requestArguments.author}">
+			<p role="status" class="blgsts">
+				<span class="blgsts__message">{blog:processValue.post(value:demand.author, property:'author', format:'list.status.author')}</span>
+				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')" demand="{demand}" author="">&times;</blog:link.filter>
+			</p>
+		</f:if>
+
+		<f:if condition="{requestArguments.topics}">
+			<p role="status" class="blgsts">
+				<span class="blgsts__message">{blog:processValue.post(value:demand.topics, property:'topics', format:'list.status.topics')}</span>
+				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')" demand="{demand}" topics="">&times;</blog:link.filter>
+			</p>
+		</f:if>
+
+		<f:if condition="{requestArguments.tags}">
+			<p role="status" class="blgsts">
+				<span class="blgsts__message">{blog:processValue.post(value:demand.tags, property:'tags', format:'list.status.tags')}</span>
+				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')}" demand="{demand}" tags="">&times;</blog:link.filter>
+			</p>
+		</f:if>
+
+	</f:else>
+</f:if>
+</html>

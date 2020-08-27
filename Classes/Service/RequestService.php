@@ -13,5 +13,4 @@ class RequestService
     {
         return GeneralUtility::_GP($requestKey ?: self::REQUEST_KEY) ?: [];
     }
-
 }
