@@ -30,7 +30,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         parent::initializeArguments();
 
         $this->registerArgument('value', null, 'The value', true);
-        $this->registerArgument('property', 'string', 'Property name');
+        $this->registerArgument('property', 'string', 'Property name', true);
         $this->registerArgument('format', 'string', 'String or translation key');
         $this->registerArgument('fields', 'array', 'Fields you want to get from database');
     }
@@ -63,6 +63,10 @@ class AbstractValueProcessor extends AbstractViewHelper
 
     protected function processFallback($value, string $property): ?string
     {
+        if($property === 'uid') {
+            return $this->getDatabaseValue((int)$value, $this->dataMap->getTableName());
+        }
+
         return null;
     }
 

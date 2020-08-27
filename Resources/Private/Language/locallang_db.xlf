@@ -166,7 +166,7 @@
 			<trans-unit id="tt_content.flexForms.z7blog_static.sheetTitle.selection">
 				<source>Selection</source>
 			</trans-unit>
-			<trans-unit id="tt_content.flexForms.z7blog_static.posts">
+			<trans-unit id="tt_content.flexForms.z7blog_static.uids">
 				<source>Posts</source>
 			</trans-unit>
 

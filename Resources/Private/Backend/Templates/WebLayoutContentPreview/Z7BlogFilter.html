@@ -1,0 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
+<p>
+	<be:link.editRecord class="btn btn-info btn-sm" uid="{uid}" table="tt_content">
+		<core:icon identifier="actions-document-open" size="small" alternativeMarkupIdentifier="inline" />
+		{f:translate(key:'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.edit', default: 'Edit')}
+	</be:link.editRecord>
+
+	<f:if condition="{pi_flexform_transformed.settings.list_id}">
+		<be:link.editRecord class="btn btn-default btn-sm" uid="{pi_flexform_transformed.settings.list_id}" table="tt_content">
+			<core:icon identifier="actions-insert-reference" size="small" alternativeMarkupIdentifier="inline" />
+			{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_filter.list_id')}
+		</be:link.editRecord>
+	</f:if>
+</p>
+</html>

@@ -1,0 +1,7 @@
+<html xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
+<p>
+	<be:link.editRecord uid="{uid}" table="tt_content">
+		{blog:processValue.author(value:pi_flexform_transformed.settings.uids, property:'uid')}
+	</be:link.editRecord>
+</p>
+</html>

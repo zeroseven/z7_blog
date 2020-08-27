@@ -42,4 +42,9 @@ mod.wizards.newContentElement.wizardItems.blog {
   after = common
 }
 
-mod.web_layout.tt_content.preview.z7blog_list = EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutContentPreview/PostList.html
+mod.web_layout.tt_content.preview {
+  z7blog_list = EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutContentPreview/Z7BlogList.html
+  z7blog_static = EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutContentPreview/Z7BlogStatic.html
+  z7blog_filter = EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutContentPreview/Z7BlogFilter.html
+  z7blog_authors = EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutContentPreview/Z7BlogAuthors.html
+}
