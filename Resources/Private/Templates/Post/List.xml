@@ -22,7 +22,7 @@
 						<description>{f:if(condition:post.abstract, then:post.abstract, else:post.description) -> f:format.stripTags() -> f:format.htmlspecialchars()}</description>
 						<f:if condition="{post.author}"><author>{post.author.firstName} {post.author.lastName}</author></f:if>
 						<f:if condition="{post.category}"><category>{post.category.title -> f:format.htmlspecialchars()}</category></f:if>
-						<f:if condition="{post.firstImage}"><enclosure url="{f:uri.image(image:post.firstImage, absolute:1, maxWidth: '1920', maxHeight: '1920')}" type="{post.firstImage.mimeType}"/></f:if>
+						<blog:rss.item.enclosure image="{post.firstImage}" maxWidth="1920" maxHeight="1920" />
 					</item>
 				</f:for>
 			</f:if>
