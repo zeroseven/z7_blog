@@ -34,7 +34,7 @@ plugin.tx_z7blog {
   settings {
     post.list {
       ajaxTypeNum = {$plugin.tx_z7blog.settings.post.list.ajaxTypeNum}
-      xmlTypeNum = {$plugin.tx_z7blog.settings.post.list.xmlTypeNum}
+      rssTypeNum = {$plugin.tx_z7blog.settings.post.list.rssTypeNum}
       defaultListPage = {$plugin.tx_z7blog.settings.post.list.defaultListPage}
       itemsPerStages = {$plugin.tx_z7blog.settings.post.list.itemsPerStages}
     }
@@ -98,8 +98,8 @@ blogAjaxPageRequest {
 blogRSSPage = PAGE
 blogRSSPage {
 
-  # Configure pagex
-  typeNum = {$plugin.tx_z7blog.settings.post.list.xmlTypeNum}
+  # Configure page
+  typeNum = {$plugin.tx_z7blog.settings.post.list.rssTypeNum}
   config {
     disableAllHeaderCode = 1
     xhtml_cleaning = 0
@@ -118,6 +118,8 @@ blogRSSPage {
   # Load the first blog list on current page
   10 = CONTENT
   10 {
+
+    # Search for content elements
     table = tt_content
     select {
       where = CType IN('z7blog_list','z7blog_static')
@@ -125,7 +127,17 @@ blogRSSPage {
       orderBy = sorting
       pidInList = this
     }
+
+    # Render list action
     renderObj =< tt_content.z7blog_list.20
     renderObj.format = xml
+
+    # Or throw an exception if no configuration found
+    stdWrap.ifEmpty.cObject = USER
+    stdWrap.ifEmpty.cObject {
+      userFunc = Zeroseven\Z7Blog\UserFunc\Exception->throw
+      status = 404
+      message = No plugin for RSS configuration found on this page.
+    }
   }
 }
