@@ -102,20 +102,6 @@
 				<source>More</source>
 			</trans-unit>
 
-			<!-- RSS Channel (add translations in your project) -->
-			<trans-unit id="rss.channel.title">
-				<source></source>
-			</trans-unit>
-			<trans-unit id="rss.channel.generator">
-				<source></source>
-			</trans-unit>
-			<trans-unit id="rss.channel.description">
-				<source></source>
-			</trans-unit>
-			<trans-unit id="rss.channel.copyright">
-				<source></source>
-			</trans-unit>
-
 		</body>
 	</file>
 </xliff>
