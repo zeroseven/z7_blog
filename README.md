@@ -7,9 +7,10 @@ Auf diese Art kannst du auch deine ganz eigenen "Subextensions" zum Blog erstell
 
 Hier eine Übersicht empfohlener und kompatibler Erweiterungen:
 
-
-* **[z7_blog_rss](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_rss)** (RSS-Feeds über URL-Parameter erstellen)
-* **z7_blog_comments** (In Kürze verfügbar)
+Extension-Key | Description | Installation
+--- | --- | ---
+**[z7_blog_rss](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_rss)** | Erstellt RSS-Feeds über URL-Parameter | composer require zeroseven/z7-blog-rss
+**z7_blog_comments** | (In Kürze verfügbar) |
 
 ## Add details of the blogpost to the template
 
