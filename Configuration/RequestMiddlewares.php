@@ -10,6 +10,9 @@ return [
             'after' => [
                 'typo3/cms-frontend/prepare-tsfe-rendering'
             ]
-        ]
+        ],
+        'zeroseven/z7_blog/structured_data' => [
+            'target' => \Zeroseven\Z7Blog\Middleware\StructuredData::class,
+        ],
     ]
 ];
