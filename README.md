@@ -1,5 +1,15 @@
 # z7_blog
 
+## "Subextensions"
+
+Damit die Erweiterung etliche Funktionen besitzt und trotzdem schlank und übersichtlich bleibt, lassen sich komplette Features als separate Erweiterung installieren.
+Auf diese Art kannst du auch deine ganz eigenen "Subextensions" zum Blog erstellen und neue Funktionen schaffen.
+
+Hier eine Übersicht empfohlener und kompatibler Erweiterungen:
+
+* **z7_blog_rss** (RSS-Feeds über URL-Parameter erstellen)
+* **z7_blog_comments** (In Kürze verfügbar)
+
 ## Add details of the blogpost to the template
 
 If you need information about the post on each detail page, there's no need to maintain each one individually. Use the following TypoScript to add blog content to each post at a place of your liking.
@@ -153,30 +163,6 @@ Beispiel: robots.txt
 Disallow: *tx_z7blog_list%5Btopics%5D=*s
 Disallow: *tx_z7blog_list%5Btags%5D=*
 ```
-
-## Wie man einen RSS-Feed erstellt
-
-Jedes auf der Website verwendete List-Plugin kann gleichzeitig auch als RSS-Feed aufgerufen werden. 
-Dazu genügt es den Parameter `?type=1598538810` an die URL zu hängen und schon erhälst du den Feed mit allen hinterlegten Plugin-Einstellungen.
-
-Wenn du dir die Konfiguration für die Ausgabe lieber statisch hinterlegen möchtest, kannst du das wie in diesem Beispiel umsetzen: 
-
-```
-customBlogArchive < blogRSSPage
-customBlogArchive {
-  10 >
-  10 =< tt_content.z7blog_list.20
-  10 {
-    format = xml
-    settings {
-        category = 5
-        archiveMode = 2
-    }
-  }
-}
-```
-
-Notiz: Wenn auf einer Seite mehrere Listen hinterlegt sind, werden die Einstellungen des ersten Elements für den RSS-Feed verwendet.
 
 ## Todo:
 

@@ -18,7 +18,6 @@ plugin.tx_z7blog {
       # customsubcategory=list=Post settings
       list {
         ajaxTypeNum = 1591299420
-        rssTypeNum = 1598538810
         # cat=plugin.tx_z7blog/list; type=int+; label=Default list page:E.g. to filter all posts by tags or author.
         defaultListPage = 0
         # cat=plugin.tx_z7blog/list; type=int+; label=Pagination of posts
