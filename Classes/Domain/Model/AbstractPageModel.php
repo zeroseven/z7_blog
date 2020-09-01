@@ -2,6 +2,7 @@
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
+use DateTime;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Resource\AbstractFile;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -48,6 +49,9 @@ abstract class AbstractPageModel extends AbstractEntity
 
     /** @var \TYPO3\CMS\Core\Resource\FileReference */
     protected $firstImage;
+
+    /** @var \DateTime */
+    protected $lastChange;
 
     public function __construct()
     {
@@ -188,6 +192,17 @@ abstract class AbstractPageModel extends AbstractEntity
         }
 
         return $this->firstImage;
+    }
+
+    public function getLastChange(): ?DateTime
+    {
+        return $this->lastChange;
+    }
+
+    public function setLastChange(DateTime $lastChange): self
+    {
+        $this->lastChange = $lastChange;
+        return $this;
     }
 
 }

@@ -6,6 +6,9 @@ return [
         'properties' => [
             'fileReferences' => [
                 'fieldName' => 'media'
+            ],
+            'lastChange' => [
+                'fieldName' => 'SYS_LASTCHANGED'
             ]
         ]
     ],

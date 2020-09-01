@@ -176,6 +176,11 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
                 ],
                 'default' => 0
             ]
+        ],
+        'SYS_LASTCHANGED' => [
+            'config' => [
+                'type' => 'passthrough'
+            ]
         ]
     ]);
 
