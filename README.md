@@ -166,6 +166,36 @@ Disallow: *tx_z7blog_list%5Btopics%5D=*s
 Disallow: *tx_z7blog_list%5Btags%5D=*
 ```
 
+## Strukturierte Daten
+
+Jeder Post erhält automatisch zusätzlich Strukturierte Daten. 
+Wenn du diese Erweitern möchtest, kannst du diese im typoscript hinterlegen.
+
+Beispiel:
+
+```typo3_typoscript
+plugin.tx_z7blog.settings.post.structuredData {
+
+    # Create new attribute "publisher"
+    publisher {
+
+        # Define type "Organisation"
+        typeOrganization {
+        
+            # … and so on
+            name = zeroseven design studios GmbH
+            logo.typeImageObject {
+                url = https://www.zeroseven.de/resources/logo.png
+                width = 365
+                height = 28
+            }
+        }
+    }
+}
+```
+
+Um einen neuen `@type` zu erstellen, kannst du diesen entsprechend mit dem prefix `type` in der Konfiguration angeben.
+
 ## Todo:
 
 * Upgrades von div. TYPO3-Blog-Erweiterungen könnten über einen Upgrade-Wizard umgesetzt werden.
