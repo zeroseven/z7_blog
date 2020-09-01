@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Middleware;
 
@@ -15,7 +14,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\SettingsService;
-
 
 class StructuredData implements MiddlewareInterface
 {
