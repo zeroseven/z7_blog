@@ -108,7 +108,7 @@ class StructuredData implements MiddlewareInterface
             ];
 
             // Override by static typoScript definition
-            $staticStructure = SettingsService::getSettings('structuredData');
+            $staticStructure = SettingsService::getSettings('post.structuredData');
 
             // Add data by the post model somehow
             $postStructure = method_exists($post, 'getStructuredData') ? $post->getStructuredData() : [];
