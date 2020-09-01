@@ -87,7 +87,7 @@ class StructuredData implements MiddlewareInterface
                 '@type' => 'BlogPosting',
                 'headline' => $post->getTitle(),
                 'datePublished' => $post->getDate()->format('Y-m-d'),
-                'dateModified' => $post->getDate()->format('Y-m-d'),
+                'dateModified' => $post->getLastChange()->format('Y-m-d'),
                 'description' => $post->getAbstract() ?: $post->getDescription(),
             ];
 
