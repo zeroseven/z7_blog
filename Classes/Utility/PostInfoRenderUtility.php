@@ -55,9 +55,7 @@ class PostInfoRenderUtility
         $this->initialize();
 
         // Get the post
-        if ($post === null && !($post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post']['info'] ?? null)) {
-            $post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post']['info'] = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id);
-        }
+        $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id);
 
         // Set Template
         $this->view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templateNameAndFilePath));
@@ -78,6 +76,5 @@ class PostInfoRenderUtility
 
         return ($content ?: '') . $this->render($conf['file'], $settings);
     }
-
 
 }
