@@ -94,7 +94,6 @@ class AbstractValueProcessor extends AbstractViewHelper
 
     public function render(): string
     {
-
         // Define value
         $value = $this->arguments['value'];
 

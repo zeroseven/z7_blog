@@ -8,6 +8,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
 use Zeroseven\Z7Blog\Service\RootlineService;
+use Zeroseven\Z7Blog\Service\SettingsService;
+use Zeroseven\Z7Blog\Service\TypeCastService;
 
 abstract class AbstractPageRepository extends AbstractRepository
 {
@@ -55,14 +57,24 @@ abstract class AbstractPageRepository extends AbstractRepository
     public function findByUid($uid, bool $ignoreRestrictions = null)
     {
 
+        // Convert the uid to an integer
+        $postUid = TypeCastService::int($uid);
+        $key = 'post-' . $postUid . ($ignoreRestrictions ? '' : '-ignoredRestrictions');
+
+        // Try to deliver a stored post object
+        if ($post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'][$key] ?? null) {
+            return $post;
+        }
+
+        // Load post without restrictions
         if ($ignoreRestrictions) {
 
             $query = $this->createQuery();
 
             if ((int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0) > 0) {
-                $constraint = $query->equals('l10n_parent', (int)$uid);
+                $constraint = $query->equals('l10n_parent', $postUid);
             } else {
-                $constraint = $query->equals('uid', (int)$uid);
+                $constraint = $query->equals('uid', $postUid);
             }
 
             $query->setLimit(1);
@@ -71,10 +83,11 @@ abstract class AbstractPageRepository extends AbstractRepository
             // Allow hidden pages
             $query->getQuerySettings()->setIgnoreEnableFields(true)->setIncludeDeleted(true)->setRespectStoragePage(false);
 
-            // Get posts and return the first one …
-            return ($posts = $query->execute()) ? $posts->getFirst() : null;
+            // Get posts and store and return the first one …
+            return ($posts = $query->execute()) ? $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'][$key] = $posts->getFirst() : null;
         }
 
-        return parent::findByUid($uid);
+        // Store and return the post in a familiar way
+        return ($post = parent::findByUid($postUid)) ? $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'][$key] = $post : null;
     }
 }
