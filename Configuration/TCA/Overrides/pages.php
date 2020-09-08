@@ -207,7 +207,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
 
     // Add icons for new page types:
     \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule(
-        $GLOBALS['TCA']['pages'],
+        $GLOBALS['TCA'][$table],
         [
             'ctrl' => [
                 'typeicon_classes' => [

@@ -37,13 +37,15 @@ class Post extends AbstractPageModel
     /** @var string */
     protected $tags;
 
-    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
      * @Extbase\Cascade("remove")
      * @Extbase\Lazy
      */
     protected $relationsTo;
 
-    /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post>
      * @Extbase\Cascade("remove")
      * @Extbase\Lazy
      */
