@@ -199,3 +199,4 @@ Um einen neuen `@type` zu erstellen, kannst du diesen entsprechend mit dem prefi
 ## Todo:
 
 * Upgrades von div. TYPO3-Blog-Erweiterungen könnten über einen Upgrade-Wizard umgesetzt werden.
+* Integration von PSR14-Events für Controller, Repository, Strukturierte Daten, ...
