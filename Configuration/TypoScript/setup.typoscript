@@ -49,6 +49,7 @@ module.tx_z7blog.settings < plugin.tx_z7blog.settings
 # Add JavaScript source
 #####################################################
 page.includeJSFooter.z7blog_utility = EXT:z7_blog/Resources/Public/JavaScript/Frontend/Utility.dist.min.js
+page.includeJSFooter.z7blog_utility.forceOnTop = 1
 page.includeJSFooter.z7blog_addToList = EXT:z7_blog/Resources/Public/JavaScript/Frontend/Components/AddToList.dist.min.js
 
 ##################################################
