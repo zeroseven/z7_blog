@@ -6,126 +6,126 @@
       <!-- List -->
       <trans-unit id="list.empty">
         <source>No results were found.</source>
-        <target></target>
+        <target>Keine Ergebnisse gefunden.</target>
       </trans-unit>
       <trans-unit id="list.reset">
         <source>Reset</source>
-        <target></target>
+        <target>Zurücksetzen</target>
       </trans-unit>
       <trans-unit id="list.status.category">
         <source>Posts are filtered by category "%s"</source>
-        <target></target>
+        <target>Posts wurden nach Kategorie "%s" gefiltert</target>
       </trans-unit>
       <trans-unit id="list.status.author">
         <source>Displaying posts by %s</source>
-        <target></target>
+        <target>Zeige Posts von %s</target>
       </trans-unit>
       <trans-unit id="list.status.topics">
         <source>Posts are filtered by "%s"</source>
-        <target></target>
+        <target>Posts werden nach "%s" gefiltert</target>
       </trans-unit>
       <trans-unit id="list.status.tags">
         <source>Posts are filtered by tags "%s"</source>
-        <target></target>
+        <target>Posts sind nach Tags "%s" gefiltert</target>
       </trans-unit>
       <!-- Pagination -->
       <trans-unit id="pagination.next">
         <source>Show more</source>
-        <target></target>
+        <target>Mehr zeigen</target>
       </trans-unit>
       <trans-unit id="pagination.all">
         <source>Show all</source>
-        <target></target>
+        <target>Zeige alle</target>
       </trans-unit>
       <trans-unit id="pagination.loading">
         <source>loading ...</source>
-        <target></target>
+        <target>laden...</target>
       </trans-unit>
       <!-- Post attributes -->
       <trans-unit id="post.date">
         <source>Date</source>
-        <target></target>
+        <target>Datum</target>
       </trans-unit>
       <trans-unit id="post.category">
         <source>Category</source>
-        <target></target>
+        <target>Kategorie</target>
       </trans-unit>
       <trans-unit id="post.author">
         <source>Author</source>
-        <target></target>
+        <target>Autor</target>
       </trans-unit>
       <trans-unit id="post.topics">
         <source>Topics</source>
-        <target></target>
+        <target>Themen</target>
       </trans-unit>
       <trans-unit id="post.tags">
         <source>Tags</source>
-        <target></target>
+        <target>Tags</target>
       </trans-unit>
       <trans-unit id="post.ordering">
         <source>Ordering</source>
-        <target></target>
+        <target>Sortierung</target>
       </trans-unit>
       <trans-unit id="post.ordering.default">
         <source>Latest first</source>
-        <target></target>
+        <target>Neuste zuerst</target>
       </trans-unit>
       <trans-unit id="post.ordering.date_asc">
         <source>Oldest first</source>
-        <target></target>
+        <target>Älteste zuerst</target>
       </trans-unit>
       <trans-unit id="post.archiveMode">
         <source>Archive</source>
-        <target></target>
+        <target>Archiv</target>
       </trans-unit>
       <trans-unit id="post.archiveMode.0">
         <source>Hide archived posts</source>
-        <target></target>
+        <target>Verstecke archivierte Posts</target>
       </trans-unit>
       <trans-unit id="post.archiveMode.1">
         <source>Show all posts</source>
-        <target></target>
+        <target>Zeige alle Posts</target>
       </trans-unit>
       <trans-unit id="post.archiveMode.2">
         <source>Archived posts only</source>
-        <target></target>
+        <target>Nur archivierte Posts</target>
       </trans-unit>
       <trans-unit id="post.topPostMode">
         <source>Top Posts</source>
-        <target></target>
+        <target>Top Posts</target>
       </trans-unit>
       <trans-unit id="post.topPostMode.0">
         <source>Show all post</source>
-        <target></target>
+        <target>Zeige alle Posts</target>
       </trans-unit>
       <trans-unit id="post.topPostMode.1">
         <source>Show top posts first</source>
-        <target></target>
+        <target>Zeige top Posts zuerst</target>
       </trans-unit>
       <trans-unit id="post.topPostMode.2">
         <source>Only top posts</source>
-        <target></target>
+        <target>Nur top Posts</target>
       </trans-unit>
       <!-- Author attributes -->
       <trans-unit id="author.email">
         <source>E-Mail</source>
-        <target></target>
+        <target>E-Mail</target>
       </trans-unit>
       <trans-unit id="author.twitter">
         <source>Twitter</source>
-        <target></target>
+        <target>Twitter</target>
       </trans-unit>
       <trans-unit id="author.linkedin">
         <source>LinkedIn</source>
-        <target></target>
+        <target>LinkedIn</target>
       </trans-unit>
       <trans-unit id="author.xing">
         <source>Xing</source>
-        <target></target>
+        <target>Xing</target>
       </trans-unit>
       <trans-unit id="author.more">
         <source>More</source>
-        <target></target>
+        <target>Mehr</target>
       </trans-unit>
     </body>
   </file>
