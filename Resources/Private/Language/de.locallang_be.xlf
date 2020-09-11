@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" product-name="z7_blog" target-language="de">
+    <header/>
+    <body>
+      <!-- Content element wizard -->
+      <trans-unit id="wizard.postList.title">
+        <source>Regular Postlist</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="wizard.postList.description">
+        <source>Standard list of post that can be limited by various constraints.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="wizard.postStatic.title">
+        <source>Static Postlist</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="wizard.postStatic.description">
+        <source>List of posts with the posts manually selected.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="wizard.postFilter.title">
+        <source>Postlist Filter</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="wizard.postFilter.description">
+        <source>Filter element for specified post lists</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="wizard.authorList.title">
+        <source>List of authors</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="wizard.authorList.description">
+        <source>Display several authors of blog posts</source>
+        <target></target>
+      </trans-unit>
+      <!-- Backend notifications -->
+      <trans-unit id="notification.resortPagetree.title">
+        <source>Blog-Posts have been reordered</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="notification.resortPagetree.description">
+        <source>The sorting of blog posts in page tree inside "%s" has been changed to reflect their dates.</source>
+        <target></target>
+      </trans-unit>
+      <!-- Backend post page info -->
+      <trans-unit id="post.pageinfo.title">
+        <source>About this blog post</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.category">
+        <source>Category</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.author">
+        <source>Author</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.topics">
+        <source>Topics</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.tags">
+        <source>Tags</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.date">
+        <source>Date</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.archiveDate">
+        <source>Archived in</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.archiveDiff">
+        <source>%s day(s)</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.archived">
+        <source>Post is already archived</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="post.pageinfo.edit">
+        <source>Edit post</source>
+        <target></target>
+      </trans-unit>
+      <!-- Backend category page info -->
+      <trans-unit id="category.pageinfo.title">
+        <source>Blog category</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="category.pageinfo.countPosts">
+        <source>This category contains %s posts.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="category.pageinfo.redirect">
+        <source>The user will be redirected to the pre-filtered list of the default page.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="category.pageinfo.edit">
+        <source>Edit category</source>
+        <target></target>
+      </trans-unit>
+      <!-- ItemsProcFunc -->
+      <trans-unit id="itemsProcFunc.category.auto">
+        <source>Find category in rootline</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="itemsProcFunc.category.all">
+        <source>No restrictions</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="itemsProcFunc.category.all.0">
+        <source>All categories</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="itemsProcFunc.category.manuel">
+        <source>Available categories</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="itemsProcFunc.category.empty">
+        <source>No selection possible. Please save the record first</source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
