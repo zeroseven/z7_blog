@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2016-07-29T13:42:52Z" product-name="z7_blog" target-language="de">
+    <header/>
+    <body>
+      <!-- Pages -->
+      <trans-unit id="pages.tab.blog">
+        <source>Blog</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.palette.blogpost_date_settings">
+        <source>Date</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.doktype.post">
+        <source>Post</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.doktype.category">
+        <source>Post Category</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_top">
+        <source>Top Post</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_archive">
+        <source>Archive date</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_date">
+        <source>Article date</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_author">
+        <source>Author</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_topics">
+        <source>Topics</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_tags">
+        <source>Tags</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_tags.placeholder">
+        <source>Add new tag</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_relations_to">
+        <source>Related Posts</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_relations_from">
+        <source>The blog post has also relations from these articles.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="pages.post_redirect_category">
+        <source>Redirect to the overview page</source>
+        <target></target>
+      </trans-unit>
+      <!-- Content -->
+      <trans-unit id="tt_content.cType.z7blog_list">
+        <source>Post list</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.cType.z7blog_static">
+        <source>Static post list</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.cType.z7blog_filter">
+        <source>Filter for post list</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.cType.z7blog_authors">
+        <source>Blog-Authors</source>
+        <target></target>
+      </trans-unit>
+      <!-- Flexform of plugin z7blog_list -->
+      <trans-unit id="tt_content.flexForms.z7blog_list.sheetTitle.filter">
+        <source>Filter</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.sheetTitle.options">
+        <source>Options</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.sheetTitle.layout">
+        <source>Layout</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.category">
+        <source>Category</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.author">
+        <source>Author</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.topics">
+        <source>Topics</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.tags">
+        <source>Tags</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.tags.placeholder">
+        <source>Search tags</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode">
+        <source>Top posts</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode.0">
+        <source>Normal</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode.1">
+        <source>Show top posts first</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.top_post_mode.2">
+        <source>Only top posts</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.archive_mode">
+        <source>Archived posts</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.archive_mode.0">
+        <source>Hide archived posts</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.archive_mode.1">
+        <source>Show all posts</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.archive_mode.2">
+        <source>Archived posts only</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.ordering">
+        <source>Ordering</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.ordering.date_desc">
+        <source>Latest first</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.ordering.date_asc">
+        <source>Oldest first</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.ordering.title_asc">
+        <source>By title, ascending</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.ordering.title_desc">
+        <source>By title, descending</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.ordering.manual">
+        <source>Manual, like selected</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages">
+        <source>Items per stage</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages.placeholder">
+        <source>Default</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.items_per_stages.description">
+        <source>Example: Add "4, 8" to display 4 elements for the first stage and 8 for the second and all subsequent ones.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.max_stages">
+        <source>Maximum number of stages</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.max_stages.0">
+        <source>Unlimited</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.layout">
+        <source>Layout</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_list.layout.0">
+        <source>Default</source>
+        <target></target>
+      </trans-unit>
+      <!-- Flexform of plugin z7blog_filter -->
+      <trans-unit id="tt_content.flexForms.z7blog_filter.list_id">
+        <source>Target list</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_filter.layout">
+        <source>Layout</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_filter.layout.0">
+        <source>Default</source>
+        <target></target>
+      </trans-unit>
+      <!-- Flexform of plugin z7blog_static -->
+      <trans-unit id="tt_content.flexForms.z7blog_static.sheetTitle.selection">
+        <source>Selection</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_static.uids">
+        <source>Posts</source>
+        <target></target>
+      </trans-unit>
+      <!-- Flexform of plugin z7blog_authors -->
+      <trans-unit id="tt_content.flexForms.z7blog_authors.uids">
+        <source>Selected authors</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_authors.ordering">
+        <source>Ordering</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_authors.ordering.manual">
+        <source>Manual, like selected</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_authors.ordering.firstName">
+        <source>First name</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_authors.ordering.lastName">
+        <source>Last name</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_authors.layout">
+        <source>Layout</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tt_content.flexForms.z7blog_authors.layout.0">
+        <source>Default</source>
+        <target></target>
+      </trans-unit>
+      <!-- Blog Authors -->
+      <trans-unit id="tx_z7blog_domain_model_author">
+        <source>Blog author</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.tab.info">
+        <source>Info</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.tab.social">
+        <source>Social media</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.palette.name">
+        <source>Name</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.firstname">
+        <source>First name</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.lastname">
+        <source>Last name</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.expertise">
+        <source>Expertise</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.email">
+        <source>Email</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.image">
+        <source>Image</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.description">
+        <source>Description</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.page">
+        <source>Detail Page</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.twitter">
+        <source>Twitter</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.linkedin">
+        <source>LinkedIn</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_author.xing">
+        <source>Xing</source>
+        <target></target>
+      </trans-unit>
+      <!-- Blog Topic -->
+      <trans-unit id="tx_z7blog_domain_model_topic">
+        <source>Blog topic</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="tx_z7blog_domain_model_topic.title">
+        <source>Title</source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
