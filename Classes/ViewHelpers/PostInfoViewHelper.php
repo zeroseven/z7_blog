@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers;
 
@@ -10,7 +12,6 @@ use Zeroseven\Z7Blog\Utility\PostInfoRenderUtility;
 
 class PostInfoViewHelper extends AbstractViewHelper
 {
-
     protected $escapeOutput = false;
 
     public function initializeArguments(): void
@@ -21,7 +22,6 @@ class PostInfoViewHelper extends AbstractViewHelper
         $this->registerArgument('file', 'string', 'The template file');
         $this->registerArgument('settings', 'array', 'Pass settings to the template');
     }
-
 
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
     {

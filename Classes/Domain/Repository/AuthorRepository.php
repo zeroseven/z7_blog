@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
@@ -8,7 +10,6 @@ use Zeroseven\Z7Blog\Domain\Demand\AuthorDemand;
 
 class AuthorRepository extends AbstractRepository
 {
-
     protected $defaultOrderings = [
         'firstName' => QueryInterface::ORDER_ASCENDING,
         'uid' => QueryInterface::ORDER_ASCENDING
@@ -18,5 +19,4 @@ class AuthorRepository extends AbstractRepository
     {
         return AuthorDemand::makeInstance();
     }
-
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model\TraitCollector;
 
@@ -15,6 +17,5 @@ TraitCollectorService::createClass(
 if (!class_exists(CategoryTraitCollector::class)) {
     class CategoryTraitCollector extends Category
     {
-
     }
 }

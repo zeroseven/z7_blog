@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
@@ -13,7 +15,6 @@ use Zeroseven\Z7Blog\Service\TypeCastService;
 
 abstract class AbstractPageRepository extends AbstractRepository
 {
-
     public function initializeObject()
     {
         $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
@@ -68,7 +69,6 @@ abstract class AbstractPageRepository extends AbstractRepository
 
         // Load post without restrictions
         if ($ignoreRestrictions) {
-
             $query = $this->createQuery();
 
             if ((int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0) > 0) {

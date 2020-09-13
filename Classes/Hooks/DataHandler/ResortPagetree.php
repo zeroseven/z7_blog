@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Hooks\DataHandler;
 
@@ -13,7 +15,6 @@ use Zeroseven\Z7Blog\Domain\Model\Post;
 
 class ResortPagetree
 {
-
     protected const TABLE = 'pages';
 
     protected const SORTING_FIELD = 'post_date';
@@ -30,10 +31,10 @@ class ResortPagetree
 
                         // Send message about the sorting
                         if ($this->sortItemsOnPid($pid, $dataHanlder)) {
-
                             $parentRow = BackendUtility::getRecord(self::TABLE, $pid);
 
-                            $message = GeneralUtility::makeInstance(FlashMessage::class,
+                            $message = GeneralUtility::makeInstance(
+                                FlashMessage::class,
                                 LocalizationUtility::translate(
                                     'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:notification.resortPagetree.description',
                                     'z7_blog',
@@ -112,5 +113,4 @@ class ResortPagetree
 
         return $uids;
     }
-
 }

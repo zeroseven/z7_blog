@@ -1,4 +1,5 @@
 <?php
+
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(static function () {
@@ -70,5 +71,4 @@ call_user_func(static function () {
             'css' => 'EXT:z7_blog/Resources/Public/Css/Backend/'
         ]
     ];
-
 });

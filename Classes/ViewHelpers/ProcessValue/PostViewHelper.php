@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\ProcessValue;
 
@@ -10,7 +12,7 @@ class PostViewHelper extends AbstractValueProcessor
 
     protected function processFallback($value, string $property): ?string
     {
-        if($property === 'category') {
+        if ($property === 'category') {
             return $this->getDatabaseValue((int)$value, $this->dataMap->getTableName());
         }
 

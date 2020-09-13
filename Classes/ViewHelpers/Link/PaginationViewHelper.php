@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
 class PaginationViewHelper extends AbstractLinkViewHelper
 {
-
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -31,5 +32,4 @@ class PaginationViewHelper extends AbstractLinkViewHelper
                 ]), $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']));
         }
     }
-
 }

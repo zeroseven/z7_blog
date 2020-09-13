@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -158,7 +159,7 @@ class Author extends AbstractEntity
 
     public function getPageLink(): string
     {
-        if($this->pageLink === null) {
+        if ($this->pageLink === null) {
             return $this->pageLink = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
                 'parameter' => $this->getPage()
             ]);
@@ -169,11 +170,10 @@ class Author extends AbstractEntity
 
     public function getFullName(): string
     {
-        if($this->fullName === null) {
+        if ($this->fullName === null) {
             return $this->fullName = trim($this->getFirstName() . ' ' . $this->getLastName());
         }
 
         return (string)$this->fullName;
     }
-
 }

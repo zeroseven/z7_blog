@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation\ORM as Extbase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
-use TYPO3\CMS\Extbase\Annotation\ORM as Extbase;
 
 class Post extends AbstractPageModel
 {

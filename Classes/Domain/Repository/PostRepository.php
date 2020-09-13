@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
@@ -11,7 +13,6 @@ use Zeroseven\Z7Blog\Service\RootlineService;
 
 class PostRepository extends AbstractPageRepository
 {
-
     protected $defaultOrderings = [
         'post_date' => QueryInterface::ORDER_DESCENDING,
         'uid' => QueryInterface::ORDER_ASCENDING
@@ -94,5 +95,4 @@ class PostRepository extends AbstractPageRepository
     {
         return $this->findByDemand(($demand ?: PostDemand::makeInstance())->setTopic($topics));
     }
-
 }

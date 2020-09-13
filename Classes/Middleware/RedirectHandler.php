@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -17,10 +19,8 @@ use Zeroseven\Z7Blog\Service\SettingsService;
 
 class RedirectHandler implements MiddlewareInterface
 {
-
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-
         if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && ($row = $GLOBALS['TSFE']->page) && $row['post_redirect_category'] && (int)$row['doktype'] === Category::DOKTYPE) {
 
             // Get target page uid of plugin settings
@@ -51,5 +51,4 @@ class RedirectHandler implements MiddlewareInterface
 
         return GeneralUtility::makeInstance(RedirectResponse::class, $url, $statusCode ?: 307, ['X-Redirect-By' => 'TYPO3 Redirect: z7_blog']);
     }
-
 }

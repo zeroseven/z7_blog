@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Demand;
 
@@ -28,7 +30,6 @@ abstract class AbstractDemand
         // Create array of property names of reflection class
         foreach (GeneralUtility::makeInstance(\ReflectionClass::class, static::class)->getProperties() ?? [] as $reflection) {
             if (!$reflection->isProtected()) {
-
                 $name = $reflection->getName();
                 $value = $this->{$name};
 
@@ -88,11 +89,17 @@ abstract class AbstractDemand
 
         if ($type === 'int') {
             return (int)$this->{$propertyName};
-        } elseif ($type === 'string') {
+        }
+
+        if ($type === 'string') {
             return (string)$this->{$propertyName};
-        } elseif ($type === 'array') {
+        }
+
+        if ($type === 'array') {
             return (array)$this->{$propertyName};
-        } elseif ($type === 'bool') {
+        }
+
+        if ($type === 'bool') {
             return (bool)$this->{$propertyName};
         }
 
@@ -135,16 +142,17 @@ abstract class AbstractDemand
         }
 
         throw new Exception('AddToProperty is allowed on type array only');
-
     }
 
     public function removeFromProperty(string $propertyName, $value): self
     {
         if ($this->getType($propertyName) === 'array') {
             $array = array_filter(
-                $this->getProperty($propertyName), static function ($i) use ($value) {
-                return $i !== $value;
-            });
+                $this->getProperty($propertyName),
+                static function ($i) use ($value) {
+                    return $i !== $value;
+                }
+            );
 
             return $this->setProperty($propertyName, $array);
         }
@@ -221,7 +229,6 @@ abstract class AbstractDemand
     public function __call($name, $arguments)
     {
         if (preg_match('/((?:s|g)et|is|has|addTo|removeFrom)([A-Z].*)/', $name, $matches)) {
-
             $action = $matches[1];
             $propertyName = lcfirst($matches[2]);
 
@@ -252,5 +259,4 @@ abstract class AbstractDemand
 
         throw new Exception(sprintf('Method "%s" not found in %s', $name, __CLASS__));
     }
-
 }

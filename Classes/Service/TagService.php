@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
@@ -7,7 +9,6 @@ use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 
 class TagService
 {
-
     protected static function collectTags(QueryResultInterface $posts): ?array
     {
         $tags = [];
@@ -48,5 +49,4 @@ class TagService
 
         return null;
     }
-
 }

@@ -1,8 +1,8 @@
 <?php
+
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(static function (int $postDoktype, int $categoryDoktype) {
-
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Zeroseven.Z7Blog',
         'Filter',
@@ -48,8 +48,7 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
             post = $postDoktype
         }
     "));
-
-},\Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
+}, \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
 
 // Register hooks
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][TYPO3\CMS\Core\Imaging\IconFactory::class]['overrideIconOverlay'][] = \Zeroseven\Z7Blog\Hooks\IconFactory\OverrideIconOverlay::class;

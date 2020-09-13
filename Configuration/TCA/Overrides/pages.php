@@ -7,7 +7,7 @@ $GLOBALS['TCA']['pages']['types'][\Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE][
 $GLOBALS['TCA']['pages']['types'][\Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE]['showitem'] = $GLOBALS['TCA']['pages']['types'][1]['showitem'];
 
 // Manipulate TCA
-call_user_func(static function(string $table, int $postDoktype, int $categoryDoktype) {
+call_user_func(static function (string $table, int $postDoktype, int $categoryDoktype) {
 
     // Add post page type
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
@@ -192,7 +192,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
     );
 
     // Add fields to post pages
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table,'
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table, '
         --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog,
             post_top,
             --palette--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.palette.blogpost_date_settings;blogpost_date_settings,
@@ -200,7 +200,7 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
     ', (string)$postDoktype);
 
     // Add fields to category pages
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table,'
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes($table, '
         --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.tab.blog,
             post_redirect_category
     ', (string)$categoryDoktype);
@@ -219,5 +219,4 @@ call_user_func(static function(string $table, int $postDoktype, int $categoryDok
             ],
         ]
     );
-
-},'pages', \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
+}, 'pages', \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);

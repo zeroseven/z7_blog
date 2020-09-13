@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\TCA;
 
@@ -16,7 +18,6 @@ use Zeroseven\Z7Blog\Service\TagService;
 
 class ItemsProcFunc
 {
-
     protected function getPageUid(array $config): int
     {
         return GeneralUtility::_GP('id') ?: $config['flexParentDatabaseRow']['pid'];
@@ -61,7 +62,6 @@ class ItemsProcFunc
 
     public function getCategories(array &$PA)
     {
-
         if (($currentPageUid = $this->getPageUid($PA)) > 0) {
 
             // Get potential page uids of categories
@@ -131,5 +131,4 @@ class ItemsProcFunc
             $PA['items'][] = [$tag, $tag, 'plugin-z7blog-tag'];
         }
     }
-
 }

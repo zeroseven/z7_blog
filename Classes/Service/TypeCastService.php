@@ -1,7 +1,8 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
-
 
 use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -10,7 +11,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 
 class TypeCastService
 {
-
     protected static function throwException($value, string $expectation = null): void
     {
         throw new Exception(sprintf('Type of "%s" can not be converted to %s.', gettype($value), $expectation ?: debug_backtrace()[1]['function']));
@@ -67,5 +67,4 @@ class TypeCastService
 
         self::throwException($value);
     }
-
 }

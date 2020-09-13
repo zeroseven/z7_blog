@@ -1,17 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 class SettingsService
 {
-
     public const EXTENSION_KEY = 'z7_blog';
 
     protected static function getPropertyPath($subject, string $propertyPath = null)
@@ -42,5 +43,4 @@ class SettingsService
 
         return self::getPropertyPath($settings, $propertyPath);
     }
-
 }

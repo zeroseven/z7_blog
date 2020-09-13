@@ -3,7 +3,6 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(static function (array $CTypes) {
-
     foreach ($CTypes as $CType) {
 
         // Create resource identifier
@@ -26,5 +25,4 @@ call_user_func(static function (array $CTypes) {
             $resourceIdentifier
         );
     }
-
 }, ['z7blog_list', 'z7blog_static', 'z7blog_filter', 'z7blog_authors']);

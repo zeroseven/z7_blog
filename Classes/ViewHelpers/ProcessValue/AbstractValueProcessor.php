@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\ProcessValue;
 
@@ -63,7 +65,7 @@ class AbstractValueProcessor extends AbstractViewHelper
 
     protected function processFallback($value, string $property): ?string
     {
-        if($property === 'uid') {
+        if ($property === 'uid') {
             return $this->getDatabaseValue((int)$value, $this->dataMap->getTableName());
         }
 
@@ -118,5 +120,4 @@ class AbstractValueProcessor extends AbstractViewHelper
         // Return "blank" value
         return $processedValue;
     }
-
 }

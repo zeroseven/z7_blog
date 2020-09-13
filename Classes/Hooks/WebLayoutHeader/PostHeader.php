@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Hooks\WebLayoutHeader;
 
@@ -11,8 +13,6 @@ use Zeroseven\Z7Blog\Service\RepositoryService;
 
 class PostHeader extends AbstractHeader
 {
-
-
     protected function getBackendUser(): BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'];
@@ -20,14 +20,13 @@ class PostHeader extends AbstractHeader
 
     protected function getPropertyPermissions(): array
     {
-
         $class = Post::class;
         $dataMap = GeneralUtility::makeInstance(ObjectManager::class)->get(DataMapper::class)->getDataMap($class);
         $backendUserAuthentication = $this->getBackendUser();
 
         $permissions = [];
         foreach (GeneralUtility::makeInstance(\ReflectionClass::class, $class)->getProperties() ?? [] as $reflection) {
-            if($property = $reflection->name) {
+            if ($property = $reflection->name) {
                 $permissions[$property] = ($columnMap = $dataMap->getColumnMap($property)) && ((($table = $columnMap->getChildTableName()) && $backendUserAuthentication->check('tables_select', $table)) || $backendUserAuthentication->check('non_exclude_fields', $dataMap->getTableName() . ':' . $columnMap->getColumnName()));
             }
         }
@@ -48,5 +47,4 @@ class PostHeader extends AbstractHeader
 
         return '';
     }
-
 }

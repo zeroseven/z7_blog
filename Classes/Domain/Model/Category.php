@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
@@ -33,7 +35,7 @@ class Category extends AbstractPageModel
         return $this;
     }
 
-    public function getParentCategory(): ?Category
+    public function getParentCategory(): ?self
     {
         if ($this->parentCategory === null && $uid = RootlineService::findCategory($this->getPid())) {
             $this->parentCategory = RepositoryService::getCategoryRepository()->findByUid($uid);
@@ -41,5 +43,4 @@ class Category extends AbstractPageModel
 
         return $this->parentCategory;
     }
-
 }

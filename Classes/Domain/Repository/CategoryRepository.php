@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
@@ -17,5 +19,4 @@ class CategoryRepository extends AbstractPageRepository
     {
         return CategoryDemand::makeInstance();
     }
-
 }

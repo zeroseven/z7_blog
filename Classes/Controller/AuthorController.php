@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Controller;
 
@@ -8,7 +10,6 @@ use Zeroseven\Z7Blog\Service\RepositoryService;
 
 class AuthorController extends ActionController
 {
-
     public function listAction(): void
     {
 

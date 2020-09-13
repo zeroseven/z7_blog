@@ -7,12 +7,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
-use Zeroseven\Z7Blog\Service\TypeCastService;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
+use Zeroseven\Z7Blog\Service\TypeCastService;
 
 abstract class AbstractRepository extends Repository
 {
-
     protected function setOrdering(AbstractDemand $demand = null): void
     {
 
@@ -30,7 +29,6 @@ abstract class AbstractRepository extends Repository
                 $columnName => ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING
             ]);
         }
-
     }
 
     protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
@@ -85,8 +83,8 @@ abstract class AbstractRepository extends Repository
         }
 
         // Remove empty objects
-        $sortedList = array_filter($sortedList, static function($o) {
-           return $o;
+        $sortedList = array_filter($sortedList, static function ($o) {
+            return $o;
         });
 
         // Resort objects in result
@@ -116,9 +114,9 @@ abstract class AbstractRepository extends Repository
         // Execute
         if ($demand->getOrdering() === 'manual' && $uids = $demand->getUids()) {
             return $this->orderByUid($uids, $query->execute());
-        } else {
-            return $query->execute();
         }
+
+        return $query->execute();
     }
 
     public function findAll(AbstractDemand $demand = null): ?QueryResultInterface
@@ -130,5 +128,4 @@ abstract class AbstractRepository extends Repository
     {
         return $this->findByDemand(($demand ?: $this->initializeDemand())->setUids($uids));
     }
-
 }

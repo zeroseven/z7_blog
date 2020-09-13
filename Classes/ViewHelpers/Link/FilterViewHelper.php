@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
@@ -67,7 +69,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
                     $this->demand->addToProperty($propertyName, $value);
                 } elseif (strpos($argument, 'remove') === 0) {
                     $this->demand->removeFromProperty($propertyName, $value);
-                } else if (in_array($value, $this->demand->getProperty($propertyName), false)) {
+                } elseif (in_array($value, $this->demand->getProperty($propertyName), false)) {
                     $this->demand->removeFromProperty($propertyName, $value);
                 } else {
                     $this->demand->addToProperty($propertyName, $value);
@@ -89,7 +91,6 @@ class FilterViewHelper extends AbstractLinkViewHelper
             // Loop arguments
             foreach ($this->arguments as $propertyName => $value) {
                 if ($value !== null && $this->demand->hasProperty($propertyName)) {
-
                     $type = $this->demand->getType($propertyName);
                     $demandValue = $this->demand->getProperty($propertyName);
 
@@ -130,22 +131,19 @@ class FilterViewHelper extends AbstractLinkViewHelper
     protected function setPageUid(): void
     {
         if (empty($this->arguments['pageUid'])) {
-
             if ($this->arguments['defaultList']) {
                 $settings = $this->templateVariableContainer->get('settings') ?? SettingsService::getSettings();
 
                 if ($defaultListPage = $settings['post']['list']['defaultListPage'] ?? null) {
                     $this->arguments['pageUid'] = $defaultListPage;
                 }
-            } else {
-                // TODO: Go recursive through the page tree
             }
+            // TODO: Go recursive through the page tree
         }
     }
 
     public function render(): string
     {
-
         $this->setDataAttributes();
         $this->setPageUid();
 

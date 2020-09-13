@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Controller;
 
@@ -13,7 +15,6 @@ use Zeroseven\Z7Blog\Domain\Model\Pagination;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
 use Zeroseven\Z7Blog\Service\TagService;
-use Zeroseven\Z7Blog\Utility\ManualOrderUtility;
 
 class PostController extends ActionController
 {

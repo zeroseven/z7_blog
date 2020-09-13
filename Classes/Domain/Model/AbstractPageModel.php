@@ -1,15 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
 use DateTime;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Resource\AbstractFile;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 abstract class AbstractPageModel extends AbstractEntity
 {
@@ -204,5 +206,4 @@ abstract class AbstractPageModel extends AbstractEntity
         $this->lastChange = $lastChange;
         return $this;
     }
-
 }

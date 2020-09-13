@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Backend\Form\Element;
 
@@ -63,7 +65,6 @@ class BlogTags extends AbstractFormElement
         }']];
     }
 
-
     protected function renderHtml(): string
     {
 
@@ -97,5 +98,4 @@ class BlogTags extends AbstractFormElement
             'requireJsModules' => $this->renderRequireJsModules()
         ];
     }
-
 }

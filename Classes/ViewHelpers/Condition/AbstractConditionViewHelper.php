@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Condition;
 
@@ -23,7 +25,6 @@ class AbstractConditionViewHelper extends AbstractViewHelper
 
     public function render()
     {
-
         $negate = $this->arguments['negate'];
         $match = $this->validateCondition();
 
@@ -33,6 +34,4 @@ class AbstractConditionViewHelper extends AbstractViewHelper
 
         return '';
     }
-
-
 }

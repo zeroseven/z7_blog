@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
@@ -81,12 +83,10 @@ class Stage extends ObjectStorage
         // Return array
         return $range;
     }
-
 }
 
 class Stages extends ObjectStorage
 {
-
     protected $pagination;
 
     public function __construct(Pagination $pagination)
@@ -163,7 +163,6 @@ class Stages extends ObjectStorage
             return !$stage->isActive();
         });
     }
-
 }
 
 class Pagination
@@ -189,7 +188,6 @@ class Pagination
 
     public function __construct($items, $selectedStage = null, $itemsPerStage = null, $maxStages = null)
     {
-
         $this->stages = GeneralUtility::makeInstance(Stages::class, $this);
 
         $this->setItems($items, false)
@@ -319,5 +317,4 @@ class Pagination
 
         return $items;
     }
-
 }

@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -17,9 +19,9 @@ use Zeroseven\Z7Blog\Service\SettingsService;
 
 class StructuredData implements MiddlewareInterface
 {
-
-    protected function collectArrays(...$arguments): array{
-        return array_replace_recursive(...array_filter($arguments, static function($a){
+    protected function collectArrays(...$arguments): array
+    {
+        return array_replace_recursive(...array_filter($arguments, static function ($a) {
             return is_array($a);
         }));
     }
@@ -76,7 +78,6 @@ class StructuredData implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-
         if (($tsfe = $GLOBALS['TSFE']) instanceof TypoScriptFrontendController && (int)$tsfe->page['doktype'] === Post::DOKTYPE && ($post = RepositoryService::getPostRepository()->findByUid($tsfe->id))) {
 
             // Define the basic structure of a post
@@ -120,5 +121,4 @@ class StructuredData implements MiddlewareInterface
 
         return $handler->handle($request);
     }
-
 }

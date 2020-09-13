@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
@@ -11,7 +13,6 @@ use Zeroseven\Z7Blog\Domain\Model\Category;
 
 class RootlineService
 {
-
     protected static function getCurrentPage(): int
     {
         if (isset($GLOBALS['TSFE']) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController) {
@@ -27,7 +28,6 @@ class RootlineService
 
     public static function findCategory(int $startingPoint = null, array $rootLine = null): ?int
     {
-
         if (empty($startingPoint)) {
             $startingPoint = self::getCurrentPage();
         }
@@ -47,7 +47,6 @@ class RootlineService
 
     public static function getRootPage(int $startingPoint = null): int
     {
-
         if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $rootPage = $GLOBALS['TSFE']->domainStartPage) {
             return $rootPage;
         }

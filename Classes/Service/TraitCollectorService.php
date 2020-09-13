@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
 class TraitCollectorService
 {
-
     public static function collect(string $className): ?array
     {
         return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][$className] ?? null;
@@ -21,7 +22,6 @@ class TraitCollectorService
          *
          * TODO: Add more puns in version 3.0
          */
-
         if (!class_exists('\\' . $namespace . '\\' . $className)) {
             eval('
                 namespace ' . ltrim($namespace, '\\') . ';
