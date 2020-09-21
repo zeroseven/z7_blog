@@ -5,17 +5,17 @@ plugin.tx_z7blog {
   view {
     templateRootPaths {
       0 = EXT:z7_blog/Resources/Private/Templates/
-      10 = {$plugin.tx_z7blog.view.templateRootPath}
+      100 = {$plugin.tx_z7blog.view.templateRootPath}
     }
 
     partialRootPaths {
       0 = EXT:z7_blog/Resources/Private/Partials/
-      10 = {$plugin.tx_z7blog.view.partialRootPath}
+      100 = {$plugin.tx_z7blog.view.partialRootPath}
     }
 
     layoutRootPaths {
       0 = EXT:z7_blog/Resources/Private/Layouts/
-      10 = {$plugin.tx_z7blog.view.layoutRootPath}
+      100 = {$plugin.tx_z7blog.view.layoutRootPath}
     }
   }
 
