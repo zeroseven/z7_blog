@@ -1,0 +1,51 @@
+config.tx_extbase.persistence.classes {
+  Zeroseven\Z7Blog\Domain\Model\AbstractPageModel {
+    mapping {
+      tableName = pages
+      columns {
+        media.mapOnProperty = fileReferences
+        SYS_LASTCHANGED.mapOnProperty = lastChange
+      }
+    }
+  }
+
+  Zeroseven\Z7Blog\Domain\Model\Category {
+    mapping {
+      tableName = pages
+      recordType = {$plugin.tx_z7blog.doktype.category}
+      columns {
+        post_redirect_category.mapOnProperty = redirect
+      }
+    }
+  }
+
+  Zeroseven\Z7Blog\Domain\Model\Post {
+    mapping {
+      tableName = pages
+      recordType = {$plugin.tx_z7blog.doktype.post}
+      columns {
+        post_top.mapOnProperty = top
+        post_archive.mapOnProperty = archiveDate
+        post_date.mapOnProperty = date
+        post_author.mapOnProperty = author
+        post_topics.mapOnProperty = topics
+        post_tags.mapOnProperty = tags
+        post_relations_to.mapOnProperty = relationsTo
+        post_relations_from.mapOnProperty = relationsFrom
+      }
+    }
+  }
+
+  Zeroseven\Z7Blog\Domain\Model\Author {
+    mapping.columns {
+      firstname.mapOnProperty = firstName
+      lastname.mapOnProperty = lastName
+    }
+  }
+
+  # Map tables on trait collectors
+  Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector.mapping.tableName = pages
+  Zeroseven\Z7Blog\Domain\Model\TraitCollector\CategoryTraitCollector.mapping.tableName = pages
+  Zeroseven\Z7Blog\Domain\Model\TraitCollector\AuthorTraitCollector.mapping.tableName = tx_z7blog_domain_model_author
+  Zeroseven\Z7Blog\Domain\Model\TraitCollector\TopicTraitCollector.mapping.tableName = tx_z7blog_domain_model_topic
+}
