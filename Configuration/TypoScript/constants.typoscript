@@ -13,7 +13,15 @@ plugin.tx_z7blog {
     storagePid = 0
   }
 
+
   settings {
+
+    # Define source paths
+    includeJS {
+      utility = EXT:z7_blog/Resources/Public/JavaScript/Frontend/Utility.dist.min.js
+      addToList = EXT:z7_blog/Resources/Public/JavaScript/Frontend/Components/AddToList.dist.min.js
+    }
+
     post {
       # customsubcategory=list=Post settings
       list {

@@ -32,6 +32,12 @@ plugin.tx_z7blog {
   }
 
   settings {
+
+    includeJS {
+      utility = {$plugin.tx_z7blog.settings.includeJS.utility}
+      addToList = {$plugin.tx_z7blog.settings.includeJS.addToList}
+    }
+
     post.list {
       ajaxTypeNum = {$plugin.tx_z7blog.settings.post.list.ajaxTypeNum}
       defaultListPage = {$plugin.tx_z7blog.settings.post.list.defaultListPage}
@@ -48,9 +54,11 @@ module.tx_z7blog.settings < plugin.tx_z7blog.settings
 #####################################################
 # Add JavaScript source
 #####################################################
-page.includeJSFooter.z7blog_utility = EXT:z7_blog/Resources/Public/JavaScript/Frontend/Utility.dist.min.js
-page.includeJSFooter.z7blog_utility.forceOnTop = 1
-page.includeJSFooter.z7blog_addToList = EXT:z7_blog/Resources/Public/JavaScript/Frontend/Components/AddToList.dist.min.js
+page.includeJSFooter {
+  z7_blog_utility = {$plugin.tx_z7blog.settings.includeJS.utility}
+  z7_blog_utility.forceOnTop = 1
+  z7_blog_addToList = {$plugin.tx_z7blog.settings.includeJS.addToList}
+}
 
 ##################################################
 # Ajax request page
