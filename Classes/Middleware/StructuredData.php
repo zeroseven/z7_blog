@@ -94,7 +94,10 @@ class StructuredData implements MiddlewareInterface
             $authorStructure = ($author = $post->getAuthor()) === null ? [] : [
                 'author' => [
                     'typePerson' => [
-                        'name' => trim($author->getFirstName() . ' ' . $author->getLastName())
+                        'name' => trim($author->getFirstName() . ' ' . $author->getLastName()),
+                        'image' => ($image = $author->getImage()) ? [
+                            'typeImageObject' => $this->createImageObjectType($image->getOriginalResource())
+                        ] : null
                     ]
                 ]
             ];
