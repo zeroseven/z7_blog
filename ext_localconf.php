@@ -2,7 +2,7 @@
 
 defined('TYPO3_MODE') || die('Access denied.');
 
-call_user_func(static function (int $postDoktype, int $categoryDoktype) {
+call_user_func(static function (string $extensionKey, int $postDoktype, int $categoryDoktype) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Zeroseven.Z7Blog',
         'Filter',
@@ -36,7 +36,7 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
     );
 
     // Add the wizards
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig("@import 'EXT:z7_blog/Configuration/PageTs/Mod.tsconfig'");
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig("@import 'EXT:$extensionKey/Configuration/PageTs/Mod.tsconfig'");
 
     // Allow custom doktypes in page tree
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig("options.pageTree.doktypesToShowInNewPageDragArea := addToList($postDoktype,$categoryDoktype)");
@@ -48,7 +48,15 @@ call_user_func(static function (int $postDoktype, int $categoryDoktype) {
             post = $postDoktype
         }
     "));
-}, \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
+
+    // Register temporary cache objects in "USER" array
+    $GLOBALS['USER'][$extensionKey] = [
+        'post' => null,
+        'repository' => null,
+        'configuration' => null,
+    ];
+
+}, Zeroseven\Z7Blog\Service\SettingsService::EXTENSION_KEY, \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
 
 // Register hooks
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][TYPO3\CMS\Core\Imaging\IconFactory::class]['overrideIconOverlay'][] = \Zeroseven\Z7Blog\Hooks\IconFactory\OverrideIconOverlay::class;
