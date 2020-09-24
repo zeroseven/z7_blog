@@ -6,7 +6,7 @@ namespace Zeroseven\Z7Blog\Domain\Demand;
 
 use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Zeroseven\Z7Blog\Service\SettingsService;
+use Zeroseven\Z7Blog\Service\TraitCollectorService;
 use Zeroseven\Z7Blog\Service\TypeCastService;
 
 abstract class AbstractDemand
@@ -44,15 +44,18 @@ abstract class AbstractDemand
 
     public static function makeInstance(): self
     {
-        // Return custom demand object
-        if (
-            ($className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][SettingsService::EXTENSION_KEY][static::class] ?? null)
-            && class_exists($className)
-            && ($class = GeneralUtility::makeInstance($className))
-            && $class instanceof self
-        ) {
-            return $class;
+        // Return create trait collector class
+        if($traits = TraitCollectorService::collect(static::class)) {
+            TraitCollectorService::createClass(
+                __NAMESPACE__,
+                (new \ReflectionClass(static::class))->getShortName() . 'TraitCollector',
+                static::class,
+                $traits
+            );
+
+            return GeneralUtility::makeInstance(static::class . 'TraitCollector');
         }
+
 
         // Return default demand object
         return GeneralUtility::makeInstance(static::class);

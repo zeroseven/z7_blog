@@ -11,7 +11,7 @@ class TraitCollectorService
         return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][$className] ?? null;
     }
 
-    public static function createClass(string $namespace, string $className, string $targetClassName = null): void
+    public static function createClass(string $namespace, string $className, string $targetClassName = null, array $traits = null): void
     {
 
         /**
@@ -28,9 +28,9 @@ class TraitCollectorService
     
                 class ' . $className . ($targetClassName ? (' extends \\' . ltrim($targetClassName, '\\')) : '') . '
                 {' .
-                    (($traits = static::collect($targetClassName)) ? 'use ' . implode(',', array_map(static function ($trait) {
+                    (($classNames = $traits ?: static::collect($targetClassName)) ? 'use ' . implode(',', array_map(static function ($trait) {
                         return '\\' . ltrim($trait, '\\');
-                    }, $traits)) . ';' : '')
+                    }, $classNames)) . ';' : '')
                 . '}
             ');
         }
