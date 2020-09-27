@@ -8,17 +8,20 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Post;
+use Zeroseven\Z7Blog\Event\StructuredDataEvent;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\SettingsService;
 
 class StructuredData implements MiddlewareInterface
 {
+
     protected function collectArrays(...$arguments): array
     {
         return array_replace_recursive(...array_filter($arguments, static function ($a) {
@@ -39,7 +42,7 @@ class StructuredData implements MiddlewareInterface
 
         // Loop through array (recursive)
         foreach ($array as $key => $value) {
-            if (preg_match('/^type((?:[A-Z][a-z]+)+)$/', $key, $matches)) {
+            if (is_string($key) && preg_match('/^type((?:[A-Z][a-z]+)+)$/', $key, $matches)) {
                 return $this->parseStructuredData(array_merge(['@type' => $matches[1]], $value));
             }
 
@@ -116,10 +119,12 @@ class StructuredData implements MiddlewareInterface
             $postStructure = method_exists($post, 'getStructuredData') ? $post->getStructuredData() : [];
 
             // Merge data
-            $collectedData = $this->collectArrays($basicStructure, $authorStructure, $imageStructure, $staticStructure, $postStructure);
+            $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(
+                new StructuredDataEvent($post, $this->collectArrays($basicStructure, $authorStructure, $imageStructure, $staticStructure, $postStructure))
+            )->getData();
 
             // Add to the end of the page
-            GeneralUtility::makeInstance(PageRenderer::class)->addFooterData('<script type="application/ld+json">' . json_encode($this->parseStructuredData($collectedData)) . '</script>');
+            GeneralUtility::makeInstance(PageRenderer::class)->addFooterData('<script type="application/ld+json">' . json_encode($this->parseStructuredData($structuredData)) . '</script>');
         }
 
         return $handler->handle($request);
