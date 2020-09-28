@@ -119,9 +119,12 @@ class StructuredData implements MiddlewareInterface
             $postStructure = method_exists($post, 'getStructuredData') ? $post->getStructuredData() : [];
 
             // Merge data
-            $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(
-                new StructuredDataEvent($post, $this->collectArrays($basicStructure, $authorStructure, $imageStructure, $staticStructure, $postStructure))
-            )->getData();
+            $structuredData = $this->collectArrays($basicStructure, $authorStructure, $imageStructure, $staticStructure, $postStructure);
+
+            // Call event to modify structured data
+            if(class_exists(EventDispatcher::class)) {
+                $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(new StructuredDataEvent($post, $structuredData))->getData();
+            }
 
             // Add to the end of the page
             GeneralUtility::makeInstance(PageRenderer::class)->addFooterData('<script type="application/ld+json">' . json_encode($this->parseStructuredData($structuredData)) . '</script>');
