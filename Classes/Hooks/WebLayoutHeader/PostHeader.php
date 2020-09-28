@@ -41,7 +41,7 @@ class PostHeader extends AbstractHeader
         if ((int)$this->row['doktype'] === Post::DOKTYPE) {
 
             // Skip header on TYPO3 9 and lower
-            if(GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() < 10) {
+            if (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() < 10) {
                 return '<!-- Unfortunately the header is not compatible with your TYPO3 version :( -->';
             }
 

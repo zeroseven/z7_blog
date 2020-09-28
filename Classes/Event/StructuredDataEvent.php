@@ -45,5 +45,4 @@ final class StructuredDataEvent
     {
         $this->setData(array_merge($this->getData(), $data));
     }
-
 }

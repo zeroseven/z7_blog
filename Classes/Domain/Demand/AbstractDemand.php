@@ -45,7 +45,7 @@ abstract class AbstractDemand
     public static function makeInstance(): self
     {
         // Return create trait collector class
-        if($traits = TraitCollectorService::collect(static::class)) {
+        if ($traits = TraitCollectorService::collect(static::class)) {
             TraitCollectorService::createClass(
                 __NAMESPACE__,
                 (new \ReflectionClass(static::class))->getShortName() . 'TraitCollector',
@@ -55,7 +55,6 @@ abstract class AbstractDemand
 
             return GeneralUtility::makeInstance(static::class . 'TraitCollector');
         }
-
 
         // Return default demand object
         return GeneralUtility::makeInstance(static::class);

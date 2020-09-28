@@ -21,7 +21,6 @@ use Zeroseven\Z7Blog\Service\SettingsService;
 
 class StructuredData implements MiddlewareInterface
 {
-
     protected function collectArrays(...$arguments): array
     {
         return array_replace_recursive(...array_filter($arguments, static function ($a) {
@@ -122,7 +121,7 @@ class StructuredData implements MiddlewareInterface
             $structuredData = $this->collectArrays($basicStructure, $authorStructure, $imageStructure, $staticStructure, $postStructure);
 
             // Call event to modify structured data
-            if(class_exists(EventDispatcher::class)) {
+            if (class_exists(EventDispatcher::class)) {
                 $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(new StructuredDataEvent($post, $structuredData))->getData();
             }
 
