@@ -26,7 +26,7 @@ class TraitCollectorService
             eval('
                 namespace ' . ltrim($namespace, '\\') . ';
     
-                class ' . $className . ($targetClassName ? (' extends \\' . ltrim($targetClassName, '\\')) : '') . '
+                final class ' . $className . ($targetClassName ? (' extends \\' . ltrim($targetClassName, '\\')) : '') . '
                 {' .
                     (($classNames = $traits ?: static::collect($targetClassName)) ? 'use ' . implode(',', array_map(static function ($trait) {
                         return '\\' . ltrim($trait, '\\');
