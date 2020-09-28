@@ -12,7 +12,7 @@ Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loa
   window.history.replaceState(null, null, elements.button.href);
 
   // Stop default behaviour of the event
-  if(typeof event !== 'undefined') {
+  if (typeof event !== 'undefined') {
     event.preventDefault();
   }
 
@@ -23,7 +23,7 @@ Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loa
   // Change the layout of the target
   elements.button.style.cursor = 'no-drop';
 
-  if(loadingText) {
+  if (loadingText) {
     elements.button.innerText = loadingText;
   }
 
@@ -31,7 +31,7 @@ Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loa
   Object.keys(elements).forEach(key => elements[key].dataset.loading = 'true');
 
   // Load content
-  Zeroseven.Blog.Utility.loadContents(elements.button.dataset.href, null,(contents, status) => {
+  Zeroseven.Blog.Utility.loadContents(elements.button.dataset.href, null, (contents, status) => {
     if (status < 400) {
 
       // Get the number of links

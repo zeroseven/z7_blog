@@ -116,7 +116,7 @@
 
       // Determine post data
       let postDataString = '';
-      if(postData && typeof postData === 'object') {
+      if (postData && typeof postData === 'object') {
         Object.keys(postData).forEach(key => {
           postDataString += (postDataString ? '&' : '') + key + (postData[key] ? '=' + encodeURI(postData[key]) : '');
         });
