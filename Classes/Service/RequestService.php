@@ -10,8 +10,15 @@ class RequestService
 {
     public const REQUEST_KEY = 'tx_z7blog_list';
 
-    public static function getArguments(string $requestKey = null): array
+    public static function getArguments(): array
     {
-        return GeneralUtility::_GP($requestKey ?: self::REQUEST_KEY) ?: [];
+        return GeneralUtility::_GP(self::REQUEST_KEY) ?: [];
+    }
+
+    public static function getArgument(string $key): ?string
+    {
+        $arguments = self::getArguments();
+
+        return $arguments[$key] ?? null;
     }
 }
