@@ -44,10 +44,10 @@ class RedirectHandler implements MiddlewareInterface
         return $handler->handle($request);
     }
 
-    protected function buildRedirectResponse(array $typolinkConfiguration, int $statusCode = null): ResponseInterface
+    protected function buildRedirectResponse(array $typoLinkConfiguration, int $statusCode = null): ResponseInterface
     {
-        $typolink = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL($typolinkConfiguration);
-        $url = GeneralUtility::makeInstance(Uri::class, $typolink);
+        $typoLink = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL($typoLinkConfiguration);
+        $url = GeneralUtility::makeInstance(Uri::class, $typoLink);
 
         return GeneralUtility::makeInstance(RedirectResponse::class, $url, $statusCode ?: 307, ['X-Redirect-By' => 'TYPO3 Redirect: z7_blog']);
     }
