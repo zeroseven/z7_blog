@@ -32,7 +32,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         parent::initializeArguments();
 
         $this->registerArgument('value', null, 'The value', true);
-        $this->registerArgument('property', 'string', 'Property name', true);
+        $this->registerArgument('property', 'string', 'Property name');
         $this->registerArgument('format', 'string', 'String or translation key');
         $this->registerArgument('fields', 'array', 'Fields you want to get from database');
     }
@@ -65,10 +65,6 @@ class AbstractValueProcessor extends AbstractViewHelper
 
     protected function processFallback($value, string $property): ?string
     {
-        if ($property === 'uid') {
-            return $this->getDatabaseValue((int)$value, $this->dataMap->getTableName());
-        }
-
         return null;
     }
 
@@ -76,12 +72,18 @@ class AbstractValueProcessor extends AbstractViewHelper
     {
 
         // Get the table name
-        $property = $this->arguments['property'];
-        $columnMap = $property ? $this->dataMap->getColumnMap($property) : null;
-        $childTableName = $columnMap && ($childTableName = $columnMap->getChildTableName()) ? $childTableName : null;
+        $tableName = $this->dataMap->getTableName();
+
+        // Override table name
+        if(
+            ($property = $this->arguments['property'])
+            && ($columnMap = $this->dataMap->getColumnMap($property))
+            && ($childTableName = $columnMap->getChildTableName())) {
+            $tableName = $childTableName;
+        }
 
         // Get label of the record
-        if ($childTableName && $databaseValue = $this->getDatabaseValue((int)$value, $childTableName)) {
+        if ($tableName && $databaseValue = $this->getDatabaseValue((int)$value, $tableName)) {
             return $databaseValue;
         }
 
