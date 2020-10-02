@@ -68,10 +68,10 @@ abstract class AbstractPageModel extends AbstractEntity
     public function getUid(): int
     {
         if ((int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0) > 0) {
-            return $this->l10nParent;
+            return (int)$this->l10nParent;
         }
 
-        return $this->uid;
+        return (int)$this->uid;
     }
 
     public function getDoktype(): int
