@@ -30,7 +30,8 @@ abstract class AbstractPageRepository extends AbstractRepository
 
         // Stay in the hood
         if (empty($demand->getUids()) && $startPageId = RootlineService::getRootPage()) {
-            $constraints[] = $query->in('uid', RootlineService::findPagesBelow($startPageId));
+            $treeTableField = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', null) ? 'pid' : 'uid';
+            $constraints[] = $query->in($treeTableField, RootlineService::findPagesBelow($startPageId));
         }
 
         // Hide what wants to be hidden
