@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\ProcessValue;
 
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMap;
@@ -47,23 +49,36 @@ class AbstractValueProcessor extends AbstractViewHelper
             }
         }
 
-        // Connect database
+        // Get queryBuilder
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
-        $result = $queryBuilder->select(...$fields)
-            ->from($table)
-            ->where($queryBuilder->expr()->eq('uid', $id))
-            ->setMaxResults(1)
-            ->execute()
-            ->fetch();
 
-        if (!empty($result)) {
-            return implode(' ', $result);
+        // Create basic query
+        $query = $queryBuilder->select(...$fields)->from($table)->setMaxResults(1);
+
+        // Add default restrictions
+        $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
+
+        // Add constraints
+        if($sysLanguageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id')) {
+            $query->where($queryBuilder->expr()->orX(
+                $queryBuilder->expr()->andX(
+                    $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sysLanguageUid, \PDO::PARAM_INT)),
+                    $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
+                ),
+                $queryBuilder->expr()->andX(
+                    $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(-1, \PDO::PARAM_INT)),
+                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
+                )
+            ));
+        } else {
+            $query->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT)));
         }
 
-        return null;
+        // Execute query and return result
+        return empty($result = $query->execute()->fetch()) ? null : implode(' ', $result);
     }
 
-    protected function processFallback($value, string $property): ?string
+    protected function processFallback($value, string $property = null): ?string
     {
         return null;
     }
@@ -71,14 +86,11 @@ class AbstractValueProcessor extends AbstractViewHelper
     protected function processValue($value)
     {
 
-        // Get the table name
+        $property = $this->arguments['property'];
         $tableName = $this->dataMap->getTableName();
 
         // Override table name
-        if(
-            ($property = $this->arguments['property'])
-            && ($columnMap = $this->dataMap->getColumnMap($property))
-            && ($childTableName = $columnMap->getChildTableName())) {
+        if(($columnMap = $this->dataMap->getColumnMap($property)) && ($childTableName = $columnMap->getChildTableName())) {
             $tableName = $childTableName;
         }
 

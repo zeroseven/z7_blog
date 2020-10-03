@@ -12,14 +12,14 @@
 		<f:if condition="{requestArguments.author}">
 			<p role="status" class="blgsts">
 				<span class="blgsts__message">{blog:processValue.post(value:demand.author, property:'author', format:'list.status.author')}</span>
-				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')" demand="{demand}" author="">&times;</blog:link.filter>
+				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')}" demand="{demand}" author="">&times;</blog:link.filter>
 			</p>
 		</f:if>
 
 		<f:if condition="{requestArguments.topics}">
 			<p role="status" class="blgsts">
 				<span class="blgsts__message">{blog:processValue.post(value:demand.topics, property:'topics', format:'list.status.topics')}</span>
-				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')" demand="{demand}" topics="">&times;</blog:link.filter>
+				<blog:link.filter class="blgsts__reset" title="{f:translate(key: 'list.reset')}" demand="{demand}" topics="">&times;</blog:link.filter>
 			</p>
 		</f:if>
 
