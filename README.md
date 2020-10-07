@@ -1,20 +1,62 @@
 # z7_blog
 
+## Installation
+
+Get this extension via `composer req zeroseven/z7-blog`.
+
+## Why another blog extension?
+
+### For the best developers
+
+We love TYPO3 developers and TYPO3 developers love this extension.
+It’s never been so easy to bring a blog to a TYPO3 page, to customize it and put information where they belong. Extend the Extbase models, synchronize the content on post pages or invent new filter arguments for ViewHelpers or the repository with just a bunch of lines of code. It’s totally up to you.
+
+Want a RSS-Feed? Or a comments function? This extension is built highly modular:
+Whole features are easily installed or removed or you develop your very own features for the blog. This way, you’ll always only have the exact amount of features and configuration that you really need. Speaking of need: you really need this extension.
+
+Oh by the way, we support multi language and multi domain setups of course.
+
+
+### For the proficient editors
+
+We love TYPO3 editors and TYPO3 editors love this extension.
+It’s never been so easy to maintain and manage blog posts and categories, to assign tags and to output all that filtered and controlled on a TYPO3 page. Since this works as usual with pages and content elements you can start instantly. Furthermore the backend supports you with automated post sorting in the page tree, autocompletion and many more useful tools to help you get the job done fast.
+
+
+### For the successful SEOs
+
+We love SEO people and SEO people love this extension.
+A great opportunity to generate content for your website. Since all the posts are „regular“ TYPO3 pages, all the possibilities the TYPO3 core offers are available here as well. This way, you don’t need to worry about open graph data, sitemaps, canonical or meta tags like with record based extensions in this blog. It’s all there. On top, we’ve added structured data for all the posts just like that.
+
+
+## Feature overview
+
+* Multi domain
+* Multi language
+* Extended filter plugin
+* Structured data
+* Variable ajax pagination
+* Autocomplete tags in the backend
+* Automated sorting in page tree
+* Modular sub extensions available:
+** RSS-Feed
+** Comment function
+
 ## "Subextensions"
 
-Damit die Erweiterung etliche Funktionen besitzt und trotzdem schlank und übersichtlich bleibt, lassen sich komplette Features als separate Erweiterung installieren.
-Auf diese Art kannst du auch deine ganz eigenen "Subextensions" zum Blog erstellen und neue Funktionen schaffen.
+Like mentioned: For this extension to have a huge set of features but to not bloat it, these features can be installed or removed with our concept of subextensions.
+This way, you can also add your own subextensions to the blog.
 
-Hier eine Übersicht empfohlener und kompatibler Erweiterungen:
+Here's an overview of existing subextensions:
 
-Extension-Key | Description | Installation
+Extensionkey | Description | Installation
 --- | --- | ---
-**[z7_blog_rss](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_rss)** | Erstellt RSS-Feeds über URL-Parameter | `composer require zeroseven/z7-blog-rss`
-**[z7_blog_comments](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_comments)** | Erweitert den Blog um eine Kommentarfunktion | `composer require zeroseven/z7-blog-comments`
+**[z7_blog_rss](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_rss)** | Creates a RSS feed via URL parameters | `composer req zeroseven/z7-blog-rss`
+**[z7_blog_comments](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_comments)** | Enhances the blog with a comment function | `composer req zeroseven/z7-blog-comments`
 
-## Add details of the blogpost to the template
+## Add post details to the template
 
-If you need information about the post on each detail page, there's no need to maintain each one individually. Use the following TypoScript to add blog content to each post at a place of your liking.
+If you need information about the post on each blog post, there's no need to maintain each one individually. Use the following TypoScript to add blog content to each post at a place of your liking.
 
 ```typo3_typoscript
 page.100 = USER
@@ -28,7 +70,7 @@ page.100 {
 }
 ```
 
-… or render the info by a viewHelper in your template:
+… or render the info by a ViewHelper in your template:
 
 ```fluid
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:blog="http://typo3.org/ns/Zeroseven/Z7Blog/ViewHelpers" data-namespace-typo3-fluid="true">
@@ -54,10 +96,12 @@ tt_content.custom_blogpost_info {
 }
 ```
 
+So you see, there are several ways to achieve what you want. Feel free to choose what suits you best!
+
 ## Use different layouts
 
-Add the selectable layouts for the editor by the TSconfig.
-Inside the Fluidtemplate you can use some conditions, depending on the variable `{settings.layout}`.
+Add selectable layouts for the editor via TSconfig.
+Inside the Fluidtemplate you can use conditions, depending on the variable `{settings.layout}`.
 
 ```
 tx_z7blog.content.[CType].layouts {
@@ -66,35 +110,11 @@ tx_z7blog.content.[CType].layouts {
 }
 ```
 
-NOTE: The CType can be overridden by the TCA configuration `contentLayoutKey`.
+:warning: The CType can be overridden by the TCA configuration `contentLayoutKey`.
 
-## Update from extension "blogpages"
-
-Diese mysql queries kannst du verwenden, um einige Tabellen und Felder aus der Erweiterung "blogpages" upzudaten. Dabei ist es wichtig, dass du das **vor dem Installieren** ausführst. 
-
-**ACHTUNG:** Erstelle zuerst ein vollständiges Backup der Datenbank und schau dir genau an, was du machst. Die Queries sind keine Garantie, sondern nur eine Hilfestellung. Auch ist damit nicht alles gelöst. Beispielsweise die User-Berechtigungen, Flexform-Einstellungen oder andere Verknüpfungen müssen noch händisch ergänzt werden. 
-
-```mysql
--- Update authors
-RENAME TABLE `tx_blogpages_domain_model_author` TO `tx_z7blog_domain_model_author`;
-UPDATE `sys_file_reference` SET `tablenames` = 'tx_z7blog_domain_model_author' WHERE `tablenames` = 'tx_blogpages_domain_model_author';
-
--- The reincarnation of the topics (was called "tags" in previous life)
-ALTER TABLE `pages` CHANGE `post_tags` `post_topics` INT(11) unsigned DEFAULT '0' NOT NULL;
-RENAME TABLE `tx_blogpages_domain_model_tag` TO `tx_z7blog_domain_model_topic`;
-RENAME TABLE `tx_blogpages_post_tag_mm` TO `tx_z7blog_post_topic_mm`;
-
--- Move the relations between the posts
-ALTER TABLE `pages` CHANGE `post_related` `post_relations_to` INT(10) UNSIGNED NOT NULL DEFAULT '0';
-RENAME TABLE `tx_blogpages_post__mm` TO `tx_z7blog_post_mm`;
-
--- Update content elements
-UPDATE `tt_content` SET `CType` = 'z7blog_list', `hidden` = '1', `rowDescription` = CONCAT('The content type was changed and the element disabled while upgrading the blog extension.\n\n', rowDescription) WHERE `CType` = 'blogpages_list';
-UPDATE `tt_content` SET `CType` = 'z7blog_filter', `hidden` = '1', `rowDescription` = CONCAT('The content type was changed and the element disabled while upgrading the blog extension.\n\n', rowDescription) WHERE `CType` = 'blogpages_filter';
-```
 ## Extend models and demands classes
 
-Es ist möglich ein domain model oder eine demand class zu erweitern, indem du deine eigene `traits` hinterlegst.
+It's possible to extend a domain model or a demand class, by adding your own `traits`.
 
 **your_extension/Classes/Domain/Trait/PostModel.php**:
 
@@ -126,10 +146,10 @@ namespace Vendor\YourExtension\Domain\Trait;
 class PostDemand
 {
     /** @var bool */
-    public $navHide = false;   
+    public $navHide = false;
 
     /** @var array */
-    public $keywords = [];   
+    public $keywords = [];
 }
 ```
 
@@ -141,7 +161,7 @@ class PostDemand
 
 call_user_func(static function () {
 
-    // Load post trait collector instead of the "default" model 
+    // Load post trait collector instead of the "default" model
     $extbaseObjectContainer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class);
     $extbaseObjectContainer->registerImplementation(\Zeroseven\Z7Blog\Domain\Model\Post::class, \Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector::class);
 });
@@ -151,23 +171,22 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Do
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Demand\PostDemand::class][] = \Vendor\YourExtension\Domain\Trait\PostDemand::class;
 ```
 
-## SEO-Konfiguration
+## SEO config
 
-Wenn Filter als Get-Parameter verwendet werden, ist es oftmals ratsam diese vom Crawler auszuschliens, vor allem bei der Mehrfachauswahl von Tags oder Topics können schnell tausende Kobinationen entstehen.
+If filters are used as GET parameters, it is often advised to exclude them from being crawled. Especially when having a mulitselection of tags and topis, there can quickly be thousands of combinations being crawled.
 
-Beispiel: robots.txt
+Example robots.txt:
 
 ```
 Disallow: *tx_z7blog_list%5Btopics%5D=*s
 Disallow: *tx_z7blog_list%5Btags%5D=*
 ```
 
-## Strukturierte Daten
+## Structured data
 
-Jeder Post erhält automatisch zusätzlich Strukturierte Daten. 
-Wenn du diese Erweitern möchtest, kannst du diese im typoscript hinterlegen.
+Every post automatically gets structured data. If you want to expand these, you can edit it via TypoScript.
 
-Beispiel:
+Example:
 
 ```typo3_typoscript
 plugin.tx_z7blog.settings.post.structuredData {
@@ -177,7 +196,7 @@ plugin.tx_z7blog.settings.post.structuredData {
 
         # Define type "Organisation"
         typeOrganization {
-        
+
             # … and so on
             name = zeroseven design studios GmbH
             logo.typeImageObject {
@@ -190,9 +209,9 @@ plugin.tx_z7blog.settings.post.structuredData {
 }
 ```
 
-Um einen neuen `@type` zu erstellen, kannst du diesen entsprechend mit dem prefix `type` in der Konfiguration angeben.
+To create a new `@type`, you can prefix it with the corresponding `type` in the configuration.
 
 ## Todo:
 
-* Upgrades von div. TYPO3-Blog-Erweiterungen könnten über einen Upgrade-Wizard umgesetzt werden.
-* Integration von PSR14-Events für Controller, Repository, Strukturierte Daten, ...
+* Upgrades from various TYPO3 Blog extensions could be run via an upgrade wizard
+* Integration of PSR14-Events for controller, repository, structured data, ...
