@@ -1,6 +1,6 @@
 # TYPO3 blog extension
 
-## Why another blog extension?
+## :interrobang: Why another blog extension?
 
 ### For the best developers
 
@@ -25,7 +25,7 @@ We love SEO people and SEO people love this extension.
 A great opportunity to generate content for your website. Since all the posts are „regular“ TYPO3 pages, all the possibilities the TYPO3 core offers are available here as well. This way, you don’t need to worry about open graph data, sitemaps, canonical or meta tags like with record based extensions in this blog. It’s all there. On top, we’ve added structured data for all the posts just like that.
 
 
-## Feature overview
+## :lollipop: Feature overview
 
 * Multi domain
 * Multi language
@@ -39,7 +39,7 @@ A great opportunity to generate content for your website. Since all the posts ar
     * RSS-Feed
     * Comment function
 
-## "Subextensions"
+## :sparkles: "Subextensions"
 
 Like mentioned: For this extension to have a huge set of features but to not bloat it, these features can be installed or removed with our concept of subextensions.
 This way, you can also add your own subextensions to the blog.
@@ -51,11 +51,11 @@ Extensionkey | Description | Installation
 **[z7_blog_rss](https://github.com/zeroseven/z7_blog_rss)** | Creates a RSS feed via URL parameters | `composer req zeroseven/z7-blog-rss`
 **[z7_blog_comments](https://github.com/zeroseven/z7_blog_comments)** | Enhances the blog with a comment function | `composer req zeroseven/z7-blog-comments`
 
-## Installation
+## :wrench: Installation
 
 Get this extension via `composer req zeroseven/z7-blog`.
 
-## Setup
+## :gear: Setup
 
 ### Add post details to the template
 
@@ -214,7 +214,7 @@ plugin.tx_z7blog.settings.post.structuredData {
 
 To create a new `@type`, you can prefix it with the corresponding `type` in the configuration.
 
-## Todo:
+## :construction: Todo:
 
 * Upgrades from various TYPO3 Blog extensions could be run via an upgrade wizard
 * Integration of PSR14-Events for controller, repository, structured data, ...
