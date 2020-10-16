@@ -27,8 +27,8 @@ A great opportunity to generate content for your website. Since all the posts ar
 
 ## :lollipop: Feature overview
 
-* Multi domain
-* Multi language
+* Based on TYPO3 pages
+* Supports multi domain setup
 * Extended filter plugin
 * Structured data
 * Variable ajax pagination
