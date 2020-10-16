@@ -1,8 +1,4 @@
-# z7_blog
-
-## Installation
-
-Get this extension via `composer req zeroseven/z7-blog`.
+# TYPO3 blog extension
 
 ## Why another blog extension?
 
@@ -12,7 +8,7 @@ We love TYPO3 developers and TYPO3 developers love this extension.
 It’s never been so easy to bring a blog to a TYPO3 page, to customize it and put information where they belong. Extend the Extbase models, synchronize the content on post pages or invent new filter arguments for ViewHelpers or the repository with just a bunch of lines of code. It’s totally up to you.
 
 Want a RSS-Feed? Or a comments function? This extension is built highly modular:
-Whole features are easily installed or removed or you develop your very own features for the blog. This way, you’ll always only have the exact amount of features and configuration that you really need. Speaking of need: you really need this extension.
+Whole features are easily installed or removed or you develop your very own features for the blog. This way, you’ll always only have the exact amount of features and configuration that you really need. Speaking of need: you really need this extension!
 
 Oh by the way, we support multi language and multi domain setups of course.
 
@@ -38,9 +34,10 @@ A great opportunity to generate content for your website. Since all the posts ar
 * Variable ajax pagination
 * Autocomplete tags in the backend
 * Automated sorting in page tree
+* Custom plugin layouts
 * Modular sub extensions available:
-** RSS-Feed
-** Comment function
+    * RSS-Feed
+    * Comment function
 
 ## "Subextensions"
 
@@ -51,10 +48,16 @@ Here's an overview of existing subextensions:
 
 Extensionkey | Description | Installation
 --- | --- | ---
-**[z7_blog_rss](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_rss)** | Creates a RSS feed via URL parameters | `composer req zeroseven/z7-blog-rss`
-**[z7_blog_comments](https://gitlab.zeroseven.de/zeroseven/typo3-extensions/z7_blog_comments)** | Enhances the blog with a comment function | `composer req zeroseven/z7-blog-comments`
+**[z7_blog_rss](https://github.com/zeroseven/z7_blog_rss)** | Creates a RSS feed via URL parameters | `composer req zeroseven/z7-blog-rss`
+**[z7_blog_comments](https://github.com/zeroseven/z7_blog_comments)** | Enhances the blog with a comment function | `composer req zeroseven/z7-blog-comments`
 
-## Add post details to the template
+## Installation
+
+Get this extension via `composer req zeroseven/z7-blog`.
+
+## Setup
+
+### Add post details to the template
 
 If you need information about the post on each blog post, there's no need to maintain each one individually. Use the following TypoScript to add blog content to each post at a place of your liking.
 
@@ -98,7 +101,7 @@ tt_content.custom_blogpost_info {
 
 So you see, there are several ways to achieve what you want. Feel free to choose what suits you best!
 
-## Use different layouts
+### Use different layouts
 
 Add selectable layouts for the editor via TSconfig.
 Inside the Fluidtemplate you can use conditions, depending on the variable `{settings.layout}`.
@@ -112,7 +115,7 @@ tx_z7blog.content.[CType].layouts {
 
 :warning: The CType can be overridden by the TCA configuration `contentLayoutKey`.
 
-## Extend models and demands classes
+### Extend models and demands classes
 
 It's possible to extend a domain model or a demand class, by adding your own `traits`.
 
@@ -171,7 +174,7 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Do
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Demand\PostDemand::class][] = \Vendor\YourExtension\Domain\Trait\PostDemand::class;
 ```
 
-## SEO config
+### SEO config
 
 If filters are used as GET parameters, it is often advised to exclude them from being crawled. Especially when having a mulitselection of tags and topis, there can quickly be thousands of combinations being crawled.
 
@@ -182,7 +185,7 @@ Disallow: *tx_z7blog_list%5Btopics%5D=*s
 Disallow: *tx_z7blog_list%5Btags%5D=*
 ```
 
-## Structured data
+### Structured data
 
 Every post automatically gets structured data. If you want to expand these, you can edit it via TypoScript.
 
