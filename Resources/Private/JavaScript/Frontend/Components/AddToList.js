@@ -49,6 +49,9 @@ Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loa
       // Focus the first link of new results
       elements.list.getElementsByTagName('a')[linkLength].focus();
 
+      // Trigger event
+      Zeroseven.Blog.Utility.trigger('addToList:complete', {elements, contents});
+
     } else {
       if (confirm('The requested site could not be loaded:\n' + status + ').\n\nDo you want to try again?')) {
         window.location.href = elements.button.href;
