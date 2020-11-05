@@ -40,12 +40,13 @@
      * @returns {*}
      */
     static appendChilds(sourceElement, targetElement) {
+      let elements = [];
       let child;
       while (child = sourceElement.firstElementChild) {
-        targetElement.append(child);
+        elements.push(targetElement.appendChild(child));
       }
 
-      return targetElement;
+      return elements;
     }
 
     /**

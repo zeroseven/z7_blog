@@ -41,16 +41,16 @@ Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loa
       Object.keys(elements).forEach(key => delete elements[key].dataset.loading);
 
       // Append items
-      Zeroseven.Blog.Utility.appendChilds(contents[listSelector], elements.list);
+      const newItems = Zeroseven.Blog.Utility.appendChilds(contents[listSelector], elements.list);
 
       // Replace content of the control area
-      Zeroseven.Blog.Utility.appendChilds(contents[controlSelector], Zeroseven.Blog.Utility.removeChilds(elements.control), true);
+      const newControls = Zeroseven.Blog.Utility.appendChilds(contents[controlSelector], Zeroseven.Blog.Utility.removeChilds(elements.control));
 
       // Focus the first link of new results
       elements.list.getElementsByTagName('a')[linkLength].focus();
 
       // Trigger event
-      Zeroseven.Blog.Utility.trigger('addToList:complete', {elements, contents});
+      Zeroseven.Blog.Utility.trigger('addToList:complete', {elements: elements, items: newItems, controls: newControls});
 
     } else {
       if (confirm('The requested site could not be loaded:\n' + status + ').\n\nDo you want to try again?')) {
