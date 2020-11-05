@@ -89,12 +89,18 @@
 
       request.onreadystatechange = () => {
 
-        // Parse document
+        this.trigger('ajax:statechange', {state: request.readyState, url: url, selectors: selectors, request: request});
+
         if (request.readyState === 4) {
 
+          this.trigger('ajax:done', {url: url, selectors: selectors, request: request});
+
+          // Deprecated event trigger. Will be removed in later versions
           this.trigger('ajax:ready', {url: url, selectors: selectors, request: request});
 
           if (request.status === 200) {
+
+            // Parse document
             const parser = new DOMParser();
             const doc = parser.parseFromString(request.responseText, 'text/html');
 
@@ -103,15 +109,18 @@
               contents[selector] = doc.querySelector(selector);
             });
 
-            this.trigger('ajax:complete', {url: url, selectors: selectors, request: request, contents: contents});
-          }
+            this.trigger('ajax:success', {url: url, selectors: selectors, request: request, contents: contents});
 
-          // Run callback action
-          if (typeof callback === 'function') {
-            callback(contents, request.status);
+            // Deprecated event trigger. Will be removed in later versions
+            this.trigger('ajax:complete', {url: url, selectors: selectors, request: request, contents: contents});
+
+            // Run callback action
+            if (typeof callback === 'function') {
+              callback(contents, request.status);
+            }
+          } else {
+            this.trigger('ajax:error', {url: url, selectors: selectors, request: request, callback: callback});
           }
-        } else {
-          this.trigger('ajax:error', {url: url, selectors: selectors, request: request, callback: callback});
         }
       };
 
