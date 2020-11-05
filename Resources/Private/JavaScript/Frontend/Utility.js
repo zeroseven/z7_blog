@@ -85,14 +85,10 @@
       let contents = {};
       let request = new XMLHttpRequest();
 
-      this.trigger('ajax:send', {url: url, selectors: selectors});
-
       request.onreadystatechange = () => {
-
         this.trigger('ajax:statechange', {state: request.readyState, url: url, selectors: selectors, request: request});
 
         if (request.readyState === 4) {
-
           this.trigger('ajax:done', {url: url, selectors: selectors, request: request});
 
           // Deprecated event trigger. Will be removed in later versions
@@ -136,6 +132,8 @@
       request.open('POST', url, true);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       request.send(postDataString);
+
+      this.trigger('ajax:send', {url: url, selectors: selectors});
     }
   }
 
