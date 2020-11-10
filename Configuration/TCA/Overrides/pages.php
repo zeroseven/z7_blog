@@ -38,8 +38,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
     // Add fields to the table "pages"
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns($table, [
         'post_top' => [
-            'exclude' => true,
-            'l10n_mode' => 'exclude',
+            'exclude' => false,
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_top',
             'config' => [
                 'type' => 'check',
@@ -52,6 +51,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             ]
         ],
         'post_archive' => [
+            'exclude' => true,
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_archive',
             'config' => [
@@ -116,7 +116,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             ]
         ],
         'post_relations_to' => [
-            'exclude' => false,
+            'exclude' => true,
             'displayCond' => 'FIELD:l10n_parent:=:0',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_to',
             'config' => [
