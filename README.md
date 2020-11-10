@@ -174,6 +174,28 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Do
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Demand\PostDemand::class][] = \Vendor\YourExtension\Domain\Trait\PostDemand::class;
 ```
 
+### JavaScript events
+
+The extension triggers various useful JavaScript events regarding the pagination of blog posts in the frontend. Our custom triggers always start with `z7_blog` to make them distinguishible from potential other custom events. Currently the available events are
+
+| Event name | What it does |
+| ------ | ------ |
+| `z7_blog:ajax:statechange` | Triggered whenever the state of the ajax request changes |
+| `z7_blog:ajax:send` | Triggered when the ajax call is started (for example the "load more" buttons has been pressed) |
+| `z7_blog:ajax:done` | Triggered when the ajax call has come to an end, no matter if successful or not |
+| `z7_blog:ajax:success` | Triggered when the ajax call successfully returned an answer (state 200) |
+| `z7_blog:ajax:error` | Triggered when the ajax call returned an error |
+| `z7_blog:addToList:complete` | Triggered after the new list items have been added to the DOM |
+
+An example implementation could look like this:
+```js
+document.addEventListener('z7_blog:addToList:complete', e => {
+  console.log('Do something after the new blog posts have been added to the DOM');
+});
+```
+
+:point_up: **Tip:** The `z7_blog:addToList:complete` event trigger also hands over various variables you can nicely use to modify them more. For example all new items that just have been added to the list will be handed over.
+
 ### SEO config
 
 If filters are used as GET parameters, it is often advised to exclude them from being crawled. Especially when having a mulitselection of tags and topis, there can quickly be thousands of combinations being crawled.
