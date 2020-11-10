@@ -11,7 +11,6 @@
 					<settings.uids>
 						<TCEforms>
 							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_static.uids</label>
-							<exclude>1</exclude>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
