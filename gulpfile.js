@@ -5,7 +5,7 @@ const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 
-gulp.task('BuildFrontend', done => {
+gulp.task('JavaScript', done => {
 
   // Define the file paths
   gulp.src(['./Resources/Private/JavaScript/Frontend/**/*.js'])
@@ -36,25 +36,10 @@ gulp.task('BuildFrontend', done => {
   done();
 });
 
-gulp.task('BuildBackend', done => {
-
-  // Add Tagify library
-  gulp.src('./node_modules/@yaireo/tagify/dist/tagify.min.js')
-    .pipe(rename('Tagify.js'))
-    .pipe(gulp.dest('./Resources/Public/JavaScript/Backend'));
-
-  // Add Tagify library
-  gulp.src('./node_modules/@yaireo/tagify/dist/tagify.css')
-    .pipe(rename('Tagify.css'))
-    .pipe(gulp.dest('./Resources/Public/Css/Backend'));
-
-  done();
-});
-
-gulp.task('build', gulp.series('BuildBackend', 'BuildFrontend'));
+gulp.task('build', gulp.series('JavaScript'));
 
 gulp.task('watch', () => {
-  gulp.watch(['./Resources/Private/JavaScript/**/*.js'], gulp.series('BuildFrontend'));
+  gulp.watch(['./Resources/Private/JavaScript/**/*.js'], gulp.series('build'));
 });
 
 gulp.task('default', gulp.series('build', 'watch'));
