@@ -119,12 +119,12 @@ tx_z7blog.content.[CType].layouts {
 
 It's possible to extend a domain model or a demand class, by adding your own `traits`.
 
-**your_extension/Classes/Domain/Trait/PostModel.php**:
+**your_extension/Classes/Domain/Traits/PostModel.php**:
 
 ```php
 <?php declare(strict_types=1);
 
-namespace Vendor\YourExtension\Domain\Trait;
+namespace Vendor\YourExtension\Domain\Traits;
 
 trait PostModel
 {
@@ -139,12 +139,12 @@ trait PostModel
 }
 ```
 
-**your_extension/Classes/Domain/Trait/PostDemand.php**:
+**your_extension/Classes/Domain/Traits/PostDemand.php**:
 
 ```php
 <?php declare(strict_types=1);
 
-namespace Vendor\YourExtension\Domain\Trait;
+namespace Vendor\YourExtension\Domain\Traits;
 
 class PostDemand
 {
@@ -170,8 +170,8 @@ call_user_func(static function () {
 });
 
 // Register trait
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Model\Post::class][] = \Vendor\YourExtension\Domain\Trait\PostModel::class;
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Demand\PostDemand::class][] = \Vendor\YourExtension\Domain\Trait\PostDemand::class;
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Model\Post::class][] = \Vendor\YourExtension\Domain\Traits\PostModel::class;
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Demand\PostDemand::class][] = \Vendor\YourExtension\Domain\Traits\PostDemand::class;
 ```
 
 ### JavaScript events
