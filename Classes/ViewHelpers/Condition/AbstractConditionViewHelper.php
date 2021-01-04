@@ -23,13 +23,13 @@ class AbstractConditionViewHelper extends AbstractViewHelper
         return (int)$GLOBALS['TSFE']->page['doktype'];
     }
 
-    public function render()
+    public function render(): string
     {
         $negate = $this->arguments['negate'];
         $match = $this->validateCondition();
 
         if ($match && !$negate || !$match && $negate) {
-            return $this->renderChildren();
+            return $this->renderChildren() ?: '1';
         }
 
         return '';
