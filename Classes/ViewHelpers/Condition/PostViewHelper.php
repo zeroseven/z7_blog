@@ -4,23 +4,11 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Condition;
 
-use Zeroseven\Z7Blog\Domain\Model\Post;
-
 /**
- * This view helper will check if the current page is a blog post
+ * This ViewHelper is deprecated, use IsPostViewHelper instead.
  *
- * <blog:condition.post>
- *   The current page is a blog post
- * </blog:condition.post>
- *
- * <blog:condition.post negate="1">
- *   The current page is NOT a blog post
- * </blog:condition.post>
+ * @deprecated
  */
-class PostViewHelper extends AbstractConditionViewHelper
+class PostViewHelper extends IsPostViewHelper
 {
-    protected function validateCondition(): bool
-    {
-        return $this->getDoktype() === Post::DOKTYPE;
-    }
 }
