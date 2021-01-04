@@ -91,9 +91,6 @@
         if (request.readyState === 4) {
           this.trigger('ajax:done', {url: url, selectors: selectors, request: request});
 
-          // Deprecated event trigger. Will be removed in later versions
-          this.trigger('ajax:ready', {url: url, selectors: selectors, request: request});
-
           if (request.status === 200) {
 
             // Parse document
@@ -106,9 +103,6 @@
             });
 
             this.trigger('ajax:success', {url: url, selectors: selectors, request: request, contents: contents});
-
-            // Deprecated event trigger. Will be removed in later versions
-            this.trigger('ajax:complete', {url: url, selectors: selectors, request: request, contents: contents});
 
             // Run callback action
             if (typeof callback === 'function') {
