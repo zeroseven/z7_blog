@@ -241,7 +241,7 @@ To create a new `@type`, you can prefix it with the corresponding `type` in the 
 
 Our blog offers custom conditions to work with in your fluid templates. It's best shown by providing a simple example. Let's say you want to add some extra content to all headers, but only on blog posts:
 
-```HTML
+```html
 <blog:condition.isPost>
     <span>It's a post</span>
 </blog:condition.isPost>
@@ -249,7 +249,7 @@ Our blog offers custom conditions to work with in your fluid templates. It's bes
 
 You can also integrate it's usage in the standard `ifViewHelper` to achieve even more flexibility:
 
-```HTML
+```html
 <f:if condition="{media} && {blog:condition.isPost()}">
     <f:then>
         <span>It's a post with an image</span>
