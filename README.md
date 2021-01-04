@@ -35,6 +35,7 @@ A great opportunity to generate content for your website. Since all the posts ar
 * Autocomplete tags in the backend
 * Automated sorting in page tree
 * Custom plugin layouts
+* Custom conditions for your fluid templates
 * Modular sub extensions available:
     * RSS-Feed
     * Comment function
@@ -235,6 +236,31 @@ plugin.tx_z7blog.settings.post.structuredData {
 ```
 
 To create a new `@type`, you can prefix it with the corresponding `type` in the configuration.
+
+### Custom conditions for fluid templates
+
+Our blog offers custom conditions to work with in your fluid templates. It's best shown by providing a simple example. Let's say you want to add some extra content to all headers, but only on blog posts:
+
+```HTML
+<blog:condition.isPost>
+    <span>It's a post</span>
+</blog:condition.isPost>
+```
+
+You can also integrate it's usage in the standard `ifViewHelper` to achieve even more flexibility:
+
+```HTML
+<f:if condition="{media} && {blog:condition.isPost()}">
+    <f:then>
+        <span>It's a post with an image</span>
+    <f:then>
+    <f:else>
+        <span>It's a "normal" page or the image is missing</span>
+    <f:else>
+</f:if>
+```
+
+Check out all custom conditions the z7_blog has to offer in the `Classes/ViewHelpers/Conditions` directory.
 
 ## :construction: Todo:
 
