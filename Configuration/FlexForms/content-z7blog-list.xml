@@ -83,7 +83,6 @@
 					<settings.top_post_mode>
 						<TCEforms>
 							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_list.top_post_mode</label>
-							<exclude>1</exclude>
 							<config>
 								<type>select</type>
 								<renderType>selectSingle</renderType>
