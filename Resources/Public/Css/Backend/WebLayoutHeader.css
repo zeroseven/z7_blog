@@ -8,18 +8,6 @@
 
 #post-info-table th,
 #post-info-table td {
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
-}
-
-.post-info-tag {
-	border: 1px solid #000;
-	font-size: 10px;
-	padding: 0.2em 0.6em;
-	border-radius: 0.6em;
-}
-
-.post-info-tag,
-.post-info-tag:hover {
-	text-decoration: none;
+	padding-top: .2em;
+	padding-bottom: .2em;
 }

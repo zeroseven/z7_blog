@@ -89,10 +89,15 @@
 				<td>
 					<f:if condition="{post.tags}">
 						<f:then>
-							<f:for each="{post.tags}" as="tag" iteration="i">
-								<be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" class="post-info-tag" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">{tag}</be:link.editRecord>
-							</f:for>
+						    <be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" style="text-decoration: none" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
+                                <f:for each="{post.tags}" as="tag" iteration="i">
+                                    <span class="badge">{tag}</span>
+                                </f:for>
+                            </be:link.editRecord>
 						</f:then>
+						<f:else>
+						    <be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">-</be:link.editRecord>
+                        </f:else>
 					</f:if>
 				</td>
 			</tr>
