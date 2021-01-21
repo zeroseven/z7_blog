@@ -179,7 +179,17 @@ class Post extends AbstractPageModel
 
     public function getRelationsTo(): ObjectStorage
     {
-        return $this->relationsTo;
+        $relatedTo = new ObjectStorage();
+        $pageRepo = GeneralUtility::makeInstance(PageRepository::class);
+        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+
+        foreach ($this->relationsTo as $item) {
+            if ($pageRepo->isPageSuitableForLanguage($pageRepo->getPage($item->getUid()), $languageAspect)) {
+                $relatedTo->attach($item);
+            }
+        }
+
+        return $relatedTo;
     }
 
     public function setRelationsTo(ObjectStorage $relationsTo): self
