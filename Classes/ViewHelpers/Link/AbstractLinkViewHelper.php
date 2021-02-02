@@ -79,9 +79,12 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
     {
         parent::initialize();
 
-        // Take copy of given demand object
         if (($demand = $this->arguments['demand']) instanceof PostDemand) {
+
+            // Take copy of given demand object
             $this->demand = clone $demand;
+        } else {
+            $this->demand->reset();
         }
 
         // Set default arguments

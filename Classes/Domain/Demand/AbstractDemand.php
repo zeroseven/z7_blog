@@ -228,6 +228,13 @@ abstract class AbstractDemand
         return $result;
     }
 
+    public function reset(): void
+    {
+        foreach ($this->parameterMapping as $propertyName => $parameter) {
+            $this->setProperty($propertyName, null);
+        }
+    }
+
     public function __call($name, $arguments)
     {
         if (preg_match('/((?:s|g)et|is|has|addTo|removeFrom)([A-Z].*)/', $name, $matches)) {
