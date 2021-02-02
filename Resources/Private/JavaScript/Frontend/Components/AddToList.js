@@ -34,9 +34,6 @@ Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loa
   Zeroseven.Blog.Utility.loadContents(elements.button.dataset.href, null, (contents, status) => {
     if (status < 400) {
 
-      // Get the number of links
-      const linkLength = elements.list.getElementsByTagName('a').length;
-
       // Remove loading classes
       Object.keys(elements).forEach(key => delete elements[key].dataset.loading);
 
@@ -46,8 +43,11 @@ Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loa
       // Replace content of the control area
       const newControls = Zeroseven.Blog.Utility.appendChilds(contents[controlSelector], Zeroseven.Blog.Utility.removeChilds(elements.control));
 
-      // Focus the first link of new results
-      elements.list.getElementsByTagName('a')[linkLength].focus();
+      // Focus the first link of new results and restore scroll position
+      const scrollPositionY = window.scrollY;
+      const scrollPositionX = window.scrollX;
+      (newItems[0] && newItems[0].nodeName.toLowerCase() === 'a' ? newItems[0] : (newItems[0].querySelector('a') || newItems[0])).focus();
+      window.scroll(scrollPositionX, scrollPositionY);
 
       // Trigger event
       Zeroseven.Blog.Utility.trigger('addToList:complete', {elements: elements, items: newItems, controls: newControls});

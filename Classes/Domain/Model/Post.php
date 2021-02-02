@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\ORM as Extbase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -181,17 +179,15 @@ class Post extends AbstractPageModel
 
     public function getRelationsTo(): ObjectStorage
     {
-        $relatedTo = new ObjectStorage();
-        $pageRepo = GeneralUtility::makeInstance(PageRepository::class);
-        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+        $relations = $this->relationsTo;
 
-        foreach ($this->relationsTo as $item) {
-            if ($pageRepo->isPageSuitableForLanguage($pageRepo->getPage($item->getUid()), $languageAspect)) {
-                $relatedTo->attach($item);
+        foreach ($relations as $relation) {
+            if($relation->getUid() === $this->uid) {
+                $relations->detach($relation);
             }
         }
 
-        return $relatedTo;
+        return $relations;
     }
 
     public function setRelationsTo(ObjectStorage $relationsTo): self
@@ -203,7 +199,15 @@ class Post extends AbstractPageModel
 
     public function getRelationsFrom(): ObjectStorage
     {
-        return $this->relationsFrom;
+        $relations = $this->relationsFrom;
+
+        foreach ($relations as $relation) {
+            if($relation->getUid() === $this->uid) {
+                $relations->detach($relation);
+            }
+        }
+
+        return $relations;
     }
 
     public function setRelationsFrom(ObjectStorage $relationsFrom): self
