@@ -6,3 +6,4 @@
 /gulpfile.js export-ignore
 /package.json export-ignore
 /package-lock.json export-ignore
+/Resources/Private/JavaScript export-ignore
