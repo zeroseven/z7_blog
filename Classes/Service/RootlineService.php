@@ -26,14 +26,19 @@ class RootlineService
         return 0;
     }
 
+    protected static function getRootline(int $startingPoint = null): array
+    {
+        if (empty($startingPoint) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $rootLine = $GLOBALS['TSFE']->rootLine) {
+            return $rootLine;
+        } else {
+            return GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint ?: self::getCurrentPage())->get();
+        }
+    }
+
     public static function findCategory(int $startingPoint = null, array $rootLine = null): ?int
     {
-        if (empty($startingPoint)) {
-            $startingPoint = self::getCurrentPage();
-        }
-
         if (empty($rootLine)) {
-            $rootLine = $GLOBALS['TSFE'] instanceof TypoScriptFrontendController ? $GLOBALS['TSFE']->rootLine : GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint)->get();
+            $rootLine = self::getRootline($startingPoint);
         }
 
         foreach ($rootLine ?? [] as $key => $row) {
