@@ -28,6 +28,11 @@
       "Zeroseven\\Z7Blog\\": "Classes"
     }
   },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "z7_blog"
+    }
+  },
   "replace": {
     "zeroseven/z7-blog": "self.version"
   }
