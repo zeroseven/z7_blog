@@ -30,9 +30,8 @@ class RootlineService
     {
         if (empty($startingPoint) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $rootLine = $GLOBALS['TSFE']->rootLine) {
             return $rootLine;
-        } else {
-            return GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint ?: self::getCurrentPage())->get();
         }
+        return GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint ?: self::getCurrentPage())->get();
     }
 
     public static function findCategory(int $startingPoint = null, array $rootLine = null): ?int
