@@ -113,7 +113,8 @@ class StructuredData implements MiddlewareInterface
                         'sameAs' => [
                             $this->forceAbsoluteUrl($author->getTwitter()),
                             $this->forceAbsoluteUrl($author->getXing()),
-                            $this->forceAbsoluteUrl($author->getLinkedin())
+                            $this->forceAbsoluteUrl($author->getLinkedin()),
+                            $this->forceAbsoluteUrl($author->getPageLink())
                         ],
                         'image' => ($image = $author->getImage()) ? [
                             'typeImageObject' => $this->createImageObjectType($image->getOriginalResource())
