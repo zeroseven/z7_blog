@@ -28,6 +28,13 @@ class StructuredData implements MiddlewareInterface
         }));
     }
 
+    protected function removeEmptyValues(array $array): array
+    {
+        return array_filter($array, function ($v) {
+            return !empty(is_array($v) ? $this->removeEmptyValues($v) : $v);
+        });
+    }
+
     protected function parseStructuredData(array $array): array
     {
 
@@ -35,12 +42,10 @@ class StructuredData implements MiddlewareInterface
         $output = [];
 
         // Remove empty values
-        $array = array_filter($array, static function ($v) {
-            return !empty($v);
-        });
+        $data = $this->removeEmptyValues($array);
 
         // Loop through array (recursive)
-        foreach ($array as $key => $value) {
+        foreach ($data as $key => $value) {
             if (is_string($key) && preg_match('/^type((?:[A-Z][a-z]+)+)$/', $key, $matches)) {
                 return $this->parseStructuredData(array_merge(['@type' => $matches[1]], $value));
             }
@@ -97,6 +102,11 @@ class StructuredData implements MiddlewareInterface
                 'author' => [
                     'typePerson' => [
                         'name' => trim($author->getFirstName() . ' ' . $author->getLastName()),
+                        'sameAs' => [
+                            $author->getTwitter(),
+                            $author->getXing(),
+                            $author->getLinkedin()
+                        ],
                         'image' => ($image = $author->getImage()) ? [
                             'typeImageObject' => $this->createImageObjectType($image->getOriginalResource())
                         ] : null
