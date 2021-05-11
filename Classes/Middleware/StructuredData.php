@@ -13,6 +13,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\ImageService;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Event\StructuredDataEvent;
@@ -37,7 +38,6 @@ class StructuredData implements MiddlewareInterface
 
     protected function parseStructuredData(array $array): array
     {
-
         // Create output
         $output = [];
 
@@ -54,6 +54,14 @@ class StructuredData implements MiddlewareInterface
         }
 
         return $output;
+    }
+
+    protected function forceAbsoluteUrl(string $parameter = null): ?string
+    {
+        return empty($parameter) ? null : GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
+            'parameter' => $parameter,
+            'forceAbsoluteUrl' => true
+        ]);
     }
 
     protected function createImageObjectType(FileReference $media = null): ?array
@@ -103,9 +111,9 @@ class StructuredData implements MiddlewareInterface
                     'typePerson' => [
                         'name' => trim($author->getFirstName() . ' ' . $author->getLastName()),
                         'sameAs' => [
-                            $author->getTwitter(),
-                            $author->getXing(),
-                            $author->getLinkedin()
+                            $this->forceAbsoluteUrl($author->getTwitter()),
+                            $this->forceAbsoluteUrl($author->getXing()),
+                            $this->forceAbsoluteUrl($author->getLinkedin())
                         ],
                         'image' => ($image = $author->getImage()) ? [
                             'typeImageObject' => $this->createImageObjectType($image->getOriginalResource())
