@@ -117,6 +117,7 @@ class StructuredData implements MiddlewareInterface
                             $this->forceAbsoluteUrl($author->getPageLink())
                         ],
                         'image' => ($image = $author->getImage()) ? [
+                        'knowsAbout' => $author->getExpertise(),
                             'typeImageObject' => $this->createImageObjectType($image->getOriginalResource())
                         ] : null
                     ]
