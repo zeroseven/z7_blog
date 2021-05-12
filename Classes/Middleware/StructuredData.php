@@ -100,9 +100,12 @@ class StructuredData implements MiddlewareInterface
                 '@context' => 'http://schema.org',
                 '@type' => 'BlogPosting',
                 'headline' => $post->getTitle(),
-                'datePublished' => ($date = $post->getDate()) ? $date ->format('Y-m-d') : null,
-                'dateModified' => ($lastChange = $post->getLastChange()) ? $lastChange ->format('Y-m-d') : null,
+                'datePublished' => ($date = $post->getDate()) ? $date->format('Y-m-d') : null,
+                'dateModified' => ($lastChange = $post->getLastChange()) ? $lastChange->format('Y-m-d') : null,
                 'description' => $post->getAbstract() ?: $post->getDescription(),
+                'image' => empty($image = $post->getFirstImage()) ? null : [
+                    'typeImageObject' => $this->createImageObjectType($image)
+                ]
             ];
 
             // Create author object
@@ -116,18 +119,11 @@ class StructuredData implements MiddlewareInterface
                             $this->forceAbsoluteUrl($author->getLinkedin()),
                             $this->forceAbsoluteUrl($author->getPageLink())
                         ],
-                        'image' => ($image = $author->getImage()) ? [
                         'knowsAbout' => $author->getExpertise(),
+                        'image' => empty($image = $author->getImage()) ? null : [
                             'typeImageObject' => $this->createImageObjectType($image->getOriginalResource())
-                        ] : null
+                        ]
                     ]
-                ]
-            ];
-
-            // Create image object
-            $imageStructure = ($image = $post->getFirstImage()) === null ? [] : [
-                'image' => [
-                    'typeImageObject' => $this->createImageObjectType($image)
                 ]
             ];
 
@@ -138,7 +134,7 @@ class StructuredData implements MiddlewareInterface
             $postStructure = method_exists($post, 'getStructuredData') ? $post->getStructuredData() : [];
 
             // Merge data
-            $structuredData = $this->collectArrays($basicStructure, $authorStructure, $imageStructure, $staticStructure, $postStructure);
+            $structuredData = $this->collectArrays($basicStructure, $authorStructure, $staticStructure, $postStructure);
 
             // Call event to modify structured data
             if (class_exists(EventDispatcher::class)) {
