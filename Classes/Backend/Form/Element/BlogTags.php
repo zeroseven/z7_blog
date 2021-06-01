@@ -87,7 +87,7 @@ class BlogTags extends AbstractFormElement
                     <div class="form-wizards-element">' . $formField . '</div>
                     <div class="form-wizards-items-bottom">' . ($fieldWizardResult['html'] ?? '') . '</div>
                 </div>
-            </div>    
+            </div>
         ';
     }
 

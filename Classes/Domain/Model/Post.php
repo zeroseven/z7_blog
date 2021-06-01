@@ -185,7 +185,7 @@ class Post extends AbstractPageModel
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
 
         foreach ($relations as $relation) {
-            if($relation->getUid() === $this->uid || !$pageRepository->isPageSuitableForLanguage($pageRepository->getPage($relation->getUid()), $languageAspect)) {
+            if ($relation->getUid() === $this->uid || !$pageRepository->isPageSuitableForLanguage($pageRepository->getPage($relation->getUid()), $languageAspect)) {
                 $relations->detach($relation);
             }
         }

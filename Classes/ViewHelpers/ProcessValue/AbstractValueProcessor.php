@@ -59,7 +59,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
 
         // Add constraints
-        if($sysLanguageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id')) {
+        if ($sysLanguageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id')) {
             $query->where($queryBuilder->expr()->orX(
                 $queryBuilder->expr()->andX(
                     $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sysLanguageUid, \PDO::PARAM_INT)),
@@ -67,7 +67,7 @@ class AbstractValueProcessor extends AbstractViewHelper
                 ),
                 $queryBuilder->expr()->andX(
                     $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(-1, \PDO::PARAM_INT)),
-                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
+                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
                 )
             ));
         } else {
@@ -90,7 +90,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         $tableName = $this->dataMap->getTableName();
 
         // Override table name
-        if(($columnMap = $this->dataMap->getColumnMap($property)) && ($childTableName = $columnMap->getChildTableName())) {
+        if (($columnMap = $this->dataMap->getColumnMap($property)) && ($childTableName = $columnMap->getChildTableName())) {
             $tableName = $childTableName;
         }
 
