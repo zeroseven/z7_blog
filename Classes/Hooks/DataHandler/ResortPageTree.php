@@ -13,15 +13,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 
-class ResortPagetree
+class ResortPageTree
 {
     protected const TABLE = 'pages';
 
     protected const SORTING_FIELD = 'post_date';
 
-    public function processDatamap_afterAllOperations(&$dataHanlder): void
+    public function processDatamap_afterAllOperations(DataHandler &$dataHandlder): void
     {
-        foreach ($dataHanlder->datamap as $table => $uids) {
+        foreach ($dataHandlder->datamap as $table => $uids) {
             if ($table === self::TABLE) {
                 foreach ($uids as $uid => $data) {
                     if ((int)$uid && (int)$data['doktype'] === Post::DOKTYPE) {
@@ -30,7 +30,7 @@ class ResortPagetree
                         $pid = (int)BackendUtility::getRecord(self::TABLE, $uid, 'pid')['pid'];
 
                         // Send message about the sorting
-                        if ($this->sortItemsOnPid($pid, $dataHanlder)) {
+                        if ($this->sortItemsOnPid($pid, $dataHandlder)) {
                             $parentRow = BackendUtility::getRecord(self::TABLE, $pid);
 
                             $message = GeneralUtility::makeInstance(
