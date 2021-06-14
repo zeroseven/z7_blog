@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -15,9 +16,14 @@ use Zeroseven\Z7Blog\Domain\Model\Category;
 
 class RootlineService
 {
+    protected static function getRequest(): ?ServerRequestInterface
+    {
+        return isset($GLOBALS['TYPO3_REQUEST']) && $GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface ? $GLOBALS['TYPO3_REQUEST'] : null;
+    }
+
     protected static function isFrontendMode(): bool
     {
-        return isset($GLOBALS['TYPO3_REQUEST']) && $GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend();
+        return ($request = self::getRequest()) && ApplicationType::fromRequest($request)->isFrontend();
     }
 
     protected static function isBackendMode(): bool
@@ -63,8 +69,10 @@ class RootlineService
 
     public static function getRootPage(int $startingPoint = null): int
     {
-        if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $rootPage = $GLOBALS['TSFE']->domainStartPage) {
-            return $rootPage;
+        if (self::isFrontendMode()) {
+            $site = $startingPoint === null && ($request = self::getRequest()) ? $request->getAttribute('site') : GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId($startingPoint);
+
+            return (int)$site->getRootPageId();
         }
 
         if (self::isBackendMode()) {
