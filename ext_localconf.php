@@ -4,33 +4,33 @@ defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(static function (string $extensionKey, int $postDoktype, int $categoryDoktype) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Zeroseven.Z7Blog',
+        $extensionKey,
         'Filter',
-        ['Post' => 'filter'],
+        [\Zeroseven\Z7Blog\Controller\PostController::class => 'filter'],
         [],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Zeroseven.Z7Blog',
+        $extensionKey,
         'List',
-        ['Post' => 'list', 'listUncached'],
-        ['Post' => 'listUncached'],
+        [\Zeroseven\Z7Blog\Controller\PostController::class => 'list', 'listUncached'],
+        [\Zeroseven\Z7Blog\Controller\PostController::class => 'listUncached'],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Zeroseven.Z7Blog',
+        $extensionKey,
         'Static',
-        ['Post' => 'static'],
+        [\Zeroseven\Z7Blog\Controller\PostController::class => 'static'],
         [],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Zeroseven.Z7Blog',
+        $extensionKey,
         'Authors',
-        ['Author' => 'list'],
+        [\Zeroseven\Z7Blog\Controller\AuthorController::class => 'list'],
         [],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
