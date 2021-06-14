@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\QueryGenerator;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -13,6 +15,16 @@ use Zeroseven\Z7Blog\Domain\Model\Category;
 
 class RootlineService
 {
+    protected static function isFrontendMode(): bool
+    {
+        return isset($GLOBALS['TYPO3_REQUEST']) && $GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend();
+    }
+
+    protected static function isBackendMode(): bool
+    {
+        return !self::isFrontendMode();
+    }
+
     protected static function getCurrentPage(): int
     {
         if (isset($GLOBALS['TSFE']) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController) {
@@ -55,7 +67,7 @@ class RootlineService
             return $rootPage;
         }
 
-        if (TYPO3_MODE === 'BE') {
+        if (self::isBackendMode()) {
             foreach (GeneralUtility::makeInstance(BackendUtility::class)->BEgetRootLine($startingPoint ?: self::getCurrentPage()) ?: [] as $page) {
                 if ($page['is_siteroot'] || (int)$page['pid'] === 0) {
                     return (int)$page['uid'];
