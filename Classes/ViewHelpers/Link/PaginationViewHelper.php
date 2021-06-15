@@ -26,7 +26,6 @@ class PaginationViewHelper extends AbstractLinkViewHelper
                 ->setArguments((array)$this->arguments['arguments'])
                 ->setAddQueryString((bool)$this->arguments['addQueryString'])
                 ->setArguments((array)$this->arguments['additionalParams'])
-                ->setAddQueryStringMethod((string)$this->arguments['addQueryStringMethod'])
                 ->uriFor($this->arguments['action'], array_merge((array)$this->arguments['arguments'], [
                     'ajax' => 1
                 ]), $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']));
