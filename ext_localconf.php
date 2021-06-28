@@ -56,7 +56,7 @@ call_user_func(static function (string $extensionKey, int $postDoktype, int $cat
         'configuration' => null,
     ];
 
-}, Zeroseven\Z7Blog\Service\SettingsService::EXTENSION_KEY, \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
+}, \Zeroseven\Z7Blog\Service\SettingsService::EXTENSION_KEY, \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
 
 // Register hooks
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][TYPO3\CMS\Core\Imaging\IconFactory::class]['overrideIconOverlay'][] = \Zeroseven\Z7Blog\Hooks\IconFactory\OverrideIconOverlay::class;
