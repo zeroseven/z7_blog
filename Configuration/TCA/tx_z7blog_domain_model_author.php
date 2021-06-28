@@ -57,7 +57,7 @@ return [
                     ['', 0]
                 ],
                 'foreign_table' => 'tx_z7blog_domain_model_author',
-                'foreign_table_where' => 'AND tx_z7blog_domain_model_author.pid=###CURRENT_PID### AND tx_z7blog_domain_model_author.sys_language_uid IN (-1,0)',
+                'foreign_table_where' => 'AND tx_z7blog_domain_model_author.pid=###CURRENT_PID### AND tx_z7blog_domain_model_author.sys_language_uid IN (-1,0)'
             ]
         ],
         'l10n_diffsource' => [
@@ -145,7 +145,7 @@ return [
                     'overrideChildTca' => [
                         'types' => [
                             '0' => ['showitem' => '--palette--;;filePalette'],
-                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => ['showitem' => '--palette--;;filePalette'],
+                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => ['showitem' => '--palette--;;filePalette']
                         ]
                     ],
                     'maxitems' => 1

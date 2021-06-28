@@ -21,7 +21,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title',
+            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title'
         ]
     ],
     'columns' => [
@@ -53,7 +53,7 @@ return [
                     ['', 0]
                 ],
                 'foreign_table' => 'tx_z7blog_domain_model_topic',
-                'foreign_table_where' => 'AND tx_z7blog_domain_model_topic.pid=###CURRENT_PID### AND tx_z7blog_domain_model_topic.sys_language_uid IN (-1,0)',
+                'foreign_table_where' => 'AND tx_z7blog_domain_model_topic.pid=###CURRENT_PID### AND tx_z7blog_domain_model_topic.sys_language_uid IN (-1,0)'
             ]
         ],
         'l10n_diffsource' => [

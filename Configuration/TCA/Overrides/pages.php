@@ -103,7 +103,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                 'foreign_table_where' => 'AND \'all other topics\' = \'gone, LOL\'',
                 'MM' => 'tx_z7blog_post_topic_mm',
                 'itemsProcFunc' => 'Zeroseven\\Z7Blog\\TCA\\ItemsProcFunc->getTopics',
-                'default' => 0,
+                'default' => 0
             ]
         ],
         'post_tags' => [
@@ -214,9 +214,9 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                     $postDoktype => 'apps-pagetree-blogpost',
                     $postDoktype . '-hideinmenu' => 'apps-pagetree-blogpost-hideinmenu',
                     $categoryDoktype => 'apps-pagetree-blogcategory',
-                    $categoryDoktype . '-hideinmenu' => 'apps-pagetree-blogcategory-hideinmenu',
-                ],
-            ],
+                    $categoryDoktype . '-hideinmenu' => 'apps-pagetree-blogcategory-hideinmenu'
+                ]
+            ]
         ]
     );
 }, 'pages', \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);
