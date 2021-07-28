@@ -9,7 +9,7 @@
 		</f:then>
 		<f:else>
 			<f:if condition="{pagination.maxStages} == {pagination.selectedStage + 1}">
-				<blog:link.filter class="blglst__all" defaultList="true" demand="{demand}" listId="0" dataAttributes="false">
+				<blog:link.filter class="blglst__all" demand="{demand}" defaultList="true" pageUid="{demand.category}" listId="0" dataAttributes="false">
 					{f:translate(key:'pagination.all')}
 				</blog:link.filter>
 			</f:if>
