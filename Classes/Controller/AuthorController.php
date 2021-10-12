@@ -15,6 +15,7 @@ class AuthorController extends ActionController
 
         // Collect authors
         $demand = AuthorDemand::makeInstance()->setParameterArray(true, $this->settings);
+        $demand->uids = AuthorDemand::makeInstance()->getL10nParents($demand);
         $authors = RepositoryService::getAuthorRepository()->findByDemand($demand);
 
         // Pass variables to the fluid template
