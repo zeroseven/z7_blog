@@ -182,34 +182,6 @@ abstract class AbstractDemand
         return $this;
     }
 
-    public function getL10nParents($demand){
-        $uidDe = $demand->uids;
-
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getConnectionForTable('tx_z7blog_domain_model_author');
-
-        $queryBuilder = $connection->createQueryBuilder();
-        $query = $queryBuilder
-            ->select('uid')
-            ->from('tx_z7blog_domain_model_author')
-            ->where(
-                $queryBuilder->expr()->in('l10n_parent', $queryBuilder->createNamedParameter($uidDe, ConnectionAlias::PARAM_INT_ARRAY))
-            )
-            ->orWhere(
-                $queryBuilder->expr()->in('uid', $queryBuilder->createNamedParameter($uidDe, ConnectionAlias::PARAM_INT_ARRAY))
-            )
-        ;
-
-        $rows = $query->execute()->fetchAll();
-
-        $implodedRows = implode(', ', array_column($rows, 'uid'));
-
-        $explodedRows = array_map('intval', explode(',', $implodedRows));
-
-        return $explodedRows;
-
-    }
-
     public function getParameterArray(bool $ignoreEmptyValues = null): array
     {
         $parameters = [];
