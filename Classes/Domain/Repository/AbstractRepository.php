@@ -2,6 +2,8 @@
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\ColumnMap;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -37,8 +39,17 @@ abstract class AbstractRepository extends Repository
         $dataMapper = $this->objectManager->get(DataMapper::class);
 
         // Search for specific uids
-        if ($uids = $demand->getUids()) {
-            $constraints[] = $query->in('uid', $uids);
+        if ($uids = $demand->getUids()){
+            if (($langaugeUid = (int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0)) > 0) {
+                $dataMap = $dataMapper->getDataMap($this->objectType);
+
+                $constraints[] = $query->logicalAnd(
+                    $query->in($dataMap->getTranslationOriginColumnName(), $uids),
+                    $query->equals($dataMap->getLanguageIdColumnName(), $langaugeUid)
+                );
+            } else {
+                $constraints[] = $query->in('uid', $uids);
+            }
         }
 
         /**

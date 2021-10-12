@@ -8,8 +8,6 @@ use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Zeroseven\Z7Blog\Service\TraitCollectorService;
 use Zeroseven\Z7Blog\Service\TypeCastService;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use Doctrine\DBAL\Connection as ConnectionAlias;
 
 abstract class AbstractDemand
 {
