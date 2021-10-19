@@ -35,5 +35,19 @@
   },
   "replace": {
     "zeroseven/z7-blog": "self.version"
+  },
+  "scripts": {
+    "prepare-release": [
+      "rm .editorconfig",
+      "rm .gitattributes",
+      "rm .gitignore",
+      "rm .gitlab-ci.yml",
+      "rm -rf .github",
+      "rm .satisinclude",
+      "rm gulpfile.js",
+      "rm package.json",
+      "rm package-lock.json",
+      "rm -rf Resources/Private/JavaScript"
+    ]
   }
 }
