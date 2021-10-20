@@ -1,5 +1,4 @@
-(function () {
-
+(() => {
   class Utility {
 
     /**
