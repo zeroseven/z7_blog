@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Domain\Model;
 
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\ORM as Extbase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Frontend\Page\PageRepository;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
 
