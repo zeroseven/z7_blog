@@ -1,5 +1,4 @@
 Zeroseven.Blog.Utility.register('addToList', (listSelector, controlSelector, loadingText, button, e) => {
-
   const event = e || window.event;
 
   const elements = {

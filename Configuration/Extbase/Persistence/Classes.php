@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
     \Zeroseven\Z7Blog\Domain\Model\AbstractPageModel::class => [
         'tableName' => 'pages',
