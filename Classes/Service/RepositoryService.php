@@ -21,7 +21,7 @@ class RepositoryService
             return $repository;
         }
 
-        // Get repository an store in cache
+        // Get repository and store in cache
         return $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['repository'][$class] = GeneralUtility::makeInstance(ObjectManager::class)->get($class);
     }
 
