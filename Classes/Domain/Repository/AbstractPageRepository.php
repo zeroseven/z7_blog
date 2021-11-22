@@ -60,22 +60,22 @@ abstract class AbstractPageRepository extends AbstractRepository
     {
 
         // Convert the uid to an integer
-        $postUid = TypeCastService::int($uid);
-        $key = 'post-' . $postUid . ($ignoreRestrictions ? '' : '-ignoredRestrictions');
+        $pageUid = TypeCastService::int($uid);
+        $key = 'page-' . $pageUid . ($ignoreRestrictions ? '' : '-ignoredRestrictions');
 
-        // Try to deliver a stored post object
-        if ($post = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'][$key] ?? null) {
-            return $post;
+        // Try to deliver a stored page object
+        if ($page = $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['page'][$key] ?? null) {
+            return $page;
         }
 
-        // Load post without restrictions
+        // Load page without restrictions
         if ($ignoreRestrictions) {
             $query = $this->createQuery();
 
             if ((int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0) > 0) {
-                $constraint = $query->equals('l10n_parent', $postUid);
+                $constraint = $query->equals('l10n_parent', $pageUid);
             } else {
-                $constraint = $query->equals('uid', $postUid);
+                $constraint = $query->equals('uid', $pageUid);
             }
 
             $query->setLimit(1);
@@ -84,11 +84,11 @@ abstract class AbstractPageRepository extends AbstractRepository
             // Allow hidden pages
             $query->getQuerySettings()->setIgnoreEnableFields(true)->setIncludeDeleted(true)->setRespectStoragePage(false);
 
-            // Get posts and store and return the first one …
-            return ($posts = $query->execute()) ? $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'][$key] = $posts->getFirst() : null;
+            // Get pages and store and return the first one …
+            return ($pages = $query->execute()) ? $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['page'][$key] = $pages->getFirst() : null;
         }
 
-        // Store and return the post in a familiar way
-        return ($post = parent::findByUid($postUid)) ? $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['post'][$key] = $post : null;
+        // Store and return the page in a familiar way
+        return ($page = parent::findByUid($pageUid)) ? $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['page'][$key] = $page : null;
     }
 }
