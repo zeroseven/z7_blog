@@ -23,7 +23,7 @@ use Zeroseven\Z7Blog\Domain\Model\Post;
  */
 class IsPostViewHelper extends AbstractConditionViewHelper
 {
-    protected function validateCondition(): bool
+    public function validateCondition(): bool
     {
         return $this->getDoktype() === Post::DOKTYPE;
     }

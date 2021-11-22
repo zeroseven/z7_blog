@@ -23,7 +23,7 @@ use Zeroseven\Z7Blog\Domain\Model\Category;
  */
 class IsCategoryViewHelper extends AbstractConditionViewHelper
 {
-    protected function validateCondition(): bool
+    public function validateCondition(): bool
     {
         return $this->getDoktype() === Category::DOKTYPE;
     }

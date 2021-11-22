@@ -6,7 +6,7 @@ namespace Zeroseven\Z7Blog\ViewHelpers\Condition;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-class AbstractConditionViewHelper extends AbstractViewHelper
+abstract class AbstractConditionViewHelper extends AbstractViewHelper implements ConditionInterface
 {
 
     /** @var bool */
