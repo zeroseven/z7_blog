@@ -237,9 +237,11 @@ plugin.tx_z7blog.settings.post.structuredData {
 
 To create a new `@type`, you can prefix it with the corresponding `type` in the configuration.
 
-### Custom conditions for fluid templates
+### Custom conditions for fluid templates and TypoScript
 
-Our blog offers custom conditions to work with in your fluid templates. It's best shown by providing a simple example. Let's say you want to add some extra content to all headers, but only on blog posts:
+Our blog offers custom conditions to work with in your fluid templates and your TypoScript setup. It's best shown by providing a simple example. Let's say you want to add some extra content to all headers, but only on blog posts:
+
+**Fluid:**
 
 ```html
 <blog:condition.isPost>
@@ -247,7 +249,15 @@ Our blog offers custom conditions to work with in your fluid templates. It's bes
 </blog:condition.isPost>
 ```
 
-You can also integrate it's usage in the standard `ifViewHelper` to achieve even more flexibility:
+**TypoScript:**
+```typo3_typoscript
+[z7_blog.post]
+page.10 = TEXT
+page.10.value = It's a post
+[global]
+```
+
+You can also integrate it's usage in the standard `ifViewHelper` in the fluid template to achieve even more flexibility:
 
 ```html
 <f:if condition="{media} && {blog:condition.isPost()}">
