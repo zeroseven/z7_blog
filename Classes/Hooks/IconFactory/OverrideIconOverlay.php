@@ -13,7 +13,7 @@ class OverrideIconOverlay
 {
     public function postOverlayPriorityLookup(string $table, array $row, array $status, string $iconName = null): ?string
     {
-        if ($table === 'pages' && empty($iconName) && $mapping = $GLOBALS['TYPO3_CONF_VARS']['SYS']['IconFactory']['recordStatusMapping'] ?? null) {
+        if (isset($row['doktype'], $row['uid']) && $table === 'pages' && empty($iconName)) {
             $doktype = (int)$row['doktype'];
 
             try {
