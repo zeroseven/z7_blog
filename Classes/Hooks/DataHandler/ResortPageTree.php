@@ -26,7 +26,7 @@ class ResortPageTree
         foreach ($dataHandlder->datamap as $table => $uids) {
             if ($table === self::TABLE) {
                 foreach ($uids as $uid => $data) {
-                    if ((int)$uid && (int)$data['doktype'] === Post::DOKTYPE) {
+                    if ((int)$uid && isset($data['doktype']) && (int)$data['doktype'] === Post::DOKTYPE) {
 
                         // Get data of given page
                         $pid = (int)BackendUtility::getRecord(self::TABLE, $uid, 'pid')['pid'];
