@@ -79,7 +79,7 @@ class PostInfoRenderUtility
 
     public function renderUserFunc(string $content, array $conf): string
     {
-        $settings = $conf['settings.'] ? GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($conf['settings.']) : [];
+        $settings = isset($conf['settings.']) ? GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($conf['settings.']) : [];
 
         return ($content ?: '') . $this->render($conf['file'], $settings);
     }

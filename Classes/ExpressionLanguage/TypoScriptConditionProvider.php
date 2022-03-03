@@ -29,6 +29,10 @@ class TypoScriptConditionProvider extends AbstractProvider
 
     public function __construct()
     {
+        if (!isset($GLOBALS['TSFE'])){
+            return;
+        }
+
         $doktype = (int)$GLOBALS['TSFE']->page['doktype'];
         $pagUid = (int)$GLOBALS['TSFE']->id;
 
