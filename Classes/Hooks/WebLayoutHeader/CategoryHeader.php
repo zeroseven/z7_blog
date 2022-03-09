@@ -15,7 +15,7 @@ class CategoryHeader extends AbstractHeader
     {
 
         // Check if the page is a category
-        if ((int)$this->row['doktype'] === Category::DOKTYPE) {
+        if (isset($this->row['doktype']) && (int)$this->row['doktype'] === Category::DOKTYPE) {
             return $this->createView('EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutHeader/Category.html', [
                 'category' => RepositoryService::getCategoryRepository()->findByUid($this->id),
                 'posts' => RepositoryService::getPostRepository()->findByCategory($this->id)

@@ -40,7 +40,7 @@ class PostHeader extends AbstractHeader
     public function render(): string
     {
         // Check if the page is a category
-        if ((int)$this->row['doktype'] === Post::DOKTYPE) {
+        if (isset($this->row['doktype']) && (int)$this->row['doktype'] === Post::DOKTYPE) {
 
             // Skip header on TYPO3 9 and lower
             if (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() < 10) {

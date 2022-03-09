@@ -18,7 +18,7 @@ class RootlineService
 {
     protected static function getRequest(): ?ServerRequestInterface
     {
-        return isset($GLOBALS['TYPO3_REQUEST']) && $GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface ? $GLOBALS['TYPO3_REQUEST'] : null;
+        return ($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface ? $GLOBALS['TYPO3_REQUEST'] : null;
     }
 
     protected static function isFrontendMode(): bool
@@ -33,7 +33,7 @@ class RootlineService
 
     protected static function getCurrentPage(): int
     {
-        if (isset($GLOBALS['TSFE']) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController) {
+        if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController) {
             return (int)$GLOBALS['TSFE']->id;
         }
 
@@ -46,7 +46,7 @@ class RootlineService
 
     protected static function getRootline(int $startingPoint = null): array
     {
-        if (empty($startingPoint) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController && $rootLine = $GLOBALS['TSFE']->rootLine) {
+        if (empty($startingPoint) && ($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && $rootLine = $GLOBALS['TSFE']->rootLine) {
             return $rootLine;
         }
         return GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint ?: self::getCurrentPage())->get();
@@ -58,9 +58,9 @@ class RootlineService
             $rootLine = self::getRootline($startingPoint);
         }
 
-        foreach ($rootLine ?? [] as $key => $row) {
-            if ((int)$row['doktype'] === Category::DOKTYPE) {
-                return (int)$row['uid'];
+        foreach ($rootLine ?? [] as $row) {
+            if ((int)($row['doktype'] ?? 0) === Category::DOKTYPE) {
+                return (int)($row['uid'] ?? 0);
             }
         }
 
@@ -77,6 +77,7 @@ class RootlineService
 
         if (self::isBackendMode()) {
             foreach (GeneralUtility::makeInstance(BackendUtility::class)->BEgetRootLine($startingPoint ?: self::getCurrentPage()) ?: [] as $page) {
+                // todo: may throws undefined array key warning in php 8
                 if ($page['is_siteroot'] || (int)$page['pid'] === 0) {
                     return (int)$page['uid'];
                 }

@@ -19,16 +19,16 @@ class PaginationViewHelper extends AbstractLinkViewHelper
         parent::beforeRendering();
 
         // Add a "data-href" link attribute
-        if (($pageType = (int)$this->arguments['ajaxPageType']) && $this->demand->getListId()) {
+        if (isset($this->arguments['ajaxPageType']) && ($pageType = (int)($this->arguments['ajaxPageType'])) && $this->demand->getListId()) {
             $this->tag->addAttribute('data-href', $this->renderingContext->getControllerContext()->getUriBuilder()->reset()
                 ->setTargetPageType($pageType)
                 ->setCreateAbsoluteUri(true)
-                ->setArguments((array)$this->arguments['arguments'])
-                ->setAddQueryString((bool)$this->arguments['addQueryString'])
-                ->setArguments((array)$this->arguments['additionalParams'])
-                ->uriFor($this->arguments['action'], array_merge((array)$this->arguments['arguments'], [
+                ->setArguments((array)($this->arguments['arguments'] ?? []))
+                ->setAddQueryString((bool)($this->arguments['addQueryString'] ?? false))
+                ->setArguments((array)($this->arguments['additionalParams'] ?? []))
+                ->uriFor($this->arguments['action'] ?? '', array_merge((array)($this->arguments['arguments'] ?? []), [
                     'ajax' => 1
-                ]), $this->arguments['controller'], $this->arguments['extensionName'], $this->arguments['pluginName']));
+                ]), $this->arguments['controller'] ?? '', $this->arguments['extensionName'] ?? '', $this->arguments['pluginName'] ?? ''));
         }
     }
 }

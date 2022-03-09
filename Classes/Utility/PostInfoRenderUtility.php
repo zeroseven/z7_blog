@@ -50,7 +50,7 @@ class PostInfoRenderUtility
     public function render(string $templateNameAndFilePath, array $settings = null, Post $post = null): string
     {
         // Abort if page is not a post
-        if ($post === null && (int)$GLOBALS['TSFE']->page['doktype'] !== Post::DOKTYPE) {
+        if ($post === null && (int)($GLOBALS['TSFE']->page['doktype'] ?? 0) !== Post::DOKTYPE) {
             return '';
         }
 
@@ -59,7 +59,7 @@ class PostInfoRenderUtility
 
         // Get the post
         try {
-            $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id);
+            $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id ?? 0);
         } catch (AspectNotFoundException $e) {
             $post = null;
         }
@@ -70,7 +70,7 @@ class PostInfoRenderUtility
         // Assign variables to the view
         $this->view->assignMultiple([
             'post' => $post,
-            'settings' => array_merge($this->pluginConfiguration['settings'], $settings ?: []),
+            'settings' => array_merge($this->pluginConfiguration['settings'] ?? [], $settings ?: []),
             'data' => $this->cObj->data
         ]);
 
@@ -81,6 +81,6 @@ class PostInfoRenderUtility
     {
         $settings = isset($conf['settings.']) ? GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($conf['settings.']) : [];
 
-        return ($content ?: '') . $this->render($conf['file'], $settings);
+        return ($content ?: '') . $this->render($conf['file'] ?? '', $settings);
     }
 }

@@ -33,7 +33,7 @@ class TypoScriptConditionProvider extends AbstractProvider
             return;
         }
 
-        $doktype = (int)$GLOBALS['TSFE']->page['doktype'];
+        $doktype = (int)($GLOBALS['TSFE']->page['doktype'] ?? 0);
         $pagUid = (int)$GLOBALS['TSFE']->id;
 
         $z7blog = new \stdClass();

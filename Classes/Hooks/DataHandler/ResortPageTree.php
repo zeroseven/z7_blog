@@ -95,15 +95,20 @@ class ResortPageTree
         // Do not use enabled fields here
         $queryBuilder->getRestrictions()->removeAll();
 
+        // Build constraints
+        $constraints = [
+            $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($parentPage, \PDO::PARAM_INT)),
+            $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+        ];
+        if (isset($GLOBALS['TCA']['pages']['ctrl']['delete'])) {
+            $constraints[] = $queryBuilder->expr()->eq($GLOBALS['TCA']['pages']['ctrl']['delete'], $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT));
+        }
+
         // Set table and where clause
         $x = $queryBuilder
             ->select('uid')
             ->from(self::TABLE)
-            ->where(
-                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($parentPage, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq($GLOBALS['TCA']['pages']['ctrl']['delete'], $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
-            )
+            ->where(...$constraints)
             ->orderBy($orderBy, $reverseDirection ? 'DESC' : 'ASC')
             ->execute();
 

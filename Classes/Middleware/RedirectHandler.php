@@ -21,7 +21,7 @@ class RedirectHandler implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController && ($row = $GLOBALS['TSFE']->page) && $row['post_redirect_category'] && (int)$row['doktype'] === Category::DOKTYPE) {
+        if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && ($row = $GLOBALS['TSFE']->page) && isset($row['post_redirect_category'], $row['doktype'], $row['uid'], $row['pid']) && $row['post_redirect_category'] && (int)$row['doktype'] === Category::DOKTYPE) {
 
             // Get target page uid of plugin settings
             $targetUid = (int)SettingsService::getSettings('post.list.defaultListPage');
