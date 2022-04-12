@@ -227,6 +227,9 @@ abstract class AbstractDemand
         $parameterArray = $this->getParameterArray(false);
 
         foreach ($this->parameterMapping as $propertyName => $parameter) {
+            if (!isset($base[$parameter])) {
+                continue;
+            }
             if (
                 $protectedParameters && in_array($parameter, $protectedParameters, true)
                 || (

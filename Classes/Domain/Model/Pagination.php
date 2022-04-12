@@ -109,7 +109,7 @@ class Stages extends ObjectStorage
 
                 // Add items to stage
                 $stage = GeneralUtility::makeInstance(Stage::class, $this->pagination);
-                foreach (array_splice($items, 0, $stageLength) as $item) {
+                foreach (array_splice($items, 0, $stageLength?:null) as $item) {
                     $stage->attach($item);
                 }
 
