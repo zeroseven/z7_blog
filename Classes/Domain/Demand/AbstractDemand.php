@@ -227,11 +227,9 @@ abstract class AbstractDemand
         $parameterArray = $this->getParameterArray(false);
 
         foreach ($this->parameterMapping as $propertyName => $parameter) {
-            if (!isset($base[$parameter])) {
-                continue;
-            }
             if (
-                $protectedParameters && in_array($parameter, $protectedParameters, true)
+                isset($base[$parameter])
+                && $protectedParameters && in_array($parameter, $protectedParameters, true)
                 || (
                     $this->getType($propertyName) !== 'array' && $base[$parameter] !== $parameterArray[$parameter]
                     || $this->getType($propertyName) === 'array' && (count(array_diff(TypeCastService::array($base[$parameter]), $this->getProperty($propertyName))) || count(array_diff($this->getProperty($propertyName), TypeCastService::array($base[$parameter]))))

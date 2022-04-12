@@ -41,7 +41,7 @@ class BlogTags extends AbstractFormElement
         $this->id = $parameterArray['itemFormElID'] ?? '';
         $this->placeholder = strpos($placeholder, 'LLL') === 0 ? $this->getLanguageService()->sL($placeholder) : $placeholder;
         $this->value = $parameterArray['itemFormElValue'] ?? '';
-        $this->languageUid = (int)(!empty($sysLanguageUid[0]) ? $sysLanguageUid[0] : $sysLanguageUid);
+        $this->languageUid = (int)($sysLanguageUid[0] ?? $sysLanguageUid);
     }
 
     protected function renderRequireJsModules(): array
@@ -51,7 +51,7 @@ class BlogTags extends AbstractFormElement
         $pid = $this->data['databaseRow']['pid'] ?? 0;
 
         // Create demand object
-        $rootPage = RootlineService::getRootPage( $table === 'pages' ? $uid : $pid);
+        $rootPage = RootlineService::getRootPage((int)($table === 'pages' ? $uid : $pid));
         $postDemand = PostDemand::makeInstance()->setCategory($rootPage);
 
         // Get tags

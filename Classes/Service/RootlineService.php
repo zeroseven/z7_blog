@@ -59,8 +59,8 @@ class RootlineService
         }
 
         foreach ($rootLine ?? [] as $row) {
-            if ((int)($row['doktype'] ?? 0) === Category::DOKTYPE) {
-                return (int)($row['uid'] ?? 0);
+            if ((int)($row['doktype'] ?? 0) === Category::DOKTYPE && $uid = (int)($row['uid'] ?? 0)) {
+                return $uid;
             }
         }
 

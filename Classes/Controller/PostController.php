@@ -55,8 +55,7 @@ class PostController extends ActionController
         $requestArguments = $applyRequestArguments !== false && (!isset($this->requestArguments['list_id'], $this->contentData['uid']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid']) ? $this->requestArguments : [];
 
         // Create demand object with relevant arguments for filtering
-        return PostDemand::makeInstance()->setParameterArray(false,
-            array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
+        return PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
     }
 
     protected function getRequestArgument(string $key)
@@ -107,6 +106,7 @@ class PostController extends ActionController
         // Create demand object
         $demand = $this->getDemand(true, false);
 
+        // Get list id
         $listId = (int)($this->settings['list_id'] ?? 0);
 
         // Add plugin settings of target list
