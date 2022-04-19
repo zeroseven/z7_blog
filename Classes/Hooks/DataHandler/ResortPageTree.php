@@ -118,7 +118,9 @@ class ResortPageTree
         // Collect uid's
         $uids = [];
         while ($row = $x->fetchAllAssociative()) {
-            $uids[] = $row['uid'] ?? null;
+            if ($row['uid']) {
+                $uids[] = $row['uid'];
+            }
         }
 
         return $uids;
