@@ -77,7 +77,7 @@ class StructuredData implements MiddlewareInterface
             $url = $imageService->getImageUri($processedImage, true);
 
             // Add data of processed image
-            if ($lastImageInfo = $GLOBALS['TSFE']->lastImageInfo) {
+            if ($lastImageInfo = $GLOBALS['TSFE']->lastImageInfo ?? null) {
                 return [
                     'url' => $url,
                     'width' => $lastImageInfo[0],
