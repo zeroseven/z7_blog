@@ -43,9 +43,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled'
-                    ]
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled', 1]
                 ],
                 'default' => 0
             ]
@@ -170,9 +168,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled'
-                    ]
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled', 1]
                 ],
                 'default' => 0
             ]
