@@ -36,7 +36,7 @@ class AbstractValueProcessor extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('value', null, 'The value', true);
+        $this->registerArgument('value', 'mixed', 'The value', true);
         $this->registerArgument('property', 'string', 'Property name');
         $this->registerArgument('format', 'string', 'String or translation key');
         $this->registerArgument('fields', 'array', 'Fields you want to get from database');
