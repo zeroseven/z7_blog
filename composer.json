@@ -33,9 +33,6 @@
       "extension-key": "z7_blog"
     }
   },
-  "replace": {
-    "zeroseven/z7-blog": "self.version"
-  },
   "scripts": {
     "prepare-release": [
       "rm .editorconfig",
