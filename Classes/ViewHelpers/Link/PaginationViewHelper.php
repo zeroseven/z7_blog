@@ -28,7 +28,7 @@ class PaginationViewHelper extends AbstractLinkViewHelper
                 ->setArguments((array)($this->arguments['additionalParams'] ?? []))
                 ->uriFor($this->arguments['action'] ?? '', array_merge((array)($this->arguments['arguments'] ?? []), [
                     'ajax' => 1
-                ]), $this->arguments['controller'] ?? '', $this->arguments['extensionName'] ?? '', $this->arguments['pluginName'] ?? ''));
+                ]), $this->arguments['controller'] ?? null, $this->arguments['extensionName'] ?? null, $this->arguments['pluginName'] ?? null));
         }
     }
 }
