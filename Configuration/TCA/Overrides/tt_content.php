@@ -24,5 +24,8 @@ call_user_func(static function (array $CTypes) {
             'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.' . $CType,
             $resourceIdentifier
         );
+
+        // Register icon for page view
+        $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes'][$CType] = $resourceIdentifier;
     }
 }, ['z7blog_list', 'z7blog_static', 'z7blog_filter', 'z7blog_authors']);
