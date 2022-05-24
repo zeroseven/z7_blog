@@ -131,7 +131,10 @@ class Stages extends ObjectStorage
 
     public function getSelected(): ?Stage
     {
-        return $this->offsetGet($this->pagination->getSelectedStage());
+        if ($this->offsetExists($this->pagination->getSelectedStage())) {
+            return $this->offsetGet($this->pagination->getSelectedStage());
+        }
+        return null;
     }
 
     public function getCurrent(): ?Stage
