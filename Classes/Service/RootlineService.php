@@ -59,8 +59,8 @@ class RootlineService
         }
 
         foreach ($rootLine ?? [] as $row) {
-            if ((int)($row['doktype'] ?? 0) === Category::DOKTYPE && $uid = (int)($row['uid'] ?? 0)) {
-                return $uid;
+            if (isset($row['doktype'], $row['uid']) && (int)$row['doktype'] === Category::DOKTYPE) {
+                return (int)$row['uid'];
             }
         }
 
@@ -72,7 +72,7 @@ class RootlineService
         if (self::isFrontendMode()) {
             $site = $startingPoint === null && ($request = self::getRequest()) ? $request->getAttribute('site') : GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId($startingPoint);
 
-            return (int)$site->getRootPageId();
+            return $site->getRootPageId();
         }
 
         if (self::isBackendMode()) {
