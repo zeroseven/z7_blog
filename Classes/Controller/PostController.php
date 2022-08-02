@@ -78,8 +78,7 @@ class PostController extends ActionController
         }
 
         // Create pagination
-        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
-        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages'] ?? null);
+        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $this->getItemsPerPage(), $this->settings['max_stages'] ?? null);
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([
@@ -147,5 +146,16 @@ class PostController extends ActionController
             'tags' => TagService::getTags($demand, true),
             'demand' => $demand
         ]);
+    }
+
+    private function getItemsPerPage(): string
+    {
+        if (!empty($this->settings['items_per_stages'])) {
+            return (string)$this->settings['items_per_stages'];
+        }
+        if (!empty($this->settings['post']['list']['itemsPerStages'])) {
+            return (string)$this->settings['post']['list']['itemsPerStages'];
+        }
+        return '6';
     }
 }
