@@ -4,6 +4,24 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Demand;
 
+/**
+ * @method setStage(int $param)
+ * @method getStage(int $param)
+ * @method setCategory(int $param)
+ * @method getCategory(int $param)
+ * @method setAuthor(int $param)
+ * @method getAuthor(int $param)
+ * @method setTopics(array $value)
+ * @method getTopics(array $value)
+ * @method setTags(array $value)
+ * @method getTags(array $value)
+ * @method setTopPostMode(int $value)
+ * @method getTopPostMode(int $value)
+ * @method setArchiveMode(int $value)
+ * @method getArchiveMode(int $value)
+ * @method setListId(int $value)
+ * @method getListId(int $value)
+ */
 class PostDemand extends AbstractDemand
 {
 

@@ -9,6 +9,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Zeroseven\Z7Blog\Service\TraitCollectorService;
 use Zeroseven\Z7Blog\Service\TypeCastService;
 
+/**
+ * @method setUids(array $param)
+ * @method getUids(array $param)
+ * @method setOrdering(array $param)
+ * @method getOrdering(string $param)
+ * @method setParameterMapping(array $param)
+ * @method getParameterMapping(array $param)
+ * @method setTypeMapping(array $param)
+ * @method getTypeMapping(array $param)
+ */
 abstract class AbstractDemand
 {
 
