@@ -259,7 +259,7 @@ class Pagination
 
     public function setItemsPerStage($itemsPerStage, bool $updatePagination = null): self
     {
-        $this->itemsPerStage = $itemsPerStage === '' || !is_string($itemsPerStage) ? '' : $itemsPerStage;
+        $this->itemsPerStage = TypeCastService::string($itemsPerStage);
 
         if ($updatePagination !== false) {
             $this->update();
