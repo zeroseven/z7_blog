@@ -6,6 +6,8 @@ namespace Zeroseven\Z7Blog\TCA;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
@@ -32,6 +34,7 @@ class ItemsProcFunc
         return 0;
     }
 
+    /** @throws InvalidConfigurationTypeException | Exception */
     protected function initializeRepository(RepositoryInterface $repository, bool $setStoragePid): RepositoryInterface
     {
         if ($setStoragePid) {
@@ -48,7 +51,7 @@ class ItemsProcFunc
         return $repository;
     }
 
-    public function getContentLayouts(array &$PA)
+    public function getContentLayouts(array &$PA): void
     {
         $pagesTsConfig = BackendUtility::getPagesTSconfig($this->getPageUid($PA));
         $key = $PA['config']['contentLayoutKey'] ?? $PA['flexParentDatabaseRow']['CType'];
@@ -60,7 +63,7 @@ class ItemsProcFunc
         }
     }
 
-    public function getCategories(array &$PA)
+    public function getCategories(array &$PA): void
     {
         if (($currentPageUid = $this->getPageUid($PA)) > 0) {
 
@@ -98,7 +101,8 @@ class ItemsProcFunc
         }
     }
 
-    public function getAuthors(array &$PA)
+    /** @throws InvalidConfigurationTypeException | Exception */
+    public function getAuthors(array &$PA): void
     {
         $authorRepository = $this->initializeRepository(RepositoryService::getAuthorRepository(), true);
 
@@ -108,7 +112,7 @@ class ItemsProcFunc
         }
     }
 
-    public function getTopics(array &$PA)
+    public function getTopics(array &$PA): void
     {
         $topicRepository = $this->initializeRepository(RepositoryService::getTopicRepository(), true);
 
@@ -118,7 +122,7 @@ class ItemsProcFunc
         }
     }
 
-    public function getTags(array &$PA)
+    public function getTags(array &$PA): void
     {
         // Get the current pid
         $rootPageUid = $this->getRootPageUid($PA);

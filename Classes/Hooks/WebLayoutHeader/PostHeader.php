@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Hooks\WebLayoutHeader;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -35,6 +36,7 @@ class PostHeader extends AbstractHeader
         return $permissions;
     }
 
+    /** @throws AspectNotFoundException */
     public function render(): string
     {
         // Check if the page is a category

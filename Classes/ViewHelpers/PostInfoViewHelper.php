@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers;
 
+use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -23,6 +24,7 @@ class PostInfoViewHelper extends AbstractViewHelper
         $this->registerArgument('settings', 'array', 'Pass settings to the template');
     }
 
+    /** @throws Exception */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
     {
         $post = ($postUid = (int)$arguments['postUid']) ? RepositoryService::getPostRepository()->findByUid($postUid) : null;

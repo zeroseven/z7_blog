@@ -3,7 +3,10 @@
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
+use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\ColumnMap;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -18,21 +21,25 @@ abstract class AbstractRepository extends Repository
     {
 
         // Override default ordering by propertyName with optional direction
-        if (
-            $demand
-            && $demand->getOrdering()
-            && preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) // Examples: "date_desc", "title_asc", "title",
-            && ($property = $matches[1] ?? null)
-            && ($dataMapper = $this->objectManager->get(DataMapper::class))
-            && ($columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($property))
-            && ($columnName = $columnMap->getColumnName())
-        ) {
-            $this->setDefaultOrderings([
-                $columnName => ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING
-            ]);
+        try {
+            if (
+                $demand
+                && $demand->getOrdering()
+                && preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) // Examples: "date_desc", "title_asc", "title",
+                && ($property = $matches[1] ?? null)
+                && ($dataMapper = $this->objectManager->get(DataMapper::class))
+                && ($columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($property))
+                && ($columnName = $columnMap->getColumnName())
+            ) {
+                $this->setDefaultOrderings([
+                    $columnName => ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING
+                ]);
+            }
+        } catch (Exception $e) {
         }
     }
 
+    /** @throws AspectNotFoundException | InvalidQueryException | Exception */
     protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
         $constraints = [];

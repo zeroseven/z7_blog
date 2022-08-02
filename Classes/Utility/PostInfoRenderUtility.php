@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Utility;
 
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -57,7 +58,11 @@ class PostInfoRenderUtility
         $this->initialize();
 
         // Get the post
-        $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id);
+        try {
+            $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id);
+        } catch (AspectNotFoundException $e) {
+            $post = null;
+        }
 
         // Set Template
         $this->view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templateNameAndFilePath));

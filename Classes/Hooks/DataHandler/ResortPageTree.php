@@ -7,6 +7,7 @@ namespace Zeroseven\Z7Blog\Hooks\DataHandler;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -19,6 +20,7 @@ class ResortPageTree
 
     protected const SORTING_FIELD = 'post_date';
 
+    /** @throws Exception */
     public function processDatamap_afterAllOperations(DataHandler &$dataHandlder): void
     {
         foreach ($dataHandlder->datamap as $table => $uids) {

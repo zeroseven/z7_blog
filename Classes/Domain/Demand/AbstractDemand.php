@@ -70,6 +70,7 @@ abstract class AbstractDemand
         return GeneralUtility::makeInstance(static::class);
     }
 
+    /** @throws Exception */
     protected function checkPropertyAccess(string $propertyName): void
     {
         if (!$this->hasProperty($propertyName)) {
@@ -91,8 +92,13 @@ abstract class AbstractDemand
 
     public function getType(string $propertyName): ?string
     {
-        $this->checkPropertyAccess($propertyName);
-        return $this->typeMapping[$propertyName] ?? null;
+        try {
+            $this->checkPropertyAccess($propertyName);
+            return $this->typeMapping[$propertyName] ?? null;
+        } catch (Exception $e) {
+        }
+
+        return null;
     }
 
     public function getProperty(string $propertyName)
@@ -118,7 +124,8 @@ abstract class AbstractDemand
         return $this->{$propertyName};
     }
 
-    public function setProperty(string $propertyName, $value)
+    /** @throws Exception */
+    public function setProperty(string $propertyName, $value): AbstractDemand
     {
         $type = $this->getType($propertyName);
 
@@ -245,6 +252,7 @@ abstract class AbstractDemand
         }
     }
 
+    /** @throws Exception */
     public function __call($name, $arguments)
     {
         if (preg_match('/((?:s|g)et|is|has|addTo|removeFrom)([A-Z].*)/', $name, $matches)) {
@@ -276,6 +284,6 @@ abstract class AbstractDemand
             }
         }
 
-        throw new Exception(sprintf('Method "%s" not found in %s', $name, __CLASS__));
+        throw new Exception(sprintf('Method "%s" not found in %s', $name, __CLASS__), 1659427214);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
+use Exception;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
@@ -55,6 +56,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         return parent::prepareArguments();
     }
 
+    /** @throws Exception */
     protected function overrideDemandParameters(): void
     {
         // Collect overrides
@@ -92,6 +94,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         $this->arguments['pluginName'] = 'List';
     }
 
+    /** @throws Exception */
     public function render(): string
     {
         // Override demand arguments

@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\ProcessValue;
 
+use Doctrine\DBAL\DBALException;
+use Exception;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -39,6 +42,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         $this->registerArgument('fields', 'array', 'Fields you want to get from database');
     }
 
+    /** @throws AspectNotFoundException | DBALException */
     protected function getDatabaseValue(int $id, string $table): ?string
     {
         // Build array of fields
@@ -108,6 +112,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         return (string)$value;
     }
 
+    /** @throws Exception */
     public function render(): string
     {
         // Define value

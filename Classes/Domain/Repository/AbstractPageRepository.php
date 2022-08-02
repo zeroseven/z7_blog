@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
+use Exception;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
@@ -22,6 +25,7 @@ abstract class AbstractPageRepository extends AbstractRepository
         $this->setDefaultQuerySettings($querySettings);
     }
 
+    /** @throws AspectNotFoundException | InvalidQueryException */
     public function getRootlineAndLanguageConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
 
@@ -49,6 +53,7 @@ abstract class AbstractPageRepository extends AbstractRepository
         return $constraints;
     }
 
+    /** @throws AspectNotFoundException | InvalidQueryException */
     protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
         $constraints = parent::createDemandConstraints($demand, $query);
@@ -56,6 +61,7 @@ abstract class AbstractPageRepository extends AbstractRepository
         return array_merge($constraints, $this->getRootlineAndLanguageConstraints($demand, $query));
     }
 
+    /** @throws Exception */
     public function findByUid($uid, bool $ignoreRestrictions = null)
     {
 

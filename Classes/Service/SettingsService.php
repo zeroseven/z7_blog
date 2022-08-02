@@ -8,6 +8,8 @@ use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
@@ -24,6 +26,7 @@ class SettingsService
         return ObjectAccess::getPropertyPath((array)$subject, $propertyPath);
     }
 
+    /** @throws InvalidConfigurationTypeException | Exception */
     public static function getPluginConfiguration(string $propertyPath = null)
     {
         // Try to get settings from cache
@@ -39,8 +42,13 @@ class SettingsService
 
     public static function getSettings(string $propertyPath = null)
     {
-        $settings = self::getPluginConfiguration('settings');
+        try {
+            $settings = self::getPluginConfiguration('settings');
 
-        return self::getPropertyPath($settings, $propertyPath);
+            return self::getPropertyPath($settings, $propertyPath);
+        } catch (InvalidConfigurationTypeException | Exception $e) {
+        }
+
+        return null;
     }
 }
