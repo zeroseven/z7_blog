@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
+use DateTime;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -20,13 +21,13 @@ class Post extends AbstractPageModel
     /** @var string */
     protected const TAG_DELIMITER = ',';
 
-    /** @var \DateTime */
+    /** @var DateTime */
     protected $date;
 
     /** @var bool */
     protected $top;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     protected $archiveDate;
 
     /** @var \Zeroseven\Z7Blog\Domain\Model\Category */
@@ -70,12 +71,12 @@ class Post extends AbstractPageModel
         return self::DOKTYPE;
     }
 
-    public function getDate(): ?\DateTime
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTime $date): self
+    public function setDate(DateTime $date): self
     {
         $this->date = $date;
         return $this;
@@ -92,12 +93,12 @@ class Post extends AbstractPageModel
         return $this;
     }
 
-    public function getArchiveDate(): ?\DateTime
+    public function getArchiveDate(): ?DateTime
     {
         return $this->archiveDate;
     }
 
-    public function setArchiveDate(\DateTime $archiveDate): self
+    public function setArchiveDate(DateTime $archiveDate): self
     {
         $this->archiveDate = $archiveDate;
         return $this;
@@ -111,7 +112,7 @@ class Post extends AbstractPageModel
     public function getArchiveDiff(): int
     {
         if ($this->archiveDate && !$this->isArchived()) {
-            return date_diff(new \DateTime('today'), $this->archiveDate)->days;
+            return date_diff(new DateTime('today'), $this->archiveDate)->days;
         }
 
         return 0;
