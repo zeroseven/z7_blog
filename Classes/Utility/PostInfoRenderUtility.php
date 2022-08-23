@@ -71,7 +71,7 @@ class PostInfoRenderUtility
         $this->view->assignMultiple([
             'post' => $post,
             'settings' => array_merge($this->pluginConfiguration['settings'] ?? [], $settings ?: []),
-            'data' => $this->cObj->data
+            'data' => $this->cObj->data ?? [],
         ]);
 
         return $this->view->render();
