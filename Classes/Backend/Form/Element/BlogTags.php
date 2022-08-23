@@ -33,21 +33,25 @@ class BlogTags extends AbstractFormElement
     {
         parent::__construct($nodeFactory, $data);
 
-        $parameterArray = $this->data['parameterArray'];
+        $parameterArray = $this->data['parameterArray'] ?? [];
         $placeholder = $parameterArray['fieldConf']['config']['placeholder'] ?? '';
-        $sysLanguageUid = $this->data['databaseRow']['sys_language_uid'];
+        $sysLanguageUid = $this->data['databaseRow']['sys_language_uid'] ?? 0;
 
-        $this->name = $parameterArray['itemFormElName'];
-        $this->id = $parameterArray['itemFormElID'];
+        $this->name = $parameterArray['itemFormElName'] ?? '';
+        $this->id = $parameterArray['itemFormElID'] ?? '';
         $this->placeholder = strpos($placeholder, 'LLL') === 0 ? $this->getLanguageService()->sL($placeholder) : $placeholder;
         $this->value = $parameterArray['itemFormElValue'] ?? '';
-        $this->languageUid = (int)(is_array($sysLanguageUid) ? $sysLanguageUid[0] : $sysLanguageUid);
+        $this->languageUid = (int)($sysLanguageUid[0] ?? $sysLanguageUid);
     }
 
     protected function renderRequireJsModules(): array
     {
+        $table = $this->data['tableName'] ?? '';
+        $uid = $this->data['databaseRow']['uid'] ?? 0;
+        $pid = $this->data['databaseRow']['pid'] ?? 0;
+
         // Create demand object
-        $rootPage = RootlineService::getRootPage($this->data['tableName'] === 'pages' ? $this->data['databaseRow']['uid'] : $this->data['databaseRow']['pid']);
+        $rootPage = RootlineService::getRootPage((int)($table === 'pages' ? $uid : $pid));
         $postDemand = PostDemand::makeInstance()->setCategory($rootPage);
 
         // Get tags

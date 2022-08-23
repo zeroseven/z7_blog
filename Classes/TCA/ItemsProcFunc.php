@@ -22,7 +22,7 @@ class ItemsProcFunc
 {
     protected function getPageUid(array $config): int
     {
-        return GeneralUtility::_GP('id') ?: $config['flexParentDatabaseRow']['pid'];
+        return GeneralUtility::_GP('id') ?: $config['flexParentDatabaseRow']['pid'] ?? 0;
     }
 
     protected function getRootPageUid(array $config): int
@@ -54,7 +54,7 @@ class ItemsProcFunc
     public function getContentLayouts(array &$PA): void
     {
         $pagesTsConfig = BackendUtility::getPagesTSconfig($this->getPageUid($PA));
-        $key = $PA['config']['contentLayoutKey'] ?? $PA['flexParentDatabaseRow']['CType'];
+        $key = $PA['config']['contentLayoutKey'] ?? $PA['flexParentDatabaseRow']['CType'] ?? '';
 
         if ($key && $options = $pagesTsConfig['tx_z7blog.']['content.'][$key . '.']['layouts.'] ?? null) {
             foreach ($options as $value => $label) {

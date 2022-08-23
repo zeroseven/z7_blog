@@ -36,7 +36,7 @@ class AbstractValueProcessor extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('value', null, 'The value', true);
+        $this->registerArgument('value', 'mixed', 'The value', true);
         $this->registerArgument('property', 'string', 'Property name');
         $this->registerArgument('format', 'string', 'String or translation key');
         $this->registerArgument('fields', 'array', 'Fields you want to get from database');
@@ -47,8 +47,8 @@ class AbstractValueProcessor extends AbstractViewHelper
     {
         // Build array of fields
         if (empty($fields = $this->arguments['fields'])) {
-            $fields = (array)$GLOBALS['TCA'][$table]['ctrl']['label'];
-            if ($labelAlt = $GLOBALS['TCA'][$table]['ctrl']['label_alt']) {
+            $fields = (array)($GLOBALS['TCA'][$table]['ctrl']['label'] ?? []);
+            if ($labelAlt = ($GLOBALS['TCA'][$table]['ctrl']['label_alt'] ?? '')) {
                 $fields = array_merge($fields, GeneralUtility::trimExplode(',', $labelAlt));
             }
         }
@@ -90,7 +90,7 @@ class AbstractValueProcessor extends AbstractViewHelper
     protected function processValue($value)
     {
 
-        $property = $this->arguments['property'];
+        $property = $this->arguments['property'] ?? '';
         $tableName = $this->dataMap->getTableName();
 
         // Override table name
@@ -116,7 +116,7 @@ class AbstractValueProcessor extends AbstractViewHelper
     public function render(): string
     {
         // Define value
-        $value = $this->arguments['value'];
+        $value = $this->arguments['value'] ?? null;
 
         // Create processed value
         if (is_array($value) || is_string($value)) {
@@ -128,7 +128,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         }
 
         // Set wrap value into format pattern
-        if ($format = $this->arguments['format']) {
+        if ($format = $this->arguments['format'] ?? '') {
             if ($translation = LocalizationUtility::translate($format, SettingsService::EXTENSION_KEY, [$processedValue])) {
                 return $translation;
             }

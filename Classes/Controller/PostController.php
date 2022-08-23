@@ -52,12 +52,10 @@ class PostController extends ActionController
     {
 
         // Get request data
-        $requestArguments = $applyRequestArguments !== false && (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid']) ? $this->requestArguments : [];
+        $requestArguments = $applyRequestArguments !== false && (!isset($this->requestArguments['list_id'], $this->contentData['uid']) || (int)$this->requestArguments['list_id'] === (int)$this->contentData['uid']) ? $this->requestArguments : [];
 
         // Create demand object with relevant arguments for filtering
-        $demand = PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
-
-        return $demand;
+        return PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
     }
 
     protected function getRequestArgument(string $key)
@@ -76,12 +74,13 @@ class PostController extends ActionController
 
         // Set list id
         if ($demand->getListId() === 0) {
-            $demand->setListId($this->contentData['uid']);
+            $demand->setListId($this->contentData['uid'] ?? 0);
         }
 
+
         // Create pagination
-        $itemsPerPage = $this->settings['items_per_stages'] ?: $this->settings['post']['list']['itemsPerStages'] ?: '6';
-        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages']);
+        $itemsPerPage = ($this->settings['items_per_stages'] ?? null) ?: ($this->settings['post']['list']['itemsPerStages'] ?? null) ?: 6;
+        $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages'] ?? null);
 
         // Pass variables to the fluid template
         $this->view->assignMultiple([
@@ -108,8 +107,11 @@ class PostController extends ActionController
         // Create demand object
         $demand = $this->getDemand(true, false);
 
+        // Get list id
+        $listId = (int)($this->settings['list_id'] ?? 0);
+
         // Add plugin settings of target list
-        if ($listId = (int)$this->settings['list_id']) {
+        if ($listId > 0) {
 
             // Get target content element
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
@@ -134,7 +136,7 @@ class PostController extends ActionController
         }
 
         // Set request data to the demand
-        if (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === (int)$this->settings['list_id']) {
+        if (!isset($this->requestArguments['list_id']) || (int)$this->requestArguments['list_id'] === $listId) {
             $demand->setParameterArray(false, $this->requestArguments);
         }
 

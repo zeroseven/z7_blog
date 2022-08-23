@@ -130,15 +130,12 @@ class FilterViewHelper extends AbstractLinkViewHelper
 
     protected function setPageUid(): void
     {
-        if (empty($this->arguments['pageUid'])) {
-            if ($this->arguments['defaultList']) {
-                $settings = $this->templateVariableContainer->get('settings') ?? SettingsService::getSettings();
+        if (empty($this->arguments['pageUid']) && $this->arguments['defaultList'] ?? false) {
+            $settings = $this->templateVariableContainer->get('settings') ?? SettingsService::getSettings();
 
-                if ($defaultListPage = $settings['post']['list']['defaultListPage'] ?? null) {
-                    $this->arguments['pageUid'] = $defaultListPage;
-                }
+            if ($defaultListPage = $settings['post']['list']['defaultListPage'] ?? null) {
+                $this->arguments['pageUid'] = $defaultListPage;
             }
-            // TODO: Go recursive through the page tree
         }
     }
 
