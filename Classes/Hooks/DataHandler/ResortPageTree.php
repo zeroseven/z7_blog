@@ -11,6 +11,7 @@ use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 
@@ -26,7 +27,7 @@ class ResortPageTree
         foreach ($dataHandlder->datamap as $table => $uids) {
             if ($table === self::TABLE) {
                 foreach ($uids as $uid => $data) {
-                    if ((int)$uid && (int)$data['doktype'] === Post::DOKTYPE) {
+                    if ((int)($data['doktype'] ?? 0) === Post::DOKTYPE && MathUtility::canBeInterpretedAsInteger($uid)) {
 
                         // Get data of given page
                         $pid = (int)BackendUtility::getRecord(self::TABLE, $uid, 'pid')['pid'];
@@ -95,22 +96,31 @@ class ResortPageTree
         // Do not use enabled fields here
         $queryBuilder->getRestrictions()->removeAll();
 
+        // Build constraints
+        $constraints = [
+            $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($parentPage, \PDO::PARAM_INT)),
+            $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+        ];
+
+        // Add deleted field, if configured
+        if (isset($GLOBALS['TCA']['pages']['ctrl']['delete'])) {
+            $constraints[] = $queryBuilder->expr()->eq($GLOBALS['TCA']['pages']['ctrl']['delete'], $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT));
+        }
+
         // Set table and where clause
         $x = $queryBuilder
             ->select('uid')
             ->from(self::TABLE)
-            ->where(
-                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($parentPage, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq($GLOBALS['TCA']['pages']['ctrl']['delete'], $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
-            )
+            ->where(...$constraints)
             ->orderBy($orderBy, $reverseDirection ? 'DESC' : 'ASC')
             ->execute();
 
         // Collect uid's
         $uids = [];
-        while ($row = $x->fetch()) {
-            $uids[] = $row['uid'];
+        while ($row = $x->fetchAllAssociative()) {
+            if (!empty($row['uid'])) {
+                $uids[] = $row['uid'];
+            }
         }
 
         return $uids;

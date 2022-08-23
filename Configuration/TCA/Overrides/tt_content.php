@@ -19,10 +19,13 @@ call_user_func(static function (array $CTypes) {
 
         // Register plugins
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Zeroseven.Z7Blog',
+            \Zeroseven\Z7Blog\Service\SettingsService::EXTENSION_KEY,
             ucfirst(str_replace('z7blog_', '', $CType)),
             'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.cType.' . $CType,
             $resourceIdentifier
         );
+
+        // Register icon for page view
+        $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes'][$CType] = $resourceIdentifier;
     }
 }, ['z7blog_list', 'z7blog_static', 'z7blog_filter', 'z7blog_authors']);

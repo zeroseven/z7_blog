@@ -27,8 +27,8 @@ class PostInfoViewHelper extends AbstractViewHelper
     /** @throws Exception */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
     {
-        $post = ($postUid = (int)$arguments['postUid']) ? RepositoryService::getPostRepository()->findByUid($postUid) : null;
+        $post = ($postUid = (int)($arguments['postUid'] ?? 0)) ? RepositoryService::getPostRepository()->findByUid($postUid) : null;
 
-        return GeneralUtility::makeInstance(PostInfoRenderUtility::class)->render($arguments['file'], $arguments['settings'], $post);
+        return GeneralUtility::makeInstance(PostInfoRenderUtility::class)->render($arguments['file'] ?? '', $arguments['settings'] ?? [], $post);
     }
 }

@@ -228,10 +228,10 @@ abstract class AbstractDemand
 
         foreach ($this->parameterMapping as $propertyName => $parameter) {
             if (
-                $protectedParameters && in_array($parameter, $protectedParameters, true)
+                ($protectedParameters && in_array($parameter, $protectedParameters, true))
                 || (
-                    $this->getType($propertyName) !== 'array' && $base[$parameter] !== $parameterArray[$parameter]
-                    || $this->getType($propertyName) === 'array' && (count(array_diff(TypeCastService::array($base[$parameter]), $this->getProperty($propertyName))) || count(array_diff($this->getProperty($propertyName), TypeCastService::array($base[$parameter]))))
+                    ($this->getType($propertyName) !== 'array' && ($base[$parameter] ?? null) !== $parameterArray[$parameter])
+                    || ($this->getType($propertyName) === 'array' && (count(array_diff(TypeCastService::array($base[$parameter] ?? null), $this->getProperty($propertyName))) || count(array_diff($this->getProperty($propertyName), TypeCastService::array($base[$parameter] ?? null)))))
                 )
             ) {
                 if (!empty($parameterArray[$parameter])) {

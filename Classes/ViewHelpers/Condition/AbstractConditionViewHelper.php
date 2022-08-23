@@ -20,12 +20,12 @@ abstract class AbstractConditionViewHelper extends AbstractViewHelper implements
 
     protected function getDoktype(): int
     {
-        return (int)$GLOBALS['TSFE']->page['doktype'];
+        return (int)($GLOBALS['TSFE']->page['doktype'] ?? 0);
     }
 
     public function render(): string
     {
-        $negate = $this->arguments['negate'];
+        $negate = $this->arguments['negate'] ?? false;
         $match = $this->validateCondition();
 
         if ($match && !$negate || !$match && $negate) {

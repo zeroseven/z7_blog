@@ -77,7 +77,7 @@ class StructuredData implements MiddlewareInterface
             $url = $imageService->getImageUri($processedImage, true);
 
             // Add data of processed image
-            if ($lastImageInfo = $GLOBALS['TSFE']->lastImageInfo) {
+            if ($lastImageInfo = $GLOBALS['TSFE']->lastImageInfo ?? null) {
                 return [
                     'url' => $url,
                     'width' => $lastImageInfo[0],
@@ -93,7 +93,7 @@ class StructuredData implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (($tsfe = $GLOBALS['TSFE']) instanceof TypoScriptFrontendController && (int)$tsfe->page['doktype'] === Post::DOKTYPE && ($post = RepositoryService::getPostRepository()->findByUid($tsfe->id))) {
+        if (($tsfe = $GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && (int)($tsfe->page['doktype'] ?? 0) === Post::DOKTYPE && ($post = RepositoryService::getPostRepository()->findByUid($tsfe->id))) {
 
             // Define the basic structure of a post
             $basicStructure = [

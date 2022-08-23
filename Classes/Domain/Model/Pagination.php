@@ -109,7 +109,7 @@ class Stages extends ObjectStorage
 
                 // Add items to stage
                 $stage = GeneralUtility::makeInstance(Stage::class, $this->pagination);
-                foreach (array_splice($items, 0, $stageLength) as $item) {
+                foreach (array_splice($items, 0, $stageLength ?: null) as $item) {
                     $stage->attach($item);
                 }
 
@@ -131,7 +131,10 @@ class Stages extends ObjectStorage
 
     public function getSelected(): ?Stage
     {
-        return $this->offsetGet($this->pagination->getSelectedStage());
+        if ($this->offsetExists($this->pagination->getSelectedStage())) {
+            return $this->offsetGet($this->pagination->getSelectedStage());
+        }
+        return null;
     }
 
     public function getCurrent(): ?Stage
@@ -256,7 +259,7 @@ class Pagination
 
     public function setItemsPerStage($itemsPerStage, bool $updatePagination = null): self
     {
-        $this->itemsPerStage = $itemsPerStage === '' || !is_string($itemsPerStage) ? '' : $itemsPerStage;
+        $this->itemsPerStage = TypeCastService::string($itemsPerStage);
 
         if ($updatePagination !== false) {
             $this->update();
