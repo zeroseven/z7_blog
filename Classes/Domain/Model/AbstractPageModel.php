@@ -176,7 +176,7 @@ abstract class AbstractPageModel extends AbstractEntity
 
     public function getFirstMedia(): ?FileReference
     {
-        if ($this->firstMedia === null && $media = $this->getMedia()) {
+        if ($this->firstMedia === null && ($media = $this->getMedia()) && $media->offsetExists(0)) {
             return $this->firstMedia = $media->offsetGet(0);
         }
 
