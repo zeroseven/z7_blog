@@ -162,17 +162,27 @@ class PostDemand
 
 ```php
 <?php
-
-call_user_func(static function () {
-
-    // Load post trait collector instead of the "default" model
-    $extbaseObjectContainer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class);
-    $extbaseObjectContainer->registerImplementation(\Zeroseven\Z7Blog\Domain\Model\Post::class, \Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector::class);
-});
-
 // Register trait
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Model\Post::class][] = \Vendor\YourExtension\Domain\Traits\PostModel::class;
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['z7_blog']['traits'][\Zeroseven\Z7Blog\Domain\Demand\PostDemand::class][] = \Vendor\YourExtension\Domain\Traits\PostDemand::class;
+```
+
+**your_extension/Configuration/Services.yaml**:
+
+```yaml
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Vendor\Extension\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+
+  Zeroseven\Z7Blog\Domain\Model\Post:
+    alias: Zeroseven\Z7Blog\Domain\Model\TraitCollector\PostTraitCollector
+
 ```
 
 ### JavaScript events
