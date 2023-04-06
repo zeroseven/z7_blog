@@ -8,7 +8,6 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\RepositoryService;
@@ -23,7 +22,7 @@ class PostHeader extends AbstractHeader
     protected function getPropertyPermissions(): array
     {
         $class = Post::class;
-        $dataMap = GeneralUtility::makeInstance(ObjectManager::class)->get(DataMapper::class)->getDataMap($class);
+        $dataMap = GeneralUtility::makeInstance(DataMapper::class)->getDataMap($class);
         $backendUserAuthentication = $this->getBackendUser();
 
         $permissions = [];

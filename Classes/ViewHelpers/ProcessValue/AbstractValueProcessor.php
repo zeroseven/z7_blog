@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMap;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -29,7 +28,7 @@ class AbstractValueProcessor extends AbstractViewHelper
 
     public function __construct()
     {
-        $this->dataMap = GeneralUtility::makeInstance(ObjectManager::class)->get(DataMapper::class)->getDataMap($this->objectType);
+        $this->dataMap = GeneralUtility::makeInstance(DataMapper::class)->getDataMap($this->objectType);
     }
 
     public function initializeArguments(): void

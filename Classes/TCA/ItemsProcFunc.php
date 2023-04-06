@@ -8,7 +8,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\RepositoryInterface;
 use Zeroseven\Z7Blog\Domain\Demand\CategoryDemand;
@@ -44,7 +43,7 @@ class ItemsProcFunc
             $storagePids = (int)SettingsService::getPluginConfiguration('persistence.storagePid');
 
             // Define storage pid in repository
-            $querySettings = GeneralUtility::makeInstance(ObjectManager::class)->get(Typo3QuerySettings::class);
+            $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
             $querySettings->setStoragePageIds(GeneralUtility::intExplode(',', $storagePids, true));
             $repository->setDefaultQuerySettings($querySettings);
         }

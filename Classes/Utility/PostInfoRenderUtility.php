@@ -7,7 +7,6 @@ namespace Zeroseven\Z7Blog\Utility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use Zeroseven\Z7Blog\Domain\Model\Post;
@@ -33,11 +32,9 @@ class PostInfoRenderUtility
 
     protected function initialize(): void
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-
         $this->pluginConfiguration = SettingsService::getPluginConfiguration();
 
-        $this->view = $objectManager->get(StandaloneView::class);
+        $this->view = GeneralUtility::makeInstance(StandaloneView::class);
 
         $this->view->getRequest()->setControllerExtensionName('Z7Blog');
         $this->view->getRequest()->setControllerName('Post');
