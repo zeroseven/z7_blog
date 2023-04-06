@@ -17,12 +17,13 @@ use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RootlineService;
 use Zeroseven\Z7Blog\Service\SettingsService;
 use Zeroseven\Z7Blog\Service\TagService;
+use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 class ItemsProcFunc
 {
     protected function getPageUid(array $config): int
     {
-        return GeneralUtility::_GP('id') ?: $config['flexParentDatabaseRow']['pid'] ?? 0;
+        return GlobalUtility::getRequestParameter('id') ?: $config['flexParentDatabaseRow']['pid'] ?? 0;
     }
 
     protected function getRootPageUid(array $config): int

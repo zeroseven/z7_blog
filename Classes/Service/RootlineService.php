@@ -13,6 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Category;
+use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 class RootlineService
 {
@@ -37,7 +38,7 @@ class RootlineService
             return (int)$GLOBALS['TSFE']->id;
         }
 
-        if ($id = GeneralUtility::_GP('id')) {
+        if ($id = GlobalUtility::getRequestParameter('id')) {
             return (int)$id;
         }
 

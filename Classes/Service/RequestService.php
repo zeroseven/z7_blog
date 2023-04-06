@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 class RequestService
 {
@@ -12,7 +13,7 @@ class RequestService
 
     public static function getArguments(): array
     {
-        return GeneralUtility::_GP(self::REQUEST_KEY) ?: [];
+        return GlobalUtility::getRequestParameter(self::REQUEST_KEY);
     }
 
     public static function getArgument(string $key): ?string

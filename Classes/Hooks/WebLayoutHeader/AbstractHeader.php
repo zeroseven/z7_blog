@@ -8,6 +8,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 abstract class AbstractHeader
 {
@@ -20,7 +21,8 @@ abstract class AbstractHeader
 
     public function __construct()
     {
-        $this->id = (int)GeneralUtility::_GP('id');
+        $this->id = GlobalUtility::getRequestParameter('id');
+
         $this->row = BackendUtility::readPageAccess($this->id, true);
     }
 
