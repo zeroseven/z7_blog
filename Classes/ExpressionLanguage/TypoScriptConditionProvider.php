@@ -8,9 +8,7 @@ use TYPO3\CMS\Core\ExpressionLanguage\AbstractProvider;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Category;
 use Zeroseven\Z7Blog\Domain\Model\Post;
-use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\SettingsService;
-
 /**
  * Example:
  *
@@ -21,8 +19,8 @@ use Zeroseven\Z7Blog\Service\SettingsService;
  * page.10.value = Nice! It's a blog post.
  * [global]
  *
- * [z7_blog.post.getAuthor().getUid() == 77]
- * page.10.value = This post is written by John Doe.
+ * [z7_blog.category]
+ * page.10.value = Nice! It's a blog category.
  * [global]
  */
 class TypoScriptConditionProvider extends AbstractProvider
@@ -30,12 +28,12 @@ class TypoScriptConditionProvider extends AbstractProvider
     public function __construct()
     {
         if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController){
+            
             $doktype = (int)($GLOBALS['TSFE']->page['doktype'] ?? 0);
-            $pagUid = (int)$GLOBALS['TSFE']->id;
 
-            $z7blog = new \stdClass();
-            $z7blog->post = $doktype === Post::DOKTYPE ? RepositoryService::getPostRepository()->findByUid($pagUid) : null;
-            $z7blog->category = $doktype === Category::DOKTYPE ? RepositoryService::getCategoryRepository()->findByUid($pagUid) : null;
+            $z7blog = new \stdClass;
+            $z7blog->post = $doktype === Post::DOKTYPE;
+            $z7blog->category = $doktype === Category::DOKTYPE;
 
             $this->expressionLanguageVariables = [SettingsService::EXTENSION_KEY => $z7blog];
         }
