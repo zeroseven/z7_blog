@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Zeroseven\Z7Blog\:
+    resource: '../Classes/*'
+
+  Zeroseven\Z7Blog\Provider\PostHeaderProvider:
+   tags:
+      - name: event.listener
+        identifier: 'zeroseven/z7_blog/post-header'
+        event: TYPO3\CMS\Backend\Controller\Event\RenderAdditionalContentToRecordListEvent
+
+  Zeroseven\Z7Blog\Provider\CategoryHeaderProvider:
+   tags:
+      - name: event.listener
+        identifier: 'zeroseven/z7_blog/category-header'
+        event: TYPO3\CMS\Backend\Controller\Event\RenderAdditionalContentToRecordListEvent
