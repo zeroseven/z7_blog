@@ -256,6 +256,11 @@ page.10 = TEXT
 page.10.value = It's a post
 [global]
 ```
+For TYPO3 12, there are only 2 conditions available:
+```typo3_typoscript
+[z7_blog.post]
+[z7_blog.category]
+```
 
 You can also integrate it's usage in the standard `ifViewHelper` in the fluid template to achieve even more flexibility:
 
