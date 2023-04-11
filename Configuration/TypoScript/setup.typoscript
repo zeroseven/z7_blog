@@ -97,3 +97,14 @@ blogAjaxPageRequest {
     stdWrap.if.isTrue.data = gp:tx_z7blog_list|list_id
   }
 }
+
+/**
+ * force the creation of the Frontend TypoScript setup (the attribute `frontend.typoscript` of the request)
+ * in order to avoid an Error "Setup array has not been initialized. This happens in cached Frontend scope where full TypoScript is not needed by the system." in middleware 
+ * https://typo3.slack.com/archives/C03AM9R17/p1677774597521739?thread_ts=1676932287.849699&cid=C03AM9R17
+*/
+page.footerData.1681232160 = COA_INT
+page.footerData.1681232160 {
+  10 = TEXT
+  10.value = 
+}
