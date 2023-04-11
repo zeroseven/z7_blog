@@ -6,7 +6,7 @@ namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
 use Exception;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
-use TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper;
+use Zeroseven\Z7Blog\ViewHelpers\Core\ActionViewHelper;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 
 abstract class AbstractLinkViewHelper extends ActionViewHelper
