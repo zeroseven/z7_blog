@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+
 class PaginationViewHelper extends AbstractLinkViewHelper
 {
     public function initializeArguments(): void
@@ -18,9 +21,11 @@ class PaginationViewHelper extends AbstractLinkViewHelper
     {
         parent::beforeRendering();
 
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+
         // Add a "data-href" link attribute
         if (isset($this->arguments['ajaxPageType']) && ($pageType = (int)($this->arguments['ajaxPageType'])) && $this->demand->getListId()) {
-            $this->tag->addAttribute('data-href', $this->renderingContext->getControllerContext()->getUriBuilder()->reset()
+            $this->tag->addAttribute('data-href', $uriBuilder->reset()
                 ->setTargetPageType($pageType)
                 ->setCreateAbsoluteUri(true)
                 ->setArguments((array)($this->arguments['arguments'] ?? []))
