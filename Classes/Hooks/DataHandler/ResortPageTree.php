@@ -114,7 +114,7 @@ class ResortPageTree
             ->from(self::TABLE)
             ->where(...$constraints)
             ->orderBy($orderBy, $reverseDirection ? 'DESC' : 'ASC')
-            ->execute();
+            ->executeQuery();
 
         // Collect uid's
         $uids = [];
