@@ -56,6 +56,7 @@ class PostInfoRenderUtility
 
         // Get the post
         try {
+            // @extensionScannerIgnoreLine
             $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id ?? 0);
         } catch (AspectNotFoundException $e) {
             $post = null;

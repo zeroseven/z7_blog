@@ -35,6 +35,7 @@ class RootlineService
     protected static function getCurrentPage(): int
     {
         if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController) {
+            // @extensionScannerIgnoreLine
             return (int)$GLOBALS['TSFE']->id;
         }
 
@@ -90,6 +91,6 @@ class RootlineService
 
     public static function findPagesBelow(int $startingPoint = null): array
     {
-        return GeneralUtility::intExplode(',', GeneralUtility::makeInstance(QueryGenerator::class)->getPagesBelow($startingPoint ?: self::getCurrentPage(), 99));
+        return GeneralUtility::intExplode(',', (string)GeneralUtility::makeInstance(QueryGenerator::class)->getPagesBelow($startingPoint ?: self::getCurrentPage(), 99));
     }
 }

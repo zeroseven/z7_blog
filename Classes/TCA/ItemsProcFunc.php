@@ -40,7 +40,7 @@ class ItemsProcFunc
         if ($setStoragePid) {
 
             // Get the storage pid by plugin configuration
-            $storagePids = (int)SettingsService::getPluginConfiguration('persistence.storagePid');
+            $storagePids = (string)SettingsService::getPluginConfiguration('persistence.storagePid');
 
             // Define storage pid in repository
             $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
