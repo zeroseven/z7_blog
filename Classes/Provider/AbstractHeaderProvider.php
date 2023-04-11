@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Provider;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use TYPO3\CMS\Fluid\ViewHelpers\Be\InfoboxViewHelper;
 use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 abstract class AbstractHeaderProvider
@@ -32,7 +32,7 @@ abstract class AbstractHeaderProvider
     {
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($pathAndFilename));
-        $view->assignMultiple(array_merge(['state' => InfoboxViewHelper::STATE_INFO], $variables ?: []));
+        $view->assignMultiple(array_merge(['state' => ContextualFeedbackSeverity::INFO], $variables ?: []));
 
         return $view;
     }
