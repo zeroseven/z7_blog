@@ -1,30 +1,96 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Controller;
 
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 use Zeroseven\Z7Blog\Domain\Demand\AbstractDemand;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\Domain\Model\Pagination;
+use Zeroseven\Z7Blog\Domain\Repository\AuthorRepository;
+use Zeroseven\Z7Blog\Domain\Repository\CategoryRepository;
+use Zeroseven\Z7Blog\Domain\Repository\TopicRepository;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\RequestService;
 use Zeroseven\Z7Blog\Service\TagService;
 
+/**
+ * PostController
+ */
 class PostController extends ActionController
 {
-
     /** @var array */
     protected $contentData;
 
     /** @var array */
     protected $requestArguments;
+    
+    /** @var CategoryRepository */
+    private $categoryRepository;
 
+    /** @var AuthorRepository */
+    private $authorRepository;
+
+    /** @var TopicRepository */
+    private $topicRepository;
+    
+    /**
+     * Method injectCategoryRepository
+     *
+     * @param CategoryRepository $categoryRepository 
+     * @return void
+     */
+    public function injectCategoryRepository(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+    
+    /**
+     * Method injectAuthorRepository
+     *
+     * @param AuthorRepository $authorRepository
+     * @return void
+     */
+    public function injectAuthorRepository(AuthorRepository $authorRepository)
+    {
+        $this->authorRepository = $authorRepository;
+    }
+    
+    /**
+     * Method injectTopicRepository
+     *
+     * @param TopicRepository $topicRepository
+     * @return void
+     */
+    public function injectTopicRepository(TopicRepository $topicRepository)
+    {
+        $this->topicRepository = $topicRepository;
+    }
+    
+    /**
+     * Method initializeAction
+     *
+     * @return void
+     */
     public function initializeAction()
     {
         parent::initializeAction();
@@ -33,7 +99,12 @@ class PostController extends ActionController
         $this->contentData = $this->configurationManager->getContentObject()->data;
         $this->requestArguments = RequestService::getArguments();
     }
-
+    
+    /**
+     * Method resolveView
+     *
+     * @return ViewInterface
+     */
     protected function resolveView(): ViewInterface
     {
         // Get "original" view object
@@ -57,15 +128,25 @@ class PostController extends ActionController
         // Create demand object with relevant arguments for filtering
         return PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
     }
-
-    protected function getRequestArgument(string $key)
+    
+    /**
+     * Method getRequestArgument
+     *
+     * @param string $key 
+     * @return mixed
+     */
+    protected function getRequestArgument(string $key): mixed
     {
         return $this->request->hasArgument($key) ? $this->request->getArgument($key) : null;
     }
-
-    public function listAction(): void
+    
+    /**
+     * Method listAction
+     *
+     * @return ResponseInterface
+     */
+    public function listAction(): ResponseInterface
     {
-
         // Determine relevant arguments for filtering
         $demand = $this->getRequestArgument('demand') ?: $this->getDemand(true);
 
@@ -77,7 +158,6 @@ class PostController extends ActionController
             $demand->setListId($this->contentData['uid'] ?? 0);
         }
 
-
         // Create pagination
         $itemsPerPage = ($this->settings['items_per_stages'] ?? null) ?: ($this->settings['post']['list']['itemsPerStages'] ?? null) ?: 6;
         $pagination = GeneralUtility::makeInstance(Pagination::class, $posts, $demand->getStage(), $itemsPerPage, $this->settings['max_stages'] ?? null);
@@ -88,22 +168,33 @@ class PostController extends ActionController
             'demand' => $demand,
             'posts' => $posts
         ]);
-    }
 
-    public function listUncachedAction(): void
+        return $this->htmlResponse();
+    }
+    
+    /**
+     * Method listUncachedAction
+     *
+     * @return ResponseInterface
+     */
+    public function listUncachedAction(): ResponseInterface
     {
-        $this->forward('list');
+        return new ForwardResponse('list');
     }
-
-    public function staticAction(): void
+    
+    /**
+     * Method staticAction
+     *
+     * @return ResponseInterface
+     */
+    public function staticAction(): ResponseInterface
     {
         // 🚓🚨 Nothing to see here, just walk along to the listAction, Sir. 👮‍🚧
-        $this->forward('list');
+        return new ForwardResponse('list');
     }
 
     public function filterAction(): void
     {
-
         // Create demand object
         $demand = $this->getDemand(true, false);
 
@@ -119,8 +210,8 @@ class PostController extends ActionController
                 ->select('pi_flexform', 'pid')
                 ->from('tt_content')
                 ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($listId, \PDO::PARAM_INT)))
-                ->execute()
-                ->fetch();
+                ->executeQuery()
+                ->fetchAssociative();
 
             // Define the target page
             $this->view->assign('pageUid', (int)$row['pid']);
@@ -142,9 +233,9 @@ class PostController extends ActionController
 
         // Pass variables to the content
         $this->view->assignMultiple([
-            'categories' => RepositoryService::getCategoryRepository()->findAll(),
-            'authors' => RepositoryService::getAuthorRepository()->findAll(),
-            'topics' => RepositoryService::getTopicRepository()->findAll(),
+            'categories' => $this->categoryRepository->findAll(),
+            'authors' => $this->authorRepository->findAll(),
+            'topics' => $this->topicRepository->findAll(),
             'tags' => TagService::getTags($demand, true),
             'demand' => $demand
         ]);
