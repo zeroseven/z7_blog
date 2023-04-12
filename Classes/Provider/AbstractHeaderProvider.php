@@ -32,7 +32,7 @@ abstract class AbstractHeaderProvider
     {
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($pathAndFilename));
-        $view->assignMultiple(array_merge(['state' => ContextualFeedbackSeverity::INFO], $variables ?: []));
+        $view->assignMultiple(array_merge(['state' => ContextualFeedbackSeverity::INFO->value], $variables ?: []));
 
         return $view;
     }

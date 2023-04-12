@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Provider;
 
-use TYPO3\CMS\Backend\Controller\Event\RenderAdditionalContentToRecordListEvent;
+use TYPO3\CMS\Backend\Controller\Event\ModifyPageLayoutContentEvent;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
@@ -37,11 +37,11 @@ class PostHeaderProvider extends AbstractHeaderProvider
     /**
      * Method __invoke
      *
-     * @param RenderAdditionalContentToRecordListEvent $event 
+     * @param ModifyPageLayoutContentEvent $event 
      *
      * @return void
      */
-    public function __invoke(RenderAdditionalContentToRecordListEvent $event): void
+    public function __invoke(ModifyPageLayoutContentEvent $event): void
     {
         // Check if the page is a post
         if ((int)($this->row['doktype'] ?? 0) === Post::DOKTYPE) {
@@ -51,7 +51,7 @@ class PostHeaderProvider extends AbstractHeaderProvider
                 'propertyPermissions' => $this->getPropertyPermissions()
             ])->render();
 
-            $event->addContentAbove($content);
+            $event->addHeaderContent($content);
         }
     }
 }

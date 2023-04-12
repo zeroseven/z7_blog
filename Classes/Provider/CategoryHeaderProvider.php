@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Provider;
 
-use TYPO3\CMS\Backend\Controller\Event\RenderAdditionalContentToRecordListEvent;
+use TYPO3\CMS\Backend\Controller\Event\ModifyPageLayoutContentEvent;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use Zeroseven\Z7Blog\Domain\Model\Category;
 use Zeroseven\Z7Blog\Service\RepositoryService;
@@ -31,11 +31,11 @@ class CategoryHeaderProvider extends AbstractHeaderProvider
     /**
      * Method __invoke
      *
-     * @param RenderAdditionalContentToRecordListEvent $event 
+     * @param ModifyPageLayoutContentEvent $event 
      *
      * @return void
      */
-    public function __invoke(RenderAdditionalContentToRecordListEvent $event): void
+    public function __invoke(ModifyPageLayoutContentEvent $event): void
     {
         // Check if the page is a category
         if ((int)($this->row['doktype'] ?? 0) === Category::DOKTYPE) {
@@ -46,7 +46,7 @@ class CategoryHeaderProvider extends AbstractHeaderProvider
                 'posts' => RepositoryService::getPostRepository()->findByCategory($this->id)
             ])->render();
 
-            $event->addContentAbove($content);
+            $event->addHeaderContent($content);
         }
     }
 }

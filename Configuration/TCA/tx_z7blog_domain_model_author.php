@@ -8,7 +8,6 @@ return [
         'label_alt_force' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -37,13 +36,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1, 'flags-multiple']
-                ],
-                'default' => 0
+                'type' => 'language',
             ]
         ],
         'l10n_parent' => [
@@ -53,7 +46,10 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0]
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ]
                 ],
                 'foreign_table' => 'tx_z7blog_domain_model_author',
                 'foreign_table_where' => 'AND tx_z7blog_domain_model_author.pid=###CURRENT_PID### AND tx_z7blog_domain_model_author.sys_language_uid IN (-1,0)'
@@ -78,7 +74,10 @@ return [
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled', 1]
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
+                        'value' => 1,
+                    ]
                 ]
             ]
         ],
@@ -88,7 +87,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.firstname',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => ''
             ]
         ],
@@ -116,14 +116,11 @@ return [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.email',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputLink',
-                'fieldControl' => [
-                    'linkPopup' => [
-                        'options' => [
-                            'blindLinkOptions' => 'file, spec, folder, telephone, page, url'
-                        ]
-                    ]
+                'type' => 'link',
+                'allowedTypes' => ['page', 'url', 'record'],
+                'appearance' => [
+                    'allowedFileExtensions' => ['jpg', 'png'],
+                    'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
                 'default' => ''
@@ -157,8 +154,7 @@ return [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.page',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputLink',
+                'type' => 'link',
                 'fieldControl' => [
                     'linkPopup' => [
                         'options' => [
@@ -175,14 +171,11 @@ return [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.twitter',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputLink',
-                'fieldControl' => [
-                    'linkPopup' => [
-                        'options' => [
-                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
-                        ]
-                    ]
+                'type' => 'link',
+                'allowedTypes' => ['page', 'url', 'record'],
+                'appearance' => [
+                    'allowedFileExtensions' => ['jpg', 'png'],
+                    'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
                 'default' => ''
@@ -193,14 +186,11 @@ return [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.linkedin',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputLink',
-                'fieldControl' => [
-                    'linkPopup' => [
-                        'options' => [
-                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
-                        ]
-                    ]
+                'type' => 'link',
+                'allowedTypes' => ['page', 'url', 'record'],
+                'appearance' => [
+                    'allowedFileExtensions' => ['jpg', 'png'],
+                    'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
                 'default' => ''
@@ -211,14 +201,11 @@ return [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.xing',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputLink',
-                'fieldControl' => [
-                    'linkPopup' => [
-                        'options' => [
-                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
-                        ]
-                    ]
+                'type' => 'link',
+                'allowedTypes' => ['page', 'url', 'record'],
+                'appearance' => [
+                    'allowedFileExtensions' => ['jpg', 'png'],
+                    'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
                 'default' => ''

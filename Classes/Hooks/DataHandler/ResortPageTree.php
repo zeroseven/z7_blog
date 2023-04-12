@@ -48,7 +48,7 @@ class ResortPageTree
                                     'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:notification.resortPagetree.title',
                                     'z7_blog'
                                 ),
-                                ContextualFeedbackSeverity::INFO,
+                                ContextualFeedbackSeverity::INFO->value,
                                 true
                             );
 

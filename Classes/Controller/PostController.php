@@ -118,7 +118,16 @@ class PostController extends ActionController
 
         return $view;
     }
-
+    
+    /**
+     * Method getDemand
+     *
+     * @param bool $applySettings
+     * @param bool $applyRequestArguments
+     * @param ...$arguments $arguments
+     *
+     * @return AbstractDemand
+     */
     protected function getDemand(bool $applySettings = null, bool $applyRequestArguments = null, ...$arguments): AbstractDemand
     {
 
@@ -192,8 +201,13 @@ class PostController extends ActionController
         // 🚓🚨 Nothing to see here, just walk along to the listAction, Sir. 👮‍🚧
         return new ForwardResponse('list');
     }
-
-    public function filterAction(): void
+    
+    /**
+     * Method filterAction
+     *
+     * @return ResponseInterface
+     */
+    public function filterAction(): ResponseInterface
     {
         // Create demand object
         $demand = $this->getDemand(true, false);
@@ -239,5 +253,7 @@ class PostController extends ActionController
             'tags' => TagService::getTags($demand, true),
             'demand' => $demand
         ]);
+
+        return $this->htmlResponse();
     }
 }
