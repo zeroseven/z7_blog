@@ -98,6 +98,7 @@ blogAjaxPageRequest {
   }
 }
 
+[z7_blog.post || z7_blog.category]
 /**
  * force the creation of the Frontend TypoScript setup (the attribute `frontend.typoscript` of the request)
  * in order to avoid an Error "Setup array has not been initialized. This happens in cached Frontend scope where full TypoScript is not needed by the system." in middleware 
@@ -108,3 +109,4 @@ page.footerData.1681232160 {
   10 = TEXT
   10.value = 
 }
+[END]
