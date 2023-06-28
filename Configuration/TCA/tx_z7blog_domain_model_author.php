@@ -1,6 +1,6 @@
 <?php
 
-return [
+$tca = [
     'ctrl' => [
         'title' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author',
         'label' => 'firstname',
@@ -130,11 +130,24 @@ return [
             'exclude' => true,
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.image',
-            'config' => [
-                'type' => 'file',
-                'maxitems' => 6,
-                'allowed' => 'common-image-types'
-            ],
+            // New TCA type "file" introduced in TYPO3 12, ExtensionManagementUtility->getFileFieldTCAConfig() deprecated
+            // @extensionScannerIgnoreLine
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'image',
+                [
+                    'appearance' => [
+                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
+                    ],
+                    'overrideChildTca' => [
+                        'types' => [
+                            '0' => ['showitem' => '--palette--;;filePalette'],
+                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => ['showitem' => '--palette--;;filePalette']
+                        ]
+                    ],
+                    'maxitems' => 1
+                ],
+                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+            )
         ],
         'description' => [
             'exclude' => true,
@@ -213,3 +226,13 @@ return [
         ]
     ]
 ];
+
+
+if (\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getMajorVersion() > 11) {
+    $tca['columns']['image']['config'] = [
+        'type' => 'file',
+        'maxitems' => 1,
+        'allowed' => 'common-image-types'
+    ];
+}
+return $tca;
