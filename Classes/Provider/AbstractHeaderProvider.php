@@ -33,7 +33,7 @@ abstract class AbstractHeaderProvider
         // FlashMessage::INFO deprecated in TYPO3 12
         // @extensionScannerIgnoreLine
         $state = 
-        GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 11 ? FlashMessage::INFO : \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value;
+        GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 11 ? \TYPO3\CMS\Core\Messaging\FlashMessage::INFO : \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value;
 
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($pathAndFilename));

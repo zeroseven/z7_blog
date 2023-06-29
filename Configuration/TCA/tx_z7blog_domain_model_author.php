@@ -1,5 +1,7 @@
 <?php
 
+$typo3MajorVersion = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getMajorVersion();
+
 $tca = [
     'ctrl' => [
         'title' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author',
@@ -45,10 +47,17 @@ $tca = [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => [
+                'items' => $typo3MajorVersion > 11 ? [
                     [
                         'label' => '',
                         'value' => 0,
+                    ]
+                ]
+                :
+                [
+                    [
+                        '',
+                        0,
                     ]
                 ],
                 'foreign_table' => 'tx_z7blog_domain_model_author',
@@ -116,11 +125,14 @@ $tca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.email',
             'config' => [
-                'type' => 'link',
-                'allowedTypes' => ['page', 'url', 'record'],
-                'appearance' => [
-                    'allowedFileExtensions' => ['jpg', 'png'],
-                    'allowedOptions' => ['params', 'rel'],
+                'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, spec, folder, telephone, page, url'
+                        ]
+                    ]
                 ],
                 'eval' => 'trim',
                 'default' => ''
@@ -167,7 +179,8 @@ $tca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.page',
             'config' => [
-                'type' => 'link',
+                'type' => 'input',
+                'renderType' => 'inputLink',
                 'fieldControl' => [
                     'linkPopup' => [
                         'options' => [
@@ -184,11 +197,14 @@ $tca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.twitter',
             'config' => [
-                'type' => 'link',
-                'allowedTypes' => ['page', 'url', 'record'],
-                'appearance' => [
-                    'allowedFileExtensions' => ['jpg', 'png'],
-                    'allowedOptions' => ['params', 'rel'],
+                'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
+                        ]
+                    ]
                 ],
                 'eval' => 'trim',
                 'default' => ''
@@ -199,11 +215,14 @@ $tca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.linkedin',
             'config' => [
-                'type' => 'link',
-                'allowedTypes' => ['page', 'url', 'record'],
-                'appearance' => [
-                    'allowedFileExtensions' => ['jpg', 'png'],
-                    'allowedOptions' => ['params', 'rel'],
+                'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
+                        ]
+                    ]
                 ],
                 'eval' => 'trim',
                 'default' => ''
@@ -214,11 +233,14 @@ $tca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.xing',
             'config' => [
-                'type' => 'link',
-                'allowedTypes' => ['page', 'url', 'record'],
-                'appearance' => [
-                    'allowedFileExtensions' => ['jpg', 'png'],
-                    'allowedOptions' => ['params', 'rel'],
+                'type' => 'input',
+                'renderType' => 'inputLink',
+                'fieldControl' => [
+                    'linkPopup' => [
+                        'options' => [
+                            'blindLinkOptions' => 'file, page, spec, folder, mail, telephone'
+                        ]
+                    ]
                 ],
                 'eval' => 'trim',
                 'default' => ''
@@ -228,11 +250,63 @@ $tca = [
 ];
 
 
-if (\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getMajorVersion() > 11) {
+if ($typo3MajorVersion > 11) {
     $tca['columns']['image']['config'] = [
         'type' => 'file',
         'maxitems' => 1,
         'allowed' => 'common-image-types'
+    ];
+    $tca['columns']['email']['config'] = [
+        'type' => 'link',
+        'allowedTypes' => ['page', 'url', 'record'],
+        'appearance' => [
+            'allowedFileExtensions' => ['jpg', 'png'],
+            'allowedOptions' => ['params', 'rel'],
+        ],
+        'eval' => 'trim',
+        'default' => ''
+    ];
+    $tca['columns']['page']['config'] = [
+        'type' => 'link',
+        'fieldControl' => [
+            'linkPopup' => [
+                'options' => [
+                    'blindLinkOptions' => 'file, spec, folder, mail, telephone'
+                ]
+            ]
+        ],
+        'eval' => 'trim',
+        'default' => ''
+    ];
+    $tca['columns']['twitter']['config'] = [
+        'type' => 'link',
+        'allowedTypes' => ['page', 'url', 'record'],
+        'appearance' => [
+            'allowedFileExtensions' => ['jpg', 'png'],
+            'allowedOptions' => ['params', 'rel'],
+        ],
+        'eval' => 'trim',
+        'default' => ''
+    ];
+    $tca['columns']['linkedin']['config'] = [
+        'type' => 'link',
+        'allowedTypes' => ['page', 'url', 'record'],
+        'appearance' => [
+            'allowedFileExtensions' => ['jpg', 'png'],
+            'allowedOptions' => ['params', 'rel'],
+        ],
+        'eval' => 'trim',
+        'default' => ''
+    ];
+    $tca['columns']['xing']['config'] = [
+        'type' => 'link',
+        'allowedTypes' => ['page', 'url', 'record'],
+        'appearance' => [
+            'allowedFileExtensions' => ['jpg', 'png'],
+            'allowedOptions' => ['params', 'rel'],
+        ],
+        'eval' => 'trim',
+        'default' => ''
     ];
 }
 return $tca;
