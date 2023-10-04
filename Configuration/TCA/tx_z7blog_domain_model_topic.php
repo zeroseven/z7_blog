@@ -1,8 +1,6 @@
 <?php
 
-$typo3MajorVersion = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getMajorVersion();
-
-$tca = [
+return [
     'ctrl' => [
         'title' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_topic',
         'label' => 'title',
@@ -39,17 +37,10 @@ $tca = [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => $typo3MajorVersion > 11 ? [
+                'items' => [
                     [
                         'label' => '',
                         'value' => 0,
-                    ]
-                ]
-                :
-                [
-                    [
-                        '',
-                        0,
                     ]
                 ],
                 'foreign_table' => 'tx_z7blog_domain_model_topic',
@@ -95,5 +86,3 @@ $tca = [
         ]
     ]
 ];
-
-return $tca;

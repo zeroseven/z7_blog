@@ -9,96 +9,43 @@ $GLOBALS['TCA']['pages']['types'][\Zeroseven\Z7Blog\Domain\Model\Category::DOKTY
 // Manipulate TCA
 call_user_func(static function (string $table, int $postDoktype, int $categoryDoktype) {
 
-    $typo3MajorVersion = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getMajorVersion();
-
-    $item = [
-        'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.post',
-        'value' => $postDoktype,
-        'icon'  => 'apps-pagetree-blogpost'
-    ];
-    if ($typo3MajorVersion < 12) {
-        $item = array_values($item);
-    }
-
     // Add post page type
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
         $table,
         'doktype',
-        $item,
+        [
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.post',
+            'value' => $postDoktype,
+            'icon'  => 'apps-pagetree-blogpost'
+        ],
         '1',
         'after'
     );
-
-    $item = [
-        'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.category',
-        'value' => $categoryDoktype,
-        'icon'  => 'apps-pagetree-blogcategory'
-    ];
-    if ($typo3MajorVersion < 12) {
-        $item = array_values($item);
-    }
 
     // Add category page type
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
         $table,
         'doktype',
-        $item,
+        [
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.category',
+            'value' => $categoryDoktype,
+            'icon'  => 'apps-pagetree-blogcategory'
+        ],
         '1',
         'after'
     );
 
     // Add fields to the table "pages"
-
-    $post_archive_config = $typo3MajorVersion < 12 ? 
-        [
-            'type' => 'input',
-            'renderType' => 'inputDateTime',
-            'size' => 10,
-            'eval' => 'date,int',
-            'default' => 0
-        ]
-        :
-        [
-            'type' => 'datetime',
-            'format' => 'date',
-            'size' => 10,
-            'default' => 0
-        ];
-
-    $post_date_config = $typo3MajorVersion < 12 ? 
-        [
-            'type' => 'input',
-            'renderType' => 'inputDateTime',
-            'size' => 10,
-            'eval' => 'date,required',
-            'default' => time()
-        ]
-        :
-        [
-            'type' => 'datetime',
-            'format' => 'date',
-            'size' => 10,
-            'required' => true,
-            'default' => time()
-        ];
-
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns($table, [
         'post_top' => [
             'exclude' => false,
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_top',
             'config' => [
                 'type' => 'check',
-                'items' => $typo3MajorVersion > 11 ? [
+                'items' => [
                     [
                         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
                         'value' => 1,
-                    ]
-                ]
-                :
-                [
-                    [
-                        'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
-                        1,
                     ]
                 ],
                 'default' => 0
@@ -108,13 +55,24 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'exclude' => true,
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_archive',
-            'config' => $post_archive_config
+            'config' => [
+                'type' => 'datetime',
+                'format' => 'date',
+                'size' => 10,
+                'default' => 0
+            ]
         ],
         'post_date' => [
             'exclude' => false,
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_date',
-            'config' => $post_date_config
+            'config' => [
+                'type' => 'datetime',
+                'format' => 'date',
+                'size' => 10,
+                'required' => true,
+                'default' => time()
+            ]
         ],
         'post_author' => [
             'exclude' => true,
@@ -129,19 +87,11 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                 'minitems' => 0,
                 'maxitems' => 1,
                 'default' => 0,
-                'items' => $typo3MajorVersion > 11 ? [
+                'items' => [
                     [
                         'label' => '-',
                         'value' => 0,
                         'icon' => 'plugin-z7blog-author',
-                    ]
-                ]
-                :
-                [
-                    [
-                        '-',
-                        0,
-                        'plugin-z7blog-author',
                     ]
                 ]
             ]

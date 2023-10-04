@@ -65,10 +65,3 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
 
 // Add styles to the backend
 $GLOBALS['TYPO3_CONF_VARS']['BE']['stylesheets']['z7_blog'] = 'EXT:z7_blog/Resources/Public/Css/Backend/';
-
-if (\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getMajorVersion() < 12) {
-    // @extensionScannerIgnoreLine
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']['drawHeaderHook'][] = \Zeroseven\Z7Blog\Provider\PostHeaderProvider::class . '->render';
-    // @extensionScannerIgnoreLine
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']['drawHeaderHook'][] = \Zeroseven\Z7Blog\Provider\CategoryHeaderProvider::class . '->render';
-}

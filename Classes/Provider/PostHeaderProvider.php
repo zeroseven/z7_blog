@@ -35,7 +35,7 @@ class PostHeaderProvider extends AbstractHeaderProvider
     }
     
     /**
-     * Method __invoke (for TYPO3 12)
+     * Method __invoke
      *
      * @param ModifyPageLayoutContentEvent $event 
      *
@@ -54,23 +54,4 @@ class PostHeaderProvider extends AbstractHeaderProvider
             $event->addHeaderContent($content);
         }
     }
-
-    /**
-     * Method render (for TYPO3 11)
-     *
-     * @return string
-     */
-    public function render(): string
-    {
-        // Check if the page is a category
-        if ((int)($this->row['doktype'] ?? 0) === Post::DOKTYPE) {
-            return $this->createView('EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutHeader/Post.html', [
-                'post' => RepositoryService::getPostRepository()->findByUid($this->id, true),
-                'propertyPermissions' => $this->getPropertyPermissions()
-            ])->render();
-        }
-
-        return '';
-    }
-
 }
