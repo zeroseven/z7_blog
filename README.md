@@ -1,4 +1,16 @@
+![maintenance-status](https://img.shields.io/badge/maintenance-deprecated-red.svg)
+
 # TYPO3 blog extension
+
+## DEPRECATED
+
+This extension is replaced by the [pagebased_blog](https://github.com/zeroseven/pagebased_blog) (powered by [pagebased](https://github.com/zeroseven/pagebased)), it's new and shiny successor with more functionality and a huge perfomance boost. 
+
+After years of developing and maintaining the z7_blog, we have upgraded the whole experience. We have put all of our experience with this extension into it's successor.
+
+Version 1.4 was the last feature update this extension will receive. Thank you for using and liking our blog extension in the past.
+
+---
 
 ## :interrobang: Why another blog extension?
 
