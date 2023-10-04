@@ -9,12 +9,13 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => 'zeroseven design studios GmbH',
     'state' => 'obsolete',
     'clearCacheOnLoad' => 1,
-    'version' => '2.0.0',
+    'version' => '1.4.0',
     'constraints' => [
         'depends' => [
             'typo3' => '^12.3'
         ],
         'suggests' => [
+            'pagebased_blog' => ''
         ]
     ]
 ];
