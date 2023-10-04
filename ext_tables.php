@@ -63,12 +63,4 @@ call_user_func(static function () {
         'priority' => 100,
         'class' => \Zeroseven\Z7Blog\Backend\Form\Element\BlogTags::class,
     ];
-
-    // Add styles to the backend
-    $GLOBALS['TBE_STYLES']['skins']['z7_blog'] = [
-        'name' => 'z7_blog',
-        'stylesheetDirectories' => [
-            'css' => 'EXT:z7_blog/Resources/Public/Css/Backend/'
-        ]
-    ];
 });

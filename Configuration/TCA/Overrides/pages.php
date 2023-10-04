@@ -14,9 +14,9 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
         $table,
         'doktype',
         [
-            'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.post',
-            $postDoktype,
-            'apps-pagetree-blogpost'
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.post',
+            'value' => $postDoktype,
+            'icon'  => 'apps-pagetree-blogpost'
         ],
         '1',
         'after'
@@ -27,9 +27,9 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
         $table,
         'doktype',
         [
-            'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.category',
-            $categoryDoktype,
-            'apps-pagetree-blogcategory'
+            'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.category',
+            'value' => $categoryDoktype,
+            'icon'  => 'apps-pagetree-blogcategory'
         ],
         '1',
         'after'
@@ -43,7 +43,10 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled', 1]
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
+                        'value' => 1,
+                    ]
                 ],
                 'default' => 0
             ]
@@ -53,10 +56,9 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_archive',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
+                'format' => 'date',
                 'size' => 10,
-                'eval' => 'date,int',
                 'default' => 0
             ]
         ],
@@ -65,10 +67,10 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_date',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
+                'format' => 'date',
                 'size' => 10,
-                'eval' => 'date,required',
+                'required' => true,
                 'default' => time()
             ]
         ],
@@ -86,7 +88,11 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                 'maxitems' => 1,
                 'default' => 0,
                 'items' => [
-                    ['-', 0, 'plugin-z7blog-author']
+                    [
+                        'label' => '-',
+                        'value' => 0,
+                        'icon' => 'plugin-z7blog-author',
+                    ]
                 ]
             ]
         ],
@@ -119,7 +125,6 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_to',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => $table,
                 'foreign_table' => $table,
                 'MM_opposite_field' => 'post_relations_from',
@@ -152,7 +157,6 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_relations_from',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'foreign_table' => $table,
                 'allowed' => $table,
                 'size' => 5,
@@ -168,7 +172,10 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled', 1]
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
+                        'value' => 1,
+                    ]
                 ],
                 'default' => 0
             ]

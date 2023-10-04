@@ -20,15 +20,22 @@ abstract class AbstractPageRepository extends AbstractRepository
 {
     public function initializeObject()
     {
-        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
-
-    /** @throws AspectNotFoundException | InvalidQueryException */
+    
+    /**
+     * Method getRootlineAndLanguageConstraints
+     *
+     * @param AbstractDemand $demand
+     * @param QueryInterface $query
+     *
+     * @return array
+     * @throws AspectNotFoundException | InvalidQueryException
+     */
     public function getRootlineAndLanguageConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
-
         // Build array
         $constraints = [];
 
@@ -42,13 +49,13 @@ abstract class AbstractPageRepository extends AbstractRepository
         $constraints[] = $query->equals('nav_hide', 0);
 
         // Add language constraints
-        $constraints[] = $query->logicalOr([
+        $constraints[] = $query->logicalOr(
             $query->equals('l18n_cfg', 0),
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $query->greaterThanOrEqual('l18n_cfg', 1),
                 $query->greaterThanOrEqual('sys_language_uid', 1),
-            ]),
-        ]);
+            ),
+        );
 
         return $constraints;
     }

@@ -8,6 +8,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Exception;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -47,7 +48,9 @@ class ResortPageTree
                                     'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:notification.resortPagetree.title',
                                     'z7_blog'
                                 ),
-                                FlashMessage::INFO,
+                                // FlashMessage::INFO deprecated in TYPO3 12
+                                // @extensionScannerIgnoreLine
+                                (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 11 ? FlashMessage::INFO : \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value),
                                 true
                             );
 
@@ -113,7 +116,7 @@ class ResortPageTree
             ->from(self::TABLE)
             ->where(...$constraints)
             ->orderBy($orderBy, $reverseDirection ? 'DESC' : 'ASC')
-            ->execute();
+            ->executeQuery();
 
         // Collect uid's
         $uids = [];

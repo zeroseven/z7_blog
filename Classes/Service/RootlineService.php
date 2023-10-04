@@ -6,13 +6,14 @@ namespace Zeroseven\Z7Blog\Service;
 
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use Zeroseven\Z7Blog\Database\QueryGenerator;
 use Zeroseven\Z7Blog\Domain\Model\Category;
+use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 class RootlineService
 {
@@ -34,10 +35,11 @@ class RootlineService
     protected static function getCurrentPage(): int
     {
         if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController) {
+            // @extensionScannerIgnoreLine
             return (int)$GLOBALS['TSFE']->id;
         }
 
-        if ($id = GeneralUtility::_GP('id')) {
+        if ($id = GlobalUtility::getRequestParameter('id')) {
             return (int)$id;
         }
 
@@ -89,6 +91,6 @@ class RootlineService
 
     public static function findPagesBelow(int $startingPoint = null): array
     {
-        return GeneralUtility::intExplode(',', GeneralUtility::makeInstance(QueryGenerator::class)->getTreeList($startingPoint ?: self::getCurrentPage(), 99));
+        return GeneralUtility::intExplode(',', (string)GeneralUtility::makeInstance(QueryGenerator::class)->getPagesBelow($startingPoint ?: self::getCurrentPage(), 99));
     }
 }

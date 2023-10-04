@@ -57,15 +57,15 @@ class PostRepository extends AbstractPageRepository
 
         // Set archive mode
         if ($demand->archivedPostsHidden()) {
-            $constraints[] = $query->logicalOr([
+            $constraints[] = $query->logicalOr(
                 $query->equals('archiveDate', 0),
                 $query->greaterThan('archiveDate', time())
-            ]);
+            );
         } elseif ($demand->archivedPostsOnly()) {
-            $constraints[] = $query->logicalAnd([
+            $constraints[] = $query->logicalAnd(
                 $query->greaterThan('archiveDate', 1),
                 $query->lessThan('archiveDate', time())
-            ]);
+            );
         }
 
         // Display only top posts

@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\ColumnMap;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\ColumnMap\Relation as ColumnMapRelation;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -27,7 +27,7 @@ abstract class AbstractRepository extends Repository
                 && $demand->getOrdering()
                 && preg_match('/([a-zA-Z]+)(?:_(asc|desc))?/', $demand->getOrdering(), $matches) // Examples: "date_desc", "title_asc", "title",
                 && ($property = $matches[1] ?? null)
-                && ($dataMapper = $this->objectManager->get(DataMapper::class))
+                && ($dataMapper = GeneralUtility::makeInstance(DataMapper::class))
                 && ($columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($property))
                 && ($columnName = $columnMap->getColumnName())
             ) {
@@ -43,7 +43,7 @@ abstract class AbstractRepository extends Repository
     protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
         $constraints = [];
-        $dataMapper = $this->objectManager->get(DataMapper::class);
+        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
 
         // Search for specific uids
         if ($uids = $demand->getUids()){
@@ -66,12 +66,12 @@ abstract class AbstractRepository extends Repository
         foreach ($demand->getTypeMapping() as $propertyName => $type) {
             if (($value = $demand->getProperty($propertyName)) && $columnMap = $dataMapper->getDataMap($this->objectType)->getColumnMap($propertyName)) {
                 if ($type === 'array') {
-                    if (in_array($columnMap->getTypeOfRelation(), [ColumnMap::RELATION_HAS_MANY, ColumnMap::RELATION_HAS_AND_BELONGS_TO_MANY], true)) {
-                        $constraints[] = $query->logicalOr(array_map(static function ($v) use ($query, $propertyName) {
+                    if (in_array($columnMap->getTypeOfRelation(), [ColumnMapRelation::HAS_MANY, ColumnMapRelation::HAS_AND_BELONGS_TO_MANY], true)) {
+                        $constraints[] = $query->logicalOr(...array_map(static function ($v) use ($query, $propertyName) {
                             return $query->contains($propertyName, $v);
                         }, $value));
-                    } elseif ($columnMap->getTypeOfRelation() === ColumnMap::RELATION_NONE) {
-                        $constraints[] = $query->logicalOr(array_map(static function ($v) use ($query, $propertyName) {
+                    } elseif ($columnMap->getTypeOfRelation() === ColumnMapRelation::NONE) {
+                        $constraints[] = $query->logicalOr(...array_map(static function ($v) use ($query, $propertyName) {
                             return $query->like($propertyName, '%' . $v . '%');
                         }, $value));
                     } else {
@@ -125,7 +125,7 @@ abstract class AbstractRepository extends Repository
         // Apply constraints
         if (!empty($constraints = $this->createDemandConstraints($demand, $query))) {
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...$constraints)
             );
         }
 

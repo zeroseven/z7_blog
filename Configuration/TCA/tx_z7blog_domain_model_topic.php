@@ -6,7 +6,6 @@ return [
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -29,13 +28,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1, 'flags-multiple']
-                ],
-                'default' => 0
+                'type' => 'language',
             ]
         ],
         'l10n_parent' => [
@@ -45,7 +38,10 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0]
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ]
                 ],
                 'foreign_table' => 'tx_z7blog_domain_model_topic',
                 'foreign_table_where' => 'AND tx_z7blog_domain_model_topic.pid=###CURRENT_PID### AND tx_z7blog_domain_model_topic.sys_language_uid IN (-1,0)'
@@ -70,7 +66,10 @@ return [
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled', 1]
+                    [
+                        'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
+                        'value' => 1,
+                    ]
                 ]
             ]
         ],
@@ -80,7 +79,8 @@ return [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_topic.title',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => ''
             ]
         ]

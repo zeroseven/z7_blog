@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMap;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -29,7 +28,7 @@ class AbstractValueProcessor extends AbstractViewHelper
 
     public function __construct()
     {
-        $this->dataMap = GeneralUtility::makeInstance(ObjectManager::class)->get(DataMapper::class)->getDataMap($this->objectType);
+        $this->dataMap = GeneralUtility::makeInstance(DataMapper::class)->getDataMap($this->objectType);
     }
 
     public function initializeArguments(): void
@@ -64,12 +63,12 @@ class AbstractValueProcessor extends AbstractViewHelper
 
         // Add constraints
         if ($sysLanguageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id')) {
-            $query->where($queryBuilder->expr()->orX(
-                $queryBuilder->expr()->andX(
+            $query->where($queryBuilder->expr()->or(
+                $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sysLanguageUid, \PDO::PARAM_INT)),
                     $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
                 ),
-                $queryBuilder->expr()->andX(
+                $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(-1, \PDO::PARAM_INT)),
                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
                 )
@@ -79,7 +78,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         }
 
         // Execute query and return result
-        return empty($result = $query->execute()->fetch()) ? null : implode(' ', $result);
+        return empty($result = $query->executeQuery()->fetch()) ? null : implode(' ', $result);
     }
 
     protected function processFallback($value, string $property = null): ?string
