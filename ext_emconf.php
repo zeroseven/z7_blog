@@ -12,7 +12,7 @@ $EM_CONF[$_EXTKEY] = [
     'version' => '1.4.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '^12.3'
+            'typo3' => '12.3.0-12.9.99'
         ],
         'suggests' => [
             'pagebased_blog' => ''
