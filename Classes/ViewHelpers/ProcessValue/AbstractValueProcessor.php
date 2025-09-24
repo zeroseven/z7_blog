@@ -75,7 +75,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         }
 
         // Execute query and return result
-        return empty($result = $query->executeQuery()->fetch()) ? null : implode(' ', $result);
+        return empty($result = $query->executeQuery()->fetchAllAssociative()) ? null : implode(' ', $result);
     }
 
     protected function processFallback($value, string $property = null): ?string
