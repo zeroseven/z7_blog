@@ -20,7 +20,7 @@
     }
   ],
   "require": {
-    "typo3/cms-core": "^12.3",
+    "typo3/cms-core": "^12.3 || ^13.4",
     "ext-json": "*"
   },
   "autoload": {
