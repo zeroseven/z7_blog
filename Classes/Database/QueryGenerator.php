@@ -18,6 +18,7 @@ namespace Zeroseven\Z7Blog\Database;
  */
 
 use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,7 +30,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class QueryGenerator
 {
-    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
+    public function __construct(private readonly ConnectionPool $connectionPool) {}
+
+    public static function makeInstance(): self
+    {
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        return new self($connectionPool);
+    }
     /**
      * Recursively fetch all descendants of a given page
      *
@@ -39,7 +46,7 @@ class QueryGenerator
      * @param string $permClause
      * @return string comma separated list of descendant pages
      */
-    public function getPagesBelow($id, $depth, $begin = 0, $permClause = '')
+    public function getPagesBelow(int $id, int $depth, int $begin = 0, string $permClause = ''): int|string
     {
         $depth = (int)$depth;
         $begin = (int)$begin;
