@@ -40,8 +40,8 @@ class RedirectHandler implements MiddlewareInterface
                     'additionalParams' => '&' . RequestService::REQUEST_KEY . '[category]=' . $row['uid'],
                     'addQueryString' => true,
                     'addQueryString.' => [
-                        'exclude' => RequestService::REQUEST_KEY . '[list_id],' . RequestService::REQUEST_KEY . '[category], cHash, id'
-                    ]
+                        'exclude' => RequestService::REQUEST_KEY . '[list_id],' . RequestService::REQUEST_KEY . '[category], cHash, id',
+                    ],
                 ]);
             }
         }

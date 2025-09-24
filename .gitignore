@@ -1,4 +1,7 @@
 node_modules
+.Build
+composer.lock
 .idea
 Resources/Public/JavaScript/Frontend/**/*.js
 !Resources/Public/JavaScript/Frontend/**/*min.js
+/.php-cs-fixer.cache

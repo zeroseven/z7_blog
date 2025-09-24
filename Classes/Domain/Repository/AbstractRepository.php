@@ -32,21 +32,21 @@ abstract class AbstractRepository extends Repository
                 && ($columnName = $columnMap->getColumnName())
             ) {
                 $this->setDefaultOrderings([
-                    $columnName => ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING
+                    $columnName => ($direction = $matches[2] ?? null) && $direction === 'desc' ? QueryInterface::ORDER_DESCENDING : QueryInterface::ORDER_ASCENDING,
                 ]);
             }
         } catch (Exception $e) {
         }
     }
 
-    /** @throws AspectNotFoundException | InvalidQueryException | Exception */
+    /** @throws AspectNotFoundException|InvalidQueryException|Exception */
     protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
         $constraints = [];
         $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
 
         // Search for specific uids
-        if ($uids = $demand->getUids()){
+        if ($uids = $demand->getUids()) {
             if (($langaugeUid = (int)GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id', 0)) > 0) {
                 $dataMap = $dataMapper->getDataMap($this->objectType);
 

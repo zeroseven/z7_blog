@@ -1,13 +1,13 @@
 #post-info-table {
-	margin: 1em 0;
+    margin: 1em 0;
 }
 
 #post-info-table th {
-	padding-right: 1em;
+    padding-right: 1em;
 }
 
 #post-info-table th,
 #post-info-table td {
-	padding-top: .2em;
-	padding-bottom: .2em;
+    padding-top: .2em;
+    padding-bottom: .2em;
 }

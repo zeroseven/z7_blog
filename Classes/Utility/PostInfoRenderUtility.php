@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Utility;
@@ -25,7 +26,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\RepositoryService;
 use Zeroseven\Z7Blog\Service\SettingsService;
-use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 class PostInfoRenderUtility
 {
@@ -42,11 +42,9 @@ class PostInfoRenderUtility
 
     /** @var array */
     protected $pluginConfiguration;
-    
+
     /**
      * Method initialize
-     *
-     * @return void
      */
     protected function initialize(): void
     {
@@ -67,7 +65,7 @@ class PostInfoRenderUtility
         $this->view->setLayoutRootPaths($this->pluginConfiguration['view']['layoutRootPaths'] ?? []);
         $this->view->setFormat('html');
     }
-    
+
     /**
      * Method render
      *
@@ -107,7 +105,7 @@ class PostInfoRenderUtility
 
         return $this->view->render();
     }
-    
+
     /**
      * Method renderUserFunc
      *

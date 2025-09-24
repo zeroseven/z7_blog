@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Database;
@@ -17,11 +18,9 @@ namespace Zeroseven\Z7Blog\Database;
  */
 
 use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 
 /**
  * QueryGenerator
@@ -30,6 +29,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class QueryGenerator
 {
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
     /**
      * Recursively fetch all descendants of a given page
      *
@@ -53,7 +53,7 @@ class QueryGenerator
             $theList = '';
         }
         if ($id && $depth > 0) {
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+            $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
             $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
             $queryBuilder->select('uid')
                 ->from('pages')

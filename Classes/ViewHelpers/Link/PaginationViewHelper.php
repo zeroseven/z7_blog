@@ -5,17 +5,19 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
 use Psr\Http\Message\ServerRequestInterface;
-use RuntimeException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Core\Bootstrap;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface as ExtbaseRequestInterface;
+use TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
 class PaginationViewHelper extends AbstractLinkViewHelper
 {
+    public function __construct(private readonly \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
+    {
+        parent::__construct();
+    }
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -46,14 +48,14 @@ class PaginationViewHelper extends AbstractLinkViewHelper
             }
         }
 
-        throw new RuntimeException('The request could not be created.', 1609450803);
+        throw new \RuntimeException('The request could not be created.', 1609450803);
     }
 
     protected function beforeRendering(): void
     {
         parent::beforeRendering();
 
-        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $uriBuilder = $this->uriBuilder;
 
         // Add a "data-href" link attribute
         if (isset($this->arguments['ajaxPageType']) && ($pageType = (int)($this->arguments['ajaxPageType'])) && $this->demand->getListId()) {
@@ -65,7 +67,7 @@ class PaginationViewHelper extends AbstractLinkViewHelper
                 ->setAddQueryString((bool)($this->arguments['addQueryString'] ?? false))
                 ->setArguments((array)($this->arguments['additionalParams'] ?? []))
                 ->uriFor($this->arguments['action'] ?? '', array_merge((array)($this->arguments['arguments'] ?? []), [
-                    'ajax' => 1
+                    'ajax' => 1,
                 ]), $this->arguments['controller'] ?? null, $this->arguments['extensionName'] ?? null, $this->arguments['pluginName'] ?? null));
         }
     }

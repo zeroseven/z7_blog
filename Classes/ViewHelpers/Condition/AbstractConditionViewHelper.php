@@ -8,11 +8,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 abstract class AbstractConditionViewHelper extends AbstractViewHelper implements ConditionInterface
 {
-
     /** @var bool */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('negate', 'boolean', 'Negate the condition');

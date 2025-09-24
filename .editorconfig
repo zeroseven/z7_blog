@@ -1,47 +1,41 @@
 # EditorConfig is awesome: http://EditorConfig.org
 
+# top-most EditorConfig file
+root = true
+
 # Unix-style newlines with a newline ending every file
 [*]
 charset = utf-8
 end_of_line = lf
+indent_style = space
+indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{ts, js}]
-indent_style = space
-indent_size = 2
-
-# HTML-Files
-[*.html]
-indent_style = tab
+[*.{ts,js}]
 indent_size = 2
 
 # JSON-Files
 [*.json]
 indent_style = tab
-indent_size = 4
 
 # ReST-Files
 [*.rst]
-indent_style = space
 indent_size = 3
 
 # package.json
 # .travis.yml
 # bower.json
-[{package.json, .travis.yml, bower.json, composer.json}]
-indent_style = space
+[{package.json,.travis.yml,bower.json,composer.json}]
 indent_size = 2
 
 # TypoScript
-[{*.typoscript, *.tsconfig, setup.txt, constants.txt, ext_typoscript_setup.txt, ext_typoscript_constants.txt, ext_conf_template.txt}]
-indent_style = space
+[{*.typoscript,*.ts,*.tsconfig,setup.txt,constants.txt,ext_typoscript_setup.txt,ext_typoscript_constants.txt,ext_conf_template.txt}]
 indent_size = 2
 
 # XML-Files
-[{*.xml, *.xlf}]
+[{*.xml,*.xlf}]
 indent_style = tab
-indent_size = 4
 
 # SQL-Files
 [*.sql]
@@ -49,6 +43,5 @@ indent_style = tab
 indent_size = 2
 
 # ChangeLog files
-[{ChangeLog, ChangeLog.txt}]
+[{ChangeLog,ChangeLog.txt}]
 indent_style = tab
-indent_size = 4

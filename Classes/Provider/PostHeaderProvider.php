@@ -33,13 +33,11 @@ class PostHeaderProvider extends AbstractHeaderProvider
 
         return $permissions;
     }
-    
+
     /**
      * Method __invoke
      *
-     * @param ModifyPageLayoutContentEvent $event 
-     *
-     * @return void
+     * @param ModifyPageLayoutContentEvent $event
      */
     public function __invoke(ModifyPageLayoutContentEvent $event): void
     {
@@ -48,7 +46,7 @@ class PostHeaderProvider extends AbstractHeaderProvider
             // @extensionScannerIgnoreLine
             $content = $this->createView('EXT:z7_blog/Resources/Private/Backend/Templates/WebLayoutHeader/Post.html', [
                 'post' => RepositoryService::getPostRepository()->findByUid($this->id, true),
-                'propertyPermissions' => $this->getPropertyPermissions()
+                'propertyPermissions' => $this->getPropertyPermissions(),
             ])->render();
 
             $event->addHeaderContent($content);

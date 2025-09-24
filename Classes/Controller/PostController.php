@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Controller;
@@ -17,7 +18,6 @@ namespace Zeroseven\Z7Blog\Controller;
  */
 
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -43,7 +43,7 @@ class PostController extends ActionController
 
     /** @var array */
     protected $requestArguments;
-    
+
     /** @var CategoryRepository */
     private $categoryRepository;
 
@@ -52,54 +52,25 @@ class PostController extends ActionController
 
     /** @var TopicRepository */
     private $topicRepository;
-    
-    /**
-     * Method injectCategoryRepository
-     *
-     * @param CategoryRepository $categoryRepository 
-     * @return void
-     */
-    public function injectCategoryRepository(CategoryRepository $categoryRepository)
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool, \Zeroseven\Z7Blog\Domain\Repository\CategoryRepository $categoryRepository, \Zeroseven\Z7Blog\Domain\Repository\AuthorRepository $authorRepository, \Zeroseven\Z7Blog\Domain\Repository\TopicRepository $topicRepository)
     {
         $this->categoryRepository = $categoryRepository;
-    }
-    
-    /**
-     * Method injectAuthorRepository
-     *
-     * @param AuthorRepository $authorRepository
-     * @return void
-     */
-    public function injectAuthorRepository(AuthorRepository $authorRepository)
-    {
         $this->authorRepository = $authorRepository;
-    }
-    
-    /**
-     * Method injectTopicRepository
-     *
-     * @param TopicRepository $topicRepository
-     * @return void
-     */
-    public function injectTopicRepository(TopicRepository $topicRepository)
-    {
         $this->topicRepository = $topicRepository;
     }
-    
+
     /**
      * Method initializeAction
-     *
-     * @return void
      */
-    public function initializeAction()
+    public function initializeAction(): void
     {
         parent::initializeAction();
 
         /** @extensionScannerIgnoreLine */
-        $this->contentData = $this->configurationManager->getContentObject()->data;
+        $this->contentData = $this->request->getAttribute('currentContentObject')->data;
         $this->requestArguments = RequestService::getArguments();
     }
-    
+
     /**
      * Method resolveView
      *
@@ -113,12 +84,12 @@ class PostController extends ActionController
         // Assign variables to all actions
         $view->assignMultiple([
             'requestArguments' => $this->requestArguments,
-            'data' => $this->contentData
+            'data' => $this->contentData,
         ]);
 
         return $view;
     }
-    
+
     /**
      * Method getDemand
      *
@@ -137,18 +108,18 @@ class PostController extends ActionController
         // Create demand object with relevant arguments for filtering
         return PostDemand::makeInstance()->setParameterArray(false, array_merge($applySettings === false ? [] : $this->settings, $requestArguments, ...$arguments));
     }
-    
+
     /**
      * Method getRequestArgument
      *
-     * @param string $key 
+     * @param string $key
      * @return mixed
      */
     protected function getRequestArgument(string $key): mixed
     {
         return $this->request->hasArgument($key) ? $this->request->getArgument($key) : null;
     }
-    
+
     /**
      * Method listAction
      *
@@ -175,12 +146,12 @@ class PostController extends ActionController
         $this->view->assignMultiple([
             'pagination' => $pagination,
             'demand' => $demand,
-            'posts' => $posts
+            'posts' => $posts,
         ]);
 
         return $this->htmlResponse();
     }
-    
+
     /**
      * Method listUncachedAction
      *
@@ -190,7 +161,7 @@ class PostController extends ActionController
     {
         return new ForwardResponse('list');
     }
-    
+
     /**
      * Method staticAction
      *
@@ -201,7 +172,7 @@ class PostController extends ActionController
         // 🚓🚨 Nothing to see here, just walk along to the listAction, Sir. 👮‍🚧
         return new ForwardResponse('list');
     }
-    
+
     /**
      * Method filterAction
      *
@@ -219,7 +190,7 @@ class PostController extends ActionController
         if ($listId > 0) {
 
             // Get target content element
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
+            $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
             $row = $queryBuilder
                 ->select('pi_flexform', 'pid')
                 ->from('tt_content')
@@ -251,7 +222,7 @@ class PostController extends ActionController
             'authors' => $this->authorRepository->findAll(),
             'topics' => $this->topicRepository->findAll(),
             'tags' => TagService::getTags($demand, true),
-            'demand' => $demand
+            'demand' => $demand,
         ]);
 
         return $this->htmlResponse();

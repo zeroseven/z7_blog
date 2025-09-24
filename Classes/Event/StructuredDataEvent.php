@@ -8,7 +8,6 @@ use Zeroseven\Z7Blog\Domain\Model\Post;
 
 final class StructuredDataEvent
 {
-
     /** @var Post */
     private $post;
 

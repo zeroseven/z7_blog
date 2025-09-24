@@ -6,13 +6,12 @@ namespace Zeroseven\Z7Blog\Controller;
 
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Zeroseven\Z7Blog\Domain\Demand\AuthorDemand;
-use Zeroseven\Z7Blog\Domain\Repository\AuthorRepository;
 
 class AuthorController extends ActionController
 {
     private $authorRepository;
 
-    public function injectAuthorRepository(AuthorRepository $authorRepository)
+    public function __construct(\Zeroseven\Z7Blog\Domain\Repository\AuthorRepository $authorRepository)
     {
         $this->authorRepository = $authorRepository;
     }
@@ -29,8 +28,8 @@ class AuthorController extends ActionController
         // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.0/Deprecation-68748-DeprecateAbstractContentObjectgetContentObject.html
         // @extensionScannerIgnoreLine
         $this->view->assignMultiple([
-            'data' => $this->configurationManager->getContentObject()->data,
-            'authors' => $authors
+            'data' => $this->request->getAttribute('currentContentObject')->data,
+            'authors' => $authors,
         ]);
     }
 }

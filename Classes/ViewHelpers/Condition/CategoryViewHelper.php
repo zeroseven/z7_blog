@@ -9,6 +9,4 @@ namespace Zeroseven\Z7Blog\ViewHelpers\Condition;
  *
  * @deprecated
  */
-class CategoryViewHelper extends IsCategoryViewHelper
-{
-}
+class CategoryViewHelper extends IsCategoryViewHelper {}

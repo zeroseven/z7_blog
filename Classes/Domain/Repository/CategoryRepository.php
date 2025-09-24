@@ -12,7 +12,7 @@ class CategoryRepository extends AbstractPageRepository
 {
     protected $defaultOrderings = [
         'title' => QueryInterface::ORDER_ASCENDING,
-        'uid' => QueryInterface::ORDER_ASCENDING
+        'uid' => QueryInterface::ORDER_ASCENDING,
     ];
 
     protected function initializeDemand(): AbstractDemand

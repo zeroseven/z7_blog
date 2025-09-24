@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Demand;
 
-use Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Zeroseven\Z7Blog\Service\TraitCollectorService;
 use Zeroseven\Z7Blog\Service\TypeCastService;
@@ -21,7 +20,6 @@ use Zeroseven\Z7Blog\Service\TypeCastService;
  */
 abstract class AbstractDemand
 {
-
     /** @var array */
     public $uids = [];
 
@@ -70,11 +68,11 @@ abstract class AbstractDemand
         return GeneralUtility::makeInstance(static::class);
     }
 
-    /** @throws Exception */
+    /** @throws \Exception */
     protected function checkPropertyAccess(string $propertyName): void
     {
         if (!$this->hasProperty($propertyName)) {
-            throw new Exception(sprintf('Property "%s" not found in demand model.', $propertyName));
+            throw new \Exception(sprintf('Property "%s" not found in demand model.', $propertyName), 7891306386);
         }
     }
 
@@ -95,7 +93,7 @@ abstract class AbstractDemand
         try {
             $this->checkPropertyAccess($propertyName);
             return $this->typeMapping[$propertyName] ?? null;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
         }
 
         return null;
@@ -124,7 +122,7 @@ abstract class AbstractDemand
         return $this->{$propertyName};
     }
 
-    /** @throws Exception */
+    /** @throws \Exception */
     public function setProperty(string $propertyName, $value): AbstractDemand
     {
         $type = $this->getType($propertyName);
@@ -160,7 +158,7 @@ abstract class AbstractDemand
             return $this->setProperty($propertyName, $array);
         }
 
-        throw new Exception('AddToProperty is allowed on type array only');
+        throw new \Exception('AddToProperty is allowed on type array only', 2310850526);
     }
 
     public function removeFromProperty(string $propertyName, $value): self
@@ -176,7 +174,7 @@ abstract class AbstractDemand
             return $this->setProperty($propertyName, $array);
         }
 
-        throw new Exception('RemoveFromProperty is allowed on type array only');
+        throw new \Exception('RemoveFromProperty is allowed on type array only', 2509051102);
     }
 
     public function setParameterArray(bool $ignoreEmptyValues, ...$arguments): self
@@ -185,7 +183,7 @@ abstract class AbstractDemand
         // Check the types of arguments
         foreach ($arguments as $argument) {
             if (!is_array($arguments)) {
-                throw new Exception('Disallowed argument ' . gettype($argument));
+                throw new \Exception('Disallowed argument ' . gettype($argument), 9605226805);
             }
 
             // Set properties
@@ -252,7 +250,7 @@ abstract class AbstractDemand
         }
     }
 
-    /** @throws Exception */
+    /** @throws \Exception */
     public function __call($name, $arguments)
     {
         if (preg_match('/((?:s|g)et|is|has|addTo|removeFrom)([A-Z].*)/', $name, $matches)) {
@@ -284,6 +282,6 @@ abstract class AbstractDemand
             }
         }
 
-        throw new Exception(sprintf('Method "%s" not found in %s', $name, __CLASS__), 1659427214);
+        throw new \Exception(sprintf('Method "%s" not found in %s', $name, __CLASS__), 1659427214);
     }
 }

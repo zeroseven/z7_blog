@@ -13,23 +13,23 @@ $tca = [
         'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
         'enablecolumns' => [
-            'disabled' => 'hidden'
+            'disabled' => 'hidden',
         ],
         'searchFields' => 'firstname, lastname, email, image, description',
         'typeicon_classes' => [
-            'default' => 'plugin-z7blog-author'
-        ]
+            'default' => 'plugin-z7blog-author',
+        ],
     ],
     'palettes' => [
         'name' => [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.palette.name',
-            'showitem' => 'firstname, lastname'
-        ]
+            'showitem' => 'firstname, lastname',
+        ],
     ],
     'types' => [
         '1' => [
-            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, --palette--;;name, expertise, email, image, --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.tab.info, description, page, --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.tab.social, twitter, linkedin, xing'
-        ]
+            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, --palette--;;name, expertise, email, image, --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.tab.info, description, page, --div--;LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.tab.social, twitter, linkedin, xing',
+        ],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -37,7 +37,7 @@ $tca = [
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
                 'type' => 'language',
-            ]
+            ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
@@ -49,24 +49,24 @@ $tca = [
                     [
                         'label' => '',
                         'value' => 0,
-                    ]
+                    ],
                 ],
                 'foreign_table' => 'tx_z7blog_domain_model_author',
-                'foreign_table_where' => 'AND tx_z7blog_domain_model_author.pid=###CURRENT_PID### AND tx_z7blog_domain_model_author.sys_language_uid IN (-1,0)'
-            ]
+                'foreign_table_where' => 'AND tx_z7blog_domain_model_author.pid=###CURRENT_PID### AND tx_z7blog_domain_model_author.sys_language_uid IN (-1,0)',
+            ],
         ],
         'l10n_diffsource' => [
             'config' => [
-                'type' => 'passthrough'
-            ]
+                'type' => 'passthrough',
+            ],
         ],
         't3ver_label' => [
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'max' => 255
-            ]
+                'max' => 255,
+            ],
         ],
         'hidden' => [
             'exclude' => true,
@@ -77,9 +77,9 @@ $tca = [
                     [
                         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
                         'value' => 1,
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ],
         'firstname' => [
             'exclude' => false,
@@ -89,8 +89,8 @@ $tca = [
                 'type' => 'input',
                 'eval' => 'trim',
                 'required' => true,
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'lastname' => [
             'exclude' => false,
@@ -99,8 +99,8 @@ $tca = [
             'config' => [
                 'type' => 'input',
                 'eval' => 'trim',
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'expertise' => [
             'exclude' => true,
@@ -108,8 +108,8 @@ $tca = [
             'config' => [
                 'type' => 'input',
                 'eval' => 'trim',
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'email' => [
             'exclude' => false,
@@ -123,8 +123,8 @@ $tca = [
                     'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'image' => [
             'exclude' => true,
@@ -132,22 +132,21 @@ $tca = [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tx_z7blog_domain_model_author.image',
             // New TCA type "file" introduced in TYPO3 12, ExtensionManagementUtility->getFileFieldTCAConfig() deprecated
             // @extensionScannerIgnoreLine
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'image',
-                [
-                    'appearance' => [
-                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
-                    ],
-                    'overrideChildTca' => [
-                        'types' => [
-                            '0' => ['showitem' => '--palette--;;filePalette'],
-                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => ['showitem' => '--palette--;;filePalette']
-                        ]
-                    ],
-                    'maxitems' => 1
+            'config' => [
+                //## !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+                'appearance' => [
+                    'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
                 ],
-                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-            )
+                'overrideChildTca' => [
+                    'types' => [
+                        '0' => ['showitem' => '--palette--;;filePalette'],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => ['showitem' => '--palette--;;filePalette'],
+                    ],
+                ],
+                'maxitems' => 1,
+            ],
         ],
         'description' => [
             'exclude' => true,
@@ -159,8 +158,8 @@ $tca = [
                 'rows' => 15,
                 'eval' => 'trim',
                 'enableRichtext' => 1,
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'page' => [
             'exclude' => true,
@@ -171,13 +170,13 @@ $tca = [
                 'fieldControl' => [
                     'linkPopup' => [
                         'options' => [
-                            'blindLinkOptions' => 'file, spec, folder, mail, telephone'
-                        ]
-                    ]
+                            'blindLinkOptions' => 'file, spec, folder, mail, telephone',
+                        ],
+                    ],
                 ],
                 'eval' => 'trim',
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'twitter' => [
             'exclude' => true,
@@ -191,8 +190,8 @@ $tca = [
                     'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'linkedin' => [
             'exclude' => true,
@@ -206,8 +205,8 @@ $tca = [
                     'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
-                'default' => ''
-            ]
+                'default' => '',
+            ],
         ],
         'xing' => [
             'exclude' => true,
@@ -221,18 +220,17 @@ $tca = [
                     'allowedOptions' => ['params', 'rel'],
                 ],
                 'eval' => 'trim',
-                'default' => ''
-            ]
-        ]
-    ]
+                'default' => '',
+            ],
+        ],
+    ],
 ];
-
 
 if (\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getMajorVersion() > 11) {
     $tca['columns']['image']['config'] = [
         'type' => 'file',
         'maxitems' => 1,
-        'allowed' => 'common-image-types'
+        'allowed' => 'common-image-types',
     ];
 }
 return $tca;

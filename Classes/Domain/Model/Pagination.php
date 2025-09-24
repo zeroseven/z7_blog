@@ -12,7 +12,6 @@ use Zeroseven\Z7Blog\Service\TypeCastService;
 
 class Stage extends ObjectStorage
 {
-
     /** @var Pagination */
     protected $pagination;
 
@@ -170,7 +169,6 @@ class Stages extends ObjectStorage
 
 class Pagination
 {
-
     /** @var QueryResultInterface */
     protected $items;
 

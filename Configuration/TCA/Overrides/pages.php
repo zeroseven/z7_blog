@@ -16,7 +16,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
         [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.post',
             'value' => $postDoktype,
-            'icon'  => 'apps-pagetree-blogpost'
+            'icon'  => 'apps-pagetree-blogpost',
         ],
         '1',
         'after'
@@ -29,7 +29,7 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
         [
             'label' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.doktype.category',
             'value' => $categoryDoktype,
-            'icon'  => 'apps-pagetree-blogcategory'
+            'icon'  => 'apps-pagetree-blogcategory',
         ],
         '1',
         'after'
@@ -46,10 +46,10 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                     [
                         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
                         'value' => 1,
-                    ]
+                    ],
                 ],
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'post_archive' => [
             'exclude' => true,
@@ -59,8 +59,8 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                 'type' => 'datetime',
                 'format' => 'date',
                 'size' => 10,
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'post_date' => [
             'exclude' => false,
@@ -71,8 +71,8 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                 'format' => 'date',
                 'size' => 10,
                 'required' => true,
-                'default' => time()
-            ]
+                'default' => time(),
+            ],
         ],
         'post_author' => [
             'exclude' => true,
@@ -92,9 +92,9 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                         'label' => '-',
                         'value' => 0,
                         'icon' => 'plugin-z7blog-author',
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ],
         'post_topics' => [
             'exclude' => true,
@@ -107,8 +107,8 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                 'foreign_table_where' => 'AND \'all other topics\' = \'gone, LOL\'',
                 'MM' => 'tx_z7blog_post_topic_mm',
                 'itemsProcFunc' => 'Zeroseven\\Z7Blog\\TCA\\ItemsProcFunc->getTopics',
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'post_tags' => [
             'exclude' => true,
@@ -116,8 +116,8 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
             'config' => [
                 'type' => 'user',
                 'renderType' => 'blogTags',
-                'placeholder' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags.placeholder'
-            ]
+                'placeholder' => 'LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:pages.post_tags.placeholder',
+            ],
         ],
         'post_relations_to' => [
             'exclude' => true,
@@ -133,23 +133,23 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                     [
                         'userFunc' => \Zeroseven\Z7Blog\TCA\GroupFilter::class . '->filterTypes',
                         'parameters' => [
-                            'allowed' => $postDoktype
-                        ]
-                    ]
+                            'allowed' => $postDoktype,
+                        ],
+                    ],
                 ],
                 'suggestOptions' => [
                     'default' => [
                         'searchWholePhrase' => 1,
-                        'addWhere' => ' AND ' . $table . '.uid != ###THIS_UID###'
+                        'addWhere' => ' AND ' . $table . '.uid != ###THIS_UID###',
                     ],
                     $table => [
-                        'searchCondition' => 'doktype = ' . $postDoktype
-                    ]
+                        'searchCondition' => 'doktype = ' . $postDoktype,
+                    ],
                 ],
                 'size' => 5,
                 'autoSizeMax' => 10,
-                'maxitems' => 99
-            ]
+                'maxitems' => 99,
+            ],
         ],
         'post_relations_from' => [
             'exclude' => true,
@@ -162,8 +162,8 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                 'size' => 5,
                 'maxitems' => 100,
                 'MM' => 'tx_z7blog_post_mm',
-                'readOnly' => 1
-            ]
+                'readOnly' => 1,
+            ],
         ],
         'post_redirect_category' => [
             'exclude' => true,
@@ -175,16 +175,16 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                     [
                         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.enabled',
                         'value' => 1,
-                    ]
+                    ],
                 ],
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'SYS_LASTCHANGED' => [
             'config' => [
-                'type' => 'passthrough'
-            ]
-        ]
+                'type' => 'passthrough',
+            ],
+        ],
     ]);
 
     // Register post palette
@@ -217,9 +217,9 @@ call_user_func(static function (string $table, int $postDoktype, int $categoryDo
                     $postDoktype => 'apps-pagetree-blogpost',
                     $postDoktype . '-hideinmenu' => 'apps-pagetree-blogpost-hideinmenu',
                     $categoryDoktype => 'apps-pagetree-blogcategory',
-                    $categoryDoktype . '-hideinmenu' => 'apps-pagetree-blogcategory-hideinmenu'
-                ]
-            ]
+                    $categoryDoktype . '-hideinmenu' => 'apps-pagetree-blogcategory-hideinmenu',
+                ],
+            ],
         ]
     );
 }, 'pages', \Zeroseven\Z7Blog\Domain\Model\Post::DOKTYPE, \Zeroseven\Z7Blog\Domain\Model\Category::DOKTYPE);

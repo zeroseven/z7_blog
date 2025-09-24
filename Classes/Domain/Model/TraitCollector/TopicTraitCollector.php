@@ -15,7 +15,5 @@ TraitCollectorService::createClass(
 
 // Fallback for the ClassesConfigurationFactory
 if (!class_exists(TopicTraitCollector::class)) {
-    class TopicTraitCollector extends Topic
-    {
-    }
+    class TopicTraitCollector extends Topic {}
 }

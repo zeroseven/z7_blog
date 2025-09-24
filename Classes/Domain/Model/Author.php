@@ -161,7 +161,7 @@ class Author extends AbstractEntity
     {
         if ($this->pageLink === null) {
             return $this->pageLink = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
-                'parameter' => $this->getPage()
+                'parameter' => $this->getPage(),
             ]);
         }
 

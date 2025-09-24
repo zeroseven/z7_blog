@@ -14,7 +14,6 @@ use Zeroseven\Z7Blog\Service\TagService;
 
 class BlogTags extends AbstractFormElement
 {
-
     /** @var string */
     protected $name;
 
@@ -41,7 +40,7 @@ class BlogTags extends AbstractFormElement
         $this->name = $parameterArray['itemFormElName'] ?? '';
         // @extensionScannerIgnoreLine
         $this->id = $parameterArray['itemFormElID'] ?? '';
-        $this->placeholder = strpos($placeholder, 'LLL') === 0 ? $this->getLanguageService()->sL($placeholder) : $placeholder;
+        $this->placeholder = str_starts_with($placeholder, 'LLL') ? $this->getLanguageService()->sL($placeholder) : $placeholder;
         $this->value = $parameterArray['itemFormElValue'] ?? '';
         $this->languageUid = (int)($sysLanguageUid[0] ?? $sysLanguageUid);
     }
@@ -75,7 +74,7 @@ class BlogTags extends AbstractFormElement
             'value' => $this->value,
             'id' => $this->id,
             'placeholder' => $this->placeholder,
-            'class' => 'form-control form-control--tags'
+            'class' => 'form-control form-control--tags',
         ], true) . ' />';
 
         // Return html

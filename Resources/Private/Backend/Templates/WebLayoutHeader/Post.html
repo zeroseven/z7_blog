@@ -2,112 +2,112 @@
 
 <f:be.infobox title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.title')}" iconName="{f:if(condition:post.top, then:'star', else:'info')}" state="{state}">
 
-	<table id="post-info-table">
+    <table id="post-info-table">
 
-		<f:comment><!-- Date --></f:comment>
-		<tr>
-			<th>
-				{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.date')}:
-			</th>
-			<td>
-				<be:link.editRecord uid="{post.uid}" table="pages" fields="post_date" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
-					{post.date -> f:format.date(format:'d.m.Y')}
-				</be:link.editRecord>
-			</td>
-		</tr>
+        <f:comment><!-- Date --></f:comment>
+        <tr>
+            <th>
+                {f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.date')}:
+            </th>
+            <td>
+                <be:link.editRecord uid="{post.uid}" table="pages" fields="post_date" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
+                    {post.date -> f:format.date(format:'d.m.Y')}
+                </be:link.editRecord>
+            </td>
+        </tr>
 
-		<f:comment><!-- Category --></f:comment>
-		<tr>
-			<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.category')}:</th>
-			<td>
-				{post.category.title}
-			</td>
-		</tr>
+        <f:comment><!-- Category --></f:comment>
+        <tr>
+            <th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.category')}:</th>
+            <td>
+                {post.category.title}
+            </td>
+        </tr>
 
-		<f:comment><!-- Author --></f:comment>
-		<f:if condition="{propertyPermissions.author}">
-			<tr>
-				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
-				<td>
-					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_author" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
-						<f:if condition="{post.author}">
-							<f:then>
-								{post.author.lastName}, {post.author.firstName}
-							</f:then>
-							<f:else>
-								-
-							</f:else>
-						</f:if>
-					</be:link.editRecord>
-				</td>
-			</tr>
-		</f:if>
+        <f:comment><!-- Author --></f:comment>
+        <f:if condition="{propertyPermissions.author}">
+            <tr>
+                <th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.author')}:</th>
+                <td>
+                    <be:link.editRecord uid="{post.uid}" table="pages" fields="post_author" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
+                        <f:if condition="{post.author}">
+                            <f:then>
+                                {post.author.lastName}, {post.author.firstName}
+                            </f:then>
+                            <f:else>
+                                -
+                            </f:else>
+                        </f:if>
+                    </be:link.editRecord>
+                </td>
+            </tr>
+        </f:if>
 
-		<f:comment><!-- Archive info --></f:comment>
-		<f:if condition="{post.archiveDate}">
-			<tr>
-				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
-				<td>
-					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_archive" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
-						<f:if condition="{post.archived}">
-							<f:then>
-								{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archived')}
-							</f:then>
-							<f:else>
-								{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDiff', arguments: '{0: post.archiveDiff}')}
-							</f:else>
-						</f:if>
-					</be:link.editRecord>
-				</td>
-			</tr>
-		</f:if>
+        <f:comment><!-- Archive info --></f:comment>
+        <f:if condition="{post.archiveDate}">
+            <tr>
+                <th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDate')}:</th>
+                <td>
+                    <be:link.editRecord uid="{post.uid}" table="pages" fields="post_archive" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
+                        <f:if condition="{post.archived}">
+                            <f:then>
+                                {f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archived')}
+                            </f:then>
+                            <f:else>
+                                {f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.archiveDiff', arguments: '{0: post.archiveDiff}')}
+                            </f:else>
+                        </f:if>
+                    </be:link.editRecord>
+                </td>
+            </tr>
+        </f:if>
 
-		<f:if condition="{propertyPermissions.topics}">
-			<tr>
-				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
-				<td>
-					<be:link.editRecord uid="{post.uid}" table="pages" fields="post_topics" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
-						<f:if condition="{post.topics}">
-							<f:then>
-								<f:for each="{post.topics}" as="topic" iteration="i">
-									{topic.title}{f:if(condition: i.isLast, else: ', ')}
-								</f:for>
-							</f:then>
-							<f:else>
-								-
-							</f:else>
-						</f:if>
-					</be:link.editRecord>
-				</td>
-			</tr>
-		</f:if>
+        <f:if condition="{propertyPermissions.topics}">
+            <tr>
+                <th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.topics')}:</th>
+                <td>
+                    <be:link.editRecord uid="{post.uid}" table="pages" fields="post_topics" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
+                        <f:if condition="{post.topics}">
+                            <f:then>
+                                <f:for each="{post.topics}" as="topic" iteration="i">
+                                    {topic.title}{f:if(condition: i.isLast, else: ', ')}
+                                </f:for>
+                            </f:then>
+                            <f:else>
+                                -
+                            </f:else>
+                        </f:if>
+                    </be:link.editRecord>
+                </td>
+            </tr>
+        </f:if>
 
-		<f:comment><!-- Tags --></f:comment>
-		<f:if condition="{propertyPermissions.tags}">
-			<tr>
-				<th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.tags')}:</th>
-				<td>
-					<f:if condition="{post.tags}">
-						<f:then>
-						    <be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" style="text-decoration: none" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
+        <f:comment><!-- Tags --></f:comment>
+        <f:if condition="{propertyPermissions.tags}">
+            <tr>
+                <th>{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.tags')}:</th>
+                <td>
+                    <f:if condition="{post.tags}">
+                        <f:then>
+                            <be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" style="text-decoration: none" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">
                                 <f:for each="{post.tags}" as="tag" iteration="i">
                                     <span class="badge">{tag}</span>
                                 </f:for>
                             </be:link.editRecord>
-						</f:then>
-						<f:else>
-						    <be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">-</be:link.editRecord>
+                        </f:then>
+                        <f:else>
+                            <be:link.editRecord uid="{post.uid}" table="pages" fields="post_tags" title="{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}">-</be:link.editRecord>
                         </f:else>
-					</f:if>
-				</td>
-			</tr>
-		</f:if>
+                    </f:if>
+                </td>
+            </tr>
+        </f:if>
 
-	</table>
+    </table>
 
-	<be:link.editRecord uid="{post.uid}" table="pages" class="btn btn-info btn-sm">
-		{f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}
-	</be:link.editRecord>
+    <be:link.editRecord uid="{post.uid}" table="pages" class="btn btn-info btn-sm">
+        {f:translate(key:'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:post.pageinfo.edit')}
+    </be:link.editRecord>
 
 </f:be.infobox>
 </html>

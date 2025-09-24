@@ -1,23 +1,22 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<div class="blglst">
+    <div class="blglst">
 
-			<f:comment><!-- Define dynamic id's for ajax requests --></f:comment>
-			<f:variable name="blogListId" value="js-blog-list-{data.uid}" />
-			<f:variable name="blogControlId" value="js-blog-control-{data.uid}" />
+            <f:comment><!-- Define dynamic id's for ajax requests --></f:comment>
+            <f:variable name="blogListId" value="js-blog-list-{data.uid}" />
+            <f:variable name="blogControlId" value="js-blog-control-{data.uid}" />
 
-			<f:comment><!-- Render information --></f:comment>
-			{f:render(partial:'Post/List/Status', arguments: '{_all}')}
+            <f:comment><!-- Render information --></f:comment>
+            {f:render(partial:'Post/List/Status', arguments: '{_all}')}
 
-			<f:comment><!-- Render list of stages --></f:comment>
-			<div class="blglst__list" id="{blogListId}">
-				{f:render(partial:'Post/List/Stages', arguments: '{_all}')}
-			</div>
+            <f:comment><!-- Render list of stages --></f:comment>
+            <div class="blglst__list" id="{blogListId}">
+                {f:render(partial:'Post/List/Stages', arguments: '{_all}')}
+            </div>
 
-			<f:comment><!-- Render control for pagination --></f:comment>
-			<div class="blglst__control" id="{blogControlId}">
-				{f:render(partial:'Post/List/Control', arguments: '{_all}')}
-			</div>
+            <f:comment><!-- Render control for pagination --></f:comment>
+            <div class="blglst__control" id="{blogControlId}">
+                {f:render(partial:'Post/List/Control', arguments: '{_all}')}
+            </div>
 
-	</div>
+    </div>
 </html>
-

@@ -21,19 +21,17 @@ class CategoryHeaderProvider extends AbstractHeaderProvider
                 // @extensionScannerIgnoreLine
                 'category' => RepositoryService::getCategoryRepository()->findByUid($this->id),
                 // @extensionScannerIgnoreLine
-                'posts' => RepositoryService::getPostRepository()->findByCategory($this->id)
+                'posts' => RepositoryService::getPostRepository()->findByCategory($this->id),
             ])->render();
         }
 
         return '';
     }
-    
+
     /**
      * Method __invoke
      *
-     * @param ModifyPageLayoutContentEvent $event 
-     *
-     * @return void
+     * @param ModifyPageLayoutContentEvent $event
      */
     public function __invoke(ModifyPageLayoutContentEvent $event): void
     {
@@ -43,7 +41,7 @@ class CategoryHeaderProvider extends AbstractHeaderProvider
                 // @extensionScannerIgnoreLine
                 'category' => RepositoryService::getCategoryRepository()->findByUid($this->id),
                 // @extensionScannerIgnoreLine
-                'posts' => RepositoryService::getPostRepository()->findByCategory($this->id)
+                'posts' => RepositoryService::getPostRepository()->findByCategory($this->id),
             ])->render();
 
             $event->addHeaderContent($content);

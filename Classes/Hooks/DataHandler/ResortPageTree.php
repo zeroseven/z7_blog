@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Hooks\DataHandler;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Information\Typo3Version;
@@ -21,6 +20,7 @@ class ResortPageTree
     protected const TABLE = 'pages';
 
     protected const SORTING_FIELD = 'post_date';
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool) {}
 
     /** @throws Exception */
     public function processDatamap_afterAllOperations(DataHandler &$dataHandlder): void
@@ -41,16 +41,16 @@ class ResortPageTree
                                 FlashMessage::class,
                                 LocalizationUtility::translate(
                                     'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:notification.resortPagetree.description',
-                                    'z7_blog',
+                                    'Z7Blog',
                                     [0 => BackendUtility::getRecordTitle(self::TABLE, $parentRow)]
                                 ),
                                 LocalizationUtility::translate(
                                     'LLL:EXT:z7_blog/Resources/Private/Language/locallang_be.xlf:notification.resortPagetree.title',
-                                    'z7_blog'
+                                    'Z7Blog'
                                 ),
                                 // FlashMessage::INFO deprecated in TYPO3 12
                                 // @extensionScannerIgnoreLine
-                                (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 11 ? FlashMessage::INFO : \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value),
+                                (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 11 ? \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO : \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value),
                                 true
                             );
 
@@ -94,7 +94,7 @@ class ResortPageTree
 
     protected function getSubpagesUids(int $parentPage, string $orderBy, bool $reverseDirection = null): array
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLE);
 
         // Do not use enabled fields here
         $queryBuilder->getRestrictions()->removeAll();

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Model;
 
-use DateTime;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Resource\AbstractFile;
 use TYPO3\CMS\Core\Resource\FileReference;
@@ -15,7 +14,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 abstract class AbstractPageModel extends AbstractEntity
 {
-
     /** @var int */
     protected $doktype;
 
@@ -39,8 +37,8 @@ abstract class AbstractPageModel extends AbstractEntity
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Extbase\ORM\Lazy
      */
+    #[Extbase\ORM\Lazy]
     protected $fileReferences;
 
     /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Core\Resource\FileReference> */
@@ -196,12 +194,12 @@ abstract class AbstractPageModel extends AbstractEntity
         return $this->firstImage;
     }
 
-    public function getLastChange(): ?DateTime
+    public function getLastChange(): ?\DateTime
     {
         return $this->lastChange;
     }
 
-    public function setLastChange(DateTime $lastChange): self
+    public function setLastChange(\DateTime $lastChange): self
     {
         $this->lastChange = $lastChange;
         return $this;

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Utility;
@@ -22,7 +23,7 @@ use Psr\Http\Message\ServerRequestInterface;
  * GlobalUtility
  */
 class GlobalUtility
-{    
+{
     /**
      * Method getRequest
      *
@@ -32,11 +33,11 @@ class GlobalUtility
     {
         return $GLOBALS['TYPO3_REQUEST'];
     }
-    
+
     /**
      * Method getGP
      *
-     * @param string $key 
+     * @param string $key
      *
      * @return mixed
      */

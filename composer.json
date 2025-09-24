@@ -1,50 +1,95 @@
 {
-  "name": "zeroseven/z7-blog",
-  "license": "GPL-2.0-only",
-  "type": "typo3-cms-extension",
-  "description": "Another blog-system for TYPO3",
-  "authors": [
-    {
-      "name": "zeroseven design studios GmbH",
-      "email": "typo3@zeroseven.de",
-      "homepage": "https://www.zeroseven.de/",
-      "role": "Company"
-    },
-    {
-      "name": "Raphael Thanner",
-      "role": "Developer"
-    },
-    {
-      "name": "Sebastian Rosskopf",
-      "role": "Developer"
-    }
-  ],
-  "require": {
-    "typo3/cms-core": "^12.3 || ^13.4",
-    "ext-json": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "Zeroseven\\Z7Blog\\": "Classes"
-    }
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "z7_blog"
-    }
-  },
-  "scripts": {
-    "prepare-release": [
-      "rm .editorconfig",
-      "rm .gitattributes",
-      "rm .gitignore",
-      "rm .gitlab-ci.yml",
-      "rm -rf .github",
-      "rm .satisinclude",
-      "rm gulpfile.js",
-      "rm package.json",
-      "rm package-lock.json",
-      "rm -rf Resources/Private/JavaScript"
-    ]
-  }
+	"name": "zeroseven/z7-blog",
+	"description": "Another blog-system for TYPO3",
+	"license": "GPL-2.0-only",
+	"type": "typo3-cms-extension",
+	"authors": [
+		{
+			"name": "zeroseven design studios GmbH",
+			"email": "typo3@zeroseven.de",
+			"homepage": "https://www.zeroseven.de/",
+			"role": "Company"
+		},
+		{
+			"name": "Raphael Thanner",
+			"role": "Developer"
+		},
+		{
+			"name": "Sebastian Rosskopf",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": "^8.2",
+		"ext-json": "*",
+		"typo3/cms-core": "^12.3 || ^13.4",
+		"typo3/cms-extbase": "^12.4.2 || ^13.1"
+	},
+	"require-dev": {
+		"armin/editorconfig-cli": "^2.1",
+		"ergebnis/composer-normalize": "^2.48",
+		"friendsofphp/php-cs-fixer": "^3.87",
+		"roave/security-advisories": "dev-latest",
+		"saschaegerer/phpstan-typo3": "^2.1",
+		"ssch/typo3-rector": "^3.6",
+		"typo3/coding-standards": "^0.8.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Zeroseven\\Z7Blog\\": "Classes"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"ergebnis/composer-normalize": true,
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
+		"bin-dir": ".Build/bin",
+		"sort-packages": true,
+		"vendor-dir": ".Build/vendor"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "z7_blog",
+			"web-dir": ".Build/web"
+		}
+	},
+	"scripts": {
+		"fix": [
+			"@fix:composer",
+			"@fix:editorconfig",
+			"@fix:php"
+		],
+		"fix:composer": "@composer normalize",
+		"fix:editorconfig": "ec --fix",
+		"fix:php": "php-cs-fixer fix",
+		"fix:rector": "rector process",
+		"lint": [
+			"@lint:composer",
+			"@lint:editorconfig",
+			"@lint:php",
+			"@lint:rector"
+		],
+		"lint:composer": "@fix:composer --dry-run",
+		"lint:editorconfig": "ec",
+		"lint:php": "@fix:php --dry-run",
+		"lint:rector": "rector process --dry-run",
+		"prepare-release": [
+			"rm .editorconfig",
+			"rm .gitattributes",
+			"rm .gitignore",
+			"rm .gitlab-ci.yml",
+			"rm -rf .github",
+			"rm .satisinclude",
+			"rm gulpfile.js",
+			"rm package.json",
+			"rm package-lock.json",
+			"rm -rf Resources/Private/JavaScript"
+		],
+		"sca": [
+			"@sca:php"
+		],
+		"sca:php": "phpstan analyse -c phpstan.neon"
+	}
 }

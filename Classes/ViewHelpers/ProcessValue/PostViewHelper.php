@@ -12,7 +12,7 @@ class PostViewHelper extends AbstractValueProcessor
 {
     protected $objectType = Post::class;
 
-    /** @throws AspectNotFoundException | DBALException */
+    /** @throws AspectNotFoundException|DBALException */
     protected function processFallback($value, string $property = null): ?string
     {
         if ($property === 'category') {

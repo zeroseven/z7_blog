@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\ViewHelpers\ProcessValue;
 
 use Doctrine\DBAL\DBALException;
-use Exception;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMap;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use Zeroseven\Z7Blog\Service\SettingsService;
 use Zeroseven\Z7Blog\Service\TypeCastService;
 
 class AbstractValueProcessor extends AbstractViewHelper
@@ -26,7 +22,7 @@ class AbstractValueProcessor extends AbstractViewHelper
     /** @var DataMap */
     protected $dataMap;
 
-    public function __construct()
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool, private readonly \TYPO3\CMS\Core\Context\Context $context)
     {
         $this->dataMap = GeneralUtility::makeInstance(DataMapper::class)->getDataMap($this->objectType);
     }
@@ -41,7 +37,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         $this->registerArgument('fields', 'array', 'Fields you want to get from database');
     }
 
-    /** @throws AspectNotFoundException | DBALException */
+    /** @throws AspectNotFoundException|DBALException */
     protected function getDatabaseValue(int $id, string $table): ?string
     {
         // Build array of fields
@@ -53,7 +49,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         }
 
         // Get queryBuilder
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($table);
 
         // Create basic query
         $query = $queryBuilder->select(...$fields)->from($table)->setMaxResults(1);
@@ -62,7 +58,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         $queryBuilder->setRestrictions(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
 
         // Add constraints
-        if ($sysLanguageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id')) {
+        if ($sysLanguageUid = $this->context->getPropertyFromAspect('language', 'id')) {
             $query->where($queryBuilder->expr()->or(
                 $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sysLanguageUid, \PDO::PARAM_INT)),
@@ -111,7 +107,7 @@ class AbstractValueProcessor extends AbstractViewHelper
         return (string)$value;
     }
 
-    /** @throws Exception */
+    /** @throws \Exception */
     public function render(): string
     {
         // Define value
@@ -128,7 +124,7 @@ class AbstractValueProcessor extends AbstractViewHelper
 
         // Set wrap value into format pattern
         if ($format = $this->arguments['format'] ?? '') {
-            if ($translation = LocalizationUtility::translate($format, SettingsService::EXTENSION_KEY, [$processedValue])) {
+            if ($translation = LocalizationUtility::translate($format, 'Z7Blog', [$processedValue])) {
                 return $translation;
             }
 

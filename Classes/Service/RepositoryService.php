@@ -12,11 +12,11 @@ use Zeroseven\Z7Blog\Domain\Repository\PostRepository;
 use Zeroseven\Z7Blog\Domain\Repository\TopicRepository;
 
 class RepositoryService
-{    
+{
     /**
      * Method initializeClass
      *
-     * @param string $class 
+     * @param string $class
      *
      * @return RepositoryInterface
      */
@@ -30,7 +30,7 @@ class RepositoryService
         // Get repository and store in cache
         return $GLOBALS['USER'][SettingsService::EXTENSION_KEY]['repository'][$class] = GeneralUtility::makeInstance($class);
     }
-    
+
     /**
      * Method getPostRepository
      *
@@ -40,7 +40,7 @@ class RepositoryService
     {
         return self::initializeClass(PostRepository::class);
     }
-    
+
     /**
      * Method getCategoryRepository
      *
@@ -50,7 +50,7 @@ class RepositoryService
     {
         return self::initializeClass(CategoryRepository::class);
     }
-    
+
     /**
      * Method getAuthorRepository
      *
@@ -60,7 +60,7 @@ class RepositoryService
     {
         return self::initializeClass(AuthorRepository::class);
     }
-    
+
     /**
      * Method getTopicRepository
      *

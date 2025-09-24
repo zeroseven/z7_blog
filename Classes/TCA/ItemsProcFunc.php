@@ -34,7 +34,7 @@ class ItemsProcFunc
         return 0;
     }
 
-    /** @throws InvalidConfigurationTypeException | Exception */
+    /** @throws InvalidConfigurationTypeException|Exception */
     protected function initializeRepository(RepositoryInterface $repository, bool $setStoragePid): RepositoryInterface
     {
         if ($setStoragePid) {
@@ -101,7 +101,7 @@ class ItemsProcFunc
         }
     }
 
-    /** @throws InvalidConfigurationTypeException | Exception */
+    /** @throws InvalidConfigurationTypeException|Exception */
     public function getAuthors(array &$PA): void
     {
         $authorRepository = $this->initializeRepository(RepositoryService::getAuthorRepository(), true);

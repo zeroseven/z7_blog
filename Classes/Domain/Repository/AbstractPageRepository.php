@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Domain\Repository;
 
-use Exception;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -18,13 +17,13 @@ use Zeroseven\Z7Blog\Service\TypeCastService;
 
 abstract class AbstractPageRepository extends AbstractRepository
 {
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
-    
+
     /**
      * Method getRootlineAndLanguageConstraints
      *
@@ -32,7 +31,7 @@ abstract class AbstractPageRepository extends AbstractRepository
      * @param QueryInterface $query
      *
      * @return array
-     * @throws AspectNotFoundException | InvalidQueryException
+     * @throws AspectNotFoundException|InvalidQueryException
      */
     public function getRootlineAndLanguageConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
@@ -60,7 +59,7 @@ abstract class AbstractPageRepository extends AbstractRepository
         return $constraints;
     }
 
-    /** @throws AspectNotFoundException | InvalidQueryException */
+    /** @throws AspectNotFoundException|InvalidQueryException */
     protected function createDemandConstraints(AbstractDemand $demand, QueryInterface $query): array
     {
         $constraints = parent::createDemandConstraints($demand, $query);
@@ -68,7 +67,7 @@ abstract class AbstractPageRepository extends AbstractRepository
         return array_merge($constraints, $this->getRootlineAndLanguageConstraints($demand, $query));
     }
 
-    /** @throws Exception */
+    /** @throws \Exception */
     public function findByUid($uid, bool $ignoreRestrictions = null)
     {
 

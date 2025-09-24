@@ -12,7 +12,6 @@ use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 abstract class AbstractHeaderProvider
 {
-
     /** @var int */
     protected $id = 0;
 
@@ -32,7 +31,7 @@ abstract class AbstractHeaderProvider
     {
         // FlashMessage::INFO deprecated in TYPO3 12
         // @extensionScannerIgnoreLine
-        $state = 
+        $state =
         GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 11 ? FlashMessage::INFO : \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value;
 
         $view = GeneralUtility::makeInstance(StandaloneView::class);

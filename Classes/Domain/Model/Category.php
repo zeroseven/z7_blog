@@ -9,7 +9,6 @@ use Zeroseven\Z7Blog\Service\RootlineService;
 
 class Category extends AbstractPageModel
 {
-
     /** @var int */
     public const DOKTYPE = 146;
 

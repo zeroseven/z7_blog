@@ -4,7 +4,7 @@
 
 ## DEPRECATED
 
-This extension is replaced by the [pagebased_blog](https://github.com/zeroseven/pagebased_blog) (powered by [pagebased](https://github.com/zeroseven/pagebased)), it's new and shiny successor with more functionality and a huge perfomance boost. 
+This extension is replaced by the [pagebased_blog](https://github.com/zeroseven/pagebased_blog) (powered by [pagebased](https://github.com/zeroseven/pagebased)), it's new and shiny successor with more functionality and a huge perfomance boost.
 
 After years of developing and maintaining the z7_blog, we have upgraded the whole experience. We have put all of our experience with this extension into it's successor.
 

@@ -24,7 +24,6 @@ namespace Zeroseven\Z7Blog\Domain\Demand;
  */
 class PostDemand extends AbstractDemand
 {
-
     /** @var int */
     public const TOP_POSTS_FIRST = 1;
 

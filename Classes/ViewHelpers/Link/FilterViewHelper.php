@@ -9,7 +9,6 @@ use Zeroseven\Z7Blog\Service\SettingsService;
 
 class FilterViewHelper extends AbstractLinkViewHelper
 {
-
     /** @var array */
     protected $arrayPropertyArguments;
 
@@ -65,9 +64,9 @@ class FilterViewHelper extends AbstractLinkViewHelper
         // Add/remove/toggle the value in arrays
         foreach ($this->arrayPropertyArguments as $argument => $propertyName) {
             if ($value = (string)($this->arguments[$argument] ?? '')) {
-                if (strpos($argument, 'add') === 0) {
+                if (str_starts_with($argument, 'add')) {
                     $this->demand->addToProperty($propertyName, $value);
-                } elseif (strpos($argument, 'remove') === 0) {
+                } elseif (str_starts_with($argument, 'remove')) {
                     $this->demand->removeFromProperty($propertyName, $value);
                 } elseif (in_array($value, $this->demand->getProperty($propertyName), false)) {
                     $this->demand->removeFromProperty($propertyName, $value);
@@ -95,7 +94,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
                     $demandValue = $this->demand->getProperty($propertyName);
 
                     if (
-                        $type === 'array' && 0 === count(array_diff((array)$value ?: null, $demandValue))
+                        $type === 'array' && count(array_diff((array)$value ?: null, $demandValue)) === 0
                         || $type === 'int' && (int)$value === (int)$demandValue
                         || $type === 'string' && (string)$value === (string)$demandValue
                         || $type === 'bool' && (bool)$value === (bool)$demandValue

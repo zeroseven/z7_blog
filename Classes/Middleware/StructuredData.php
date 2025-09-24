@@ -60,7 +60,7 @@ class StructuredData implements MiddlewareInterface
     {
         return empty($parameter) ? null : GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
             'parameter' => $parameter,
-            'forceAbsoluteUrl' => true
+            'forceAbsoluteUrl' => true,
         ]);
     }
 
@@ -70,7 +70,7 @@ class StructuredData implements MiddlewareInterface
             $imageService = GeneralUtility::makeInstance(ImageService::class);
             $processedImage = $imageService->applyProcessingInstructions($media, [
                 'width' => '1920m',
-                'height' => '1080m'
+                'height' => '1080m',
             ]);
 
             // Get url of created source
@@ -81,7 +81,7 @@ class StructuredData implements MiddlewareInterface
                 return [
                     'url' => $url,
                     'width' => $lastImageInfo[0],
-                    'height' => $lastImageInfo[1]
+                    'height' => $lastImageInfo[1],
                 ];
             }
 
@@ -105,8 +105,8 @@ class StructuredData implements MiddlewareInterface
                 'dateModified' => ($lastChange = $post->getLastChange()) ? $lastChange->format('Y-m-d') : null,
                 'description' => $post->getAbstract() ?: $post->getDescription(),
                 'image' => empty($image = $post->getFirstImage()) ? null : [
-                    'typeImageObject' => $this->createImageObjectType($image)
-                ]
+                    'typeImageObject' => $this->createImageObjectType($image),
+                ],
             ];
 
             // Create author object
@@ -118,14 +118,14 @@ class StructuredData implements MiddlewareInterface
                             $this->forceAbsoluteUrl($author->getTwitter()),
                             $this->forceAbsoluteUrl($author->getXing()),
                             $this->forceAbsoluteUrl($author->getLinkedin()),
-                            $this->forceAbsoluteUrl($author->getPageLink())
+                            $this->forceAbsoluteUrl($author->getPageLink()),
                         ],
                         'knowsAbout' => $author->getExpertise(),
                         'image' => empty($image = $author->getImage()) ? null : [
-                            'typeImageObject' => $this->createImageObjectType($image->getOriginalResource())
-                        ]
-                    ]
-                ]
+                            'typeImageObject' => $this->createImageObjectType($image->getOriginalResource()),
+                        ],
+                    ],
+                ],
             ];
 
             // Override by static typoScript definition

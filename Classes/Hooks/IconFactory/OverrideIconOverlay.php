@@ -17,7 +17,7 @@ class OverrideIconOverlay
             $doktype = (int)$row['doktype'];
 
             try {
-                if (Post::DOKTYPE === $doktype && $post = RepositoryService::getPostRepository()->findByUid($row['uid'], true)) {
+                if ($doktype === Post::DOKTYPE && $post = RepositoryService::getPostRepository()->findByUid($row['uid'], true)) {
                     if ($post->isArchived()) {
                         return 'overlay-scheduled';
                     }
@@ -27,7 +27,7 @@ class OverrideIconOverlay
                     }
                 }
 
-                if (Category::DOKTYPE === $doktype && $category = RepositoryService::getCategoryRepository()->findByUid($row['uid'], true)) {
+                if ($doktype === Category::DOKTYPE && $category = RepositoryService::getCategoryRepository()->findByUid($row['uid'], true)) {
                     if ($category->isRedirect()) {
                         return 'overlay-shortcut';
                     }

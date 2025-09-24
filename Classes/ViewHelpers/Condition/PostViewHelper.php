@@ -9,6 +9,4 @@ namespace Zeroseven\Z7Blog\ViewHelpers\Condition;
  *
  * @deprecated
  */
-class PostViewHelper extends IsPostViewHelper
-{
-}
+class PostViewHelper extends IsPostViewHelper {}

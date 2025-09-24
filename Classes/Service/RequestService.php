@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -16,7 +17,6 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Zeroseven\Z7Blog\Utility\GlobalUtility;
 
 class RequestService
