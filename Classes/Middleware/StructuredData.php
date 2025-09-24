@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Event\StructuredDataEvent;
 use Zeroseven\Z7Blog\Service\RepositoryService;
@@ -76,16 +75,15 @@ class StructuredData implements MiddlewareInterface
             // Get url of created source
             $url = $imageService->getImageUri($processedImage, true);
 
-            // Add data of processed image
-            if ($lastImageInfo = $GLOBALS['TSFE']->lastImageInfo ?? null) {
-                return [
-                    'url' => $url,
-                    'width' => $lastImageInfo[0],
-                    'height' => $lastImageInfo[1],
-                ];
-            }
+            // Determine dimensions from processed image properties (no TSFE)
+            $width = (int)($processedImage->getProperty('width') ?? 0);
+            $height = (int)($processedImage->getProperty('height') ?? 0);
 
-            return ['url' => $url];
+            return array_filter([
+                'url' => $url,
+                'width' => $width ?: null,
+                'height' => $height ?: null,
+            ]);
         }
 
         return null;
@@ -93,8 +91,13 @@ class StructuredData implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        // @extensionScannerIgnoreLine
-        if (($tsfe = $GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && (int)($tsfe->page['doktype'] ?? 0) === Post::DOKTYPE && ($post = RepositoryService::getPostRepository()->findByUid($tsfe->id))) {
+        // Identify current page/doktype from FE request attributes
+        $pageInformation = $request->getAttribute('frontend.page.information');
+        $pageRecord = is_object($pageInformation) && method_exists($pageInformation, 'getPageRecord') ? $pageInformation->getPageRecord() : null;
+        $doktype = (int)($pageRecord['doktype'] ?? 0);
+        $pageId = (int)($pageRecord['uid'] ?? 0);
+
+        if ($doktype === Post::DOKTYPE && $pageId > 0 && ($post = RepositoryService::getPostRepository()->findByUid($pageId))) {
 
             // Define the basic structure of a post
             $basicStructure = [
