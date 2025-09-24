@@ -6,6 +6,7 @@ namespace Zeroseven\Z7Blog\ViewHelpers\ProcessValue;
 
 use Doctrine\DBAL\DBALException;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMap;
@@ -61,16 +62,16 @@ class AbstractValueProcessor extends AbstractViewHelper
         if ($sysLanguageUid = $this->context->getPropertyFromAspect('language', 'id')) {
             $query->where($queryBuilder->expr()->or(
                 $queryBuilder->expr()->and(
-                    $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sysLanguageUid, \PDO::PARAM_INT)),
-                    $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
+                    $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sysLanguageUid, Connection::PARAM_INT)),
+                    $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($id, Connection::PARAM_INT))
                 ),
                 $queryBuilder->expr()->and(
-                    $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(-1, \PDO::PARAM_INT)),
-                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT))
+                    $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(-1, Connection::PARAM_INT)),
+                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, Connection::PARAM_INT))
                 )
             ));
         } else {
-            $query->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, \PDO::PARAM_INT)));
+            $query->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($id, Connection::PARAM_INT)));
         }
 
         // Execute query and return result
