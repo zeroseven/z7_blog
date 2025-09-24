@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use Zeroseven\Z7Blog\Service\SettingsService;
 
 class FilterViewHelper extends AbstractLinkViewHelper
@@ -12,9 +13,9 @@ class FilterViewHelper extends AbstractLinkViewHelper
     /** @var array */
     protected $arrayPropertyArguments;
 
-    public function __construct()
+    public function __construct(private readonly UriBuilder $uriBuilder)
     {
-        parent::__construct();
+        parent::__construct($this->uriBuilder);
 
         foreach ($this->demand->getTypeMapping() as $propertyName => $type) {
             if ($type === 'array') {
@@ -41,7 +42,7 @@ class FilterViewHelper extends AbstractLinkViewHelper
         }
     }
 
-    public function prepareArguments()
+    public function prepareArguments(): array
     {
 
         // If the type of an argument have to be an integer and an object is specified, try to get the uid

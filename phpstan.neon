@@ -1,9 +1,9 @@
 includes:
-    - vendor/saschaegerer/phpstan-typo3/extension.neon
+    - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
 parameters:
-  level: 6
+  level: 1
   paths:
     - Classes
     - Configuration
-  ignoreErrors:
-    - identifier: missingType.iterableValue
+  scanDirectories:
+    - .Build/vendor

@@ -62,21 +62,21 @@ class PostDemand extends AbstractDemand
 
     public function topPostsFirst(): bool
     {
-        return $this->getTopPostMode() === self::TOP_POSTS_FIRST;
+        return $this->getTopPostMode($this->topPostMode) === self::TOP_POSTS_FIRST;
     }
 
     public function topPostsOnly(): bool
     {
-        return $this->getTopPostMode() === self::TOP_POSTS_ONLY;
+        return $this->getTopPostMode($this->topPostMode) === self::TOP_POSTS_ONLY;
     }
 
     public function archivedPostsHidden(): bool
     {
-        return $this->getArchiveMode() === self::ARCHIVED_POSTS_HIDDEN;
+        return $this->getArchiveMode($this->archiveMode) === self::ARCHIVED_POSTS_HIDDEN;
     }
 
     public function archivedPostsOnly(): bool
     {
-        return $this->getArchiveMode() === self::ARCHIVED_POSTS_ONLY;
+        return $this->getArchiveMode($this->archiveMode) === self::ARCHIVED_POSTS_ONLY;
     }
 }

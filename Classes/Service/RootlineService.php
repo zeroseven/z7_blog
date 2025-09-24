@@ -60,7 +60,7 @@ class RootlineService
             $rootLine = self::getRootline($startingPoint);
         }
 
-        foreach ($rootLine ?? [] as $row) {
+        foreach ($rootLine as $row) {
             if (isset($row['doktype'], $row['uid']) && (int)$row['doktype'] === Category::DOKTYPE) {
                 return (int)$row['uid'];
             }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\ViewHelpers\Core\ActionViewHelper;
 
@@ -16,10 +18,9 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
     /** @var array */
     protected $parameterMapping;
 
-    public function __construct()
+    public function __construct(private readonly \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
     {
-        parent::__construct();
-
+        parent::__construct($this->uriBuilder);
         $this->demand = PostDemand::makeInstance();
         $this->parameterMapping = $this->demand->getParameterMapping();
     }
@@ -37,7 +38,7 @@ abstract class AbstractLinkViewHelper extends ActionViewHelper
         }
     }
 
-    public function prepareArguments()
+    public function prepareArguments(): array
     {
 
         // If the type of an argument have to be an integer and an object is specified, try to get the uid

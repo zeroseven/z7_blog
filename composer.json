@@ -22,8 +22,11 @@
 	"require": {
 		"php": "^8.2",
 		"ext-json": "*",
-		"typo3/cms-core": "^12.3 || ^13.4",
-		"typo3/cms-extbase": "^12.4.2 || ^13.1"
+		"typo3/cms-core": "^12.4 || ^13.4",
+		"typo3/cms-backend": "^12.4 || ^13.4",
+		"typo3/cms-extbase": "^12.4.2 || ^13.4",
+		"typo3/cms-fluid": "^12.4 || ^13.4",
+		"typo3/cms-frontend": "^12.4 || ^13.4"
 	},
 	"require-dev": {
 		"armin/editorconfig-cli": "^2.1",

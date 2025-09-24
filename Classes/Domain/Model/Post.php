@@ -65,7 +65,6 @@ class Post extends AbstractPageModel
     {
         parent::initStorageObjects();
         $this->topics = new ObjectStorage();
-        $this->related = new ObjectStorage();
     }
 
     public function getDoktype(): int

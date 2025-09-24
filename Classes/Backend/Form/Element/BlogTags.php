@@ -29,10 +29,8 @@ class BlogTags extends AbstractFormElement
     /** int */
     protected $languageUid;
 
-    public function __construct(NodeFactory $nodeFactory, array $data)
+    public function __construct()
     {
-        parent::__construct($nodeFactory, $data);
-
         $parameterArray = $this->data['parameterArray'] ?? [];
         $placeholder = $parameterArray['fieldConf']['config']['placeholder'] ?? '';
         $sysLanguageUid = $this->data['databaseRow']['sys_language_uid'] ?? 0;

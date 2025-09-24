@@ -17,6 +17,7 @@ use Zeroseven\Z7Blog\Service\TypeCastService;
 
 abstract class AbstractRepository extends Repository
 {
+    abstract protected function initializeDemand(): AbstractDemand;
     protected function setOrdering(AbstractDemand $demand = null): void
     {
 

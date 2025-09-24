@@ -29,10 +29,7 @@ abstract class AbstractHeaderProvider
 
     protected function createView(string $pathAndFilename, array $variables = null): StandaloneView
     {
-        // FlashMessage::INFO deprecated in TYPO3 12
-        // @extensionScannerIgnoreLine
-        $state =
-        GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 11 ? FlashMessage::INFO : \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value;
+        $state = \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value;
 
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($pathAndFilename));

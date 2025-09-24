@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\Service;
 
+use TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -25,7 +26,6 @@ class SettingsService
         return ObjectAccess::getPropertyPath((array)$subject, $propertyPath);
     }
 
-    /** @throws InvalidConfigurationTypeException|Exception */
     public static function getPluginConfiguration(string $propertyPath = null)
     {
         // Try to get settings from cache
@@ -41,13 +41,7 @@ class SettingsService
 
     public static function getSettings(string $propertyPath = null)
     {
-        try {
-            $settings = self::getPluginConfiguration('settings');
-
-            return self::getPropertyPath($settings, $propertyPath);
-        } catch (InvalidConfigurationTypeException | Exception $e) {
-        }
-
-        return null;
+        $settings = self::getPluginConfiguration('settings');
+        return self::getPropertyPath($settings, $propertyPath);
     }
 }

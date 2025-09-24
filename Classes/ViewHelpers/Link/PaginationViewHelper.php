@@ -16,7 +16,7 @@ class PaginationViewHelper extends AbstractLinkViewHelper
 {
     public function __construct(private readonly \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder $uriBuilder)
     {
-        parent::__construct();
+        parent::__construct($this->uriBuilder);
     }
     public function initializeArguments(): void
     {
