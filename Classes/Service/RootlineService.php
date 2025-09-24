@@ -91,6 +91,9 @@ class RootlineService
 
     public static function findPagesBelow(int $startingPoint = null): array
     {
-        return GeneralUtility::intExplode(',', (string)GeneralUtility::makeInstance(QueryGenerator::class)->getPagesBelow($startingPoint ?: self::getCurrentPage(), 99));
+        return GeneralUtility::intExplode(
+            ',',
+            (string)QueryGenerator::makeInstance()->getPagesBelow($startingPoint ?: self::getCurrentPage(), 99)
+        );
     }
 }
