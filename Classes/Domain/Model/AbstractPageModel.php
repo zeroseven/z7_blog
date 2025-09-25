@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Domain\Model;
 
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Resource\AbstractFile;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
@@ -185,7 +184,7 @@ abstract class AbstractPageModel extends AbstractEntity
     {
         if ($this->firstImage === null && $media = $this->getMedia()) {
             foreach ($media->toArray() ?? [] as $asset) {
-                if ($asset->getType() === AbstractFile::FILETYPE_IMAGE) {
+                if ($asset->getType() === \TYPO3\CMS\Core\Resource\FileType::IMAGE->value) {
                     return $this->firstImage = $asset;
                 }
             }

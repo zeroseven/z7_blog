@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ExpressionLanguage;
 
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\ExpressionLanguage\AbstractProvider;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Category;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Service\SettingsService;
@@ -28,14 +28,15 @@ class TypoScriptConditionProvider extends AbstractProvider
 {
     public function __construct()
     {
-        // Resolve doktype from Context instead of $GLOBALS['TSFE']
-        $context = new Context();
-        $doktype = (int)$context->getPropertyFromAspect('page', 'doktype', 0);
+        if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController) {
 
-        $z7blog = new \stdClass();
-        $z7blog->post = $doktype === Post::DOKTYPE;
-        $z7blog->category = $doktype === Category::DOKTYPE;
+            $doktype = (int)($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord()['doktype'] ?? 0);
 
-        $this->expressionLanguageVariables = [SettingsService::EXTENSION_KEY => $z7blog];
+            $z7blog = new \stdClass();
+            $z7blog->post = $doktype === Post::DOKTYPE;
+            $z7blog->category = $doktype === Category::DOKTYPE;
+
+            $this->expressionLanguageVariables = [SettingsService::EXTENSION_KEY => $z7blog];
+        }
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Provider;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use Zeroseven\Z7Blog\Utility\GlobalUtility;
@@ -32,7 +31,7 @@ abstract class AbstractHeaderProvider
         $state = \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::INFO->value;
 
         $view = GeneralUtility::makeInstance(StandaloneView::class);
-        $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($pathAndFilename));
+        $view->getRenderingContext()->getTemplatePaths()->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($pathAndFilename));
         $view->assignMultiple(array_merge(['state' => $state], $variables ?: []));
 
         return $view;

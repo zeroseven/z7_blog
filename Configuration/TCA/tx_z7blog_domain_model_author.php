@@ -142,7 +142,7 @@ $tca = [
                 'overrideChildTca' => [
                     'types' => [
                         '0' => ['showitem' => '--palette--;;filePalette'],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => ['showitem' => '--palette--;;filePalette'],
+                        \TYPO3\CMS\Core\Resource\FileType::IMAGE->value => ['showitem' => '--palette--;;filePalette'],
                     ],
                 ],
                 'maxitems' => 1,

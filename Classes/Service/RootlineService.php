@@ -36,7 +36,7 @@ class RootlineService
     {
         if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController) {
             // @extensionScannerIgnoreLine
-            return (int)$GLOBALS['TSFE']->id;
+            return (int)$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId();
         }
 
         if ($id = GlobalUtility::getRequestParameter('id')) {
@@ -48,7 +48,7 @@ class RootlineService
 
     protected static function getRootline(int $startingPoint = null): array
     {
-        if (empty($startingPoint) && ($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && $rootLine = $GLOBALS['TSFE']->rootLine) {
+        if (empty($startingPoint) && ($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && $rootLine = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getRootLine()) {
             return $rootLine;
         }
         return GeneralUtility::makeInstance(RootlineUtility::class, $startingPoint ?: self::getCurrentPage())->get();

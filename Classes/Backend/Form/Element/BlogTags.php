@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Zeroseven\Z7Blog\Backend\Form\Element;
 
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
-use TYPO3\CMS\Backend\Form\NodeFactory;
 use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
@@ -37,7 +36,7 @@ class BlogTags extends AbstractFormElement
 
         $this->name = $parameterArray['itemFormElName'] ?? '';
         // @extensionScannerIgnoreLine
-        $this->id = $parameterArray['itemFormElID'] ?? '';
+        $this->id = \TYPO3\CMS\Core\Utility\StringUtility::getUniqueId(self::class . '-') ?? '';
         $this->placeholder = str_starts_with($placeholder, 'LLL') ? $this->getLanguageService()->sL($placeholder) : $placeholder;
         $this->value = $parameterArray['itemFormElValue'] ?? '';
         $this->languageUid = (int)($sysLanguageUid[0] ?? $sysLanguageUid);

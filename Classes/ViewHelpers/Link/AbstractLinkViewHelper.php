@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Zeroseven\Z7Blog\ViewHelpers\Link;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use Zeroseven\Z7Blog\Domain\Demand\PostDemand;
 use Zeroseven\Z7Blog\ViewHelpers\Core\ActionViewHelper;
 

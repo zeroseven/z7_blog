@@ -14,6 +14,7 @@ use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Zeroseven\Z7Blog\Domain\Model\Post;
 use Zeroseven\Z7Blog\Event\StructuredDataEvent;
 use Zeroseven\Z7Blog\Service\RepositoryService;
@@ -75,15 +76,16 @@ class StructuredData implements MiddlewareInterface
             // Get url of created source
             $url = $imageService->getImageUri($processedImage, true);
 
-            // Determine dimensions from processed image properties (no TSFE)
-            $width = (int)($processedImage->getProperty('width') ?? 0);
-            $height = (int)($processedImage->getProperty('height') ?? 0);
+            // Add data of processed image
+            if ($lastImageInfo = $GLOBALS['TSFE']->lastImageInfo ?? null) {
+                return [
+                    'url' => $url,
+                    'width' => $lastImageInfo[0],
+                    'height' => $lastImageInfo[1],
+                ];
+            }
 
-            return array_filter([
-                'url' => $url,
-                'width' => $width ?: null,
-                'height' => $height ?: null,
-            ]);
+            return ['url' => $url];
         }
 
         return null;
@@ -91,13 +93,8 @@ class StructuredData implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        // Identify current page/doktype from FE request attributes
-        $pageInformation = $request->getAttribute('frontend.page.information');
-        $pageRecord = is_object($pageInformation) && method_exists($pageInformation, 'getPageRecord') ? $pageInformation->getPageRecord() : null;
-        $doktype = (int)($pageRecord['doktype'] ?? 0);
-        $pageId = (int)($pageRecord['uid'] ?? 0);
-
-        if ($doktype === Post::DOKTYPE && $pageId > 0 && ($post = RepositoryService::getPostRepository()->findByUid($pageId))) {
+        // @extensionScannerIgnoreLine
+        if (($tsfe = $GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && (int) ($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord()['doktype'] ?? 0) === Post::DOKTYPE && ($post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId()))) {
 
             // Define the basic structure of a post
             $basicStructure = [
@@ -116,7 +113,7 @@ class StructuredData implements MiddlewareInterface
             $authorStructure = ($author = $post->getAuthor()) === null ? [] : [
                 'author' => [
                     'typePerson' => [
-                        'name' => trim($author->getFirstName() . ' ' . $author->getLastName()),
+                        'name' => trim($author->getFirstName().' '.$author->getLastName()),
                         'sameAs' => [
                             $this->forceAbsoluteUrl($author->getTwitter()),
                             $this->forceAbsoluteUrl($author->getXing()),
@@ -142,11 +139,12 @@ class StructuredData implements MiddlewareInterface
 
             // Call event to modify structured data
             if (class_exists(EventDispatcher::class)) {
-                $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(new StructuredDataEvent($post, $structuredData))->getData();
+                $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(new StructuredDataEvent($post,
+                    $structuredData))->getData();
             }
 
             // Add to the end of the page
-            GeneralUtility::makeInstance(PageRenderer::class)->addFooterData('<script type="application/ld+json">' . json_encode($this->parseStructuredData($structuredData)) . '</script>');
+            GeneralUtility::makeInstance(PageRenderer::class)->addFooterData('<script type="application/ld+json">'.json_encode($this->parseStructuredData($structuredData)).'</script>');
         }
 
         return $handler->handle($request);

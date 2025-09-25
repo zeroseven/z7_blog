@@ -19,7 +19,7 @@ abstract class AbstractConditionViewHelper extends AbstractViewHelper implements
 
     protected function getDoktype(): int
     {
-        return (int)($GLOBALS['TSFE']->page['doktype'] ?? 0);
+        return (int)($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord()['doktype'] ?? 0);
     }
 
     public function render(): string

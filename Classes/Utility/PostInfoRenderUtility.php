@@ -59,10 +59,10 @@ class PostInfoRenderUtility
         $serverRequest = GlobalUtility::getRequest();
         $extbaseRequest = GeneralUtility::makeInstance(Request::class, $serverRequest->withAttribute('extbase', $extbaseRequestParams));
 
-        $this->view->setRequest($extbaseRequest);
-        $this->view->setTemplateRootPaths($this->pluginConfiguration['view']['templateRootPaths'] ?? []);
-        $this->view->setPartialRootPaths($this->pluginConfiguration['view']['partialRootPaths'] ?? []);
-        $this->view->setLayoutRootPaths($this->pluginConfiguration['view']['layoutRootPaths'] ?? []);
+        $this->view->getRenderingContext()->setAttribute(\Psr\Http\Message\ServerRequestInterface::class, $extbaseRequest);
+        $this->view->getRenderingContext()->getTemplatePaths()->setTemplateRootPaths($this->pluginConfiguration['view']['templateRootPaths'] ?? []);
+        $this->view->getRenderingContext()->getTemplatePaths()->setPartialRootPaths($this->pluginConfiguration['view']['partialRootPaths'] ?? []);
+        $this->view->getRenderingContext()->getTemplatePaths()->setLayoutRootPaths($this->pluginConfiguration['view']['layoutRootPaths'] ?? []);
         $this->view->setFormat('html');
     }
 
@@ -78,7 +78,7 @@ class PostInfoRenderUtility
     public function render(string $templateNameAndFilePath, array $settings = null, Post $post = null): string
     {
         // Abort if page is not a post
-        if ($post === null && (int)($GLOBALS['TSFE']->page['doktype'] ?? 0) !== Post::DOKTYPE) {
+        if ($post === null && (int)($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord()['doktype'] ?? 0) !== Post::DOKTYPE) {
             return '';
         }
 
@@ -88,13 +88,13 @@ class PostInfoRenderUtility
         // Get the post
         try {
             // @extensionScannerIgnoreLine
-            $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TSFE']->id ?? 0);
+            $post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId() ?? 0);
         } catch (AspectNotFoundException $e) {
             $post = null;
         }
 
         // Set Template
-        $this->view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templateNameAndFilePath));
+        $this->view->getRenderingContext()->getTemplatePaths()->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName($templateNameAndFilePath));
 
         // Assign variables to the view
         $this->view->assignMultiple([

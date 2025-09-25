@@ -23,7 +23,7 @@ class RedirectHandler implements MiddlewareInterface
     {
         if (
             ($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController
-            && ($row = $GLOBALS['TSFE']->page)
+            && ($row = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord())
             && isset($row['post_redirect_category'], $row['doktype'], $row['uid'], $row['pid'])
             && $row['post_redirect_category']
             && (int)$row['doktype'] === Category::DOKTYPE) {

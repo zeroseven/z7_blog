@@ -184,7 +184,7 @@ class Post extends AbstractPageModel
     protected function cleanRelations(ObjectStorage $relations): ObjectStorage
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $languageAspect = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getAspect('language');
+        $languageAspect = $this->context->getAspect('language');
 
         foreach ($relations as $relation) {
             if ($relation->getUid() === $this->uid || !$pageRepository->isPageSuitableForLanguage($pageRepository->getPage($relation->getUid()), $languageAspect)) {

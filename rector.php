@@ -15,11 +15,11 @@ return RectorConfig::configure()
         __DIR__ . '/Configuration',
     ])
     // uncomment to reach your current PHP version
-    ->withPhpVersion(PhpVersion::PHP_82)
+    ->withPhpVersion(PhpVersion::PHP_83)
     ->withSets([
         Typo3SetList::GENERAL,
         Typo3SetList::CODE_QUALITY,
-        Typo3SetList::TYPO3_12,
+        Typo3SetList::TYPO3_13,
     ])
     ->withPHPStanConfigs([__DIR__ . '/phpstan.neon'])
     ->withRules([
