@@ -94,7 +94,7 @@ class StructuredData implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         // @extensionScannerIgnoreLine
-        if (($tsfe = $GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && (int) ($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord()['doktype'] ?? 0) === Post::DOKTYPE && ($post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId()))) {
+        if (($tsfe = $GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && (int)($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord()['doktype'] ?? 0) === Post::DOKTYPE && ($post = RepositoryService::getPostRepository()->findByUid($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId()))) {
 
             // Define the basic structure of a post
             $basicStructure = [
@@ -113,7 +113,7 @@ class StructuredData implements MiddlewareInterface
             $authorStructure = ($author = $post->getAuthor()) === null ? [] : [
                 'author' => [
                     'typePerson' => [
-                        'name' => trim($author->getFirstName().' '.$author->getLastName()),
+                        'name' => trim($author->getFirstName() . ' ' . $author->getLastName()),
                         'sameAs' => [
                             $this->forceAbsoluteUrl($author->getTwitter()),
                             $this->forceAbsoluteUrl($author->getXing()),
@@ -139,12 +139,14 @@ class StructuredData implements MiddlewareInterface
 
             // Call event to modify structured data
             if (class_exists(EventDispatcher::class)) {
-                $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(new StructuredDataEvent($post,
-                    $structuredData))->getData();
+                $structuredData = GeneralUtility::makeInstance(EventDispatcher::class)->dispatch(new StructuredDataEvent(
+                    $post,
+                    $structuredData
+                ))->getData();
             }
 
             // Add to the end of the page
-            GeneralUtility::makeInstance(PageRenderer::class)->addFooterData('<script type="application/ld+json">'.json_encode($this->parseStructuredData($structuredData)).'</script>');
+            GeneralUtility::makeInstance(PageRenderer::class)->addFooterData('<script type="application/ld+json">' . json_encode($this->parseStructuredData($structuredData)) . '</script>');
         }
 
         return $handler->handle($request);

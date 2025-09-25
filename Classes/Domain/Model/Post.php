@@ -56,7 +56,8 @@ class Post extends AbstractPageModel
 
     /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post> */
     protected $relations;
-    public function __construct(private readonly \TYPO3\CMS\Core\Context\Context $context)
+
+    public function __construct()
     {
         parent::__construct();
     }
@@ -184,7 +185,8 @@ class Post extends AbstractPageModel
     protected function cleanRelations(ObjectStorage $relations): ObjectStorage
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $languageAspect = $this->context->getAspect('language');
+        $context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+        $languageAspect = $context->getAspect('language');
 
         foreach ($relations as $relation) {
             if ($relation->getUid() === $this->uid || !$pageRepository->isPageSuitableForLanguage($pageRepository->getPage($relation->getUid()), $languageAspect)) {
