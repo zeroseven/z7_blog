@@ -4,66 +4,70 @@
 			<ROOT>
 				<type>array</type>
 				<el>
-
 					<settings.uids>
-						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.uids</label>
-							<config>
-								<type>select</type>
-								<renderType>selectMultipleSideBySide</renderType>
-								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getAuthors</itemsProcFunc>
-								<minitems>1</minitems>
-								<maxitems>99</maxitems>
-							</config>
-						</TCEforms>
+						<label>
+							LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.uids
+						</label>
+						<config>
+							<type>select</type>
+							<renderType>selectMultipleSideBySide</renderType>
+							<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getAuthors</itemsProcFunc>
+							<minitems>1</minitems>
+							<maxitems>99</maxitems>
+						</config>
 					</settings.uids>
-
 					<settings.ordering>
-						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering</label>
-							<config>
-								<type>select</type>
-								<renderType>selectSingle</renderType>
-								<minitems>1</minitems>
-								<maxitems>1</maxitems>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.manual</numIndex>
-										<numIndex index="1">manual</numIndex>
+						<label>
+							LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering
+						</label>
+						<config>
+							<type>select</type>
+							<renderType>selectSingle</renderType>
+							<minitems>1</minitems>
+							<maxitems>1</maxitems>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">
+										LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.manual
 									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.firstName</numIndex>
-										<numIndex index="1">firstName</numIndex>
+									<numIndex index="1">manual</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">
+										LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.firstName
 									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.lastName</numIndex>
-										<numIndex index="1">lastName</numIndex>
+									<numIndex index="1">firstName</numIndex>
+								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">
+										LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.ordering.lastName
 									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
+									<numIndex index="1">lastName</numIndex>
+								</numIndex>
+							</items>
+						</config>
 					</settings.ordering>
-
 					<settings.layout>
-						<TCEforms>
-							<label>LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.layout</label>
-							<exclude>1</exclude>
-							<config>
-								<type>select</type>
-								<renderType>selectSingle</renderType>
-								<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getContentLayouts</itemsProcFunc>
-								<minitems>0</minitems>
-								<maxitems>1</maxitems>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.layout.0</numIndex>
-										<numIndex index="1">0</numIndex>
+						<label>
+							LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.layout
+						</label>
+						<exclude>1</exclude>
+						<config>
+							<type>select</type>
+							<renderType>selectSingle</renderType>
+							<itemsProcFunc>Zeroseven\Z7Blog\TCA\ItemsProcFunc->getContentLayouts</itemsProcFunc>
+							<minitems>0</minitems>
+							<maxitems>1</maxitems>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">
+										LLL:EXT:z7_blog/Resources/Private/Language/locallang_db.xlf:tt_content.flexForms.z7blog_authors.layout.0
 									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
+									<numIndex index="1">0</numIndex>
+								</numIndex>
+							</items>
+						</config>
 					</settings.layout>
-
 				</el>
 			</ROOT>
 		</general>
