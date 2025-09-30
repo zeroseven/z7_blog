@@ -21,3 +21,7 @@ services:
 
   Zeroseven\Z7Blog\Hooks\DataHandler\ResortPageTree:
       public: true
+
+  Zeroseven\RampfProducts\Upgrades\FlexFormCleanupUpdater:
+      tags:
+         - name: install.upgradewizard

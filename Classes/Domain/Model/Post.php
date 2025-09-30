@@ -57,7 +57,7 @@ class Post extends AbstractPageModel
     /** @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Zeroseven\Z7Blog\Domain\Model\Post> */
     protected $relations;
 
-    public function __construct()
+    public function __construct(private readonly \TYPO3\CMS\Core\Context\Context $context)
     {
         parent::__construct();
     }
@@ -185,7 +185,7 @@ class Post extends AbstractPageModel
     protected function cleanRelations(ObjectStorage $relations): ObjectStorage
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $context = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+        $context = $this->context;
         $languageAspect = $context->getAspect('language');
 
         foreach ($relations as $relation) {
