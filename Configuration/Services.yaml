@@ -22,6 +22,6 @@ services:
   Zeroseven\Z7Blog\Hooks\DataHandler\ResortPageTree:
       public: true
 
-  Zeroseven\Z7Blog\Upgrades\FlexFormCleanupUpdater:
+  Zeroseven\Z7Blog\Upgrade\FlexFormCleanupUpdater:
       tags:
          - name: install.upgradewizard
