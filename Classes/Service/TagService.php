@@ -38,7 +38,11 @@ class TagService
         // Override language
         if ($languageUid !== null) {
             $querySettings = $repository->getDefaultQuerySettings();
-            $querySettings->setLanguageUid($languageUid);
+            
+            // Create LanguageAspect for TYPO3 13 compatibility
+            $languageAspect = new \TYPO3\CMS\Core\Context\LanguageAspect($languageUid);
+            $querySettings->setLanguageAspect($languageAspect);
+
             $repository->setDefaultQuerySettings($querySettings);
         }
 
