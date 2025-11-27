@@ -27,9 +27,15 @@ class SettingsService
     {
         // Try to get settings from cache
         if (!($pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['configuration'] ?? null)) {
-            $typoScriptSetup = GeneralUtility::makeInstance(ConfigurationManager::class)->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-            if ($settings = ($typoScriptSetup['plugin.']['tx_z7blog.'] ?? null)) {
-                $pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['configuration'] = (array)GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($settings);
+            try {
+                $typoScriptSetup = GeneralUtility::makeInstance(ConfigurationManager::class)->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+                if ($settings = ($typoScriptSetup['plugin.']['tx_z7blog.'] ?? null)) {
+                    $pluginConfiguration = $GLOBALS['USER'][self::EXTENSION_KEY]['configuration'] = (array)GeneralUtility::makeInstance(TypoScriptService::class)->convertTypoScriptArrayToPlainArray($settings);
+                }
+            } catch (\Exception $e) {
+                // In cached frontend scope, full TypoScript setup is not available
+                // Return empty configuration as fallback
+                $pluginConfiguration = [];
             }
         }
 
