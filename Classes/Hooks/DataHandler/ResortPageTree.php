@@ -14,6 +14,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Zeroseven\Z7Blog\Domain\Model\Post;
+use Doctrine\DBAL\ParameterType;
 
 class ResortPageTree
 {
@@ -98,16 +99,15 @@ class ResortPageTree
 
         // Do not use enabled fields here
         $queryBuilder->getRestrictions()->removeAll();
-
         // Build constraints
         $constraints = [
-            $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($parentPage, \PDO::PARAM_INT)),
-            $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+            $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($parentPage, ParameterType::INTEGER)),
+            $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, ParameterType::INTEGER)),
         ];
 
         // Add deleted field, if configured
         if (isset($GLOBALS['TCA']['pages']['ctrl']['delete'])) {
-            $constraints[] = $queryBuilder->expr()->eq($GLOBALS['TCA']['pages']['ctrl']['delete'], $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT));
+            $constraints[] = $queryBuilder->expr()->eq($GLOBALS['TCA']['pages']['ctrl']['delete'], $queryBuilder->createNamedParameter(0, ParameterType::INTEGER));
         }
 
         // Set table and where clause

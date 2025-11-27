@@ -185,7 +185,7 @@ class Post extends AbstractPageModel
     protected function cleanRelations(ObjectStorage $relations): ObjectStorage
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $context = $this->context;
+        $context = $this->context ?? GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
         $languageAspect = $context->getAspect('language');
 
         foreach ($relations as $relation) {
